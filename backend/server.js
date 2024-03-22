@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { config } from "dotenv";
-config({ path: "../frontend/config/config.env" });
+config({ path: "../screening/.env" });
 const app = express();
 app.use(cors());
 const PORT = 8000;
