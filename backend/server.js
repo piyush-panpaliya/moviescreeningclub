@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 
 app.post('/save-user', (req, res) => {
   const { email, paymentId } = req.body;
+  const newUser = new User({email, paymentId});
   newUser.save()
     .then(savedUser => {
       console.log('User saved:', savedUser);
@@ -30,9 +31,6 @@ app.post('/save-user', (req, res) => {
       res.status(500).json({ error: 'Error saving user' });
     });
 });
-
-
-
 
 app.post('/send-email', (req, res) => {
   const { email, paymentId } = req.body;
