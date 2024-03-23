@@ -1,3 +1,7 @@
+body {
+  background-color: rgba(145, 137, 137, 0.9);
+}
+
 .App {
   font-family: Arial, sans-serif;
   max-width: 400px;
@@ -5,7 +9,10 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: #e0e0e0;
 }
+
+
 
 h2 {
   text-align: center;
