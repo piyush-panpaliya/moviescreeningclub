@@ -1,4 +1,3 @@
-
 .App {
   font-family: Arial, sans-serif;
   max-width: 400px;
@@ -46,12 +45,6 @@ select:focus {
   border-color: #3399cc;
 }
 
-input[type="text"],
-input[type="email"],
-select {
-  transition: border-color 0.3s;
-}
-
 input[type="text"]:hover,
 input[type="email"]:hover,
 select:hover {
@@ -67,6 +60,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s;
 }
 
 button:hover {
