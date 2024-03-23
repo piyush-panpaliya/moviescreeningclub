@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import QRCode  from "qrcode";
+import axios from "axios";
 
 export const Foram = () => {
-  const [amount, setAmount] = useState('');
-  const [membership, setMembership] = useState('');
-  const [degree, setDegree] = useState('');
-  const [email, setEmail] = useState('');
+  const [amount, setAmount] = useState("");
+  const [membership, setMembership] = useState("");
+  const [degree, setDegree] = useState("");
+  const [email, setEmail] = useState("");
+  const[Qr,setQr]=useState("");
 
   const handleMembershipChange = (e) => {
     setMembership(e.target.value);
-    const selectedDegree = document.getElementById('degree').value;
+    const selectedDegree = document.getElementById("degree").value;
     setDegree(selectedDegree);
     const amounts = {
-      btech: { base: '130', silver: '240', gold: '330', diamond: '400' },
-      phd: { base: '150', silver: '280', gold: '390', diamond: '440' },
-      fs: { base: '170', silver: '320', gold: '450', diamond: '500' }
+      btech: { base: "130", silver: "240", gold: "330", diamond: "400" },
+      phd: { base: "150", silver: "280", gold: "390", diamond: "440" },
+      fs: { base: "170", silver: "320", gold: "450", diamond: "500" },
     };
     setAmount(amounts[selectedDegree][e.target.value]);
   };
@@ -22,8 +24,8 @@ export const Foram = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submit button clicked");
-    if (amount === '' || email === '') {
-      alert('Please select a membership and provide an email');
+    if (amount === "" || email === "") {
+      alert("Please select a membership and provide an email");
     } else {
       var options = {
         // Configuration for Razorpay payment
@@ -35,48 +37,65 @@ export const Foram = () => {
         prefill: {
           name: "Aryan",
           email: "shahrukhkhan@gmail.com",
-          contact: "9799000999"
+          contact: "9799000999",
         },
         notes: {
-          address: "Razorpay Corporate office"
+          address: "Razorpay Corporate office",
         },
         theme: {
-          color: "#3399cc"
+          color: "#3399cc",
         },
         handler: function (response) {
           console.log("Payment successful:", response);
           sendEmail(response.razorpay_payment_id); // Call sendEmail function with payment ID
-        }
+          generate(response.razorpay_payment_id); 
+        },
       };
       console.log("Options object:", options);
       var pay = new window.Razorpay(options);
-      pay.open();  
+      pay.open();
 
       // Handler for successful payment
       options.handler = function (response) {
         sendEmail(response.razorpay_payment_id); // Call sendEmail function with payment ID
+        generate(response.razorpay_payment_id); 
       };
     }
   };
 
-  const sendEmail = (paymentId) => {
-    const userData = {email, paymentId };
-      axios.post('http://localhost:8000/save-user', userData)
-        .then(response => {
-          console.log('User data saved successfully:', response.data);
-          alert('User data saved successfully');
-        })
-        .catch(error => {
-          console.error('Error saving user data:', error);
-          alert('Error saving user data. Please try again later.');
-        });
-    axios.post('http://localhost:8000/send-email', { email, paymentId })
-      .then(response => {
-        alert('Email sent successfully');
+  const generate = (payment) => {
+    QRCode.toDataURL(payment)
+      .then((qrCodeData) => {
+        setQr(qrCodeData); // Set the Qr state after QR code generation
       })
-      .catch(error => {
-        console.error('Error sending email:', error);
-        alert('Error sending email. Please try again later.');
+      .catch((error) => {
+        console.error("Error generating QR code:", error);
+      });
+  };
+  
+  const sendEmail = (paymentId) => {
+    const userData = { email, paymentId, Qr};
+    axios
+      .post("http://localhost:8000/save-user", userData)
+      .then((response) => {
+        console.log(Qr);
+        console.log("User data saved successfully:", response.data);
+        alert("User data saved successfully");
+      })
+      .catch((error) => {
+        console.error("Error saving user data:", error);
+        alert("Error saving user data. Please try again later.");
+      });
+    axios
+      .post("http://localhost:8000/send-email", { email, paymentId,Qr})
+      .then((response) => {
+        console.log(Qr);
+        console.log("email sent", response.data);
+        alert("Email sent successfully");
+      })
+      .catch((error) => {
+        console.error("Error sending email:", error);
+        alert("Error sending email. Please try again later.");
       });
   };
 
@@ -123,7 +142,12 @@ export const Foram = () => {
 
       <div className="form-group">
         <label htmlFor="membership">Choose Membership:</label>
-        <select id="membership" name="membership" required onChange={handleMembershipChange}>
+        <select
+          id="membership"
+          name="membership"
+          required
+          onChange={handleMembershipChange}
+        >
           <option value="">Select One</option>
           <option value="base">Base</option>
           <option value="silver">Silver</option>
@@ -133,12 +157,12 @@ export const Foram = () => {
       </div>
 
       <br />
-      <input type="text" placeholder='Amount' value={amount} readOnly />
-      <br /><br />
+      <input type="text" placeholder="Amount" value={amount} readOnly />
+      <br />
+      <br />
       <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 };
 
 export default Foram;
-

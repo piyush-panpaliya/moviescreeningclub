@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from 'mongoose';
 import User from './userModel.js';
-import http from 'http';
 import nodemailer from 'nodemailer';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -19,9 +18,10 @@ const PORT = 8000;
 app.use(bodyParser.json());
 
 app.post('/save-user', (req, res) => {
-  const { email, paymentId } = req.body;
-  const newUser= new User({email,paymentId});
-  console.log('newUser');
+  const { email, paymentId, Qr } = req.body;
+  const newUser= new User({email,paymentId,Qr});
+  console.log(paymentId,typeof(paymentId));
+  console.log(Qr,typeof(qrcode));
   newUser.save()
     .then(savedUser => {
       console.log('User saved:', savedUser);
@@ -33,9 +33,8 @@ app.post('/save-user', (req, res) => {
     });
 });
 
-
 app.post('/send-email', (req, res) => {
-  const { email, paymentId } = req.body;
+  const { email, paymentId, Qr } = req.body;
 
   // Create a transporter using nodemailer
   const transporter = nodemailer.createTransport({
@@ -46,11 +45,19 @@ app.post('/send-email', (req, res) => {
     }
   });
   // Email content 
-  const mailOptions = {
+  var qrcode=Qr;
+  var mailOptions = {
     from: process.env.EMAIL,
     to: email,
     subject: 'Payment Successful',
-    text: `Your payment was successful. Payment ID: ${paymentId}`
+    text: `Your payment was successful. Payment ID: ${paymentId}`,
+    attachments:[
+      {
+        filename:'Qr.jpg',
+        content: qrcode.split("base64,")[1],
+        encoding:'base64'
+      }
+    ]
   };
 
   // Send email
