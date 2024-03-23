@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import { Foram } from "./Foram.js";
+import { Foram } from "./components/Foram.js";
 
 function App() {
   return (
