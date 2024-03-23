@@ -20,7 +20,8 @@ app.use(bodyParser.json());
 
 app.post('/save-user', (req, res) => {
   const { email, paymentId } = req.body;
-  const newUser = new User({email, paymentId});
+  const newUser= new User({email,paymentId});
+  console.log('newUser');
   newUser.save()
     .then(savedUser => {
       console.log('User saved:', savedUser);
