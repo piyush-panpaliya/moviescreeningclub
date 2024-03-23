@@ -18,10 +18,8 @@ const PORT = 8000;
 app.use(bodyParser.json());
 
 app.post('/save-user', (req, res) => {
-  const { email, paymentId, Qr } = req.body;
-  const newUser= new User({email,paymentId,Qr});
-  console.log(paymentId,typeof(paymentId));
-  console.log(Qr,typeof(qrcode));
+  const { email, paymentId } = req.body;
+  const newUser= new User({email,paymentId});
   newUser.save()
     .then(savedUser => {
       console.log('User saved:', savedUser);
