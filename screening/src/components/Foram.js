@@ -81,37 +81,6 @@ export const Foram = () => {
       var pay = new window.Razorpay(options);
       pay.open();
 
-      // Handler for successful payment
-      // options.handler = function (response) {
-      //   if(membership==='base'){
-      //     saveData(response.razorpay_payment_id+'1');
-      //     generate(response.razorpay_payment_id+'1'); 
-      //   }
-      //   else if(membership==='silver'){
-      //     saveData(response.razorpay_payment_id+'1');
-      //     generate(response.razorpay_payment_id+'1'); 
-      //     saveData(response.razorpay_payment_id+'2');
-      //     generate(response.razorpay_payment_id+'2'); 
-      //   }
-      //   else if(membership==='gold'){
-      //     saveData(response.razorpay_payment_id+'1');
-      //     generate(response.razorpay_payment_id+'1'); 
-      //     saveData(response.razorpay_payment_id+'2');
-      //     generate(response.razorpay_payment_id+'2'); 
-      //     saveData(response.razorpay_payment_id+'3');
-      //     generate(response.razorpay_payment_id+'3'); 
-      //   }
-      //   else if(membership==='diamond'){
-      //     saveData(response.razorpay_payment_id+'1');
-      //     generate(response.razorpay_payment_id+'1'); 
-      //     saveData(response.razorpay_payment_id+'2');
-      //     generate(response.razorpay_payment_id+'2'); 
-      //     saveData(response.razorpay_payment_id+'3');
-      //     generate(response.razorpay_payment_id+'3'); 
-      //     saveData(response.razorpay_payment_id+'4');
-      //     generate(response.razorpay_payment_id+'4'); 
-      //   }
-      // };
     }
   };
   
@@ -159,7 +128,7 @@ export const Foram = () => {
 
   return (
     <div className="App">
-      <h2>Razorpay Payment Integration Using React</h2>
+      <h2>Razorpay Payment Integration</h2>
 
       <div className="form-group">
         <label htmlFor="name">Name:</label>
