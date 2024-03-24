@@ -11,7 +11,14 @@ import { createServer } from 'http';
 const https = createServer(app);
 app.use(cors());
 
-mongoose.connect('mongodb+srv://aryanjain:qwertyuiop@msccluster.as7t56y.mongodb.net/?retryWrites=true&w=majority&appName=msccluster')
+mongoose.connect('mongodb+srv://aryanjain:qwertyuiop@msccluster.as7t56y.mongodb.net/?retryWrites=true&w=majority&appName=msccluster', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(error => console.error('MongoDB connection error:', error));
+
+//mongoose.connect('mongodb+srv://aryanjain:qwertyuiop@msccluster.as7t56y.mongodb.net/?retryWrites=true&w=majority&appName=msccluster')
 
 const PORT = 8000;
 
@@ -68,6 +75,26 @@ app.post('/send-email', (req, res) => {
       res.status(200).send('Email sent successfully');
     }
   });
+});
+
+app.post('/checkPayment', async (req, res) => {
+  try {
+    const payment_Id = req.body.paymentId;
+
+    // Query the database to check if the payment ID exists
+    const payment = await User.findOne({ paymentId: payment_Id });
+
+    if (payment) {
+      // Payment ID exists in the database
+      res.json({ exists: true });
+    } else {
+      // Payment ID does not exist in the database
+      res.json({ exists: false });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Start server
