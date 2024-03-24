@@ -7,7 +7,7 @@ export const Foram = () => {
   const [membership, setMembership] = useState("");
   const [degree, setDegree] = useState("");
   const [email, setEmail] = useState("");
-  const[Qr,setQr]=useState("");
+  // const[Qr,setQr]=useState("");
 
   const handleMembershipChange = (e) => {
     setMembership(e.target.value);
@@ -48,31 +48,31 @@ export const Foram = () => {
         handler: function (response) {
           console.log("Payment successful:", response);
           if(membership==='base'){
-            sendEmail(response.razorpay_payment_id+'1');
+            saveData(response.razorpay_payment_id+'1');
             generate(response.razorpay_payment_id+'1'); 
           }
           else if(membership==='silver'){
-            sendEmail(response.razorpay_payment_id+'1');
+            saveData(response.razorpay_payment_id+'1');
             generate(response.razorpay_payment_id+'1'); 
-            sendEmail(response.razorpay_payment_id+'2');
+            saveData(response.razorpay_payment_id+'2');
             generate(response.razorpay_payment_id+'2'); 
           }
           else if(membership==='gold'){
-            sendEmail(response.razorpay_payment_id+'1');
+            saveData(response.razorpay_payment_id+'1');
             generate(response.razorpay_payment_id+'1'); 
-            sendEmail(response.razorpay_payment_id+'2');
+            saveData(response.razorpay_payment_id+'2');
             generate(response.razorpay_payment_id+'2'); 
-            sendEmail(response.razorpay_payment_id+'3');
+            saveData(response.razorpay_payment_id+'3');
             generate(response.razorpay_payment_id+'3'); 
           }
           else if(membership==='diamond'){
-            sendEmail(response.razorpay_payment_id+'1');
+            saveData(response.razorpay_payment_id+'1');
             generate(response.razorpay_payment_id+'1'); 
-            sendEmail(response.razorpay_payment_id+'2');
+            saveData(response.razorpay_payment_id+'2');
             generate(response.razorpay_payment_id+'2'); 
-            sendEmail(response.razorpay_payment_id+'3');
+            saveData(response.razorpay_payment_id+'3');
             generate(response.razorpay_payment_id+'3'); 
-            sendEmail(response.razorpay_payment_id+'4');
+            saveData(response.razorpay_payment_id+'4');
             generate(response.razorpay_payment_id+'4'); 
           }
         },
@@ -82,70 +82,74 @@ export const Foram = () => {
       pay.open();
 
       // Handler for successful payment
-      options.handler = function (response) {
-        if(membership==='base'){
-          sendEmail(response.razorpay_payment_id+'1');
-          generate(response.razorpay_payment_id+'1'); 
-        }
-        else if(membership==='silver'){
-          sendEmail(response.razorpay_payment_id+'1');
-          generate(response.razorpay_payment_id+'1'); 
-          sendEmail(response.razorpay_payment_id+'2');
-          generate(response.razorpay_payment_id+'2'); 
-        }
-        else if(membership==='gold'){
-          sendEmail(response.razorpay_payment_id+'1');
-          generate(response.razorpay_payment_id+'1'); 
-          sendEmail(response.razorpay_payment_id+'2');
-          generate(response.razorpay_payment_id+'2'); 
-          sendEmail(response.razorpay_payment_id+'3');
-          generate(response.razorpay_payment_id+'3'); 
-        }
-        else if(membership==='diamond'){
-          sendEmail(response.razorpay_payment_id+'1');
-          generate(response.razorpay_payment_id+'1'); 
-          sendEmail(response.razorpay_payment_id+'2');
-          generate(response.razorpay_payment_id+'2'); 
-          sendEmail(response.razorpay_payment_id+'3');
-          generate(response.razorpay_payment_id+'3'); 
-          sendEmail(response.razorpay_payment_id+'4');
-          generate(response.razorpay_payment_id+'4'); 
-        }
-      };
+      // options.handler = function (response) {
+      //   if(membership==='base'){
+      //     saveData(response.razorpay_payment_id+'1');
+      //     generate(response.razorpay_payment_id+'1'); 
+      //   }
+      //   else if(membership==='silver'){
+      //     saveData(response.razorpay_payment_id+'1');
+      //     generate(response.razorpay_payment_id+'1'); 
+      //     saveData(response.razorpay_payment_id+'2');
+      //     generate(response.razorpay_payment_id+'2'); 
+      //   }
+      //   else if(membership==='gold'){
+      //     saveData(response.razorpay_payment_id+'1');
+      //     generate(response.razorpay_payment_id+'1'); 
+      //     saveData(response.razorpay_payment_id+'2');
+      //     generate(response.razorpay_payment_id+'2'); 
+      //     saveData(response.razorpay_payment_id+'3');
+      //     generate(response.razorpay_payment_id+'3'); 
+      //   }
+      //   else if(membership==='diamond'){
+      //     saveData(response.razorpay_payment_id+'1');
+      //     generate(response.razorpay_payment_id+'1'); 
+      //     saveData(response.razorpay_payment_id+'2');
+      //     generate(response.razorpay_payment_id+'2'); 
+      //     saveData(response.razorpay_payment_id+'3');
+      //     generate(response.razorpay_payment_id+'3'); 
+      //     saveData(response.razorpay_payment_id+'4');
+      //     generate(response.razorpay_payment_id+'4'); 
+      //   }
+      // };
     }
   };
   
-  // const paymentids=[];
+  let paymentids=[];
   const generate = (payment) => {
     QRCode.toDataURL(payment)
       .then((qrCodeData) => {
-        setQr(qrCodeData); // Set the Qr state after QR code generation
-        // paymentids.push(qrCodeData);
+        // setQr(qrCodeData); // Set the Qr state after QR code generation
+        sendEmail(payment,qrCodeData);
       })
       .catch((error) => {
         console.error("Error generating QR code:", error);
       });
   };
-  
-  const sendEmail = (paymentId) => {
-    const userData = { email, paymentId, Qr};
+
+  const saveData=(paymentId)=>{
+    const userData = { email, paymentId};
     axios
       .post("http://localhost:8000/save-user", userData)
       .then((response) => {
-        console.log(Qr);
+        // console.log(Qr);
         console.log("User data saved successfully:", response.data);
+        // paymentids.push({paymentId,Qr});
         alert("User data saved successfully");
       })
       .catch((error) => {
         console.error("Error saving user data:", error);
         alert("Error saving user data. Please try again later.");
       });
-    axios
+  }
+
+  const sendEmail = (paymentId,Qr) => {
+    axios 
       .post("http://localhost:8000/send-email", { email, paymentId,Qr})
       .then((response) => {
-        console.log(Qr);
         console.log("email sent", response.data);
         alert("Email sent successfully");
+        console.log(paymentids);
       })
       .catch((error) => {
         console.error("Error sending email:", error);
