@@ -1,12 +1,21 @@
+body {
+  background-image: url("bg_img1.png");
+  opacity: 0.95;
+}
 
 .App {
+  opacity: 1;
   font-family: Arial, sans-serif;
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: #e0e0e0;
+
 }
+
+
 
 h2 {
   text-align: center;
@@ -29,6 +38,8 @@ select {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+  background-color: whitesmoke;
+  border-radius: 18px;
 }
 
 select {
@@ -46,12 +57,6 @@ select:focus {
   border-color: #3399cc;
 }
 
-input[type="text"],
-input[type="email"],
-select {
-  transition: border-color 0.3s;
-}
-
 input[type="text"]:hover,
 input[type="email"]:hover,
 select:hover {
@@ -64,9 +69,11 @@ button {
   color: white;
   padding: 10px;
   border: none;
-  border-radius: 4px;
+  border-radius: 18px;
   cursor: pointer;
   font-size: 16px;
+  opacity: 1;
+  transition: background-color 0.3s;
 }
 
 button:hover {
