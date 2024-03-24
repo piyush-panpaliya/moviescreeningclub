@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "async": "^3.2.5",
-    "qrcode": "^1.5.3"
-  }
-}
