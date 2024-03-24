@@ -115,36 +115,18 @@ export const Foram = () => {
     }
   };
   
-  const paymentids=[];
+  // const paymentids=[];
   const generate = (payment) => {
     QRCode.toDataURL(payment)
       .then((qrCodeData) => {
         setQr(qrCodeData); // Set the Qr state after QR code generation
-        paymentids.push(qrCodeData);
+        // paymentids.push(qrCodeData);
       })
       .catch((error) => {
         console.error("Error generating QR code:", error);
       });
   };
   
-  paymentids.forEach(function(entry){
-    console.log(entry);
-  });
-  
-  const saveData=(paymentId)=>{
-    const userData = { email, paymentId, Qr};
-    axios
-      .post("http://localhost:8000/save-user", userData)
-      .then((response) => {
-        console.log(Qr);
-        console.log("User data saved successfully:", response.data);
-        alert("User data saved successfully");
-      })
-      .catch((error) => {
-        console.error("Error saving user data:", error);
-        alert("Error saving user data. Please try again later.");
-      });
-  }
   const sendEmail = (paymentId) => {
     const userData = { email, paymentId, Qr};
     axios
