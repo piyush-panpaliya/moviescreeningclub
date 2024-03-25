@@ -1,5 +1,6 @@
 body {
   background-image: url("bg_img1.png");
+  background-size: auto;
   opacity: 0.95;
 }
 
