@@ -128,18 +128,18 @@ export const Foram = () => {
   };
 
   const saveData=(paymentId)=>{
-    const userData = { email, paymentId};
+    const QRData = { email, paymentId};
     axios
-      .post("http://localhost:8000/save-user", userData)
+      .post("http://localhost:8000/saveQR", QRData)
       .then((response) => {
         // console.log(Qr);
-        console.log("User data saved successfully:", response.data);
+        console.log("QR data saved successfully:", response.data);
         // paymentids.push({paymentId,Qr});
-        alert("User data saved successfully");
+        alert("QR data saved successfully");
       })
       .catch((error) => {
-        console.error("Error saving user data:", error);
-        alert("Error saving user data. Please try again later.");
+        console.error("Error saving QR data:", error);
+        alert("Error saving QR data. Please try again later.");
       });
   }
 

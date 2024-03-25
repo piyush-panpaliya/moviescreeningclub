@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from 'mongoose';
-import User from './userModel.js';
+import { User, Volunteer, Admin } from './userModel.js';
+import QR from './userModel.js';
+//import User from './userModel.js';
 import nodemailer from 'nodemailer';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -18,23 +20,21 @@ mongoose.connect('mongodb+srv://aryanjain:qwertyuiop@msccluster.as7t56y.mongodb.
   .then(() => console.log('Connected to MongoDB'))
   .catch(error => console.error('MongoDB connection error:', error));
 
-//mongoose.connect('mongodb+srv://aryanjain:qwertyuiop@msccluster.as7t56y.mongodb.net/?retryWrites=true&w=majority&appName=msccluster')
-
 const PORT = 8000;
 
 app.use(bodyParser.json());
 
-app.post('/save-user', (req, res) => {
+app.post('/saveQR', (req, res) => {
   const { email, paymentId } = req.body;
-  const newUser= new User({email,paymentId});
-  newUser.save()
-    .then(savedUser => {
-      console.log('User saved:', savedUser);
-      res.status(200).json(savedUser);
+  const newQR= new QR({email,paymentId});
+  newQR.save()
+    .then(savedQR => {
+      console.log('QR details saved:', savedQR);
+      res.status(200).json(savedQR);
     })
     .catch(error => {
-      console.error('Error saving user:', error);
-      res.status(500).json({ error: 'Error saving user' });
+      console.error('Error saving QR:', error);
+      res.status(500).json({ error: 'Error saving QR' });
     });
 });
 
@@ -77,12 +77,28 @@ app.post('/send-email', (req, res) => {
   });
 });
 
+
+app.post('/signup',(req, res) => {
+  console.log('pahunch rha h')
+  const { name, phoneNumber,designation, email, password } = req.body;
+  const newUser = new User({name,phoneNumber,designation,email,password});
+  newUser.save()
+    .then(savedUser => {
+      console.log('User details saved:', savedUser);
+      res.status(200).json(savedUser);
+    })
+    .catch(error => {
+      console.error('Error saving User:', error);
+      res.status(500).json({ error: 'Error saving User' });
+    });
+    })
+
 app.post('/checkPayment', async (req, res) => {
   try {
     const payment_Id = req.body.paymentId;
 
     // Query the database to check if the payment ID exists
-    const payment = await User.findOne({ paymentId: payment_Id });
+    const payment = await QR.findOne({ paymentId: payment_Id });
 
     if (payment) {
       // Payment ID exists in the database
