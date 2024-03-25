@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import QRCode  from "qrcode";
+import QRCode from "qrcode";
 import axios from "axios";
+import Navbar from "./navbar";
 
 export const Foram = () => {
   const [amount, setAmount] = useState("");
@@ -47,57 +48,53 @@ export const Foram = () => {
         },
         handler: function (response) {
           console.log("Payment successful:", response);
-          if(membership==='base'){
-            saveData(response.razorpay_payment_id+'1');
-            generate(response.razorpay_payment_id+'1'); 
-          }
-          else if(membership==='silver'){
-            saveData(response.razorpay_payment_id+'1');
-            generate(response.razorpay_payment_id+'1'); 
-            saveData(response.razorpay_payment_id+'2');
-            generate(response.razorpay_payment_id+'2'); 
-          }
-          else if(membership==='gold'){
-            saveData(response.razorpay_payment_id+'1');
-            generate(response.razorpay_payment_id+'1'); 
-            saveData(response.razorpay_payment_id+'2');
-            generate(response.razorpay_payment_id+'2'); 
-            saveData(response.razorpay_payment_id+'3');
-            generate(response.razorpay_payment_id+'3'); 
-          }
-          else if(membership==='diamond'){
-            saveData(response.razorpay_payment_id+'1');
-            generate(response.razorpay_payment_id+'1'); 
-            saveData(response.razorpay_payment_id+'2');
-            generate(response.razorpay_payment_id+'2'); 
-            saveData(response.razorpay_payment_id+'3');
-            generate(response.razorpay_payment_id+'3'); 
-            saveData(response.razorpay_payment_id+'4');
-            generate(response.razorpay_payment_id+'4'); 
+          if (membership === "base") {
+            saveData(response.razorpay_payment_id + "1");
+            generate(response.razorpay_payment_id + "1");
+          } else if (membership === "silver") {
+            saveData(response.razorpay_payment_id + "1");
+            generate(response.razorpay_payment_id + "1");
+            saveData(response.razorpay_payment_id + "2");
+            generate(response.razorpay_payment_id + "2");
+          } else if (membership === "gold") {
+            saveData(response.razorpay_payment_id + "1");
+            generate(response.razorpay_payment_id + "1");
+            saveData(response.razorpay_payment_id + "2");
+            generate(response.razorpay_payment_id + "2");
+            saveData(response.razorpay_payment_id + "3");
+            generate(response.razorpay_payment_id + "3");
+          } else if (membership === "diamond") {
+            saveData(response.razorpay_payment_id + "1");
+            generate(response.razorpay_payment_id + "1");
+            saveData(response.razorpay_payment_id + "2");
+            generate(response.razorpay_payment_id + "2");
+            saveData(response.razorpay_payment_id + "3");
+            generate(response.razorpay_payment_id + "3");
+            saveData(response.razorpay_payment_id + "4");
+            generate(response.razorpay_payment_id + "4");
           }
         },
       };
       console.log("Options object:", options);
       var pay = new window.Razorpay(options);
       pay.open();
-
     }
   };
-  
-  let paymentids=[];
+
+  let paymentids = [];
   const generate = (payment) => {
     QRCode.toDataURL(payment)
       .then((qrCodeData) => {
         // setQr(qrCodeData); // Set the Qr state after QR code generation
-        sendEmail(payment,qrCodeData);
+        sendEmail(payment, qrCodeData);
       })
       .catch((error) => {
         console.error("Error generating QR code:", error);
       });
   };
 
-  const saveData=(paymentId)=>{
-    const QRData = { email, paymentId};
+  const saveData = (paymentId) => {
+    const QRData = { email, paymentId };
     axios
       .post("http://localhost:8000/saveQR", QRData)
       .then((response) => {
@@ -110,11 +107,11 @@ export const Foram = () => {
         console.error("Error saving QR data:", error);
         alert("Error saving QR data. Please try again later.");
       });
-  }
+  };
 
-  const sendEmail = (paymentId,Qr) => {
-    axios 
-      .post("http://localhost:8000/send-email", { email, paymentId,Qr})
+  const sendEmail = (paymentId, Qr) => {
+    axios
+      .post("http://localhost:8000/send-email", { email, paymentId, Qr })
       .then((response) => {
         console.log("email sent", response.data);
         alert("Email sent successfully");
@@ -127,68 +124,71 @@ export const Foram = () => {
   };
 
   return (
-    <div className="App">
-      <h2>Razorpay Payment Integration</h2>
+    <>
+      <Navbar />
+      <div className="App">
+        <h2>Razorpay Payment Integration</h2>
 
-      <div className="form-group">
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" name="name" required />
+        <div className="form-group">
+          <label htmlFor="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="rollNumber">Roll Number:</label>
+          <input type="text" id="rollNumber" name="rollNumber" />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="phoneNumber">Phone Number:</label>
+          <input type="text" id="phoneNumber" name="phoneNumber" required />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="degree">Choose Degree:</label>
+          <select id="degree" name="degree" required>
+            <option value="">Select One</option>
+            <option value="btech">B-Tech</option>
+            <option value="phd">PHD</option>
+            <option value="fs">Faculty/Stafft</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="membership">Choose Membership:</label>
+          <select
+            id="membership"
+            name="membership"
+            required
+            onChange={handleMembershipChange}
+          >
+            <option value="">Select One</option>
+            <option value="base">Base</option>
+            <option value="silver">Silver</option>
+            <option value="gold">Gold</option>
+            <option value="diamond">Diamond</option>
+          </select>
+        </div>
+
+        <br />
+        <input type="text" placeholder="Amount" value={amount} readOnly />
+        <br />
+        <br />
+        <button onClick={handleSubmit}>Submit</button>
       </div>
-
-      <div className="form-group">
-        <label htmlFor="rollNumber">Roll Number:</label>
-        <input type="text" id="rollNumber" name="rollNumber" />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" name="phoneNumber" required />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="degree">Choose Degree:</label>
-        <select id="degree" name="degree" required>
-          <option value="">Select One</option>
-          <option value="btech">B-Tech</option>
-          <option value="phd">PHD</option>
-          <option value="fs">Faculty/Stafft</option>
-        </select>
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="membership">Choose Membership:</label>
-        <select
-          id="membership"
-          name="membership"
-          required
-          onChange={handleMembershipChange}
-        >
-          <option value="">Select One</option>
-          <option value="base">Base</option>
-          <option value="silver">Silver</option>
-          <option value="gold">Gold</option>
-          <option value="diamond">Diamond</option>
-        </select>
-      </div>
-
-      <br />
-      <input type="text" placeholder="Amount" value={amount} readOnly />
-      <br />
-      <br />
-      <button onClick={handleSubmit}>Submit</button>
-    </div>
+    </>
   );
 };
 

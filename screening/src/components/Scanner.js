@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserMultiFormatReader } from "@zxing/library";
+import Navbar from "./navbar";
 
 export const Scanner= () => {
   const [scanResult, setScanResult] = useState(null);
@@ -59,6 +60,7 @@ export const Scanner= () => {
   
   return (
     <div>
+      <Navbar/>
       {scanResult ? (
         <div>
           {scanResultExists === null ? (

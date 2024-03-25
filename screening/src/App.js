@@ -7,17 +7,19 @@ import Foram from "./components/Foram.js";
 import Scanner from "./components/Scanner.js";
 import Myaccount from "./components/Myaccount.js";
 import Signup from "./components/Signup.js";
+import Login from "./components/login.js";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navbar />}>
-          <Route index element={<Foram />} />
+        {/* <Route path="/" element={<Navbar />}> */}
+          <Route index element={<Login />} />
           <Route path="/form" element={<Foram />} />
           <Route path="/scanner" element={<Scanner />} />
-          <Route path="/signup" component={<Signup />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/myaccount" element={<Myaccount />} />
-        </Route>
+        {/* </Route> */}
       </Routes>
     </BrowserRouter>
   );

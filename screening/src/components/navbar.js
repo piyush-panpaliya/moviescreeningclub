@@ -1,8 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-//import { useAuth } from './AuthContext';
 export default function Navbar() {
-  //const { isAuthenticated } = useAuth();
   return (
     <>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -29,12 +27,9 @@ export default function Navbar() {
               <li class="nav-item">
                 <Link className="text-decoration-none text-black" to="/scanner">Scanner</Link>
               </li>
-              <li class="nav-item">
-                <Link className="text-decoration-none text-black" to="/signup">Signup</Link>
+              <li class="nav-item ms-3">
+                <Link className="text-decoration-none text-black" to="/login">Login</Link>
               </li>
-             
-
-
             </ul>
           </div>
         </div>

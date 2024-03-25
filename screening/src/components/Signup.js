@@ -1,35 +1,39 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useAuth } from './AuthContext';
+import React, { useState } from "react";
+import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
+// import { useAuth } from './AuthContext';
 
 export const Signup = () => {
-  const { signup } = useAuth();
+  // const { signup } = useAuth();
 
   const [formData, setFormData] = useState({
-    name: '',
-    phoneNumber: '',
-    designation: '',
-    email: '',
-    password:''
+    name: "",
+    phoneNumber: "",
+    designation: "",
+    email: "",
+    password: "",
   });
 
   const { name, phoneNumber, designation, email, password } = formData;
+  const navigate=useNavigate();
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       console.log(formData);
-      const res = await axios.post('http://localhost:8000/signup', formData); 
-      console.log(res.data); 
-      console.log("Submitted")
-      signup(); // Authenticate the user
+      const res = await axios.post("http://localhost:8000/signup", formData);
+      console.log(res.data);
+      console.log("Submitted");
+      navigate('/login');
+      // signup(); // Authenticate the user
     } catch (err) {
-      console.error('Error occurred:', err);
+      alert('email already registered');
+      console.error("Error occurred:", err);
     }
   };
 
@@ -39,17 +43,36 @@ export const Signup = () => {
 
       <div className="form-group">
         <label htmlFor="name">Name:</label>
-        <input type="text" id="name" name="name" required value={name} onChange={handleChange} />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          value={name}
+          onChange={handleChange}
+        />
       </div>
-      
+
       <div className="form-group">
         <label htmlFor="phoneNumber">Phone Number:</label>
-        <input type="text" id="phoneNumber" name="phoneNumber" value={phoneNumber} onChange={handleChange} />
+        <input
+          type="text"
+          id="phoneNumber"
+          name="phoneNumber"
+          value={phoneNumber}
+          onChange={handleChange}
+        />
       </div>
 
       <div className="form-group">
         <label htmlFor="designation">Choose Degree:</label>
-        <select id="designation" name="designation" required value={designation} onChange={handleChange}>
+        <select
+          id="designation"
+          name="designation"
+          required
+          value={designation}
+          onChange={handleChange}
+        >
           <option value="">Select One</option>
           <option value="btech">B-Tech</option>
           <option value="phd">PHD</option>
@@ -71,13 +94,22 @@ export const Signup = () => {
 
       <div className="form-group">
         <label htmlFor="password">Password:</label>
-        <input type="password" id="password" name="password" required value={password} onChange={handleChange} />
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          value={password}
+          onChange={handleChange}
+        />
       </div>
 
       <br />
-      <button onClick={handleSubmit}>Submit</button>
+      <button onClick={handleSubmit}>
+        Submit
+      </button>
     </div>
   );
-}
+};
 
 export default Signup;
