@@ -82,11 +82,19 @@ const VolunteerSchema = new mongoose.Schema({
     },
 });
 
+const MovieSchema = new mongoose.Schema({
+    title: { type: String, required: true },
+    poster: { type: String, required: true },
+    description: { type: String, required: true },
+    releaseDate: { type: Date, required: true },
+    genre: { type: String, required: true },
+  });
+
 const QR = mongoose.model('QR',QRSchema);
 const User = mongoose.model('User',UserSchema);
 const Volunteer = mongoose.model('Volunteer',VolunteerSchema);
 const Admin = mongoose.model('Admin',AdminSchema);
+const Movie = mongoose.model('Movie',MovieSchema);
 
-
-export { User, Volunteer, Admin };
+export { User, Volunteer, Admin, Movie };
 export default QR;

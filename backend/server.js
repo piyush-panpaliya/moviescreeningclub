@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import { User, Volunteer, Admin } from "./userModel.js";
+import { User, Volunteer, Admin, Movie } from "./userModel.js";
 import QR from "./userModel.js";
 import nodemailer from "nodemailer";
 import bodyParser from "body-parser";
@@ -14,12 +14,7 @@ import bcrypt from 'bcrypt';
 import jwt  from "jsonwebtoken";
 app.use(cors());
 
-mongoose.connect("mongodb+srv://aryanjain:qwertyuiop@msccluster.as7t56y.mongodb.net/?retryWrites=true&w=majority&appName=msccluster",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+mongoose.connect(`${process.env.MongoDB}`,)
   .then(() => console.log("Connected to MongoDB"))
   .catch((error) => console.error("MongoDB connection error:", error));
 
@@ -28,7 +23,7 @@ const PORT = 8000;
 app.use(bodyParser.json());
 
 
-app.post("/signup", (req, res) => {
+/*app.post("/signup", (req, res) => {
   const { name, phoneNumber, designation, email, password } = req.body;
   const newUser = new User({ name, phoneNumber, designation, email, password });
   newUser
@@ -42,6 +37,7 @@ app.post("/signup", (req, res) => {
       res.status(500).json({ error: "Error saving User" });
     });
 });
+
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -68,7 +64,45 @@ app.post("/login", async (req, res) => {
     console.error("Error during login:", error);
     res.status(500).json({ error: "Internal server error" });
   }
+});*/
+
+
+app.post("/signup", async (req, res) => {
+  const { name, phoneNumber, designation, email, password } = req.body;
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ name, phoneNumber, designation, email, password: hashedPassword });
+    const savedUser = await newUser.save();
+    console.log("User details saved:", savedUser);
+    res.status(200).json(savedUser);
+  } catch (error) {
+    console.error("Error saving User:", error);
+    res.status(500).json({ error: "Error saving User" });
+  }
 });
+
+
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+    const token = jwt.sign({ userId: user._id }, "your-secret-key", {
+      expiresIn: "1h",
+    });
+    res.status(200).json({ token });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 app.post("/saveQR", (req, res) => {
   const { email, paymentId, validity } = req.body;
@@ -151,6 +185,29 @@ app.post("/checkPayment", async (req, res) => {
   }
 });
 
+app.post('/add-movies', (req, res) => {
+  const { title, poster, description, releaseDate, genre } = req.body;
+  const newMovie = new Movie({
+    title,
+    poster,
+    description,
+    releaseDate,
+    genre,
+  });
+  newMovie.save()
+    .then(movie => res.status(201).json(movie))
+    .catch(err => res.status(400).json({ error: err.message }));
+});
+
+
+app.get('/movies', async (req, res) => {
+  try {
+    const movies = await Movie.find();
+    res.json(movies);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

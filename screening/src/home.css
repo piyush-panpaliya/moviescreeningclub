@@ -1,0 +1,26 @@
+/* home.css */
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+  justify-items: center;
+  padding: 20px;
+}
+
+.movie-card {
+  max-width: 200px;
+}
+
+.movie-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.movie-card h3 {
+  font-size: 18px;
+  margin-top: 10px;
+  text-align: center;
+}

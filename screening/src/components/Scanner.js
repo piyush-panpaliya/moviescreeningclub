@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserMultiFormatReader, NotFoundException } from "@zxing/library";
-import Navbar from "./navbar";
 
 export const Scanner = () => {
   const [scanResult, setScanResult] = useState(null);
@@ -62,7 +61,6 @@ export const Scanner = () => {
 
   return (
     <div>
-      <Navbar />
       {scanResult ? (
         <div>
           {scanResultInfo === null ? (

@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import QRCode from "qrcode";
 import axios from "axios";
-import Navbar from "./navbar";
+import "../Foram.css";
 
 export const Foram = () => {
   const [amount, setAmount] = useState("");
   const [membership, setMembership] = useState("");
   const [degree, setDegree] = useState("");
   const [email, setEmail] = useState("");
-  // const[Qr,setQr]=useState("");
 
   const handleMembershipChange = (e) => {
     setMembership(e.target.value);
@@ -29,7 +28,7 @@ export const Foram = () => {
       alert("Please select a membership and provide an email");
     } else {
       var options = {
-        key: "rzp_test_bVkTgi3UqyKgi7",
+        key:"rzp_test_bVkTgi3UqyKgi7",
         amount: amount * 100,
         currency: "INR",
         name: "STARTUP_PROJECTS",
@@ -131,7 +130,6 @@ export const Foram = () => {
 
   return (
     <>
-      <Navbar />
       <div className="App">
         <h2>Razorpay Payment Integration</h2>
 
