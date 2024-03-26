@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose=require('mongoose');
 
 const QRSchema = new mongoose.Schema({
     email:String,
@@ -77,5 +77,8 @@ const Volunteer = mongoose.model('Volunteer',VolunteerSchema);
 const Admin = mongoose.model('Admin',AdminSchema);
 
 
-export { User, Volunteer, Admin };
-export default QR;
+// export { User, Volunteer, Admin };
+module.exports=User;
+// module.exports=Volunteer;
+// module.exports=Admin;
+// module.exports=QR;

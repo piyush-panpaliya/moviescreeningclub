@@ -8,6 +8,7 @@ import Scanner from "./components/Scanner.js";
 import Myaccount from "./components/Myaccount.js";
 import Signup from "./components/Signup.js";
 import Login from "./components/login.js";
+import GetOTP from "./components/getOTP.js";
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +19,7 @@ function App() {
           <Route path="/scanner" element={<Scanner />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/getOTP" element={<GetOTP />} />
           <Route path="/myaccount" element={<Myaccount />} />
         {/* </Route> */}
       </Routes>

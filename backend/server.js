@@ -1,18 +1,19 @@
-import express from "express";
-import mongoose from "mongoose";
-import { User, Volunteer, Admin } from "./userModel.js";
-import QR from "./userModel.js";
-//import User from './userModel.js';
-import nodemailer from "nodemailer";
-import bodyParser from "body-parser";
-import cors from "cors";
-import { config } from "dotenv";
+const express =require('express');
+const mongoose = require('mongoose');
+const  User= require( "./models/userModel.js");
+const QR= require( "./models/userModel.js");
+//const User= require( './userModel.js';
+const nodemailer= require( "nodemailer");
+const bodyParser= require( "body-parser");
+const cors= require( "cors");
+const { config }= require( "dotenv");
 config({ path: "../screening/.env" });
 const app = express();
-import { createServer } from "http";
+const { createServer }= require( "http");
 const https = createServer(app);
-import bcrypt from 'bcrypt';
-import jwt  from "jsonwebtoken";
+const jwt = require( "jsonwebtoken");
+// const bcrypt = require('bcrypt');
+// const router= require( "./routes/otpRoutes.js");
 app.use(cors());
 
 mongoose
@@ -52,7 +53,7 @@ app.post("/send-email", (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: process.env.EMAIL, // Using environment variables for email and password
+      user: process.env.EMAIL,
       pass: process.env.PASSWORD,
     },
   });
@@ -124,9 +125,10 @@ app.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     // console.log(user.password);
-    if (!User) {
+    if (!user) {
       return res.status(404).json({ error: "user not found" });
     }
+    
     let passwordMatch = false;
     if(user.password===password){
       passwordMatch=true;
@@ -145,6 +147,11 @@ app.post("/login", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+const otpRouter = require('./routes/otpRoutes.js');
+app.use('/otp', otpRouter);
+const authRouter = require('./routes/authRoutes.js');
+app.use('/auth', authRouter); 
 
 // Start server
 app.listen(PORT, () => {
