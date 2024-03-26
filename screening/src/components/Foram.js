@@ -29,7 +29,6 @@ export const Foram = () => {
       alert("Please select a membership and provide an email");
     } else {
       var options = {
-        // Configuration for Razorpay payment
         key: "rzp_test_bVkTgi3UqyKgi7",
         amount: amount * 100,
         currency: "INR",
@@ -49,16 +48,16 @@ export const Foram = () => {
         handler: function (response) {
           console.log("Payment successful:", response);
           if (membership === "base") {
-            saveData(response.razorpay_payment_id,1,'base');
+            saveData(response.razorpay_payment_id,1,'base',7);
             generateAndSendEmail('base', response.razorpay_payment_id,1);
           } else if (membership === "silver") {
-            saveData(response.razorpay_payment_id,2,'silver');
+            saveData(response.razorpay_payment_id,2,'silver',15);
             generateAndSendEmail('silver', response.razorpay_payment_id,2);
           } else if (membership === "gold") {
-            saveData(response.razorpay_payment_id ,3,'gold');
+            saveData(response.razorpay_payment_id ,3,'gold',30);
             generateAndSendEmail('gold', response.razorpay_payment_id,3);
           } else if (membership === "diamond") {
-            saveData(response.razorpay_payment_id,4,'diamond');
+            saveData(response.razorpay_payment_id,4,'diamond',30);
             generateAndSendEmail('diamond', response.razorpay_payment_id,4);
           }
         },
@@ -71,15 +70,11 @@ export const Foram = () => {
   const generateAndSendEmail = (membership, paymentId, totalTickets) => {
     let qrCodes = [];
   
-    // Generate QR codes for all tickets
     for (let i = 1; i <= totalTickets; i++) {
       QRCode.toDataURL(paymentId + i)
         .then((qrCodeData) => {
           qrCodes.push(qrCodeData);
-  
-          // If all QR codes for the membership level have been generated
           if (qrCodes.length === totalTickets) {
-            // Send email with all QR codes attached
             sendEmail(membership, paymentId, qrCodes);
           }
         })
@@ -90,7 +85,6 @@ export const Foram = () => {
   };
   
   const sendEmail = (membership, paymentId, qrCodes) => {
-    // Prepare email with all QR codes attached
     const emailContent = {
       email,
       membership,
@@ -109,12 +103,12 @@ export const Foram = () => {
       });
   };
 
-  const saveData = (basePaymentId, totalTickets,memtype) => {
+  const saveData = (basePaymentId, totalTickets,memtype,validity) => {
     let ticketsGenerated = 0;
   
     const saveTicket = (ticketNumber) => {
       const paymentId = basePaymentId + ticketNumber; // Append ticket number to basePaymentId
-      const QRData = { email, paymentId };
+      const QRData = { email, paymentId, validity };
       axios
         .post("http://localhost:8000/saveQR", QRData)
         .then((response) => {

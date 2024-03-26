@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserMultiFormatReader } from "@zxing/library";
+import { BrowserMultiFormatReader, NotFoundException } from "@zxing/library";
 import Navbar from "./navbar";
 
-export const Scanner= () => {
+export const Scanner = () => {
   const [scanResult, setScanResult] = useState(null);
-  const [scanResultExists, setScanResultExists] = useState(null);
+  const [scanResultInfo, setScanResultInfo] = useState(null);
 
   useEffect(() => {
     const codeReader = new BrowserMultiFormatReader();
@@ -19,13 +19,15 @@ export const Scanner= () => {
           selectedDeviceId,
           "reader",
           (result, err) => {
-            if (isScanning && result) {
-              setScanResult(result.getText());
-              isScanning = false; // Stop scanning once QR code is detected
-              sendApiRequest(result.getText());
-            }
-            if (err) {
-              console.error("Error scanning:", err);
+            if (isScanning) {
+              if (result) {
+                console.log("Next QR"); // Log "Next QR" after identifying a QR code
+                setScanResult(result.getText());
+                isScanning = false; // Stop scanning once QR code is detected
+                sendApiRequest(result.getText());
+              } else if (err && !(err instanceof NotFoundException)) {
+                console.error("Error scanning:", err);
+              }
             }
           }
         );
@@ -52,25 +54,37 @@ export const Scanner= () => {
         throw new Error("Failed to fetch data");
       }
       const data = await response.json();
-      setScanResultExists(data.exists ? "yes" : "no");
+      setScanResultInfo(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-  
+
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       {scanResult ? (
         <div>
-          {scanResultExists === null ? (
+          {scanResultInfo === null ? (
             <div>Scanning...</div>
           ) : (
             <div>
-              {scanResultExists === "yes" ? (
-                <div>Payment ID exists in the database</div>
+              {scanResultInfo.exists ? (
+                <div>
+                  {scanResultInfo.validityPassed ? (
+                    <div> Access denied: Validity of this QR has expired.</div>
+                  ) : (
+                    <div>
+                      {scanResultInfo.alreadyScanned ? (
+                        <div> Access denied: QR already scanned.</div>
+                      ) : (
+                        <div>Access granted.</div>
+                      )}
+                    </div>
+                  )}
+                </div>
               ) : (
-                <div>Payment ID does not exist in the database</div>
+              <div>Access denied: Invalid QR.</div>
               )}
             </div>
           )}
@@ -80,7 +94,7 @@ export const Scanner= () => {
       )}
     </div>
   );
-}
+};
 
 export default Scanner;
 
