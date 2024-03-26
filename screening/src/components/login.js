@@ -23,7 +23,7 @@ export default function Login(){
       const token=res.data.token;
       localStorage.setItem('token',token);
       console.log('seccessful authentication');
-      navigate('/form');
+      navigate('/home');
     }catch(err){
       // alert('invalid id or password');
       console.log("error: ",err)

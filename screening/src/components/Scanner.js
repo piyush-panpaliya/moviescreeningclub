@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { BrowserMultiFormatReader, NotFoundException } from "@zxing/library";
 
+import { getToken } from "../utils/getToken";
+import { useNavigate } from "react-router-dom";
+
 export const Scanner = () => {
   const [scanResult, setScanResult] = useState(null);
   const [scanResultInfo, setScanResultInfo] = useState(null);
+
+  const token = getToken();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  });
 
   useEffect(() => {
     const codeReader = new BrowserMultiFormatReader();

@@ -30,20 +30,20 @@ exports.signup = async (req, res) => {
       });
     }
     // Secure password
-    // let hashedPassword;
-    // try {
-    //   hashedPassword = await bcrypt.hash(password, 10);
-    // } catch (error) {
-    //   return res.status(500).json({
-    //     success: false,
-    //     message: `Hashing password error for ${password}: ` + error.message,
-    //   });
-    // }
+    let hashedPassword;
+    try {
+      hashedPassword = await bcrypt.hash(password, 10);
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: `Hashing password error for ${password}: ` + error.message,
+      });
+    }
     const newUser = await User.create({
       name,
       email,
       phoneNumber,
-      password,
+      password: hashedPassword,
       designation,
     });
     return res.status(201).json({

@@ -96,14 +96,10 @@ const Volunteer = mongoose.model('Volunteer',VolunteerSchema);
 const Admin = mongoose.model('Admin',AdminSchema);
 const Movie = mongoose.model('Movie',MovieSchema);
 
-<<<<<<< HEAD:backend/userModel.js
-export { User, Volunteer, Admin, Movie };
-export default QR;
-=======
 
 // export { User, Volunteer, Admin };
 module.exports=User;
+module.exports=Movie;
 // module.exports=Volunteer;
 // module.exports=Admin;
 // module.exports=QR;
->>>>>>> 883805f4ffd36d77141cbb21334889398b68fc58:backend/models/userModel.js
