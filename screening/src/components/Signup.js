@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate,Link } from "react-router-dom";
 // import { useAuth } from './AuthContext';
 
 export const Signup = () => {
@@ -12,9 +12,10 @@ export const Signup = () => {
     designation: "",
     email: "",
     password: "",
+    otp:"",
   });
 
-  const { name, phoneNumber, designation, email, password } = formData;
+  const { name, phoneNumber, designation, email, password, otp } = formData;
   const navigate=useNavigate();
 
   const handleChange = (e) => {
@@ -26,10 +27,10 @@ export const Signup = () => {
 
     try {
       console.log(formData);
-      const res = await axios.post("http://localhost:8000/signup", formData);
+      const res = await axios.post("http://localhost:8000/auth/signup", formData);
       console.log(res.data);
       console.log("Submitted");
-      navigate('/login');
+      navigate('/form');
       // signup(); // Authenticate the user
     } catch (err) {
       alert('email already registered');
@@ -103,7 +104,18 @@ export const Signup = () => {
           onChange={handleChange}
         />
       </div>
-
+      <div className="form-group">
+        <label htmlFor="otp">otp:</label>
+        <input
+          type="otp"
+          id="otp"
+          name="otp"
+          required
+          value={otp}
+          onChange={handleChange}
+        />
+      </div>
+      <span>already have an account <Link to='/login'>login</Link></span>
       <br />
       <button onClick={handleSubmit}>
         Submit

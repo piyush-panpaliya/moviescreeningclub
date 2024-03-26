@@ -3,13 +3,12 @@ import { useNavigate ,Link} from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function Login(){
+export default function GetOTP(){
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
   });
 
-  const {email, password } = formData;
+  const {email} = formData;
   const navigate =useNavigate();
 
   const handleChange = (e) => {
@@ -19,20 +18,21 @@ export default function Login(){
   const handleSubmit=async(e)=>{
     e.preventDefault();
     try{
-      const res=await axios.post("http://localhost:8000/login",formData);
-      const token=res.data.token;
-      localStorage.setItem('token',token);
-      console.log('seccessful authentication');
-      navigate('/form');
+      const res=await axios.post("http://localhost:8000/otp/send-otp",formData);
+      if(res.data.success){
+        console.log('email sent');
+        navigate('/signup');
+      }
+      else console.error('failed to send')
     }catch(err){
-      // alert('invalid id or password');
+      alert('email already registered');
       console.log("error: ",err)
     }
   }
 
   return(
     <div className="App">
-      <h2>Login</h2>
+      <h2>OTP verfication</h2>
 
       <div className="form-group">
         <label htmlFor="email">Email:</label>
@@ -45,19 +45,7 @@ export default function Login(){
           onChange={handleChange}
         />
       </div>
-
-      <div className="form-group">
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          value={password}
-          onChange={handleChange}
-        />
-      </div>
-      <span>dont have a account <Link to='/getOTP'>Signup</Link></span>
+      <span>already have an account <Link to='/login'>login</Link></span>
       <br />
       <button onClick={handleSubmit}>
         Submit

@@ -10,6 +10,7 @@ import MovieForm from "./components/addmovie.js";
 import Home from "./components/home.js";
 
 
+import GetOTP from "./components/getOTP.js";
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/form" element={<Foram />} />
         <Route path="/scanner" element={<Scanner />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/getOTP" element={<GetOTP />} />
         <Route path="/addmovie" element={<MovieForm />} />
         <Route path="/myaccount" element={<Myaccount />} />
       </Routes>
