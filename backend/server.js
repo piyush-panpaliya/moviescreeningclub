@@ -1,8 +1,8 @@
 const express =require('express');
 const mongoose = require('mongoose');
-const User = require("./models/userModel.js");
-const Movie = require("./models/movieModel.js");
-const QR = require("./models/qrModel.js");
+const User= require( "./models/userModel.js");
+const QR= require( "./models/qr.Model.js");
+const Movie=require("./models/movie.Model.js");
 const nodemailer= require( "nodemailer");
 const bodyParser= require( "body-parser");
 const cors= require( "cors");
