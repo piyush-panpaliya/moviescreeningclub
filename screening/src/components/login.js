@@ -32,6 +32,7 @@ export default function Login() {
       const res = await axios.post("http://localhost:8000/login", formData);
       const token = res.data.token;
       localStorage.setItem('token', token);
+      localStorage.setItem('loggedInUserEmail', formData.email); 
       console.log('successful authentication');
       login(); // Update login status in context upon successful login
       navigate('/form');

@@ -28,6 +28,7 @@ export const Signup = () => {
       console.log(formData);
       const res = await axios.post("http://localhost:8000/auth/signup", formData);
       console.log(res.data);
+      localStorage.setItem('signupEmail', formData.email); // Store email in local storage
       console.log("Submitted");
       navigate('/form');
       // signup(); // Authenticate the user

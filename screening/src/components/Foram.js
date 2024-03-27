@@ -109,7 +109,7 @@ export const Foram = () => {
   
     const saveTicket = (ticketNumber) => {
       const paymentId = basePaymentId + ticketNumber; // Append ticket number to basePaymentId
-      const QRData = { email, paymentId, validity };
+      const QRData = { email, paymentId, validity, memtype };
       axios
         .post("http://localhost:8000/saveQR", QRData)
         .then((response) => {
