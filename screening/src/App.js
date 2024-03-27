@@ -10,27 +10,31 @@ import MovieForm from "./components/addmovie.js";
 import Home from "./components/home.js";
 import GetOTP from "./components/getOTP.js";
 import Signup from "./components/Signup.js";
+import { LoginProvider } from './components/LoginContext';
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/form" element={<Foram />} />
-        <Route path="/scanner" element={<Scanner />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/getOTP" element={<GetOTP />} />
-        <Route path="/addmovie" element={<MovieForm />} />
-        <Route path="/myaccount" element={<Myaccount />} />
-      </Routes>
+      <LoginProvider>
+        <Navbar />
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/form" element={<Foram />} />
+          <Route path="/scanner" element={<Scanner />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/getOTP" element={<GetOTP />} />
+          <Route path="/addmovie" element={<MovieForm />} />
+          <Route path="/myaccount" element={<Myaccount />} />
+        </Routes>
+      </LoginProvider>
     </BrowserRouter>
   );
 }
 
 export default App;
+
 
 
