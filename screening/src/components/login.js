@@ -20,7 +20,7 @@ export default function Login(){
   const handleSubmit=async(e)=>{
     e.preventDefault();
     try{
-      const res=await axios.post("http://localhost:8000/login",formData);
+      const res=await axios.post("http://localhost:8000/login/login",formData);
       const token=res.data.token;
       localStorage.setItem('token',token);
       console.log('seccessful authentication');

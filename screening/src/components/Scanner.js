@@ -54,7 +54,7 @@ export const Scanner = () => {
 
   const sendApiRequest = async (result) => {
     try {
-      const response = await fetch("http://localhost:8000/checkPayment", {
+      const response = await fetch("http://localhost:8000/payment/checkPayment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
