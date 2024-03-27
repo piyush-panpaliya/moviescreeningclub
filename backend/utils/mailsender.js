@@ -1,5 +1,5 @@
 // utils/mailSender.js
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
 const mailSender = async (email, title, body) => {
   try {

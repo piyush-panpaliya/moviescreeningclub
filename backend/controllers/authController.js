@@ -1,9 +1,8 @@
-// controllers/authController.js
-const bcrypt = require('bcrypt');
-const User = require('../models/userModel');
-const OTP = require('../models/otp.Model');
+import bcrypt from 'bcrypt';
+import User  from '../models/userModel';
+import OTP from '../models/otp.Model';
 
-exports.signup = async (req, res) => {
+const signup = async (req, res) => {
   try {
     const { name, phoneNumber,email, password, designation, otp } = req.body;
     // Check if all details are provided
@@ -56,3 +55,5 @@ exports.signup = async (req, res) => {
     return res.status(500).json({ success: false, error: error.message });
   }
 };
+
+export default signup;
