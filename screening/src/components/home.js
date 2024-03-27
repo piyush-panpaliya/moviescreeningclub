@@ -1,20 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { getToken } from "../utils/getToken";
-import { useNavigate } from "react-router-dom";
-
 const Home = () => {
   const [movies, setMovies] = useState([]);
-
-  const token = getToken();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    }
-  });
 
   useEffect(() => {
     axios.get("http://localhost:8000/movies")
