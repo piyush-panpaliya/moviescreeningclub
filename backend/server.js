@@ -25,7 +25,7 @@ const PORT = 8000;
 
 app.use(bodyParser.json());
 
-app.post("/saveQR", (req, res) => {
+/*app.post("/saveQR", (req, res) => {
   const { email, paymentId } = req.body;
   const newQR = new QR({ email, paymentId });
   newQR
@@ -77,7 +77,7 @@ app.post("/send-email", (req, res) => {
       res.status(200).send("Email sent successfully");
     }
   });
-});
+});*/
 
 app.post("/signup", async (req, res) => {
   const { name, phoneNumber, designation, email, password } = req.body;
