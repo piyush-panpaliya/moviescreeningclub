@@ -2,8 +2,8 @@ const QR = require('../models/qr.Model');
 const nodemailer= require( "nodemailer");
 
 exports.addQR= (req, res) => {
-  const { email, paymentId, validity } = req.body;
-  const newQR = new QR({ email, paymentId, validity });
+  const { email, paymentId, validity, memtype } = req.body;
+  const newQR = new QR({ email, paymentId, validity, memtype });
   newQR.save()
     .then((savedQR) => {
       console.log("QR details saved:", savedQR);

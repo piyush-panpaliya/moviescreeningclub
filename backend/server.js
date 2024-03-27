@@ -7,6 +7,7 @@ config({ path: "../screening/.env" });
 const app = express();
 const { createServer }= require( "http");
 const https = createServer(app);
+const Memdata = require ('./models/memdataModel.js');
 app.use(cors());
 
 mongoose.connect(`${process.env.MongoDB}`,)
@@ -17,14 +18,31 @@ const PORT = 8000;
 
 app.use(bodyParser.json());
 
-app.get('/memberships', async (req, res) => {
+app.post('/saveusermem', async (req, res) => {
+  console.log("b");
+  const{email,memtype,validity} = req.body;
+  const newusermem = new Memdata({ email, memtype, validity });
+  console.log("c");
+  newusermem.save()
+    .then((savedusermem) => {
+      console.log("Usermem details saved:", savedusermem);
+      res.status(200).json(savedusermem);
+    })
+    .catch((error) => {
+      console.error("Error saving Usermem:", error);
+      res.status(500).json({ error: "Error saving Usermem" });
+    });
+});
+
+app.get('/memberships/:email', async (req, res) => {
+  const { email } = req.params;
   try {
-    const { email } = req.body;
-    const memberships = await QR.find({ email });
-    res.json(memberships);
-  } catch (err) {
-    console.error("Error fetching memberships:", err);
-    res.status(500).json({ error: "Internal server error" });
+    // Find all memberships associated with the given email
+    const memberships = await Memdata.find({ email });
+    res.status(200).json({ memberships });
+  } catch (error) {
+    console.error('Error fetching memberships:', error);
+    res.status(500).json({ error: 'Error fetching memberships' });
   }
 });
 

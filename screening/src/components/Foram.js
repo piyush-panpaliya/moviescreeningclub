@@ -56,15 +56,19 @@ export const Foram = () => {
         handler: function (response) {
           console.log("Payment successful:", response);
           if (membership === "base") {
+            saveuserData(email,"base",7);
             saveData(response.razorpay_payment_id,1,'base',7);
             generateAndSendEmail('base', response.razorpay_payment_id,1);
           } else if (membership === "silver") {
+            saveuserData(email,"silver",15);
             saveData(response.razorpay_payment_id,2,'silver',15);
             generateAndSendEmail('silver', response.razorpay_payment_id,2);
           } else if (membership === "gold") {
+            saveuserData(email,"gold",30);
             saveData(response.razorpay_payment_id ,3,'gold',30);
             generateAndSendEmail('gold', response.razorpay_payment_id,3);
           } else if (membership === "diamond") {
+            saveuserData(email,"diamond",30);
             saveData(response.razorpay_payment_id,4,'diamond',30);
             generateAndSendEmail('diamond', response.razorpay_payment_id,4);
           }
@@ -110,6 +114,20 @@ export const Foram = () => {
         alert("Error sending email. Please try again later.");
       });
   };
+
+  const saveuserData = (email,memtype,validity) => {
+    const userData = {email, memtype, validity};
+    console.log("a");
+    axios.post("http://localhost:8000/saveusermem", userData)
+    .then((response) => {
+        console.log(`Usermem data saved successfully for ${memtype,email}`);
+        alert(`Usermem data saved successfully for ${memtype,email}`);
+    })
+    .catch((error) => {
+      console.error("Error saving Usermemdata:", error);
+      alert("Error saving Usermemdata. Please try again later.");
+    });
+};
 
   const saveData = (basePaymentId, totalTickets,memtype,validity) => {
     let ticketsGenerated = 0;

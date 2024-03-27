@@ -5,7 +5,7 @@ const OTP = require('../models/otp.Model');
 
 exports.signup = async (req, res) => {
   try {
-    const { name, phoneNumber,email, password, designation, otp } = req.body;
+    const { name, phoneNumber, designation,password, otp, email} = req.body;
     // Check if all details are provided
     if (!name || !email || !password || !otp||!phoneNumber) {
       return res.status(403).json({
