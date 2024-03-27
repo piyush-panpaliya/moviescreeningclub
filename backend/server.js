@@ -1,8 +1,8 @@
 const express =require('express');
 const mongoose = require('mongoose');
-const User= require( "./models/userModel.js");
-const QR= require( "./models/userModel.js");
-const Movie=require("./models/userModel.js");
+const User = require("./models/userModel.js");
+const Movie = require("./models/movieModel.js");
+const QR = require("./models/qrModel.js");
 const nodemailer= require( "nodemailer");
 const bodyParser= require( "body-parser");
 const cors= require( "cors");
@@ -22,60 +22,6 @@ mongoose.connect(`${process.env.MongoDB}`,)
 const PORT = 8000;
 
 app.use(bodyParser.json());
-
-/*app.post("/saveQR", (req, res) => {
-  const { email, paymentId } = req.body;
-  const newQR = new QR({ email, paymentId });
-  newQR
-    .save()
-    .then((savedQR) => {
-      console.log("QR details saved:", savedQR);
-      res.status(200).json(savedQR);
-    })
-    .catch((error) => {
-      console.error("Error saving QR:", error);
-      res.status(500).json({ error: "Error saving QR" });
-    });
-});
-
-app.post("/send-email", (req, res) => {
-  const { email, paymentId, Qr } = req.body;
-
-  // Create a transporter using nodemailer
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD,
-    },
-  });
-  // Email content
-  var qrcode = Qr;
-  var mailOptions = {
-    from: process.env.EMAIL,
-    to: email,
-    subject: "Payment Successful",
-    text: `Your payment was successful. Payment ID: ${paymentId}`,
-    attachments: [
-      {
-        filename: "Qr.jpg",
-        content: qrcode.split("base64,")[1],
-        encoding: "base64",
-      },
-    ],
-  };
-
-  // Send email
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error("Error sending email:", error);
-      res.status(500).send("Error sending email");
-    } else {
-      console.log("Email sent:", info.response);
-      res.status(200).send("Email sent successfully");
-    }
-  });
-});*/
 
 app.post("/signup", async (req, res) => {
   const { name, phoneNumber, designation, email, password } = req.body;
