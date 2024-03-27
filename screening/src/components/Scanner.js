@@ -14,10 +14,12 @@ export const Scanner = () => {
   useEffect(() => {
     if (!token) {
       navigate("/login");
+    } else {
+      initializeScanner();
     }
-  });
+  }, [token, navigate]); // Specify token and navigate as dependencies
 
-  useEffect(() => {
+  const initializeScanner = () => {
     const codeReader = new BrowserMultiFormatReader();
     let isScanning = true; // Variable to track if scanning is ongoing
 
@@ -46,11 +48,7 @@ export const Scanner = () => {
       .catch((err) => {
         console.error("Error listing video devices:", err);
       });
-
-    return () => {
-      codeReader.reset();
-    };
-  }, []);
+  };
 
   const sendApiRequest = async (result) => {
     try {
@@ -94,7 +92,7 @@ export const Scanner = () => {
                   )}
                 </div>
               ) : (
-              <div>Access denied: Invalid QR.</div>
+                <div>Access denied: Invalid QR.</div>
               )}
             </div>
           )}
@@ -107,5 +105,6 @@ export const Scanner = () => {
 };
 
 export default Scanner;
+
 
 
