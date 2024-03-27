@@ -41,9 +41,7 @@ app.use('/otp', otpRouter);
 const authRouter = require('./routes/authRoutes.js');
 app.use('/auth', authRouter); 
 
-
-
-// Start server
+// Start server 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
