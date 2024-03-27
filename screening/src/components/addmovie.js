@@ -16,7 +16,7 @@ const MovieForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post("http://localhost:8000/add-movies", formData)
+    axios.post("http://localhost:8000/movie/add-movies", formData)
       .then(res => {
         console.log('Movie added:', res.data);
         // Optionally, reset the form after successful submission

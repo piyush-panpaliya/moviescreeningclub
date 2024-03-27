@@ -1,9 +1,5 @@
 const express =require('express');
 const mongoose = require('mongoose');
-const User= require( "./models/userModel.js");
-const QR= require( "./models/qr.Model.js");
-const Movie=require("./models/movie.Model.js");
-const nodemailer= require( "nodemailer");
 const bodyParser= require( "body-parser");
 const cors= require( "cors");
 const { config }= require( "dotenv");
@@ -11,8 +7,6 @@ config({ path: "../screening/.env" });
 const app = express();
 const { createServer }= require( "http");
 const https = createServer(app);
-const jwt = require( "jsonwebtoken");
-const bcrypt = require('bcrypt');
 app.use(cors());
 
 mongoose.connect(`${process.env.MongoDB}`,)

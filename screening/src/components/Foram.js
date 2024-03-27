@@ -93,7 +93,7 @@ export const Foram = () => {
       qrCodes,
     };
     axios
-      .post("http://localhost:8000/send-email", emailContent)
+      .post("http://localhost:8000/QR/send-email", emailContent)
       .then((response) => {
         console.log(`Email sent for ${membership} membership.`);
         alert(`Email sent successfully for ${membership} membership.`);
@@ -111,7 +111,7 @@ export const Foram = () => {
       const paymentId = basePaymentId + ticketNumber; // Append ticket number to basePaymentId
       const QRData = { email, paymentId, validity, memtype };
       axios
-        .post("http://localhost:8000/saveQR", QRData)
+        .post("http://localhost:8000/QR/saveQR", QRData)
         .then((response) => {
           ticketsGenerated++;
           if (ticketsGenerated === totalTickets) {
