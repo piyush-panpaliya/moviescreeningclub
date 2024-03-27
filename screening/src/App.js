@@ -22,7 +22,6 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/form" element={<Foram />} />
           <Route path="/scanner" element={<Scanner />} />
-          <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/getOTP" element={<GetOTP />} />
