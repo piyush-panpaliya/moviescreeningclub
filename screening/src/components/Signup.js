@@ -4,7 +4,6 @@ import { Navigate, useNavigate,Link } from "react-router-dom";
 // import { useAuth } from './AuthContext';
 
 export const Signup = () => {
-  // const { signup } = useAuth();
 
   const [formData, setFormData] = useState({
     name: "",
