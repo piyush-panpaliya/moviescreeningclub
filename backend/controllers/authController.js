@@ -1,8 +1,9 @@
-import bcrypt from 'bcrypt';
-import User  from '../models/userModel';
-import OTP from '../models/otp.Model';
+// controllers/authController.js
+const bcrypt = require('bcrypt');
+const User = require('../models/userModel');
+const OTP = require('../models/otp.Model');
 
-const signup = async (req, res) => {
+exports.signup = async (req, res) => {
   try {
     const { name, phoneNumber,email, password, designation, otp } = req.body;
     // Check if all details are provided
@@ -29,20 +30,20 @@ const signup = async (req, res) => {
       });
     }
     // Secure password
-    // let hashedPassword;
-    // try {
-    //   hashedPassword = await bcrypt.hash(password, 10);
-    // } catch (error) {
-    //   return res.status(500).json({
-    //     success: false,
-    //     message: `Hashing password error for ${password}: ` + error.message,
-    //   });
-    // }
+    let hashedPassword;
+    try {
+      hashedPassword = await bcrypt.hash(password, 10);
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: `Hashing password error for ${password}: ` + error.message,
+      });
+    }
     const newUser = await User.create({
       name,
       email,
       phoneNumber,
-      password,
+      password: hashedPassword,
       designation,
     });
     return res.status(201).json({
@@ -55,5 +56,3 @@ const signup = async (req, res) => {
     return res.status(500).json({ success: false, error: error.message });
   }
 };
-
-export default signup;

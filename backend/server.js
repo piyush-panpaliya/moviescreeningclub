@@ -1,18 +1,18 @@
-import express from "express";
-import mongoose from "mongoose";
-import { User, Movie } from "./models/userModel.js";
-import QR from "./models/userModel.js";
-import nodemailer from "nodemailer";
-import bodyParser from "body-parser";
-import cors from "cors";
-import { config } from "dotenv";
+const express =require('express');
+const mongoose = require('mongoose');
+const User= require( "./models/userModel.js");
+const QR= require( "./models/userModel.js");
+const Movie=require("./models/userModel.js");
+const nodemailer= require( "nodemailer");
+const bodyParser= require( "body-parser");
+const cors= require( "cors");
+const { config }= require( "dotenv");
 config({ path: "../screening/.env" });
 const app = express();
-//const { createServer }= require( "http");
-//const https = createServer(app);
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-//const router= require( "./routes/otpRoutes.js");
+const { createServer }= require( "http");
+const https = createServer(app);
+const jwt = require( "jsonwebtoken");
+const bcrypt = require('bcrypt');
 app.use(cors());
 
 mongoose.connect(`${process.env.MongoDB}`,)
@@ -23,6 +23,59 @@ const PORT = 8000;
 
 app.use(bodyParser.json());
 
+/*app.post("/saveQR", (req, res) => {
+  const { email, paymentId } = req.body;
+  const newQR = new QR({ email, paymentId });
+  newQR
+    .save()
+    .then((savedQR) => {
+      console.log("QR details saved:", savedQR);
+      res.status(200).json(savedQR);
+    })
+    .catch((error) => {
+      console.error("Error saving QR:", error);
+      res.status(500).json({ error: "Error saving QR" });
+    });
+});
+
+app.post("/send-email", (req, res) => {
+  const { email, paymentId, Qr } = req.body;
+
+  // Create a transporter using nodemailer
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD,
+    },
+  });
+  // Email content
+  var qrcode = Qr;
+  var mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: "Payment Successful",
+    text: `Your payment was successful. Payment ID: ${paymentId}`,
+    attachments: [
+      {
+        filename: "Qr.jpg",
+        content: qrcode.split("base64,")[1],
+        encoding: "base64",
+      },
+    ],
+  };
+
+  // Send email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending email:", error);
+      res.status(500).send("Error sending email");
+    } else {
+      console.log("Email sent:", info.response);
+      res.status(200).send("Email sent successfully");
+    }
+  });
+});*/
 
 app.post("/signup", async (req, res) => {
   const { name, phoneNumber, designation, email, password } = req.body;
@@ -143,13 +196,10 @@ app.post("/checkPayment", async (req, res) => {
 
 app.post('/add-movies', (req, res) => {
   const { title, poster, description, releaseDate, genre } = req.body;
-  const newMovie = new Movie({
-    title,
-    poster,
-    description,
-    releaseDate,
-    genre,
-  });
+  console.log(req.body);
+  const newMovie = new Movie({title,poster,description,releaseDate,genre});
+  console.log("hey post reached");
+  console.log(newMovie);
   newMovie.save()
     .then(movie => res.status(201).json(movie))
     .catch(err => res.status(400).json({ error: err.message }));
@@ -165,9 +215,9 @@ app.get('/movies', async (req, res) => {
   }
 });
 
-import otpRouter from './routes/otpRoutes.js';
+const otpRouter = require('./routes/otpRoutes.js');
 app.use('/otp', otpRouter);
-import authRouter from './routes/authRoutes.js';
+const authRouter = require('./routes/authRoutes.js');
 app.use('/auth', authRouter); 
 
 // Start server

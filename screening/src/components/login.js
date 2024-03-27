@@ -2,7 +2,8 @@ import React from 'react';
 import { useNavigate ,Link} from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-
+import './login.css';
+import imageOne from '../images/undraw_secure_login_pdn4.png';
 export default function Login(){
   const [formData, setFormData] = useState({
     email: "",
@@ -31,37 +32,46 @@ export default function Login(){
   }
 
   return(
-    <div className="App">
+    <>
+    <div class="d-flex flex-row flex-wrap justify-content-center mt-5">
+      <div class="image1">
+        <img src={imageOne} class="img1"/>
+      </div>
+      <div className="App container">
       <h2>Login</h2>
+      <hr class="border border-primary border-2 opacity-75"></hr>
 
       <div className="form-group">
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="email" class="form-label">Email:</label>
         <input
           type="email"
           id="email"
           name="email"
+          class="form-control"
+          placeholder='name@example.com'
           required
           value={email}
-          onChange={handleChange}
-        />
+          onChange={handleChange} />
       </div>
 
       <div className="form-group">
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password" class="form-label">Password:</label>
         <input
           type="password"
           id="password"
           name="password"
+          class="form-control"
+          placeholder='Password'
           required
           value={password}
-          onChange={handleChange}
-        />
+          onChange={handleChange} />
       </div>
-      <span>dont have a account <Link to='/getOTP'>Signup</Link></span>
-      <br />
-      <button onClick={handleSubmit}>
-        Submit
-      </button>
-    </div>
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <button onClick={handleSubmit} class="btn btn-primary sub" type="button">
+          Submit
+        </button></div>
+      <span class="form-text">Don't have an account <Link to='/getOTP'>Signup</Link></span>
+
+    </div></div></>
   )
 }

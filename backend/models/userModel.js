@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose=require('mongoose');
 
 const QRSchema = new mongoose.Schema({
     email:String,
@@ -38,15 +38,12 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    usertype:{
-        type:String,
-        default:"standard",
-    }
 });
+
 const MovieSchema = new mongoose.Schema({
     title: { type: String, required: true },
-    poster: { type: String, required: true },
-    description: { type: String, required: true },
+    poster: { type: String},
+    description: { type: String},
     releaseDate: { type: Date, required: true },
     genre: { type: String, required: true },
   });
@@ -55,5 +52,6 @@ const QR = mongoose.model('QR',QRSchema);
 const User = mongoose.model('User',UserSchema);
 const Movie = mongoose.model('Movie',MovieSchema);
 
-export { User, Movie };
-export default QR;
+module.exports=User;
+module.exports=Movie;
+module.exports=QR;

@@ -1,8 +1,8 @@
-import otpGenerator from 'otp-generator';
-import OTP from '../models/otp.Model';
-import User from '../models/userModel';
+const otpGenerator = require( 'otp-generator');
+const OTP = require('../models/otp.Model');
+const User = require('../models/userModel');
 
-const sendOTP = async (req, res) => {
+exports.sendOTP = async (req, res) => {
   try {
     const { email } = req.body;
     // Check if user is already present
@@ -44,5 +44,3 @@ const sendOTP = async (req, res) => {
     });
   }
 };
-
-export default sendOTP;
