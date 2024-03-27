@@ -61,8 +61,8 @@ app.post("/login", async (req, res) => {
 
 
 app.post("/saveQR", (req, res) => {
-  const { email, paymentId, validity } = req.body;
-  const newQR = new QR({ email, paymentId, validity });
+  const { email, paymentId, validity, memtype } = req.body;
+  const newQR = new QR({ email, paymentId, validity, memtype });
   newQR.save()
     .then((savedQR) => {
       console.log("QR details saved:", savedQR);
@@ -120,7 +120,7 @@ app.post("/checkPayment", async (req, res) => {
       res.json({ exists: false });
     } else {
       const currentDate = new Date();
-      const validityDate = new Date(payment.registrationDate);
+      const validityDate = new Date(payment.validitydate);
 
       if (currentDate > validityDate) {
         res.json({ exists: true, validityPassed: true });
@@ -161,10 +161,23 @@ app.get('/movies', async (req, res) => {
   }
 });
 
+app.get('/memberships', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const memberships = await QR.find({ email });
+    res.json(memberships);
+  } catch (err) {
+    console.error("Error fetching memberships:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 const otpRouter = require('./routes/otpRoutes.js');
 app.use('/otp', otpRouter);
 const authRouter = require('./routes/authRoutes.js');
 app.use('/auth', authRouter); 
+
+
 
 // Start server
 app.listen(PORT, () => {
