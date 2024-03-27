@@ -26,7 +26,7 @@ export default function Login(){
       console.log('seccessful authentication');
       navigate('/form');
     }catch(err){
-      // alert('invalid id or password');
+      alert('invalid id or password');
       console.log("error: ",err)
     }
   }

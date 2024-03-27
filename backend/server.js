@@ -1,8 +1,8 @@
 const express =require('express');
 const mongoose = require('mongoose');
 const User= require( "./models/userModel.js");
-const QR= require( "./models/userModel.js");
-const Movie=require("./models/userModel.js");
+const QR= require( "./models/qr.Model.js");
+const Movie=require("./models/movie.Model.js");
 const nodemailer= require( "nodemailer");
 const bodyParser= require( "body-parser");
 const cors= require( "cors");
@@ -76,21 +76,6 @@ app.post("/send-email", (req, res) => {
     }
   });
 });*/
-
-app.post("/signup", async (req, res) => {
-  const { name, phoneNumber, designation, email, password } = req.body;
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ name, phoneNumber, designation, email, password: hashedPassword });
-    const savedUser = await newUser.save();
-    console.log("User details saved:", savedUser);
-    res.status(200).json(savedUser);
-  } catch (error) {
-    console.error("Error saving User:", error);
-    res.status(500).json({ error: "Error saving User" });
-  }
-});
-
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;

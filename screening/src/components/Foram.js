@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import QRCode from "qrcode";
 import axios from "axios";
+import { getToken } from "../utils/getToken";
+import { useNavigate } from "react-router-dom";
 import "../Foram.css";
 
 export const Foram = () => {
@@ -127,6 +129,15 @@ export const Foram = () => {
     };
     saveTicket(1); // Start with ticket number 1
 };
+
+  const token = getToken();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  });
 
   return (
     <>
