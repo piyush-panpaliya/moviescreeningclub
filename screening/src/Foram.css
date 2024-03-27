@@ -21,6 +21,8 @@
   /* Form styles */
   .form-group {
     margin-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
   
   label {
@@ -74,3 +76,12 @@
     animation-duration: 1s;
   }
   
+  .App{
+    background-color: #ccc;
+    border-radius: 10px;
+    padding-bottom: 30px;
+    padding-top: 15px;
+  }
+  .inp{
+    border-radius: 30px;
+  }

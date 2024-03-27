@@ -130,25 +130,28 @@ export const Foram = () => {
 
   return (
     <>
-      <div className="App">
+    <div class="d-flex justify-content-center bg-secondary-gradient main">
+      <div className="App mt-5">
         <h2>Razorpay Payment Integration</h2>
-
+        <hr class="border border-primary border-2 opacity-75"></hr>
         <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" required />
+          <label htmlFor="name" class="form-label">Name:</label>
+          <input type="text" id="name exampleFormControlInput1" class="form-control inp" name="name" placeholder="Name" required />
         </div>
 
         <div className="form-group">
-          <label htmlFor="rollNumber">Roll Number:</label>
-          <input type="text" id="rollNumber" name="rollNumber" />
+          <label htmlFor="rollNumber" class="form-label">Roll Number:</label>
+          <input type="text" id="rollNumber" name="rollNumber" class="form-control inp" placeholder="Eg. BXXXXX" />
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email" class="form-label">Email:</label>
           <input
-            type="email"
+            type="text"
             id="email"
             name="email"
+            class = "form-control inp"
+            placeholder="Eg. bxxxxx@students.iitmandi.ac.in"
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -156,13 +159,13 @@ export const Foram = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="phoneNumber">Phone Number:</label>
-          <input type="text" id="phoneNumber" name="phoneNumber" required />
+          <label htmlFor="phoneNumber" class="form-label">Phone Number:</label>
+          <input type="text" id="phoneNumber" class="form-control inp" name="phoneNumber"placeholder="Phone no." required />
         </div>
 
         <div className="form-group">
-          <label htmlFor="degree">Choose Degree:</label>
-          <select id="degree" name="degree" required>
+          <label htmlFor="degree" class="form-label">Choose Degree:</label>
+          <select class= "form-select inp"id="degree" name="degree" required>
             <option value="">Select One</option>
             <option value="btech">B-Tech</option>
             <option value="phd">PHD</option>
@@ -171,8 +174,9 @@ export const Foram = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="membership">Choose Membership:</label>
+          <label htmlFor="membership" class="form-label">Choose Membership:</label>
           <select
+            class= "form-select inp"
             id="membership"
             name="membership"
             required
@@ -187,10 +191,15 @@ export const Foram = () => {
         </div>
 
         <br />
-        <input type="text" placeholder="Amount" value={amount} readOnly />
+        <div class="form-group">
+        <input class="inp" type="text" placeholder="Amount" value={amount} readOnly />
+        </div>
         <br />
         <br />
-        <button onClick={handleSubmit}>Submit</button>
+        <div class="d-grid gap-2 col-6 mx-auto">
+        <button onClick={handleSubmit}class="btn btn-primary sub">Submit</button>
+      </div>
+      </div>
       </div>
     </>
   );
