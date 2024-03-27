@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Navigate, useNavigate,Link } from "react-router-dom";
 // import { useAuth } from './AuthContext';
@@ -9,12 +9,20 @@ export const Signup = () => {
     name: "",
     phoneNumber: "",
     designation: "",
-    email: "",
     password: "",
     otp:"",
   });
 
-  const { name, phoneNumber, designation, email, password, otp } = formData;
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('signupEmail');
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, []);
+
+  const { name, phoneNumber, designation, password, otp } = formData;
   const navigate=useNavigate();
 
   const handleChange = (e) => {
@@ -26,13 +34,13 @@ export const Signup = () => {
 
     try {
       console.log(formData);
-      const res = await axios.post("http://localhost:8000/auth/signup", formData);
+      const res = await axios.post("http://localhost:8000/auth/signup",{ ...formData,email});
       console.log(res.data);
-      localStorage.setItem('signupEmail', formData.email); // Store email in local storage
       console.log("Submitted");
       navigate('/form');
       // signup(); // Authenticate the user
     } catch (err) {
+      console.log(formData);
       alert('email already registered');
       console.error("Error occurred:", err);
     }
@@ -89,7 +97,7 @@ export const Signup = () => {
           name="email"
           required
           value={email}
-          onChange={handleChange}
+          readOnly
         />
       </div>
 

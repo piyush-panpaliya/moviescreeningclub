@@ -11,6 +11,13 @@ export const Foram = () => {
   const [degree, setDegree] = useState("");
   const [email, setEmail] = useState("");
 
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('loggedInUserEmail');
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, []);
+
   const handleMembershipChange = (e) => {
     setMembership(e.target.value);
     const selectedDegree = document.getElementById("degree").value;
@@ -162,10 +169,10 @@ export const Foram = () => {
             id="email"
             name="email"
             class = "form-control inp"
-            placeholder="Eg. bxxxxx@students.iitmandi.ac.in"
+           // placeholder="Eg. bxxxxx@students.iitmandi.ac.in"
             required
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            readOnly
           />
         </div>
 

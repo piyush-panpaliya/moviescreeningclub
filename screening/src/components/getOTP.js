@@ -21,6 +21,7 @@ export default function GetOTP(){
       const res=await axios.post("http://localhost:8000/otp/send-otp",formData);
       if(res.data.success){
         console.log('email sent');
+        localStorage.setItem('signupEmail', formData.email); // Store email in local storage
         navigate('/signup');
       }
       else console.error('failed to send')

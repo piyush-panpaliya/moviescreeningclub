@@ -8,7 +8,7 @@ import { useLogin } from './LoginContext'; // Import the useLogin hook
 export default function Login() {
   const { login } = useLogin(); // Use the login function from context
   const [formData, setFormData] = useState({
-    email: "",
+    email: localStorage.getItem('signupEmail') || "",
     password: "",
   });
   const navigate = useNavigate();
