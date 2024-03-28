@@ -39,7 +39,7 @@ export default function Login() {
       localStorage.setItem('token', token);
       console.log('successful authentication');
       login(); // Update login status in context upon successful login
-      navigate('/form');
+      navigate('/home');
     } catch (err) {
       alert('invalid id or password');
       console.log("error: ", err)

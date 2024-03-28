@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const AddDropVolunteer = () => {
   const [email, setEmail] = useState('');
   const [userType, setUserType] = useState('standard');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,6 +31,7 @@ const AddDropVolunteer = () => {
       console.error('Error updating user type:', error);
       // Handle error or display appropriate message to the user
     }
+    navigate('/myaccount')
   };
 
   return (
