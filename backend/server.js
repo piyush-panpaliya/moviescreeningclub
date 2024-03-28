@@ -47,6 +47,24 @@ app.get('/memberships/:email', async (req, res) => {
   }
 });
 
+app.get('/userType/:email', async (req, res) => {
+  try {
+    const { email } = req.params;
+    // Find the user by email
+    const user = await User.findOne({ email });
+    // If user not found, return 404
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    // Return the user's userType
+    res.status(200).json({ userType: user.usertype });
+  } catch (error) {
+    console.error('Error fetching user type:', error);
+    res.status(500).json({ error: 'Error fetching user type' });
+  }
+});
+
+
 app.post('/updateUserType', async (req, res) => {
   try {
     const { email, userType } = req.body;
