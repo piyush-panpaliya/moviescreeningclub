@@ -9,6 +9,7 @@ const { createServer }= require( "http");
 const https = createServer(app);
 const Memdata = require ('./models/memdataModel.js');
 app.use(cors());
+const User = require ("./models/userModel.js");
 
 mongoose.connect(`${process.env.MongoDB}`,)
   .then(() => console.log("Connected to MongoDB"))
@@ -45,6 +46,33 @@ app.get('/memberships/:email', async (req, res) => {
     res.status(500).json({ error: 'Error fetching memberships' });
   }
 });
+
+app.post('/updateUserType', async (req, res) => {
+  try {
+    const { email, userType } = req.body;
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    // If user not found, return error
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Update the user's userType
+    user.usertype = userType;
+
+    // Save the updated user
+    await user.save();
+
+    // Return success response
+    res.status(200).json({ message: 'User type updated successfully', user });
+  } catch (error) {
+    console.error('Error updating user type:', error);
+    res.status(500).json({ error: 'Error updating user type' });
+  }
+});
+
 
 const loginRouter = require('./routes/login.route.js');
 app.use('/login', loginRouter);

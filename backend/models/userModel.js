@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    usertype:{
+        type:String,
+        default: "standard",
+    }
 });
 
 const User = mongoose.model('User',UserSchema);

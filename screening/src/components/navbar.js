@@ -39,6 +39,9 @@ const Navbar = () => {
                   <Link className="nav-link" to='/myaccount'>My Profile</Link>
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link" to='/adddropvolunteer'>Add Drop Volunteer</Link>
+                </li>
+                <li className="nav-item">
                   <Link className="nav-link" to="/" onClick={logout}>Logout</Link>
                 </li>
               </>

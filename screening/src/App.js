@@ -10,6 +10,7 @@ import MovieForm from "./components/addmovie.js";
 import Home from "./components/home.js";
 import GetOTP from "./components/getOTP.js";
 import Signup from "./components/Signup.js";
+import AdddropVolunteer from "./components/adddropvolunteer.js";
 import { LoginProvider } from './components/LoginContext';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/getOTP" element={<GetOTP />} />
           <Route path="/addmovie" element={<MovieForm />} />
           <Route path="/myaccount" element={<Myaccount />} />
+          <Route path="/adddropvolunteer" element={<AdddropVolunteer/>} />
         </Routes>
       </LoginProvider>
     </BrowserRouter>
