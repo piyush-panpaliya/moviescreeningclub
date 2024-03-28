@@ -7,29 +7,7 @@ import './Myaccount.css';
 const Myaccount = () => {
   const { loggedIn } = useLogin(); // Use loggedIn state from context
   const navigate = useNavigate();
-  const [userType, setUserType] = useState('standard');
   const [memberships, setMemberships] = useState([]);
-
-  useEffect(() => {
-    if (loggedIn) {
-      // Fetch userType only if loggedIn is true
-      getUserType();
-    }
-  }, [loggedIn]);
-
-  const getUserType = async () => {
-    try {
-      const loggedInUserEmail = localStorage.getItem('loggedInUserEmail');
-      const response = await fetch(`http://localhost:8000/userType/${loggedInUserEmail}`);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch user type: ${response.statusText}`);
-      }
-      const data = await response.json();
-      setUserType(data.userType);
-    } catch (error) {
-      console.error('Error fetching user type:', error);
-    }
-  };
 
   useEffect(() => {
     const loggedInUseremail = localStorage.getItem('loggedInUserEmail');
@@ -56,6 +34,7 @@ const Myaccount = () => {
   return (
     <div>
       
+<<<<<<< HEAD
       {userType === 'admin' && (
         <>
           <h1>Hello Admin</h1>
@@ -74,6 +53,23 @@ const Myaccount = () => {
 
         <Link to='/scanner'>Scanner</Link>
         </>
+=======
+      {localStorage.getItem('userType') === 'admin' && (
+        <>
+          <Link to='/adddropvolunteer'>Add/Drop Volunteer</Link>
+          <br />
+          <Link to='/scanner'>Scanner</Link>
+          <br/>
+          <Link to='/addmovie'>Add Movie</Link>
+        </>
+      )}
+      {localStorage.getItem('userType')  === 'volunteer' && (
+        <>
+        <Link to='/scanner'>Scanner</Link>
+        <br/>
+          <Link to='/addmovie'>Add Movie</Link>
+          </>
+>>>>>>> 5e3d80cc884c69e3861dc08d53899614af6622c1
       )}
       <h2>Your Memberships:</h2>
       <table class="table">

@@ -31,21 +31,33 @@ export default function Login() {
     try {
       const res = await axios.post("http://localhost:8000/login/login", formData);
       const token = res.data.token;
-      await new Promise((resolve) => {
-        localStorage?.setItem('loggedInUserEmail', formData.email);
-        // Resolve the Promise once email is set
-        resolve();
-      });
+  
       localStorage.setItem('token', token);
+      localStorage.setItem('loggedInUserEmail', formData.email);
+  
+      // Fetch user type
+      const userTypeResponse = await axios.get(`http://localhost:8000/userType/${formData.email}`);
+      const userTypeData = userTypeResponse.data;
+      const userType = userTypeData.userType;
+  
+      // Store userType in local storage
+      localStorage.setItem('userType', userType);
       console.log('successful authentication');
       login(); // Update login status in context upon successful login
+<<<<<<< HEAD
       navigate('/home');
     } catch (err) {
       alert('invalid id or password');
       console.log("error: ", err)
+=======
+      navigate('/form');
+    } catch (error) {
+      alert('Invalid email or password');
+      console.error("Error:", error);
+>>>>>>> 5e3d80cc884c69e3861dc08d53899614af6622c1
     }
-  }
-
+  };
+  
   return (
     <>
       <div className="d-flex flex-row flex-wrap justify-content-center mt-5">
@@ -90,81 +102,3 @@ export default function Login() {
     </>
   );
 }
-
-
-/*import React, { useState } from "react";
-import { Link } from "react-router-dom";
-//import "../login.css"; // Import CSS file
-
-const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
-  const [showPassword, setShowPassword] = useState(false); // Track password visibility
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Your login logic goes here
-    console.log("Form Submitted:", formData);
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const { email, password } = formData;
-
-  return (
-    <div className="login-container">
-      <h2>Login</h2>
-
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <div className="password-input">
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-              required
-            />
-            <i
-              className={`eye-icon ${showPassword ? "visible" : "hidden"}`}
-              onClick={togglePasswordVisibility}
-            ></i>
-          </div>
-        </div>
-
-        <button type="submit">Login</button>
-      </form>
-
-      <span>
-        Don't have an account? <Link to="/signup">Sign up</Link>
-      </span>
-    </div>
-  );
-};
-
-export default Login;*/
-

@@ -1,10 +1,29 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+=======
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+>>>>>>> 5e3d80cc884c69e3861dc08d53899614af6622c1
 
 const AddDropVolunteer = () => {
   const [email, setEmail] = useState('');
   const [userType, setUserType] = useState('standard');
   const navigate = useNavigate();
+<<<<<<< HEAD
+=======
+
+  useEffect(() => {
+    // Check userType in local storage on component mount
+    const storedUserType = localStorage.getItem('userType');
+    if (!storedUserType || storedUserType !== 'admin') {
+      // If userType is not found or not "admin", redirect to the home page
+      navigate('/');
+    } else {
+      setUserType(storedUserType);
+    }
+  }, [navigate]);
+>>>>>>> 5e3d80cc884c69e3861dc08d53899614af6622c1
 
   const handleSubmit = async (event) => {
     event.preventDefault();

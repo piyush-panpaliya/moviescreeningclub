@@ -19,6 +19,7 @@ export const LoginProvider = ({ children }) => {
     localStorage.removeItem('token');
     localStorage.removeItem('loggedInUserEmail'); 
     localStorage.removeItem('signupEmail'); 
+    localStorage.removeItem('userType'); 
     setLoggedIn(false);
   };
 

@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
+=======
+import { useNavigate } from 'react-router-dom';
+>>>>>>> 5e3d80cc884c69e3861dc08d53899614af6622c1
 
 const MovieForm = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +17,18 @@ const MovieForm = () => {
 
   const navigate = useNavigate();
 
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    // Check userType in local storage on component mount
+    const userType = localStorage.getItem('userType');
+    if (!userType || userType === 'standard') {
+      // If userType is not found or is "standard", redirect to the home page
+      navigate('/');
+    }
+  }, [navigate]);
+
+>>>>>>> 5e3d80cc884c69e3861dc08d53899614af6622c1
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
