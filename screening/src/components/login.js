@@ -31,8 +31,12 @@ export default function Login() {
     try {
       const res = await axios.post("http://localhost:8000/login/login", formData);
       const token = res.data.token;
+      await new Promise((resolve) => {
+        localStorage?.setItem('loggedInUserEmail', formData.email);
+        // Resolve the Promise once email is set
+        resolve();
+      });
       localStorage.setItem('token', token);
-      localStorage.setItem('loggedInUserEmail', formData.email); 
       console.log('successful authentication');
       login(); // Update login status in context upon successful login
       navigate('/form');

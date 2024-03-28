@@ -70,26 +70,7 @@ import Logo from '../images/logo.png';
 import { useLogin } from './LoginContext'; // Import useLogin hook
 const Navbar = () => {
   const { loggedIn, logout } = useLogin(); // Use loggedIn state from context
-  const [userType, setUserType] = useState('standard'); // State to store user type
   const navigate = useNavigate(); // Hook for navigation
-  
-
-  /*const getUserType = async () => {
-    try {
-      const loggedInUserEmail = localStorage.getItem('loggedinUserEmail');
-      const response = await fetch(`http://localhost:8000/userType/${loggedInUserEmail}`);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch user type: ${response.statusText}`);
-      }
-      const data = await response.json();
-      setUserType(data.userType);
-      console.log(data.userType); // Log user type
-    } catch (error) {
-      console.error('Error fetching user type:', error);
-    }
-  };*/
-  
-  
 
   // Function to handle logout
   const handleLogout = () => {
@@ -122,13 +103,6 @@ const Navbar = () => {
                 <li className="nav-item">
                   <Link className="nav-link" to='/form'>Form</Link>
                 </li>
-                <li className="nav-item">
-                    <Link className="nav-link" to='/adddropvolunteer'>Add Drop Volunteer</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to='/scanner'>Scanner</Link>
-                  </li>
-                
                 <li className="nav-item">
                   <Link className="nav-link" to='/myaccount'>My Profile</Link>
                 </li>
