@@ -1,0 +1,24 @@
+.password-input {
+    position: relative;
+  }
+  
+  .eye-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .eye-icon:before {
+    content: "👁️";
+  }
+  
+  .eye-icon.hidden:before {
+    content: "👁️";
+  }
+  
+  .eye-icon.visible:before {
+    content: "👁️";
+  }
+  

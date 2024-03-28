@@ -90,3 +90,81 @@ export default function Login() {
     </>
   );
 }
+
+
+/*import React, { useState } from "react";
+import { Link } from "react-router-dom";
+//import "../login.css"; // Import CSS file
+
+const Login = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [showPassword, setShowPassword] = useState(false); // Track password visibility
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Your login logic goes here
+    console.log("Form Submitted:", formData);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const { email, password } = formData;
+
+  return (
+    <div className="login-container">
+      <h2>Login</h2>
+
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <div className="password-input">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+              required
+            />
+            <i
+              className={`eye-icon ${showPassword ? "visible" : "hidden"}`}
+              onClick={togglePasswordVisibility}
+            ></i>
+          </div>
+        </div>
+
+        <button type="submit">Login</button>
+      </form>
+
+      <span>
+        Don't have an account? <Link to="/signup">Sign up</Link>
+      </span>
+    </div>
+  );
+};
+
+export default Login;*/
+
