@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { BrowserMultiFormatReader, NotFoundException } from "@zxing/library";
-
-import { getToken } from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
 
 export const Scanner = () => {
   const [scanResult, setScanResult] = useState(null);
   const [scanResultInfo, setScanResultInfo] = useState(null);
-
-  const token = getToken();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) {
-      navigate("/login");
+    const userType = localStorage.getItem('userType');
+    // If userType is not volunteer or admin, redirect to home page
+    if (!userType || userType === 'standard') {
+      navigate("/");
     } else {
       initializeScanner();
     }
-  }, [token, navigate]); // Specify token and navigate as dependencies
+  }, [navigate]); // Only navigate as dependency since we're not using it in the initialization
 
   const initializeScanner = () => {
     const codeReader = new BrowserMultiFormatReader();
@@ -105,6 +103,3 @@ export const Scanner = () => {
 };
 
 export default Scanner;
-
-
-
