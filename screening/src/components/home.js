@@ -16,11 +16,11 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Movie Ticket Booking</h1>
-      <div className="movies-container">
+      <h1>Ongoing Movies</h1>
+      <div className="movies-container container">
         {movies.map(movie => (
           <div key={movie._id} className="movie-card">
-            <img src={movie.poster} alt={movie.title} />
+            <img src={movie.poster} alt={movie.title} className="image-fluid mx-auto d-block" />
             <h2>{movie.title}</h2>
             <p>{movie.description}</p>
             <p>Release Date: {movie.releaseDate}</p>

@@ -1,10 +1,17 @@
+<<<<<<< HEAD
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+=======
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+>>>>>>> 5e3d80cc884c69e3861dc08d53899614af6622c1
 
 const AddDropVolunteer = () => {
   const [email, setEmail] = useState('');
   const [userType, setUserType] = useState('standard');
   const navigate = useNavigate();
+<<<<<<< HEAD
+=======
 
   useEffect(() => {
     // Check userType in local storage on component mount
@@ -16,6 +23,7 @@ const AddDropVolunteer = () => {
       setUserType(storedUserType);
     }
   }, [navigate]);
+>>>>>>> 5e3d80cc884c69e3861dc08d53899614af6622c1
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -42,6 +50,7 @@ const AddDropVolunteer = () => {
       console.error('Error updating user type:', error);
       // Handle error or display appropriate message to the user
     }
+    navigate('/myaccount')
   };
 
   return (

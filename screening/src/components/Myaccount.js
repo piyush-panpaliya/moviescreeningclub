@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useLogin } from './LoginContext'; // Import useLogin hook
+import './Myaccount.css';
 
 const Myaccount = () => {
   const { loggedIn } = useLogin(); // Use loggedIn state from context
@@ -33,6 +34,26 @@ const Myaccount = () => {
   return (
     <div>
       
+<<<<<<< HEAD
+      {userType === 'admin' && (
+        <>
+          <h1>Hello Admin</h1>
+          <div className = "d-grid gap-2 d-md-block">
+          <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/adddropvolunteer' className='link'>Add/Drop Volunteer</Link></button></span>
+          <span>  </span>
+          <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/scanner' className='link'>Scanner</Link></button></span>
+          <span>  </span>
+          <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/addmovie' className='link'>Add Movie</Link></button></span>
+          </div>
+        </>
+      )}
+      {userType === 'volunteer' && (
+        <>
+        <h1>Hello Volunteer</h1>
+
+        <Link to='/scanner'>Scanner</Link>
+        </>
+=======
       {localStorage.getItem('userType') === 'admin' && (
         <>
           <Link to='/adddropvolunteer'>Add/Drop Volunteer</Link>
@@ -48,9 +69,10 @@ const Myaccount = () => {
         <br/>
           <Link to='/addmovie'>Add Movie</Link>
           </>
+>>>>>>> 5e3d80cc884c69e3861dc08d53899614af6622c1
       )}
       <h2>Your Memberships:</h2>
-      <table>
+      <table class="table">
         <thead>
           <tr>
             <th>Membership Type</th>
