@@ -12,10 +12,8 @@ const Myaccount = () => {
   useEffect(() => {
     const loggedInUseremail = localStorage.getItem('loggedInUserEmail');
     if (!loggedInUseremail) {
-      // If loggedInUseremail is not found, redirect to login page
-      navigate('/login');
+      navigate('/home');
     } else {
-      // Fetch memberships using the loggedInUseremail from the server
       axios.get(`http://localhost:8000/memberships/${loggedInUseremail}`)
         .then(response => {
           // Sort memberships based on purchase date in ascending order
@@ -33,23 +31,6 @@ const Myaccount = () => {
 
   return (
     <div>
-      
-      {localStorage.getItem('userType') === 'admin' && (
-        <>
-          <Link to='/adddropvolunteer'>Add/Drop Volunteer</Link>
-          <br />
-          <Link to='/scanner'>Scanner</Link>
-          <br/>
-          <Link to='/addmovie'>Add Movie</Link>
-        </>
-      )}
-      {localStorage.getItem('userType')  === 'volunteer' && (
-        <>
-        <Link to='/scanner'>Scanner</Link>
-        <br/>
-          <Link to='/addmovie'>Add Movie</Link>
-          </>
-      )}
       <h2>Your Memberships:</h2>
       <table class="table">
         <thead>
@@ -74,3 +55,28 @@ const Myaccount = () => {
 }
 
 export default Myaccount;
+
+/*
+{localStorage.getItem('userType') === 'admin' && (
+  <>
+    <h1>Hello Admin</h1>
+    <div className = "d-grid gap-2 d-md-block">
+    <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/adddropvolunteer' className='link'>Add/Drop Volunteer</Link></button></span>
+    <span>  </span>
+    <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/scanner' className='link'>Scanner</Link></button></span>
+    <span>  </span>
+    <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/addmovie' className='link'>Add Movie</Link></button></span>
+    </div>
+  </>
+)}
+
+{localStorage.getItem('userType') === 'volunteer' && (
+  <>
+  <h1>Hello Volunteer</h1>
+  <div className = "d-grid gap-2 d-md-block">
+    <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/scanner' className='link'>Scanner</Link></button></span>
+    <span>  </span>
+    <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/addmovie' className='link'>Add Movie</Link></button></span>
+    </div>
+  </>
+)}*/
