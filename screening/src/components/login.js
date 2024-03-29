@@ -45,9 +45,9 @@ export default function Login() {
       console.log('successful authentication');
       login(); // Update login status in context upon successful login
       navigate('/home');
-    } catch (error) {
-      alert('Invalid email or password');
-      console.error("Error:", error);
+    } catch (err) {
+      alert('invalid id or password');
+      console.log("error: ", err)
     }
   };
   
