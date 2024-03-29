@@ -18,7 +18,9 @@ const Home = () => {
     <div>
       <h1>Ongoing Movies</h1>
       <div className="movies-container container">
-        {movies.map(movie => (
+        {movies?.map((movie) => {
+          console.log(movie.poster);
+          return(
           <div key={movie._id} className="movie-card">
             <img src={movie.poster} alt={movie.title} className="image-fluid mx-auto d-block" />
             <h2>{movie.title}</h2>
@@ -26,7 +28,7 @@ const Home = () => {
             <p>Release Date: {movie.releaseDate}</p>
             <p>Genre: {movie.genre}</p>
           </div>
-        ))}
+        )})}
       </div>
     </div>
   );

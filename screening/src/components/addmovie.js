@@ -18,7 +18,7 @@ const MovieForm = () => {
     const userType = localStorage.getItem('userType');
     if (!userType || userType === 'standard') {
       // If userType is not found or is "standard", redirect to the home page
-      navigate('/');
+      navigate('/home');
     }
   }, [navigate]);
 
@@ -55,7 +55,7 @@ const MovieForm = () => {
           </div>
           <div>
             <label htmlFor="poster">Poster URL:</label>
-            <input type="url" id="poster" name="poster" value={formData.poster} onChange={handleChange} required />
+            <input type="text" id="poster" name="poster" value={formData.poster} onChange={handleChange} required />
           </div>
           <div>
             <label htmlFor="description">Description:</label>
