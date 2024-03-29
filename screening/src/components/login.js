@@ -18,7 +18,7 @@ export default function Login() {
     const token = localStorage.getItem('token');
     if (token) {
       login(); // Update login status in context if token exists
-      navigate('/form'); // Redirect to form if already logged in
+      navigate('/home'); // Redirect to form if already logged in
     }
   }, [login, navigate]);
 
@@ -44,17 +44,10 @@ export default function Login() {
       localStorage.setItem('userType', userType);
       console.log('successful authentication');
       login(); // Update login status in context upon successful login
-<<<<<<< HEAD
       navigate('/home');
-    } catch (err) {
-      alert('invalid id or password');
-      console.log("error: ", err)
-=======
-      navigate('/form');
     } catch (error) {
       alert('Invalid email or password');
       console.error("Error:", error);
->>>>>>> 5e3d80cc884c69e3861dc08d53899614af6622c1
     }
   };
   
