@@ -6,6 +6,7 @@ const MovieSchema = new mongoose.Schema({
   description: { type: String},
   releaseDate: { type: Date, required: true },
   genre: { type: String, required: true },
+  currentscreening:{type: Boolean},
 });
 
 const Movie = mongoose.model('Movie',MovieSchema);
