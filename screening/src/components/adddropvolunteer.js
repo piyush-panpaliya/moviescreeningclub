@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './adddropvolunteer.css';
 
 const AddDropVolunteer = () => {
   const [email, setEmail] = useState('');
@@ -46,7 +47,7 @@ const AddDropVolunteer = () => {
   };
 
   return (
-    <div>
+    <div className='container w-75'>
       <h1>Add/Drop Volunteer</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email:</label>
@@ -69,6 +70,7 @@ const AddDropVolunteer = () => {
           <option value="volunteer">Volunteer</option>
           <option value="admin">Admin</option>
         </select>
+        <p></p>
         <button type="submit">Submit</button>
       </form>
     </div>

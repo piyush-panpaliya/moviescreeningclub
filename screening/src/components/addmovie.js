@@ -132,39 +132,40 @@ const MovieForm = () => {
   };
 
   return (
-    <div>
+    <div className='container w-75'>
       <h2>Add a New Movie</h2>
       <form onSubmit={handleSubmit}>
         <fieldset>
           <legend>Movie Information</legend>
           <div>
-            <label htmlFor="title">Title:</label>
-            <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} required />
+            <label htmlFor="title" className='form-label'>Title:</label>
+            <input type="text" className='form-control' id="title" name="title" value={formData.title} onChange={handleChange} required />
           </div>
           <div>
-            <label htmlFor="poster">Poster URL:</label>
-            <input type="text" id="poster" name="poster" value={formData.poster} onChange={handleChange} required />
+            <label htmlFor="poster" className='form-label'>Poster URL:</label>
+            <input type="text" className='form-control' id="poster" name="poster" value={formData.poster} onChange={handleChange} required />
           </div>
           <div>
-            <label htmlFor="description">Description:</label>
-            <textarea id="description" name="description" value={formData.description} onChange={handleChange} required />
+            <label htmlFor="description" className='form-label'>Description:</label>
+            <textarea id="description" className='form-control' name="description" value={formData.description} onChange={handleChange} required />
           </div>
           <div>
             <label htmlFor="releaseDate">Release Date:</label>
-            <input type="date" id="releaseDate" name="releaseDate" value={formData.releaseDate} onChange={handleChange} required />
+            <input type="date" className='form-control-lg' id="releaseDate" name="releaseDate" value={formData.releaseDate} onChange={handleChange} required />
           </div>
           <div>
-            <label htmlFor="genre">Genre:</label>
-            <input type="text" id="genre" name="genre" value={formData.genre} onChange={handleChange} required />
+            <label htmlFor="genre" className='form-label'>Genre:</label>
+            <input type="text" className='form-control' id="genre" name="genre" value={formData.genre} onChange={handleChange} required />
           </div>
           <div>
-            <label htmlFor="currentscreening">Current Screening:</label>
-            <select id="currentscreening" name="currentscreening" value={formData.currentscreening ? 'Ongoing' : 'Upcoming'} onChange={handleChange} required>
+            <label htmlFor="currentscreening" className='form-label'>Current Screening:</label>
+            <select id="currentscreening" className='form-select'  name="currentscreening" value={formData.currentscreening ? 'Ongoing' : 'Upcoming'} onChange={handleChange} required>
               <option value="Ongoing">Ongoing</option>
               <option value="Upcoming">Upcoming</option>
             </select>
           </div>
         </fieldset>
+        <p></p>
         <button type="submit">Add Movie</button>
       </form>
     </div>
