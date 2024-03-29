@@ -83,6 +83,7 @@ export default function Login() {
               required
               value={formData.password}
               onChange={handleChange} />
+            <Link to='/forgot'>forgot password</Link>
           </div>
           <div className="d-grid gap-2 col-6 mx-auto">
             <button onClick={handleSubmit} className="btn btn-primary sub" type="button">

@@ -12,6 +12,8 @@ import GetOTP from "./components/getOTP.js";
 import Signup from "./components/Signup.js";
 import AdddropVolunteer from "./components/adddropvolunteer.js";
 import { LoginProvider } from './components/LoginContext';
+import ForgotPassword from "./components/forgotPassword.js";
+import UpdatePassword from "./components/updatePassowrd.js";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path="/addmovie" element={<MovieForm />} />
           <Route path="/myaccount" element={<Myaccount />} />
           <Route path="/adddropvolunteer" element={<AdddropVolunteer/>} />
+          <Route path="/forgot" element={<ForgotPassword/>}/>
+          <Route path="/update" element={<UpdatePassword/>}/>
         </Routes>
       </LoginProvider>
     </BrowserRouter>

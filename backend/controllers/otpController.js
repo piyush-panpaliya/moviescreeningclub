@@ -5,16 +5,7 @@ const User = require('../models/userModel');
 exports.sendOTP = async (req, res) => {
   try {
     const { email } = req.body;
-    // Check if user is already present
-    const checkUserPresent = await User.findOne({ email });
-    // If user found with provided email
-    if (checkUserPresent) {
-      console.log('user already registered'); 
-      return res.status(401).json({
-        success: false,
-        message: 'User is already registered',
-      });
-    }
+
     let otp = otpGenerator.generate(6, {
       upperCaseAlphabets: false,
       lowerCaseAlphabets: false,
