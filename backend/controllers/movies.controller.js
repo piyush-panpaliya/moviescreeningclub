@@ -1,9 +1,9 @@
 const Movie = require('../models/movie.Model');
 
 exports.addMovie= (req, res) => {
-  const { title, poster, description, releaseDate, genre } = req.body;
+  const { title, poster, description, releaseDate, genre, currentscreening } = req.body;
   console.log(req.body);
-  const newMovie = new Movie({title,poster,description,releaseDate,genre});
+  const newMovie = new Movie({title,poster,description,releaseDate,genre,currentscreening});
   console.log("hey post reached");
   console.log(newMovie);
   newMovie.save()
