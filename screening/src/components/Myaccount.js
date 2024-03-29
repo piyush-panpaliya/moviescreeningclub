@@ -34,8 +34,7 @@ const Myaccount = () => {
   return (
     <div>
       
-<<<<<<< HEAD
-      {userType === 'admin' && (
+      {localStorage.getItem('userType') === 'admin' && (
         <>
           <h1>Hello Admin</h1>
           <div className = "d-grid gap-2 d-md-block">
@@ -47,30 +46,14 @@ const Myaccount = () => {
           </div>
         </>
       )}
-      {userType === 'volunteer' && (
+
+{localStorage.getItem('userType') === 'volunteer' && (
         <>
         <h1>Hello Volunteer</h1>
 
         <Link to='/scanner'>Scanner</Link>
         </>
-=======
-      {localStorage.getItem('userType') === 'admin' && (
-        <>
-          <Link to='/adddropvolunteer'>Add/Drop Volunteer</Link>
-          <br />
-          <Link to='/scanner'>Scanner</Link>
-          <br/>
-          <Link to='/addmovie'>Add Movie</Link>
-        </>
-      )}
-      {localStorage.getItem('userType')  === 'volunteer' && (
-        <>
-        <Link to='/scanner'>Scanner</Link>
-        <br/>
-          <Link to='/addmovie'>Add Movie</Link>
-          </>
->>>>>>> 5e3d80cc884c69e3861dc08d53899614af6622c1
-      )}
+)}
       <h2>Your Memberships:</h2>
       <table class="table">
         <thead>
