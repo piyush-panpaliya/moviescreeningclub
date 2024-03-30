@@ -32,7 +32,7 @@ const Myaccount = () => {
   return (
     <div>
       <h2>Your Memberships:</h2>
-      <table class="table">
+      <table className="table">
         <thead>
           <tr>
             <th>Membership Type</th>

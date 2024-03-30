@@ -1,19 +1,23 @@
 .container {
     text-align: center;
+    width: 100%;
     max-width: 100%; /* Allow the container to occupy the full width */
-    overflow-x: auto; /* Enable horizontal scrolling */
+    /* Enable horizontal scrolling */
+    
     white-space: nowrap; /* Prevent wrapping of elements */
   }
-  
+
+.overflow-x-scroll{
+  overflow-x: auto;
+}
   .movie-list {
     display: inline-flex;
+    margin-top: 20px;
     flex-direction: row; /* Arrange movies in a horizontal row */
     flex-wrap: nowrap; /* Prevent wrapping of movies to next line */
   }
   
-  .movie-list.upcoming {
-    margin-top: 20px; /* Add margin between ongoing and upcoming movies */
-  }
+  
   
   .movie-card {
     width: 220px; /* Set a fixed width for each movie card */
@@ -32,7 +36,7 @@
   .movie-card img {
     width: 100%; /* Ensure image fills the container */
     height: 100%; /* Ensure image fills the container */
-    object-fit: cover; /* Resize image to cover the container */
+    /*object-fit: cover;  Resize image to cover the container */
     border-radius: 10px;
   }
   
