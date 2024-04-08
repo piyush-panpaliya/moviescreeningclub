@@ -7,6 +7,7 @@ import Scanner from "./components/Scanner.js";
 import Myaccount from "./components/Myaccount.js";
 import Login from "./components/login.js";
 import MovieForm from "./components/addmovie.js";
+import ModifyMovie from "./components/modifymovie.js";
 import Home from "./components/home.js";
 import GetOTP from "./components/getOTP.js";
 import Signup from "./components/Signup.js";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/getOTP" element={<GetOTP />} />
           <Route path="/addmovie" element={<MovieForm />} />
+          <Route path="/modifymovie" element={<ModifyMovie />} />
           <Route path="/myaccount" element={<Myaccount />} />
           <Route path="/adddropvolunteer" element={<AdddropVolunteer/>} />
           <Route path="/forgot" element={<ForgotPassword/>}/>

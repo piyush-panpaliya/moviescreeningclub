@@ -10,7 +10,6 @@ const Home = () => {
     axios.get("http://localhost:8000/movie/movies")
       .then(response => {
         setMovies(response.data);
-        console.log("Hi");
       })
       .catch(error => {
         console.error("Error fetching movies:", error);

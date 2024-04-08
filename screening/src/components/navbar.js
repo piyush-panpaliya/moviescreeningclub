@@ -165,6 +165,9 @@ const Navbar = () => {
                     <li className="nav-item">
                       <Link className="nav-link" to='/addmovie'>Add Movie</Link>
                     </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to='/modifymovie'>Modify Movie</Link>
+                    </li>
                   </>
                 )}
                 {userType === 'volunteer' && (

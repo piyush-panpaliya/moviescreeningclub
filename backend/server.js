@@ -10,6 +10,7 @@ const https = createServer(app);
 const Memdata = require ('./models/memdataModel.js');
 app.use(cors());
 const User = require ("./models/userModel.js");
+const Movie = require('./models/movie.Model');
 
 mongoose.connect(`${process.env.MongoDB}`,)
   .then(() => console.log("Connected to MongoDB"))
@@ -17,6 +18,29 @@ mongoose.connect(`${process.env.MongoDB}`,)
 
 const PORT = 8000;
 app.use(bodyParser.json());
+
+app.put("/movie/movies/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedMovie = await Movie.findByIdAndUpdate(id, req.body, { new: true });
+    res.json(updatedMovie);
+  } catch (error) {
+    console.error("Error updating movie:", error);
+    res.status(500).json({ error: "Error updating movie" });
+  }
+});
+
+app.delete('/movie/movies/:id', async (req, res) => {
+  try {
+    const movieId = req.params.id;
+    // Find the movie by ID and delete it
+    const result = await Movie.findByIdAndDelete(movieId);
+    res.json(result); // Return the deleted movie
+  } catch (error) {
+    console.error("Error deleting movie:", error);
+    res.status(500).json({ error: "Error deleting movie" });
+  }
+});
 
 const loginRouter = require('./routes/login.route.js');
 app.use('/login', loginRouter);
