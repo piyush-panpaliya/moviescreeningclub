@@ -7,7 +7,7 @@ export default function ForgotPassword(){
   const [formData, setFormData] = useState({
     email: "",
   });
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const {email} = formData;
   const navigate =useNavigate();
 
@@ -18,18 +18,28 @@ export default function ForgotPassword(){
   const handleSubmit=async(e)=>{
     e.preventDefault();
     try{
-      const res=await axios.post("http://localhost:8000/otp/send-otp",formData);
-      if(res.data.success){
-        console.log('email sent');
-        localStorage.setItem('getotpEmail', formData.email); // Store email in local storage
-        navigate('/update');
+      const res = await axios.post("http://localhost:8000/otp/user-otp1", { email });
+      if (res.status === 200) {
+        setIsSubmitting(true);
+        const res1=await axios.post("http://localhost:8000/otp/send-otp",formData);
+        if(res1.data.success){
+          console.log('email sent');
+          localStorage.setItem('forgotpassEmail', formData.email); // Store email in local storage
+          navigate('/update');
+        }
+        else {console.log('failed to send')}
       }
-      else console.error('failed to send')
-    }catch(err){
-      alert('email already registered');
-      console.log("error: ",err)
+   }catch(err){
+      if (err.response.status === 401) {
+        alert("User does not exist please sign up");
+      } else if (err.response.status === 500) {
+        alert("Internal server error");
+      }
     }
-  }
+    finally {
+      setIsSubmitting(false);
+    }
+  };
   return(
     <div className="App">
       <h2>forgot password?</h2>
@@ -44,12 +54,13 @@ export default function ForgotPassword(){
           required
           value={email}
           onChange={handleChange}
+          disabled={isSubmitting}
         />
       </div>
       <span>already have an account <Link to='/login'>login</Link></span>
       <br />
-      <button onClick={handleSubmit}>
-        Submit
+      <button onClick={handleSubmit} disabled={isSubmitting}>
+        {isSubmitting ? 'Submitting...' : 'Submit'} 
       </button>
     </div>
   )

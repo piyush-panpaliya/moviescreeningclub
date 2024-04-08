@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default function UpdatePassword(){
   const [formData, setFormData] = useState({
-    email: "",
+    email: localStorage.getItem("forgotpassEmail"),
     password:"",
     otp:"",
   });
@@ -45,6 +45,7 @@ export default function UpdatePassword(){
           required
           value={email}
           onChange={handleChange}
+          readOnly
         />
       </div>
       <div className="form-group">

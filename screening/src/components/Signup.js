@@ -66,8 +66,7 @@ export const Signup = () => {
       console.log(res.data);
       console.log("Submitted");
       localStorage.getItem("signupEmail");
-      navigate("/form");
-      // signup(); // Authenticate the user
+      navigate("/login");
     } catch (err) {
       alert("Email already registered");
       console.error("Error occurred:", err);
@@ -128,6 +127,7 @@ export const Signup = () => {
           required
           value={email}
           onChange={handleChange}
+          readOnly
         />
       </div>
 

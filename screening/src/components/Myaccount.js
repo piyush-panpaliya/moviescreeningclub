@@ -14,7 +14,7 @@ const Myaccount = () => {
     if (!loggedInUseremail) {
       navigate('/home');
     } else {
-      axios.get(`http://localhost:8000/memberships/${loggedInUseremail}`)
+      axios.get(`http://localhost:8000/memrouter/${loggedInUseremail}`)
         .then(response => {
           // Sort memberships based on purchase date in ascending order
           const sortedMemberships = response.data.memberships.sort((a, b) => {
@@ -55,28 +55,3 @@ const Myaccount = () => {
 }
 
 export default Myaccount;
-
-/*
-{localStorage.getItem('userType') === 'admin' && (
-  <>
-    <h1>Hello Admin</h1>
-    <div className = "d-grid gap-2 d-md-block">
-    <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/adddropvolunteer' className='link'>Add/Drop Volunteer</Link></button></span>
-    <span>  </span>
-    <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/scanner' className='link'>Scanner</Link></button></span>
-    <span>  </span>
-    <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/addmovie' className='link'>Add Movie</Link></button></span>
-    </div>
-  </>
-)}
-
-{localStorage.getItem('userType') === 'volunteer' && (
-  <>
-  <h1>Hello Volunteer</h1>
-  <div className = "d-grid gap-2 d-md-block">
-    <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/scanner' className='link'>Scanner</Link></button></span>
-    <span>  </span>
-    <span><button type="button" className='btn btn-primary btn-lg' style={{width: '20%', height: '5%'}}><Link to='/addmovie' className='link'>Add Movie</Link></button></span>
-    </div>
-  </>
-)}*/

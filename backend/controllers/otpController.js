@@ -2,6 +2,40 @@ const otpGenerator = require( 'otp-generator');
 const OTP = require('../models/otp.Model');
 const User = require('../models/userModel');
 
+exports.userOTP=async (req, res) => {
+
+  const { email} = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.status(401).json({ error: "User already exists please login" });
+      
+    }
+    res.status(200).json({ message: "User not found" });
+  }
+  catch(error){
+    console.error("Error during fetch:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.userOTP1=async (req, res) => {
+
+  const { email} = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.status(200).json({ message: "Userfound" });
+      
+    }
+    res.status(401).json({ error: "User not found please signup" });
+  }
+  catch(error){
+    console.error("Error during fetch:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 exports.sendOTP = async (req, res) => {
   try {
     const { email } = req.body;

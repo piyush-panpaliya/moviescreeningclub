@@ -20,6 +20,7 @@ export const LoginProvider = ({ children }) => {
     localStorage.removeItem('loggedInUserEmail'); 
     localStorage.removeItem('signupEmail'); 
     localStorage.removeItem('userType'); 
+    localStorage.removeItem('getotpEmail');
     setLoggedIn(false);
   };
 

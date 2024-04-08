@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './adddropvolunteer.css';
 
 const AddDropVolunteer = () => {
+  const [users, setUsers] = useState([]);
   const [email, setEmail] = useState('');
   const [userType, setUserType] = useState('standard');
   const navigate = useNavigate();
@@ -15,14 +16,40 @@ const AddDropVolunteer = () => {
       navigate('/');
     } else {
       setUserType(storedUserType);
+      // Fetch user data from API endpoint
+      fetchUserData();
     }
   }, [navigate]);
+
+  const fetchUserData = async () => {
+    console.log('hey');
+    try {
+      const response = await fetch('http://localhost:8000/user/fetchusers', {
+        method: 'GET'
+      });
+      if (!response.ok) {
+        console.log(response.json());
+        throw new Error('Failed to fetch user data');
+      }
+      const data = await response.json();
+      // Sort users based on userType: admin, volunteer, standard
+      const sortedUsers = data.users.sort((a, b) => {
+        if (a.usertype === 'admin') return -1;
+        if (a.usertype === 'volunteer' && b.usertype !== 'admin') return -1;
+        return 1;
+      });
+      setUsers(sortedUsers);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      // Handle error or display appropriate message to the user
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/updateUserType', {
+      const response = await fetch('http://localhost:8000/user/updateUserType', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,16 +61,17 @@ const AddDropVolunteer = () => {
         throw new Error('Failed to update user type');
       }
 
-      // Reset form fields after successful submission
       setEmail('');
       setUserType('standard');
+
+      // Fetch updated user data
+      fetchUserData();
 
       // Handle success or display appropriate message to the user
     } catch (error) {
       console.error('Error updating user type:', error);
       // Handle error or display appropriate message to the user
     }
-    navigate('/myaccount')
   };
 
   return (
@@ -73,6 +101,27 @@ const AddDropVolunteer = () => {
         <p></p>
         <button type="submit">Submit</button>
       </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Designation</th>
+            <th>User Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user, index) => (
+            <tr key={index}>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.designation}</td>
+              <td>{user.usertype}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

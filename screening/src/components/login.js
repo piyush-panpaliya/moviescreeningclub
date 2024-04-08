@@ -8,7 +8,7 @@ import { useLogin } from './LoginContext'; // Import the useLogin hook
 export default function Login() {
   const { login } = useLogin(); // Use the login function from context
   const [formData, setFormData] = useState({
-    email: localStorage.getItem('signupEmail') || "",
+    email: localStorage.getItem('getotpEmail') || "",
     password: "",
   });
   const navigate = useNavigate();
@@ -30,24 +30,26 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:8000/login/login", formData);
-      const token = res.data.token;
-  
-      localStorage.setItem('token', token);
-      localStorage.setItem('loggedInUserEmail', formData.email);
-  
-      // Fetch user type
-      const userTypeResponse = await axios.get(`http://localhost:8000/userType/${formData.email}`);
-      const userTypeData = userTypeResponse.data;
-      const userType = userTypeData.userType;
-  
-      // Store userType in local storage
-      localStorage.setItem('userType', userType);
-      console.log('successful authentication');
-      login(); // Update login status in context upon successful login
-      navigate('/home');
+      if (res.status === 200) {
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('loggedInUserEmail', formData.email);
+         // Fetch user type
+        const userTypeResponse = await axios.get(`http://localhost:8000/user/${formData.email}`);
+        const userTypeData = userTypeResponse.data;
+        const userType = userTypeData.userType;
+        localStorage.setItem('userType', userType);
+        console.log('successful authentication');
+        login(); // Update login status in context upon successful login
+        navigate('/home');
+       }
     } catch (err) {
-      alert('invalid id or password');
-      console.log("error: ", err)
+      if (err.response.status === 404) {
+        alert("User not found");
+      } else if (err.response.status === 401) {
+        alert("Email or password is wrong");
+      } else {
+        alert("Internal server error");
+      }
     }
   };
   

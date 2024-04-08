@@ -137,7 +137,7 @@ export const Foram = () => {
   const saveuserData = (email,memtype,validity) => {
     const userData = {email, memtype, validity};
     console.log("a");
-    axios.post("http://localhost:8000/saveusermem", userData)
+    axios.post("http://localhost:8000/memrouter/saveusermem", userData)
     .then((response) => {
         console.log(`Usermem data saved successfully for ${memtype,email}`);
         alert(`Usermem data saved successfully for ${memtype,email}`);
