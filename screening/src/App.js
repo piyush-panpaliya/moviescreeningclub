@@ -15,6 +15,7 @@ import AdddropVolunteer from "./components/adddropvolunteer.js";
 import { LoginProvider } from './components/LoginContext';
 import ForgotPassword from "./components/forgotPassword.js";
 import UpdatePassword from "./components/updatePassowrd.js";
+import Showtime from "./components/showtime.js";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/adddropvolunteer" element={<AdddropVolunteer/>} />
           <Route path="/forgot" element={<ForgotPassword/>}/>
           <Route path="/update" element={<UpdatePassword/>}/>
+          <Route path="/showtime/:movieId" element={<Showtime/>}/>
         </Routes>
       </LoginProvider>
     </BrowserRouter>

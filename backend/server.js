@@ -42,6 +42,65 @@ app.delete('/movie/movies/:id', async (req, res) => {
   }
 });
 
+app.get('/movie/:movieId/showtimes', async (req, res) => {
+  try {
+    const { movieId } = req.params;
+    const movie = await Movie.findById(movieId);
+    if (!movie) {
+      return res.status(404).json({ error: 'Movie not found' });
+    }
+    res.json(movie.showtimes);
+  } catch (error) {
+    console.error('Error fetching showtimes:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.post('/movie/:movieId/showtimes', async (req, res) => {
+  try {
+    const { movieId } = req.params;
+    
+    // Find the movie by its ID
+    const movie = await Movie.findById(movieId);
+    if (!movie) {
+      return res.status(404).json({ error: 'Movie not found' });
+    }
+    
+    // Extract the showtime data from the request body
+    const { date, time } = req.body;
+
+    // Add the new showtime to the movie's showtimes array
+    movie.showtimes.push({ date, time });
+    
+    // Save the updated movie document
+    await movie.save();
+    
+    // Return the updated movie document as the response
+    res.json(movie);
+  } catch (error) {
+    console.error("Error adding showtime:", error);
+    res.status(500).json({ error: "Error adding showtime" });
+  }
+});
+
+app.delete('/movie/:movieId/showtimes/:showtimeId', async (req, res) => {
+  try {
+    const { movieId, showtimeId } = req.params;
+    // Find the movie by ID
+    const movie = await Movie.findById(movieId);
+    if (!movie) {
+      return res.status(404).json({ error: 'Movie not found' });
+    }
+    // Remove the showtime from the movie's showtimes array
+    movie.showtimes.pull({ _id: showtimeId });
+    await movie.save();
+    res.json({ message: 'Showtime deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting showtime:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 const loginRouter = require('./routes/login.route.js');
 app.use('/login', loginRouter);
 const qrRouter = require('./routes/qr.route.js');

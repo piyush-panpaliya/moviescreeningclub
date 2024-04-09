@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "./home.css";
 import Logo from '../images/logo.png';
 
@@ -20,57 +21,62 @@ const Home = () => {
   const ongoingMovies = movies.filter(movie => movie.currentscreening);
   const upcomingMovies = movies.filter(movie => !movie.currentscreening).slice(0, 4); // Display up to 4 upcoming movies
   console.log(ongoingMovies);
-  
 
   return (
-    <><div>
-      <nav className="fnav">
-        <div className="left">
-          <img src="logo.png" alt="" />
-        </div>
-        <div className="right">
-          <i className="fa-solid fa-bars"></i>
-        </div>
-      </nav>
-
-     
-
-      <div className="container">
-        <h2>Ongoing Movies</h2>
-        <div className="overflow-x-scroll">
-        <div className="movie-list ">
-        {ongoingMovies.map((movie) => (
-      
-        <div className="movie-card">
-          <img src={movie.poster} alt={movie.title} />
-          <div className="movie-details">
-            <p className="movie-title">{movie.title}</p>
-            <p className="movie-genre">{movie.genre}</p>
+    <>
+      <div>
+        <nav className="fnav">
+          <div className="left">
+            <img src="logo.png" alt="" />
           </div>
-        </div>
-          ))}
-        </div>
-        </div>
-      
+          <div className="right">
+            <i className="fa-solid fa-bars"></i>
+          </div>
+        </nav>
 
-        <hr className="separator" />
-        
-          <div className="container ">
-        <h2>Upcoming Movies</h2>
-        <div className="overflow-x-scroll">
-        <div className="movie-list">
-          {upcomingMovies.map((movie, index) => (
-            <div key={index} className="movie-card">
-              <img src={movie.poster} alt={movie.title} />
-              <div className="movie-details">
-                <p className="movie-title">{movie.title}</p>
-                <p className="movie-genre">{movie.genre}</p>
+        <div className="container">
+          <h2>Ongoing Movies</h2>
+          <div className="overflow-x-scroll">
+            <div className="movie-list">
+              {ongoingMovies.map((movie) => (
+                <Link
+                  to={`/showtime/${movie._id}`}
+                  key={movie._id}
+                  onClick={() => console.log('Clicked movie ID:', movie._id)} // Add onClick event handler
+                >
+                  <div className="movie-card">
+                    <img src={movie.poster} alt={movie.title} />
+                    <div className="movie-details">
+                      <p className="movie-title">{movie.title}</p>
+                      <p className="movie-genre">{movie.genre}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <hr className="separator" />
+
+          <div className="container">
+            <h2>Upcoming Movies</h2>
+            <div className="overflow-x-scroll">
+              <div className="movie-list">
+                {upcomingMovies.map((movie) => (
+                  <Link to={`/showtime/${movie._id}`} key={movie._id}>
+                    <div className="movie-card"> {/* movie-card div should be inside the Link */}
+                      <img src={movie.poster} alt={movie.title} />
+                      <div className="movie-details">
+                        <p className="movie-title">{movie.title}</p>
+                        <p className="movie-genre">{movie.genre}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </div>
-          ))}
+          </div>
         </div>
-        </div>
-      </div>
       </div>
 
       <div className="footer">
@@ -82,10 +88,8 @@ const Home = () => {
           <i className="fa-brands fa-youtube"></i>
         </div>
       </div>
-    </div>
-    
     </>
   );
+};
 
-          };
 export default Home;
