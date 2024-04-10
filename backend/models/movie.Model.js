@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const ShowtimeSchema = new mongoose.Schema({
-  date: { type: Date, default : Date.now()},
-  time: { type: String,default : new Date().toLocaleTimeString()}
+  date: { type: Date},
+  time: { type: String}
 });
 
 const MovieSchema = new mongoose.Schema({
@@ -13,8 +13,7 @@ const MovieSchema = new mongoose.Schema({
   genre: { type: String, required: true },
   currentscreening: { type: Boolean },
   showtimes: {
-    type: [ShowtimeSchema],
-    default: [{ date: Date.now(), time: new Date().toLocaleTimeString() }]
+    type: [ShowtimeSchema]
   }});
 
 const Movie = mongoose.model('Movie', MovieSchema);

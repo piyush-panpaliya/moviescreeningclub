@@ -11,7 +11,7 @@ exports.check= async (req, res) => {
       res.json({ exists: false });
     } else {
       const currentDate = new Date();
-      const validityDate = new Date(payment.registrationDate);
+      const validityDate = new Date(payment.validitydate);
 
       if (currentDate > validityDate) {
         res.json({ exists: true, validityPassed: true });

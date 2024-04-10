@@ -62,42 +62,45 @@ export const Scanner = () => {
       }
       const data = await response.json();
       setScanResultInfo(data);
+      console.log(scanResultInfo);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   return (
-    <div>
-      {scanResult ? (
-        <div>
-          {scanResultInfo === null ? (
-            <div>Scanning...</div>
-          ) : (
-            <div>
-              {scanResultInfo.exists ? (
-                <div>
-                  {scanResultInfo.validityPassed ? (
-                    <div> Access denied: Validity of this QR has expired.</div>
-                  ) : (
-                    <div>
-                      {scanResultInfo.alreadyScanned ? (
-                        <div> Access denied: QR already scanned.</div>
-                      ) : (
-                        <div>Access granted.</div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div>Access denied: Invalid QR.</div>
-              )}
-            </div>
-          )}
-        </div>
-      ) : (
-        <video id="reader" width="100%" height="100%"></video>
-      )}
+    <div style={{ width: "100%", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <div style={{ width: "300px", height: "300px" }}>
+        {scanResult ? (
+          <div>
+            {scanResultInfo === null ? (
+              <div>Scanning...</div>
+            ) : (
+              <div>
+                {scanResultInfo.exists ? (
+                  <div>
+                    {scanResultInfo.validityPassed ? (
+                      <div> Access denied: Validity of this QR has expired.</div>
+                    ) : (
+                      <div>
+                        {scanResultInfo.alreadyScanned ? (
+                          <div> Access denied: QR already scanned.</div>
+                        ) : (
+                          <div>Access granted.</div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div>Access denied: Invalid QR.</div>
+                )}
+              </div>
+            )}
+          </div>
+        ) : (
+          <video id="reader" width="100%" height="100%"></video>
+        )}
+      </div>
     </div>
   );
 };
