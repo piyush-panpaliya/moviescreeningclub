@@ -10,7 +10,6 @@
     "@zxing/library": "^0.20.0",
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
-    "bootstrap": "^5.3.3",
     "mongodb": "^6.5.0",
     "mongoose": "^8.2.3",
     "postcss": "^8.4.38",

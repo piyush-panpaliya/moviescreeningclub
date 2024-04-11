@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import './login.css';
 import imageOne from '../images/undraw_secure_login_pdn4.png';
 import { useLogin } from './LoginContext'; // Import the useLogin hook
 

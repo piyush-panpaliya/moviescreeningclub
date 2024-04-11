@@ -3,7 +3,6 @@ import QRCode from "qrcode";
 import axios from "axios";
 import { getToken } from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
-import "../Foram.css";
 
 export const Foram = () => {
   const [amount, setAmount] = useState("");
