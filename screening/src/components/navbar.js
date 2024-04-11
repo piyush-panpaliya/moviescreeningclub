@@ -35,6 +35,25 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
+          
+          <div className="flex items-center">
+            {/* Login/Logout Button */}
+            {loggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="inline-block px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700 transition duration-150 ease-in-out"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="inline-block px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700 transition duration-150 ease-in-out"
+              >
+                Login
+              </Link>
+            )}
+          
           <div className="flex">
             <div className="-mr-2 flex items-center">
               <button
@@ -58,52 +77,55 @@ const Navbar = () => {
           
         </div>
       </div>
-      <div className={`${showMenu ? 'block' : 'hidden'}`}>
+      <div className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4' : 'hidden'}`}>
         <div className="px-2 pt-2 pb-3">
           {loggedIn ? (
                 <>
                   {userType === 'admin' && (
                     <>
-                      <NavItem to='/myaccount'>My Profile</NavItem>
-                      <NavItem to='/form'>Buy a new Membership</NavItem>
-                      <NavItem to='/adddropvolunteer'>Add/Drop Volunteer</NavItem>
-                      <NavItem to='/scanner'>Scanner</NavItem>
-                      <NavItem to='/addmovie'>Add Movie</NavItem>
-                      <NavItem to='/modifymovie'>Modify Movie</NavItem>
+                      <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
+                      <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>
+                      <NavItem to='/adddropvolunteer' toggleMenu={toggleMenu}>Add/Drop Volunteer</NavItem>
+                      <NavItem to='/scanner' toggleMenu={toggleMenu}>Scanner</NavItem>
+                      <NavItem to='/addmovie' toggleMenu={toggleMenu}>Add Movie</NavItem>
+                      <NavItem to='/modifymovie' toggleMenu={toggleMenu}>Modify Movie</NavItem>
                     </>
                   )}
                   {userType === 'volunteer' && (
                     <>
-                      <NavItem to='/myaccount'>My Profile</NavItem>
-                      <NavItem to='/form'>Buy a new Membership</NavItem>
-                      <NavItem to='/scanner'>Scanner</NavItem>
-                      <NavItem to='/addmovie'>Add Movie</NavItem>
+                      <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
+                      <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>
+                      <NavItem to='/scanner' toggleMenu={toggleMenu}>Scanner</NavItem>
+                      <NavItem to='/addmovie' toggleMenu={toggleMenu}>Add Movie</NavItem>
                     </>
                   )}
                   {userType === 'standard' && (
                     <>
-                      <NavItem to='/myaccount'>My Profile</NavItem>
-                      <NavItem to='/form'>Buy a new Membership</NavItem>
+                      <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
+                      <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>
                     </>
                   )}
                   <button className="btn btn-link" onClick={handleLogout}>Logout</button>
                 </>
               ) : (
-                <NavItem to="/login">Login</NavItem>
+                <NavItem to="/login" toggleMenu={toggleMenu}>Login</NavItem>
               )}
         </div>
+      </div>
       </div>
     </nav>
   );
 }
 
-const NavItem = ({ to, children }) => (
+const NavItem = ({ to, children,toggleMenu }) => (
   <Link
     to={to}
+    onClick={toggleMenu} // Add onClick event to collapse the menu
     className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
   >
     {children}
   </Link>
 );
+
 
 export default Navbar;
