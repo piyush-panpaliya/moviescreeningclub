@@ -41,7 +41,7 @@ const Navbar = () => {
             {loggedIn ? (
               <button
                 onClick={handleLogout}
-                className="inline-block px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700 transition duration-150 ease-in-out"
+                className="mr-3 inline-block px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700 transition duration-150 ease-in-out"
               >
                 Logout
               </button>
@@ -77,7 +77,7 @@ const Navbar = () => {
           
         </div>
       </div>
-      <div className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4 bg-gray-800' : 'hidden'}`}>
+      <div className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4 bg-gray-800 z-10' : 'hidden'}`}>
         <div className="px-2 pt-2 pb-3">
           {loggedIn ? (
                 <>
