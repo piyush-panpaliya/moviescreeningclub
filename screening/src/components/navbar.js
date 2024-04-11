@@ -77,7 +77,7 @@ const Navbar = () => {
           
         </div>
       </div>
-      <div className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4' : 'hidden'}`}>
+      <div className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4 bg-gray-800' : 'hidden'}`}>
         <div className="px-2 pt-2 pb-3">
           {loggedIn ? (
                 <>
@@ -105,7 +105,6 @@ const Navbar = () => {
                       <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>
                     </>
                   )}
-                  <button className="btn btn-link" onClick={handleLogout}>Logout</button>
                 </>
               ) : (
                 <NavItem to="/login" toggleMenu={toggleMenu}>Login</NavItem>
