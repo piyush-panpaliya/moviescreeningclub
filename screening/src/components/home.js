@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
+  const [showMoreUpcoming, setShowMoreUpcoming] = useState(false);
+  const [showMoreOngoing, setShowMoreOngoing] = useState(false);
 
   useEffect(() => {
     axios
@@ -17,12 +19,21 @@ const Home = () => {
   }, []);
 
   // Filter ongoing and upcoming movies
-  const ongoingMovies = movies.filter((movie) => movie.currentscreening);
-  const upcomingMovies = movies
-    .filter((movie) => !movie.currentscreening)
+  const ongoingMovies = showMoreOngoing
+    ? movies.filter((movie) => movie.currentscreening)
+    : movies.filter((movie) => movie.currentscreening).slice(0, 4);
 
+  const upcomingMovies = showMoreUpcoming
+    ? movies.filter((movie) => !movie.currentscreening)
+    : movies.filter((movie) => !movie.currentscreening).slice(0, 4);
 
-    //.slice(0, 4); // Display up to 4 upcoming movies
+  const toggleShowMoreUpcoming = () => {
+    setShowMoreUpcoming(!showMoreUpcoming);
+  };
+
+  const toggleShowMoreOngoing = () => {
+    setShowMoreOngoing(!showMoreOngoing);
+  };
 
   return (
     <>
@@ -31,7 +42,12 @@ const Home = () => {
           <div className="flex flex-col bg-white h-1/2 w-4/5 my-10 rounded-xl shadow-lg">
             <div className="flex justify-between my-3 mx-5">
               <h2 className="text-xl font-semibold">Ongoing Movies</h2>
-              <p className="font-inter">Show More</p>
+              <p
+                className="font-inter cursor-pointer"
+                onClick={toggleShowMoreOngoing}
+              >
+                {showMoreOngoing ? "Show Less" : "Show More"}
+              </p>
             </div>
             <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mx-5">
               {ongoingMovies.map((movie) => (
@@ -47,14 +63,6 @@ const Home = () => {
                         className="object-cover w-full h-full rounded-md"
                         src={movie.poster}
                         alt={movie.title}
-                        style={{
-                          objectFit: "cover",
-                          transition: "visibility 0s ease 0s, opacity 0.3s linear 0s",
-                          opacity: "1",
-                          visibility: "visible",
-                          maxWidth: "100%",
-                          maxHeight: "100%"
-                        }}
                       />
                     </div>
                     <div className="flex flex-col mt-1">
@@ -72,7 +80,12 @@ const Home = () => {
           <div className="flex flex-col bg-white h-1/2 w-4/5 my-10 rounded-xl shadow-lg">
             <div className="flex justify-between my-3 mx-5">
               <h2 className="text-xl font-semibold">Upcoming Movies</h2>
-              <p className="font-inter">Show More</p>
+              <p
+                className="font-inter cursor-pointer"
+                onClick={toggleShowMoreUpcoming}
+              >
+                {showMoreUpcoming ? "Show Less" : "Show More"}
+              </p>
             </div>
             <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mx-5">
               {upcomingMovies.map((movie) => (
@@ -88,14 +101,6 @@ const Home = () => {
                         className="object-cover w-full h-full rounded-md"
                         src={movie.poster}
                         alt={movie.title}
-                        style={{
-                          objectFit: "cover",
-                          transition: "visibility 0s ease 0s, opacity 0.3s linear 0s",
-                          opacity: "1",
-                          visibility: "visible",
-                          maxWidth: "100%",
-                          maxHeight: "100%"
-                        }}
                       />
                     </div>
                     <div className="flex flex-col mt-1">
@@ -108,7 +113,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-
       </div>
     </>
   );

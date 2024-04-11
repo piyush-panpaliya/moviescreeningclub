@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 export const Scanner = () => {
   const [scanResult, setScanResult] = useState(null);
   const [scanResultInfo, setScanResultInfo] = useState(null);
+  const [showButton, setShowButton] = useState(false); // State to control button visibility
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -63,9 +64,15 @@ export const Scanner = () => {
       const data = await response.json();
       setScanResultInfo(data);
       console.log(scanResultInfo);
+      // Update button visibility based on scan result
+      setShowButton(data.exists && !data.validityPassed && !data.alreadyScanned);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
+  };
+
+  const handleRedirect = () => {
+    navigate(`/allshowtime/${scanResultInfo.email}`);
   };
 
   return (
@@ -86,7 +93,12 @@ export const Scanner = () => {
                         {scanResultInfo.alreadyScanned ? (
                           <div> Access denied: QR already scanned.</div>
                         ) : (
-                          <div>Access granted.</div>
+                          <>
+                            <div>Access granted for {scanResultInfo.email}.</div>
+                            {showButton && (
+                              <button onClick={handleRedirect}>View All Showtimes</button>
+                            )}
+                          </>
                         )}
                       </div>
                     )}

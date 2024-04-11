@@ -11,6 +11,8 @@ const Memdata = require ('./models/memdataModel.js');
 app.use(cors());
 const User = require ("./models/userModel.js");
 const Movie = require('./models/movie.Model');
+const SeatMap = require('./models/seatmapModel.js');
+
 
 mongoose.connect(`${process.env.MongoDB}`,)
   .then(() => console.log("Connected to MongoDB"))
@@ -18,6 +20,35 @@ mongoose.connect(`${process.env.MongoDB}`,)
 
 const PORT = 8000;
 app.use(bodyParser.json());
+
+app.put('/seatmap/:showtimeId/:seat', async (req, res) => {
+  try {
+    const { showtimeId, seat } = req.params;
+    const { email } = req.body;
+
+    // Find the SeatMap document for the specified showtime ID
+    let seatMap = await SeatMap.findOne({ showtimeid: showtimeId });
+
+    // If the showtime ID is not found, create a new SeatMap document
+    if (!seatMap) {
+      seatMap = new SeatMap({ showtimeid: showtimeId });
+    }
+
+    // Assign the seat for the specified showtime ID and update the email
+    seatMap[seat].isOccupied = true; // Mark the seat as occupied
+    seatMap[seat].email = email; // Assign the email to the seat
+
+    // Save the updated SeatMap document
+    await seatMap.save();
+
+    // Return a success message
+    res.json({ message: `Seat ${seat} assigned to ${email} for showtime ${showtimeId}` });
+  } catch (error) {
+    console.error("Error assigning seat:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 app.put("/movie/movies/:id", async (req, res) => {
   const { id } = req.params;
@@ -59,22 +90,27 @@ app.get('/movie/:movieId/showtimes', async (req, res) => {
 app.post('/movie/:movieId/showtimes', async (req, res) => {
   try {
     const { movieId } = req.params;
-    
+
     // Find the movie by its ID
     const movie = await Movie.findById(movieId);
     if (!movie) {
       return res.status(404).json({ error: 'Movie not found' });
     }
-    
+
     // Extract the showtime data from the request body
     const { date, time } = req.body;
 
     // Add the new showtime to the movie's showtimes array
     movie.showtimes.push({ date, time });
-    
+
     // Save the updated movie document
     await movie.save();
-    
+
+    // Create a new SeatMap object associated with the newly added showtime
+    const showtime = movie.showtimes[movie.showtimes.length - 1];
+    const seatMap = new SeatMap({ showtimeid: showtime._id });
+    await seatMap.save();
+
     // Return the updated movie document as the response
     res.json(movie);
   } catch (error) {
@@ -82,6 +118,7 @@ app.post('/movie/:movieId/showtimes', async (req, res) => {
     res.status(500).json({ error: "Error adding showtime" });
   }
 });
+
 
 app.delete('/movie/:movieId/showtimes/:showtimeId', async (req, res) => {
   try {

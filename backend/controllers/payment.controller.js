@@ -1,6 +1,6 @@
 const QR = require('../models/qr.Model');
 
-exports.check= async (req, res) => {
+exports.check = async (req, res) => {
   try {
     const paymentId = req.body.paymentId;
 
@@ -21,7 +21,7 @@ exports.check= async (req, res) => {
         } else {
           payment.used = true;
           await payment.save();
-          res.json({ exists: true, validityPassed: false, alreadyScanned: false });
+          res.json({ exists: true, validityPassed: false, alreadyScanned: false, email: payment.email });
         }
       }
     }
