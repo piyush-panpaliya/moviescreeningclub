@@ -31,7 +31,7 @@ const Navbar = () => {
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <Link to="/">
-                <img className="h-8 w-auto" src={Logo} alt="Movies" />
+                <img className="h-12 w-auto" src={Logo} alt="Movies" />
               </Link>
             </div>
           </div>
