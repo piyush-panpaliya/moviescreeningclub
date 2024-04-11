@@ -33,6 +33,11 @@ app.put('/seatmap/:showtimeId/:seat', async (req, res) => {
     if (!seatMap) {
       seatMap = new SeatMap({ showtimeid: showtimeId });
     }
+    
+    // Check if the selected seat is already occupied
+    if (seatMap[seat].isOccupied) {
+      return res.status(400).json({ message: `Seat ${seat} is already occupied` });
+    }
 
     // Assign the seat for the specified showtime ID and update the email
     seatMap[seat].isOccupied = true; // Mark the seat as occupied
@@ -48,6 +53,7 @@ app.put('/seatmap/:showtimeId/:seat', async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 
 app.put("/movie/movies/:id", async (req, res) => {

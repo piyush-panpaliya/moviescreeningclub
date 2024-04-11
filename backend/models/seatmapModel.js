@@ -16,16 +16,86 @@ const SeatMapSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    A1: SeatSchema,
-    A2: SeatSchema,
-    A3: SeatSchema,
-    A4: SeatSchema,
-    A5: SeatSchema,
-    A6: SeatSchema,
-    A7: SeatSchema,
-    A8: SeatSchema,
-    A9: SeatSchema,
-    A10: SeatSchema
+    A1:{isOccupied: {
+        type: Boolean,
+        default: false
+    },
+    email: {
+        type: String,
+        default: null
+    }},
+    A2: {isOccupied: {
+        type: Boolean,
+        default: false
+    },
+    email: {
+        type: String,
+        default: null
+    }},
+    A3: {isOccupied: {
+        type: Boolean,
+        default: false
+    },
+    email: {
+        type: String,
+        default: null
+    }},
+    A4: {isOccupied: {
+        type: Boolean,
+        default: false
+    },
+    email: {
+        type: String,
+        default: null
+    }},
+    A5:{isOccupied: {
+        type: Boolean,
+        default: false
+    },
+    email: {
+        type: String,
+        default: null
+    }},
+    A6: {isOccupied: {
+        type: Boolean,
+        default: false
+    },
+    email: {
+        type: String,
+        default: null
+    }},
+    A7: {isOccupied: {
+        type: Boolean,
+        default: false
+    },
+    email: {
+        type: String,
+        default: null
+    }},
+    A8:{isOccupied: {
+        type: Boolean,
+        default: false
+    },
+    email: {
+        type: String,
+        default: null
+    }},
+    A9: {isOccupied: {
+        type: Boolean,
+        default: false
+    },
+    email: {
+        type: String,
+        default: null
+    }},
+    A10: {isOccupied: {
+        type: Boolean,
+        default: false
+    },
+    email: {
+        type: String,
+        default: null
+    }},
 });
 
 const SeatMap = mongoose.model('SeatMap', SeatMapSchema);
