@@ -12,14 +12,24 @@ import {
   Dropdown,
   DropdownMenu,
   DropdownItem,
+  Chip,
+  Input,
   getKeyValue,
 } from "@nextui-org/react";
-// import './adddropvolunteer.css';
 
 const AddDropVolunteer = () => {
   const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");
   const [userType, setUserType] = useState("standard");
+  const [filterValue, setFilterValue] = useState("");
+  const onSearchChange = React.useCallback((value) => {
+    if (value) {
+      setFilterValue(value);
+    } else {
+      setFilterValue("");
+    }
+  }, []);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,11 +46,16 @@ const AddDropVolunteer = () => {
   }, [navigate]);
 
   const fetchUserData = async () => {
-    console.log("hey");
     try {
-      const response = await fetch("http://localhost:8000/user/fetchusers", {
+      let url = "http://localhost:8000/user/fetchusers";
+      // Append search query to the URL if filterValue is not empty
+      if (filterValue) {
+        url += `?search=${encodeURIComponent(filterValue)}`;
+      }
+      const response = await fetch(url, {
         method: "GET",
       });
+
       if (!response.ok) {
         console.log(response.json());
         throw new Error("Failed to fetch user data");
@@ -59,7 +74,7 @@ const AddDropVolunteer = () => {
     }
   };
 
-  const handleSubmit = async (email,userType) => {
+  const handleSubmit = async (email, userType) => {
     try {
       const response = await fetch(
         "http://localhost:8000/user/updateUserType",
@@ -89,6 +104,12 @@ const AddDropVolunteer = () => {
     }
   };
 
+  const statusColorMap = {
+    admin: "success",
+    volunteer: "primary",
+    standard: "secondary",
+  };
+
   const getKeyValue = (item, key) => {
     switch (key) {
       case "name":
@@ -98,7 +119,16 @@ const AddDropVolunteer = () => {
       case "designation":
         return item.designation;
       case "Role":
-        return item.usertype;
+        return (
+          <Chip
+            className="capitalize"
+            color={statusColorMap[item.usertype]}
+            size="sm"
+            variant="flat"
+          >
+            {item.usertype}
+          </Chip>
+        );
       case "actions":
         return (
           <div className="relative flex justify-start items-center">
@@ -121,10 +151,28 @@ const AddDropVolunteer = () => {
                   </svg>
                 </Button>
               </DropdownTrigger>
-              <DropdownMenu >
-                <DropdownItem onClick={()=>{handleSubmit(item.email,'admin')}}>Admin</DropdownItem>
-                <DropdownItem onClick={()=>{handleSubmit(item.email,'volunteer')}}>Volunteer</DropdownItem>
-                <DropdownItem onClick={()=>{handleSubmit(item.email,'standard')}}>Standard</DropdownItem>
+              <DropdownMenu>
+                <DropdownItem
+                  onClick={() => {
+                    handleSubmit(item.email, "admin");
+                  }}
+                >
+                  Admin
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    handleSubmit(item.email, "volunteer");
+                  }}
+                >
+                  Volunteer
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    handleSubmit(item.email, "standard");
+                  }}
+                >
+                  Standard
+                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
@@ -134,50 +182,70 @@ const AddDropVolunteer = () => {
     }
   };
 
-
   const columns = ["name", "email", "designation", "Role", "actions"];
+
+  const topContent = React.useMemo(() => {
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="flex justify-between gap-3 items-end">
+          <Input
+            isClearable
+            classNames={{
+              base: "w-full sm:max-w-[44%]",
+              inputWrapper: "border-1",
+            }}
+            placeholder="Search by name..."
+            size="sm"
+            startContent={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                />
+              </svg>
+            }
+            value={filterValue}
+            variant="bordered"
+            onClear={() => setFilterValue("")}
+            onValueChange={(value)=>setFilterValue(value)}
+          />
+        </div>
+      </div>
+    );
+  });
+
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(filterValue.toLowerCase())
+  );
 
   return (
     <div className="flex justify-center">
-      {/* <h1>Add/Drop Volunteer</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <label htmlFor="userType">User Type:</label>
-        <select
-          id="userType"
-          name="userType"
-          value={userType}
-          onChange={(e) => setUserType(e.target.value)}
-        >
-          <option value="standard">Standard</option>
-          <option value="volunteer">Volunteer</option>
-          <option value="admin">Admin</option>
-        </select>
-        <p></p>
-        <button type="submit">Submit</button>
-      </form> */}
-
       <Table
         isStriped
         className="w-[80%] mt-5"
         aria-label="Controlled table example with dynamic content"
+        topContent={topContent}
+        topContentPlacement="outside"
       >
         <TableHeader
+          className="capitalize"
           columns={columns.map((column) => ({ key: column, label: column }))}
         >
           {(column) => (
-            <TableColumn key={column.key}>{column.label}</TableColumn>
+            <TableColumn className="capitalize" key={column.key}>
+              {column.label}
+            </TableColumn>
           )}
         </TableHeader>
-        <TableBody items={users}>
+        <TableBody items={filteredUsers}>
           {(item) => (
             <TableRow key={item._id}>
               {columns.map((columnKey) => (

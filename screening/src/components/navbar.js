@@ -23,7 +23,7 @@ const Navbar = () => {
     setShowMenu(!showMenu); 
     console.log("ShowMenu current state",showMenu);
   };
-
+  
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-4">
