@@ -1,10 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-<<<<<<< HEAD
-=======
 //import 'bootstrap/dist/css/bootstrap.css';
 import "./css/output.css";
->>>>>>> d4c6d513a719193cc623e0158b0a67b7a92706ce
 import Navbar from "./components/navbar.js";
 import Foram from "./components/Foram.js";
 import Scanner from "./components/Scanner.js";
