@@ -4,106 +4,106 @@ import Logo from '../images/logo.png';
 import { useLogin } from './LoginContext'; // Import useLogin hook
 
 const Navbar = () => {
-  const { loggedIn, logout } = useLogin(); // Use loggedIn state from context
-  const navigate = useNavigate(); // Hook for navigation
+  const { loggedIn, logout } = useLogin();
+  const navigate = useNavigate();
   const [userType, setUserType] = useState(localStorage.getItem('userType'));
-  const [showMenu, setShowMenu] = useState(false); // State to control menu display
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
-    // Fetch userType from localStorage
     const userType = localStorage.getItem('userType');
     setUserType(userType);
-  }, [loggedIn]); // Run useEffect whenever loggedIn changes
+  }, [loggedIn]);
 
   const handleLogout = () => {
     logout();
-    navigate('/login'); // Redirect to login page after logout
+    navigate('/login'); 
   };
 
   const toggleMenu = () => {
-    setShowMenu(!showMenu); // Toggle the menu display
+    setShowMenu(!showMenu); 
+    console.log("ShowMenu current state",showMenu);
   };
 
   return (
-    <nav className="navbar navbar-expand-lg">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
-          <img src={Logo} height="50px" alt="Movies" />
-          Movies
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          onClick={toggleMenu} // Add onClick event to toggle menu display
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className={`collapse navbar-collapse ${showMenu ? 'show' : ''}`} id="navbarNav">
-          <ul className="navbar-nav ml-auto align-items-center">
-            {loggedIn ? (
-              <>
-                {userType === 'admin' && (
-                  <>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/myaccount'>My Profile</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/form'>Buy a new Membership</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/adddropvolunteer'>Add/Drop Volunteer</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/scanner'>Scanner</Link>                      
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/addmovie'>Add Movie</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/modifymovie'>Modify Movie</Link>
-                    </li>
-                  </>
-                )}
-                {userType === 'volunteer' && (
-                  <>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/myaccount'>My Profile</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/form'>Buy a new Membership</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/scanner'>Scanner</Link>                      
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/addmovie'>Add Movie</Link>
-                    </li>
-                  </>
-                )}
-                {userType === 'standard' && (
-                  <>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/myaccount'>My Profile</Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to='/form'>Buy a new Membership</Link>
-                    </li>
-                  </>
-                )}
-                <li className="nav-item">
-                  <button className="nav-link btn btn-link" onClick={handleLogout}>Logout</button>
-                </li>
-              </>
-            ) : (
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">Login</Link>
-              </li>
-            )}
-          </ul>
+    <nav className="bg-gray-800">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex justify-between h-16">
+          <div className="flex">
+            <div className="flex-shrink-0 flex items-center">
+              <Link to="/">
+                <img className="h-8 w-auto" src={Logo} alt="Movies" />
+              </Link>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="-mr-2 flex items-center">
+              <button
+                onClick={toggleMenu}
+                type="button"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
+                aria-label="Main menu"
+                aria-expanded="false"
+              >
+                {/* Heroicon name: menu */}
+                <svg className="block h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                {/* Heroicon name: menu */}
+                <svg className="hidden h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div className={`${showMenu ? 'block' : 'hidden'}`}>
+        <div className="px-2 pt-2 pb-3">
+          {loggedIn ? (
+                <>
+                  {userType === 'admin' && (
+                    <>
+                      <NavItem to='/myaccount'>My Profile</NavItem>
+                      <NavItem to='/form'>Buy a new Membership</NavItem>
+                      <NavItem to='/adddropvolunteer'>Add/Drop Volunteer</NavItem>
+                      <NavItem to='/scanner'>Scanner</NavItem>
+                      <NavItem to='/addmovie'>Add Movie</NavItem>
+                      <NavItem to='/modifymovie'>Modify Movie</NavItem>
+                    </>
+                  )}
+                  {userType === 'volunteer' && (
+                    <>
+                      <NavItem to='/myaccount'>My Profile</NavItem>
+                      <NavItem to='/form'>Buy a new Membership</NavItem>
+                      <NavItem to='/scanner'>Scanner</NavItem>
+                      <NavItem to='/addmovie'>Add Movie</NavItem>
+                    </>
+                  )}
+                  {userType === 'standard' && (
+                    <>
+                      <NavItem to='/myaccount'>My Profile</NavItem>
+                      <NavItem to='/form'>Buy a new Membership</NavItem>
+                    </>
+                  )}
+                  <button className="btn btn-link" onClick={handleLogout}>Logout</button>
+                </>
+              ) : (
+                <NavItem to="/login">Login</NavItem>
+              )}
         </div>
       </div>
     </nav>
   );
 }
+
+const NavItem = ({ to, children }) => (
+  <Link
+    to={to}
+    className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+  >
+    {children}
+  </Link>
+);
 
 export default Navbar;
