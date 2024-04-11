@@ -33,7 +33,7 @@ const Home = () => {
           <div className="flex flex-col bg-white h-1/2 w-4/5 my-10 rounded-xl shadow-lg">
             <div className="flex justify-between my-3 mx-5">
               <h2 className="text-xl font-semibold">Ongoing Movies</h2>
-              <p>show more</p>
+              <p className="font-inter">Show More</p>
             </div>
             <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mx-5">
               {/* <div className="rounded overflow-hidden bg-gray-400"> */}
@@ -63,26 +63,42 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="container">
-            <h2>Upcoming Movies</h2>
-            <div className="overflow-x-scroll">
-              <div className="movie-list">
-                {upcomingMovies.map((movie) => (
-                  <Link to={`/showtime/${movie._id}`} key={movie._id}>
-                    <div className="movie-card">
-                      {" "}
-                      {/* movie-card div should be inside the Link */}
-                      <img src={movie.poster} alt={movie.title} />
-                      <div className="movie-details">
-                        <p className="movie-title">{movie.title}</p>
-                        <p className="movie-genre">{movie.genre}</p>
-                      </div>
+
+          <div className="flex flex-col bg-white h-1/2 w-4/5 my-10 rounded-xl shadow-lg">
+            <div className="flex justify-between my-3 mx-5">
+              <h2 className="text-xl font-semibold">Upcoming Movies</h2>
+              <p>Show More</p>
+            </div>
+            <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mx-5">
+              {/* <div className="rounded overflow-hidden bg-gray-400"> */}
+              {upcomingMovies.map((movie) => (
+                <Link
+                  to={`/showtime/${movie._id}`}
+                  key={movie._id}
+                  onClick={() => console.log("Clicked movie ID:", movie._id)} // Add onClick event handler
+                  className="flex items-center justify-center"
+                >
+                  <div className="w-full h-full object-cover">
+                    <div className="w-full h-4/5">
+                    <img
+                      className="object-cover w-full h-full rounded-md"
+                      src={movie.poster}
+                      alt={movie.title}
+                    />
                     </div>
-                  </Link>
-                ))}
-              </div>
+                    <div className="flex flex-col mt-1 ">
+                        <p className="font-semibold text-2xl">{movie.title}</p>
+                        <p className="movie-genre">{movie.genre}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+              {/* </div> */}
             </div>
           </div>
+
+
+
         </div>
       </div>
 

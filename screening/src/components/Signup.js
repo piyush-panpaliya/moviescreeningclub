@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import "../Signup.css"; // Import CSS file
 
 export const Signup = () => {
   const [formData, setFormData] = useState({
@@ -13,8 +12,8 @@ export const Signup = () => {
   });
 
   const [email, setEmail] = useState("");
-  const [isValidEmail, setIsValidEmail] = useState(false); // Track email validation
-  const [showPassword, setShowPassword] = useState(false); // Track password visibility
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +33,7 @@ export const Signup = () => {
   };
 
   const parseEmail = (email) => {
-    email = email.trim(); // Trim leading and trailing spaces
+    email = email.trim();
     if (email.endsWith("@students.iitmandi.ac.in")) {
       setIsValidEmail(true);
       if (email.toLowerCase().startsWith("b")) {
@@ -80,93 +79,107 @@ export const Signup = () => {
   const { name, phoneNumber, password, otp } = formData;
 
   return (
-    <div className="App">
-      <h2>Sign-Up New User</h2>
+    <div className="bg-gray-200 flex flex-col items-center">
+      <div className="flex flex-col bg-white h-1/2 w-4/5 my-10 rounded-xl shadow-lg">
+        <h2 className="text-xl font-semibold">Sign-Up New User</h2>
 
-      <div className="form-group">
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          value={name}
-          onChange={handleChange}
-        />
-      </div>
+        <div className="grid gap-6 mb-8 md:grid-cols-1 mx-5">
+          <div>
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              value={name}
+              onChange={handleChange}
+              className="border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="phoneNumber">Phone Number:</label>
-        <input
-          type="text"
-          id="phoneNumber"
-          name="phoneNumber"
-          value={phoneNumber}
-          onChange={handleChange}
-        />
-      </div>
+          <div>
+            <label htmlFor="phoneNumber">Phone Number:</label>
+            <input
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              value={phoneNumber}
+              onChange={handleChange}
+              className="border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="designation">Choose Degree:</label>
-        <input
-          type="text"
-          id="designation"
-          name="designation"
-          required
-          value={formData.designation}
-          readOnly
-        />
-      </div>
+          <div>
+            <label htmlFor="designation">Choose Degree:</label>
+            <input
+              type="text"
+              id="designation"
+              name="designation"
+              required
+              value={formData.designation}
+              readOnly
+              className="border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          value={email}
-          onChange={handleChange}
-          readOnly
-        />
-      </div>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              value={email}
+              onChange={handleChange}
+              readOnly
+              className="border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+          </div>
 
-      <div className="form-group">
-        <label htmlFor="password">Password:</label>
-        <div className="password-input">
-          <input
-            type={showPassword ? "text" : "password"}
-            id="password"
-            name="password"
-            required
-            value={password}
-            onChange={handleChange}
-          />
-          <i
-            className={`eye-icon ${showPassword ? "visible" : "hidden"}`}
-            onClick={togglePasswordVisibility}
-          ></i>
+          <div className="password-input">
+            <label htmlFor="password">Password:</label>
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              required
+              value={password}
+              onChange={handleChange}
+              className="border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+            <i
+              className={`eye-icon ${showPassword ? "visible" : "hidden"}`}
+              onClick={togglePasswordVisibility}
+            ></i>
+          </div>
+
+          <div>
+            <label htmlFor="otp">OTP:</label>
+            <input
+              type="text"
+              id="otp"
+              name="otp"
+              required
+              value={otp}
+              onChange={handleChange}
+              className="border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+            />
+          </div>
         </div>
+
+        <span>
+          Already have an account <Link to="/login">Login</Link>
+        </span>
+        <br />
+
+        <button
+          onClick={handleSubmit}
+          disabled={!isValidEmail}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Submit
+        </button>
       </div>
-      
-      <div className="form-group">
-        <label htmlFor="otp">OTP:</label>
-        <input
-          type="text"
-          id="otp"
-          name="otp"
-          required
-          value={otp}
-          onChange={handleChange}
-        />
-      </div>
-      <span>
-        Already have an account <Link to="/login">Login</Link>
-      </span>
-      <br />
-      <button onClick={handleSubmit} disabled={!isValidEmail}>
-        Submit
-      </button>
     </div>
   );
 };

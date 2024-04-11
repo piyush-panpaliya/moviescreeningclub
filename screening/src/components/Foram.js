@@ -11,7 +11,7 @@ export const Foram = () => {
   const [email, setEmail] = useState("");
 
   const token = getToken();
-  const navigate = useNavigate(); // Declare navigate here once
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('loggedInUserEmail');
@@ -25,14 +25,14 @@ export const Foram = () => {
     const emailDomain = email.substring(email.lastIndexOf("@") + 1);
     if (emailDomain === "students.iitmandi.ac.in") {
       if (email.charAt(0).toLowerCase() === "b") {
-        return "B-Tech"; // Changed from "btech" to "B-Tech"
+        return "B-Tech";
       } else {
-        return "PHD/M-Tech"; // Changed from "phd" to "PHD/M-Tech"
+        return "PHD/M-Tech";
       }
     } else if (emailDomain === "iitmandi.ac.in") {
-      return "Faculty/Staff"; // Changed from "fs" to "Faculty/Staff"
+      return "Faculty/Staff";
     } else {
-      return ""; // Invalid email domain
+      return "";
     }
   };
 
@@ -181,18 +181,18 @@ export const Foram = () => {
 
   return (
     <>
-    <div className="d-flex justify-content-center bg-secondary-gradient main">
-      <div className="App mt-5 container w-75">
-        <h2>Razorpay Payment Integration</h2>
-        <hr className="border border-primary border-2 opacity-75"></hr>
+    <div className="flex justify-center bg-gradient-to-r from-yellow-300 via-yellow-200 to-yellow-100 min-h-screen">
+      <div className="container mx-auto my-5 p-10 bg-yellow-50 rounded-lg shadow-lg">
+        <h2 className="text-2xl mb-4 text-center">Razorpay Payment Integration</h2>
+        <hr className="border-b-2 border-primary mb-4"></hr>
         <div className="form-group">
           <label htmlFor="name" className="form-label">Name:</label>
-          <input type="text" id="name exampleFormControlInput1" className="form-control inp" name="name" placeholder="Name" required />
+          <input type="text" id="name exampleFormControlInput1" className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" name="name" placeholder="Name" required />
         </div>
 
         <div className="form-group">
           <label htmlFor="rollNumber" className="form-label">Roll Number:</label>
-          <input type="text" id="rollNumber" name="rollNumber" className="form-control inp" placeholder="Eg. BXXXXX" />
+          <input type="text" id="rollNumber" name="rollNumber" className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" placeholder="Eg. BXXXXX" />
         </div>
 
         <div className="form-group">
@@ -201,7 +201,7 @@ export const Foram = () => {
             type="text"
             id="email"
             name="email"
-            className="form-control inp"
+            className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
             required
             value={email}
             readOnly
@@ -210,7 +210,7 @@ export const Foram = () => {
 
         <div className="form-group">
           <label htmlFor="phoneNumber" className="form-label">Phone Number:</label>
-          <input type="text" id="phoneNumber" className="form-control inp" name="phoneNumber"placeholder="Phone no." required />
+          <input type="text" id="phoneNumber" className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" name="phoneNumber"placeholder="Phone no." required />
         </div>
 
         <div className="form-group">
@@ -219,7 +219,7 @@ export const Foram = () => {
             type="text"
             id="degree"
             name="degree"
-            className="form-control inp"
+            className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
             value={degree}
             readOnly
           />
@@ -228,7 +228,7 @@ export const Foram = () => {
         <div className="form-group">
           <label htmlFor="membership" className="form-label">Choose Membership:</label>
           <select
-            className="form-select inp"
+            className="form-select inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
             id="membership"
             name="membership"
             required
@@ -242,20 +242,17 @@ export const Foram = () => {
           </select>
         </div>
 
-        <br />
         <div className="form-group">
-        <input className="inp" type="text" placeholder="Amount" value={amount} readOnly />
+          <input className="inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" type="text" placeholder="Amount" value={amount} readOnly />
         </div>
-        <br />
-        <br />
-        <div className="d-grid gap-2 col-6 mx-auto">
-        <button onClick={handleSubmit}className="btn btn-primary sub">Submit</button>
+
+        <div className="grid place-items-center">
+          <button onClick={handleSubmit} className="btn btn-primary sub py-2 px-4 rounded-md bg-blue-500 hover:bg-blue-700 text-white font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Submit</button>
+        </div>
       </div>
-      </div>
-      </div>
+    </div>
     </>
   );
 };
 
 export default Foram;
-
