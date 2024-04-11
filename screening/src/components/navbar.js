@@ -4,24 +4,24 @@ import Logo from '../images/logo.png';
 import { useLogin } from './LoginContext'; // Import useLogin hook
 
 const Navbar = () => {
-  const { loggedIn, logout } = useLogin(); // Use loggedIn state from context
-  const navigate = useNavigate(); // Hook for navigation
+  const { loggedIn, logout } = useLogin();
+  const navigate = useNavigate();
   const [userType, setUserType] = useState(localStorage.getItem('userType'));
-  const [showMenu, setShowMenu] = useState(false); // State to control menu display
+  const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
-    // Fetch userType from localStorage
     const userType = localStorage.getItem('userType');
     setUserType(userType);
-  }, [loggedIn]); // Run useEffect whenever loggedIn changes
+  }, [loggedIn]);
 
   const handleLogout = () => {
     logout();
-    navigate('/login'); // Redirect to login page after logout
+    navigate('/login'); 
   };
 
   const toggleMenu = () => {
-    setShowMenu(!showMenu); // Toggle the menu display
+    setShowMenu(!showMenu); 
+    console.log("ShowMenu current state",showMenu);
   };
 
   return (
@@ -111,5 +111,14 @@ const Navbar = () => {
   </nav>
   );
 }
+
+const NavItem = ({ to, children }) => (
+  <Link
+    to={to}
+    className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
+  >
+    {children}
+  </Link>
+);
 
 export default Navbar;

@@ -1,5 +1,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+<<<<<<< HEAD
+=======
+//import 'bootstrap/dist/css/bootstrap.css';
+import "./css/output.css";
+>>>>>>> d4c6d513a719193cc623e0158b0a67b7a92706ce
 import Navbar from "./components/navbar.js";
 import Foram from "./components/Foram.js";
 import Scanner from "./components/Scanner.js";
@@ -15,6 +20,7 @@ import { LoginProvider } from './components/LoginContext';
 import ForgotPassword from "./components/forgotPassword.js";
 import UpdatePassword from "./components/updatePassowrd.js";
 import Showtime from "./components/showtime.js";
+import Test from "./components/test.js";
 
 function App() {
   return (
@@ -36,6 +42,7 @@ function App() {
           <Route path="/forgot" element={<ForgotPassword/>}/>
           <Route path="/update" element={<UpdatePassword/>}/>
           <Route path="/showtime/:movieId" element={<Showtime/>}/>
+          <Route path = "/test" element={<Test/>}/>
         </Routes>
       </LoginProvider>
     </BrowserRouter>
