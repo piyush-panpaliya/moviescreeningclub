@@ -43,9 +43,10 @@ const Navbar = () => {
 
 
   const toggleMenu = (event) => {
-    event.stopPropagation(); // Prevent the event from propagating to the document click listener
-    setShowMenu(!showMenu); 
-    console.log("ShowMenu current state", showMenu);
+    if (event) {
+      event.stopPropagation();
+    }
+    setShowMenu(prevState => !prevState);
   };
   
   return (
