@@ -21,6 +21,36 @@ mongoose.connect(`${process.env.MongoDB}`,)
 const PORT = 8000;
 app.use(bodyParser.json());
 
+// Backend API Endpoint to fetch seat occupancy information
+app.get('/seatmap/:showtimeId/seats', async (req, res) => {
+  try {
+    const { showtimeId } = req.params;
+
+    // Find the SeatMap document for the specified showtime ID
+    const seatMap = await SeatMap.findOne({ showtimeid: showtimeId });
+
+    // If the showtime ID is not found, return an error
+    if (!seatMap) {
+      return res.status(404).json({ message: "Showtime ID not found" });
+    }
+
+    // Extract seat occupancy information
+    const seatOccupancy = {};
+    Object.keys(seatMap._doc).forEach(seat => {
+      if (seat !== "_id" && seat !== "showtimeid") {
+        seatOccupancy[seat] = seatMap[seat].isOccupied;
+      }
+    });
+
+    // Return seat occupancy information
+    res.json(seatOccupancy);
+  } catch (error) {
+    console.error("Error fetching seat occupancy:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
 app.put('/seatmap/:showtimeId/:seat', async (req, res) => {
   try {
     const { showtimeId, seat } = req.params;

@@ -66,6 +66,9 @@ export const Scanner = () => {
       console.log(scanResultInfo);
       // Update button visibility based on scan result
       setShowButton(data.exists && !data.validityPassed && !data.alreadyScanned);
+      if (data.exists && !data.validityPassed && !data.alreadyScanned) {
+        localStorage.setItem("seatassignment", "true");
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     }

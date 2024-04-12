@@ -9,18 +9,45 @@ const SeatMapPage = () => {
   const showtimeId = location.pathname.split("/")[2];
 
   const [selectedSeat, setSelectedSeat] = useState(null);
+  const [assignedSeat, setAssignedSeat] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [seatOccupancy, setSeatOccupancy] = useState({});
 
-  const handleSeatSelection = async (seat) => {
+  useEffect(() => {
+    // Fetch seat occupancy information when the component mounts
+    const fetchSeatOccupancy = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/seatmap/${showtimeId}/seats`);
+      } catch (error) {
+        console.error("Error fetching seat occupancy:", error);
+      }
+    };
+
+    fetchSeatOccupancy();
+  }, [showtimeId]);
+
+  const handleSeatSelection = (seat) => {
+    if (assignedSeat || seatOccupancy[seat]) {
+      setErrorMessage("This seat is already occupied. Please select another seat.");
+      return;
+    }
+    setSelectedSeat(seat);
+    setErrorMessage(null);
+  };
+
+  const handleConfirmSeat = async () => {
     try {
-      // Assign the selected seat for the current showtime
-      await axios.put(`http://localhost:8000/seatmap/${showtimeId}/${seat}`, { email });
-      setSelectedSeat(seat);
-      setErrorMessage(null); // Reset error message
+      await axios.put(`http://localhost:8000/seatmap/${showtimeId}/${selectedSeat}`, { email });
+      setAssignedSeat(true);
+      localStorage.setItem("seatassignment", "false");
+      // Redirect to scanner page after 3 seconds
+      setTimeout(() => {
+        window.location.href = "/scanner";
+      }, 3000);
     } catch (error) {
       console.error("Error assigning seat:", error);
       if (error.response && error.response.status === 400) {
-        setErrorMessage(`Seat ${seat} is already occupied`);
+        setErrorMessage(`Seat ${selectedSeat} is already occupied`);
       } else {
         setErrorMessage("An error occurred while assigning the seat");
       }
@@ -29,27 +56,95 @@ const SeatMapPage = () => {
 
   return (
     <div>
-      <h1>Seat Map</h1>
-      <h2>Showtime ID: {showtimeId}</h2>
-      <h3>Email: {email}</h3>
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      <div>
-        <h3>Select Seat:</h3>
+      {!assignedSeat && (
         <div>
-          <button onClick={() => handleSeatSelection("A1")}>A1</button>
-          <button onClick={() => handleSeatSelection("A2")}>A2</button>
-          <button onClick={() => handleSeatSelection("A3")}>A3</button>
-          <button onClick={() => handleSeatSelection("A4")}>A4</button>
-          <button onClick={() => handleSeatSelection("A5")}>A5</button>
-          <button onClick={() => handleSeatSelection("A6")}>A6</button>
-          <button onClick={() => handleSeatSelection("A7")}>A7</button>
-          <button onClick={() => handleSeatSelection("A8")}>A8</button>
-          <button onClick={() => handleSeatSelection("A9")}>A9</button>
-          <button onClick={() => handleSeatSelection("A10")}>A10</button>
+          <h1>Seat Map</h1>
+          <h2>Showtime ID: {showtimeId}</h2>
+          <h3>Email: {email}</h3>
+          <div>
+            <h3>Select Seat:</h3>
+            <div>
+              <button
+                onClick={() => handleSeatSelection("A1")}
+                disabled={assignedSeat || seatOccupancy["A1"]}
+                style={{color: seatOccupancy["A1"] ? "red" : "black" }}
+              >
+                A1
+              </button>
+              <button
+                onClick={() => handleSeatSelection("A2")}
+                disabled={assignedSeat || seatOccupancy["A2"]}
+                style={{color: seatOccupancy["A2"] ? "red" : "black" }}
+              >
+                A2
+              </button>
+              <button
+                onClick={() => handleSeatSelection("A3")}
+                disabled={assignedSeat || seatOccupancy["A3"]}
+                style={{color: seatOccupancy["A3"] ? "red" : "black" }}
+              >
+                A3
+              </button>
+              <button
+                onClick={() => handleSeatSelection("A4")}
+                disabled={assignedSeat || seatOccupancy["A4"]}
+                style={{color: seatOccupancy["A4"] ? "red" : "black" }}
+              >
+                A4
+              </button>
+              <button
+                onClick={() => handleSeatSelection("A5")}
+                disabled={assignedSeat || seatOccupancy["A5"]}
+                style={{ color: seatOccupancy["A5"] ? "red" : "black" }}
+              >
+                A5
+              </button>
+              <button
+                onClick={() => handleSeatSelection("A6")}
+                disabled={assignedSeat || seatOccupancy["A6"]}
+                style={{color: seatOccupancy["A6"] ? "red" : "black" }}
+              >
+                A6
+              </button>
+              <button
+                onClick={() => handleSeatSelection("A7")}
+                disabled={assignedSeat || seatOccupancy["A7"]}
+                style={{ color: seatOccupancy["A7"] ? "red" : "black" }}
+              >
+                A7
+              </button>
+              <button
+                onClick={() => handleSeatSelection("A8")}
+                disabled={assignedSeat || seatOccupancy["A8"]}
+                style={{ color: seatOccupancy["A8"] ? "red" : "black" }}
+              >
+                A8
+              </button>
+              <button
+                onClick={() => handleSeatSelection("A9")}
+                disabled={assignedSeat || seatOccupancy["A9"]}
+                style={{ color: seatOccupancy["A9"] ? "red" : "black" }}
+              >
+                A9
+              </button>
+              <button
+                onClick={() => handleSeatSelection("A10")}
+                disabled={assignedSeat || seatOccupancy["A10"]}
+                style={{color: seatOccupancy["A10"] ? "red" : "black" }}
+              >
+                A10
+              </button>
+              {/* Add other seat buttons similarly */}
+            </div>
+          </div>
+          {selectedSeat && (
+            <div>
+              <p>Selected Seat: {selectedSeat}</p>
+              <button onClick={handleConfirmSeat}>Confirm Seat</button>
+            </div>
+          )}
         </div>
-      </div>
-      {selectedSeat && (
-        <p>Seat {selectedSeat} has been assigned to {email} for showtime {showtimeId}.</p>
       )}
     </div>
   );
