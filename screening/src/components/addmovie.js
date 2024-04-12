@@ -20,7 +20,7 @@ const MovieForm = () => {
     const userType = localStorage.getItem('userType');
     if (!userType || userType === 'standard') {
       // If userType is not found or is "standard", redirect to the home page
-      navigate('/home');
+      navigate('/');
     }
   }, [navigate]);
 

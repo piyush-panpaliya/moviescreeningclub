@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SeatMapPage = () => {
   const location = useLocation();
@@ -12,12 +12,22 @@ const SeatMapPage = () => {
   const [assignedSeat, setAssignedSeat] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [seatOccupancy, setSeatOccupancy] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userType = localStorage.getItem('userType');
+    // If userType is not volunteer or admin, redirect to home page
+    if (!userType || userType === 'standard') {
+      navigate("/");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     // Fetch seat occupancy information when the component mounts
     const fetchSeatOccupancy = async () => {
       try {
         const response = await axios.get(`http://localhost:8000/seatmap/${showtimeId}/seats`);
+        setSeatOccupancy(response.data);
       } catch (error) {
         console.error("Error fetching seat occupancy:", error);
       }
@@ -25,6 +35,16 @@ const SeatMapPage = () => {
 
     fetchSeatOccupancy();
   }, [showtimeId]);
+
+  const seatAssignment = localStorage.getItem("seatassignment");
+  useEffect(() => {
+    if (seatAssignment === "false") {
+      setTimeout(() => {
+        window.location.href = "/scanner";
+      }, 0);
+    }
+  }, [showtimeId]);
+  
 
   const handleSeatSelection = (seat) => {
     if (assignedSeat || seatOccupancy[seat]) {
@@ -39,11 +59,12 @@ const SeatMapPage = () => {
     try {
       await axios.put(`http://localhost:8000/seatmap/${showtimeId}/${selectedSeat}`, { email });
       setAssignedSeat(true);
+      setErrorMessage(`The seat ${selectedSeat} is successfully assigned to ${email}. Redirecting to Scanner...`);
       localStorage.setItem("seatassignment", "false");
       // Redirect to scanner page after 3 seconds
       setTimeout(() => {
         window.location.href = "/scanner";
-      }, 3000);
+      }, 5000);
     } catch (error) {
       console.error("Error assigning seat:", error);
       if (error.response && error.response.status === 400) {
@@ -68,7 +89,7 @@ const SeatMapPage = () => {
               <button
                 onClick={() => handleSeatSelection("A1")}
                 disabled={assignedSeat || seatOccupancy["A1"]}
-                style={{color: seatOccupancy["A1"] ? "red" : "black" }}
+                style={{color: seatOccupancy["A1"] ? "yellow" : "black" }}
               >
                 A1
               </button>

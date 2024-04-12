@@ -33,6 +33,7 @@ export const Scanner = () => {
           (result, err) => {
             if (isScanning) {
               if (result) {
+                codeReader.reset();
                 console.log("Next QR"); // Log "Next QR" after identifying a QR code
                 setScanResult(result.getText());
                 isScanning = false; // Stop scanning once QR code is detected
@@ -63,7 +64,7 @@ export const Scanner = () => {
       }
       const data = await response.json();
       setScanResultInfo(data);
-      console.log(scanResultInfo);
+      
       // Update button visibility based on scan result
       setShowButton(data.exists && !data.validityPassed && !data.alreadyScanned);
       if (data.exists && !data.validityPassed && !data.alreadyScanned) {
@@ -74,9 +75,6 @@ export const Scanner = () => {
     }
   };
 
-  const handleRedirect = () => {
-    navigate(`/allshowtime/${scanResultInfo.email}`);
-  };
 
   return (
     <div style={{ width: "100%", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -98,9 +96,7 @@ export const Scanner = () => {
                         ) : (
                           <>
                             <div>Access granted for {scanResultInfo.email}.</div>
-                            {showButton && (
-                              <button onClick={handleRedirect}>View All Showtimes</button>
-                            )}
+                            {navigate(`/allshowtime/${scanResultInfo.email}`)}
                           </>
                         )}
                       </div>

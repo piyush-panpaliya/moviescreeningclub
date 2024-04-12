@@ -8,6 +8,15 @@ const ShowtimePage = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
+    const userType = localStorage.getItem('userType');
+    // If userType is not volunteer or admin, redirect to home page
+    if (!userType || userType === 'standard') {
+      navigate("/");
+    }
+  }, [navigate]);
+
+
+  useEffect(() => {
     axios
       .get("http://localhost:8000/movie/movies")
       .then((response) => {
@@ -24,7 +33,8 @@ const ShowtimePage = () => {
 
   return (
     <div>
-      <h1>Showtime Page</h1>
+      <div>Access granted for {email}.</div>
+      <h1>Please select a Showtime form below:</h1>
       <table>
         <thead>
           <tr>
