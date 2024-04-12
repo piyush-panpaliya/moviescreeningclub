@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from '../images/logo.png';
 import { useLogin } from './LoginContext'; // Import useLogin hook
@@ -8,20 +8,44 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [userType, setUserType] = useState(localStorage.getItem('userType'));
   const [showMenu, setShowMenu] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const userType = localStorage.getItem('userType');
     setUserType(userType);
   }, [loggedIn]);
 
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    // Add event listener when the dropdown is shown
+    if (showMenu) {
+      document.addEventListener('click', handleOutsideClick);
+    } else {
+      // Remove event listener when the dropdown is hidden
+      document.removeEventListener('click', handleOutsideClick);
+    }
+
+    // Cleanup function to remove event listener when the component unmounts
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [showMenu]);
+
   const handleLogout = () => {
     logout();
     navigate('/login'); 
   };
 
-  const toggleMenu = () => {
+
+  const toggleMenu = (event) => {
+    event.stopPropagation(); // Prevent the event from propagating to the document click listener
     setShowMenu(!showMenu); 
-    console.log("ShowMenu current state",showMenu);
+    console.log("ShowMenu current state", showMenu);
   };
   
   return (
@@ -77,7 +101,7 @@ const Navbar = () => {
           
         </div>
       </div>
-      <div className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4 bg-gray-800 z-10' : 'hidden'}`}>
+      <div ref={dropdownRef} className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4 bg-gray-800 z-10' : 'hidden'}`}>
         <div className="px-2 pt-2 pb-3">
           {loggedIn ? (
                 <>
@@ -107,7 +131,9 @@ const Navbar = () => {
                   )}
                 </>
               ) : (
-                <NavItem to="/login" toggleMenu={toggleMenu}>Login</NavItem>
+                <> <NavItem disabled>My Profile</NavItem>
+                <NavItem disabled>Buy a new Membership</NavItem>
+                </>
               )}
         </div>
       </div>
@@ -116,15 +142,26 @@ const Navbar = () => {
   );
 }
 
-const NavItem = ({ to, children,toggleMenu }) => (
-  <Link
-    to={to}
-    onClick={toggleMenu} // Add onClick event to collapse the menu
-    className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
-  >
-    {children}
-  </Link>
-);
+const NavItem = ({ to, children, toggleMenu, disabled }) => {
+  const handleClick = () => {
+    if (!disabled) {
+      toggleMenu();
+    }
+  };
 
+  return (
+    <Link
+      to={to}
+      onClick={disabled ? null : handleClick}
+      className={`block px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      aria-disabled={disabled}
+    >
+      {children}
+    </Link>
+  );
+};
 
 export default Navbar;
+
+
+
