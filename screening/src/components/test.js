@@ -13,6 +13,18 @@ const Test = () => {
             <div className="flex justify-center mb-4">
                 <span className="font-semibold text-lg">Screen</span>
             </div>
+            <svg
+                className="w-3/4 mx-auto mb-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 100 10"
+            >
+                <path
+                    d="M0 5 C 25 -2, 75 -2, 100 5"
+                    fill="none"
+                    stroke="black"
+                    strokeWidth="0.3"
+                />
+            </svg>
             <div className="flex justify-between gap-4">
                 <div className="flex flex-col gap-2">
                     {[...Array(9).keys()].map(row => (
