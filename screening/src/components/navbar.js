@@ -2,18 +2,37 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from '../images/logo.png';
 import { useLogin } from './LoginContext'; // Import useLogin hook
+import axios from 'axios';
 
 const Navbar = () => {
   const { loggedIn, logout } = useLogin();
   const navigate = useNavigate();
   const [userType, setUserType] = useState(localStorage.getItem('userType'));
   const [showMenu, setShowMenu] = useState(false);
+  const [hasMembership, setHasMembership] = useState(false); // New state to track existing membership
   const dropdownRef = useRef(null);
 
   useEffect(() => {
     const userType = localStorage.getItem('userType');
     setUserType(userType);
   }, [loggedIn]);
+
+  useEffect(() => {
+    // Check for existing membership when component mounts
+    const checkMembership = async () => {
+      try {
+        const email = localStorage.getItem('loggedInUserEmail'); // Get user's email from localStorage
+        const response = await axios.get(`http://localhost:8000/memrouter/checkMembership/${email}`);
+        if (response.data.hasMembership) {
+          setHasMembership(true);
+          console.log("TRUE",hasMembership);
+        }
+      } catch (error) {
+        console.error("Error checking membership:", error);
+      }
+    };
+    checkMembership();
+  }, []);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -40,7 +59,6 @@ const Navbar = () => {
     logout();
     navigate('/login'); 
   };
-
 
   const toggleMenu = (event) => {
     if (event) {
@@ -109,25 +127,23 @@ const Navbar = () => {
                   {userType === 'admin' && (
                     <>
                       <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
-                      <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>
+                      {!hasMembership && <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>}
                       <NavItem to='/adddropvolunteer' toggleMenu={toggleMenu}>Add/Drop Volunteer</NavItem>
                       <NavItem to='/scanner' toggleMenu={toggleMenu}>Scanner</NavItem>
-                      <NavItem to='/addmovie' toggleMenu={toggleMenu}>Add Movie</NavItem>
                       <NavItem to='/modifymovie' toggleMenu={toggleMenu}>Modify Movie</NavItem>
                     </>
                   )}
                   {userType === 'volunteer' && (
                     <>
                       <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
-                      <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>
+                      {!hasMembership && <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>}
                       <NavItem to='/scanner' toggleMenu={toggleMenu}>Scanner</NavItem>
-                      <NavItem to='/addmovie' toggleMenu={toggleMenu}>Add Movie</NavItem>
                     </>
                   )}
                   {userType === 'standard' && (
                     <>
                       <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
-                      <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>
+                      {!hasMembership && <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>}
                     </>
                   )}
                 </>
@@ -163,6 +179,3 @@ const NavItem = ({ to, children, toggleMenu, disabled }) => {
 };
 
 export default Navbar;
-
-
-

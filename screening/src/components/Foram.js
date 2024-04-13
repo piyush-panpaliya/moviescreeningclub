@@ -9,17 +9,32 @@ export const Foram = () => {
   const [membership, setMembership] = useState("");
   const [degree, setDegree] = useState("");
   const [email, setEmail] = useState("");
+  const [hasMembership, setHasMembership] = useState(false); 
 
   const token = getToken();
   const navigate = useNavigate();
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('loggedInUserEmail');
-    if (storedEmail) {
+    if (!storedEmail) {
+      navigate('/home');
+    } else {
       setEmail(storedEmail);
       setDegree(getDegreeFromEmail(storedEmail));
+
+      const checkMembership = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8000/memrouter/checkMembership/${storedEmail}`);
+          if (response.data.hasMembership) {
+            setHasMembership(true);
+          }
+        } catch (error) {
+          console.error("Error checking membership:", error);
+        }
+      };
+      checkMembership();
     }
-  }, []);
+  }, [navigate]);
 
   const getDegreeFromEmail = (email) => {
     const emailDomain = email.substring(email.lastIndexOf("@") + 1);
@@ -97,6 +112,7 @@ export const Foram = () => {
       pay.open();
     }
   };
+
   const generateAndSendEmail = (membership, paymentId, totalTickets) => {
     let qrCodes = [];
   
@@ -179,18 +195,19 @@ export const Foram = () => {
     }
   });
 
-  return (
-    <>
-    <div className="flex justify-center bg-gradient-to-r from-yellow-300 via-yellow-200 to-yellow-100 min-h-screen">
-      <div className="container mx-auto my-5 p-10 bg-yellow-50 rounded-lg shadow-lg">
-        <h2 className="text-2xl mb-4 text-center">Razorpay Payment Integration</h2>
-        <hr className="border-b-2 border-primary mb-4"></hr>
-        <div className="form-group">
-          <label htmlFor="name" className="form-label">Name:</label>
-          <input type="text" id="name exampleFormControlInput1" className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" name="name" placeholder="Name" required />
-        </div>
-
-        <div className="form-group">
+  if (!hasMembership) {
+    return (
+      <>
+        <div className="flex justify-center bg-gradient-to-r from-yellow-300 via-yellow-200 to-yellow-100 min-h-screen">
+          <div className="container mx-auto my-5 p-10 bg-yellow-50 rounded-lg shadow-lg">
+            <h2 className="text-2xl mb-4 text-center">Razorpay Payment Integration</h2>
+            <hr className="border-b-2 border-primary mb-4"></hr>
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="name" className="form-label">Name:</label>
+                <input type="text" id="name exampleFormControlInput1" className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" name="name" placeholder="Name" required />
+              </div>
+              <div className="form-group">
           <label htmlFor="rollNumber" className="form-label">Roll Number:</label>
           <input type="text" id="rollNumber" name="rollNumber" className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" placeholder="Eg. BXXXXX" />
         </div>
@@ -246,13 +263,18 @@ export const Foram = () => {
           <input className="inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" type="text" placeholder="Amount" value={amount} readOnly />
         </div>
 
-        <div className="grid place-items-center">
-          <button onClick={handleSubmit} className="btn btn-primary sub py-2 px-4 rounded-md bg-blue-500 hover:bg-blue-700 text-white font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Submit</button>
+              <div className="grid place-items-center">
+                <button type="submit" className="btn btn-primary sub py-2 px-4 rounded-md bg-blue-500 hover:bg-blue-700 text-white font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Submit</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-    </div>
-    </>
-  );
+      </>
+    );
+  } else {
+    navigate("/"); // Redirect the user to the home page if they have an existing membership
+    return null;
+  }
 };
 
 export default Foram;
