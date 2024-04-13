@@ -15,6 +15,14 @@ const ShowtimePage = () => {
     }
   }, [navigate]);
 
+  const seatAssignment = localStorage.getItem("seatassignment");
+  useEffect(() => {
+    if (seatAssignment === "false") {
+      setTimeout(() => {
+        window.location.href = "/scanner";
+      }, 0);
+    }
+  }, [email]);
 
   useEffect(() => {
     axios

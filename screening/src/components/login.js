@@ -7,7 +7,7 @@ import { useLogin } from './LoginContext'; // Import the useLogin hook
 export default function Login() {
   const { login } = useLogin(); // Use the login function from context
   const [formData, setFormData] = useState({
-    email: localStorage.getItem('getotpEmail') || "",
+    email: localStorage.getItem('signupEmail') || "",
     password: "",
   });
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ export default function Login() {
         </div>
         <div className="App container">
           <h2>Login</h2>
-          <hr className="border border-primary border-2 opacity-75" />
+          <hr className="border border-primary opacity-75" />
           <div className="form-group">
             <label htmlFor="email" className="form-label">Email:</label>
             <input

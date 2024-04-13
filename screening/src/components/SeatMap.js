@@ -26,7 +26,7 @@ const SeatMapPage = () => {
     // Fetch seat occupancy information when the component mounts
     const fetchSeatOccupancy = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/seatmap/${showtimeId}/seats`);
+        const response = await axios.get(`http://localhost:8000/seatmaprouter/seatmap/${showtimeId}/seats`);
         setSeatOccupancy(response.data);
       } catch (error) {
         console.error("Error fetching seat occupancy:", error);
@@ -57,7 +57,7 @@ const SeatMapPage = () => {
 
   const handleConfirmSeat = async () => {
     try {
-      await axios.put(`http://localhost:8000/seatmap/${showtimeId}/${selectedSeat}`, { email });
+      await axios.put(`http://localhost:8000/seatmaprouter/seatmap/${showtimeId}/${selectedSeat}`, { email });
       setAssignedSeat(true);
       setErrorMessage(`The seat ${selectedSeat} is successfully assigned to ${email}. Redirecting to Scanner...`);
       localStorage.setItem("seatassignment", "false");
