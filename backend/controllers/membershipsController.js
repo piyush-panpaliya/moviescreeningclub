@@ -1,4 +1,5 @@
 const Memdata = require ('../models/memdataModel.js');
+const moment = require('moment');
 
 exports.fetchMembershipsByEmail = async (req, res) => {
     const { email } = req.params;
@@ -24,3 +25,27 @@ exports.saveusermem =async (req, res) => {
         res.status(500).json({ error: "Error saving Usermem" });
       });
   };
+
+  
+
+  exports.checkMembership = async (req, res) => {
+    
+    try {
+        const { email } = req.params;
+        const existingMembership = await Memdata.findOne({ email });
+        
+        if (existingMembership) {
+            const validityDate = moment(existingMembership.validitydate, 'DD-MM-YYYY');
+            const currentDate = moment();
+            
+            if (validityDate.isAfter(currentDate, 'day')) {
+                return res.json({ hasMembership: true });
+            }
+        }
+        
+        return res.json({ hasMembership: false });
+    } catch (error) {
+        console.error("Error checking membership:", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+};

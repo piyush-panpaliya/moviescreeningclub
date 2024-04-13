@@ -1,20 +1,25 @@
-const mongoose=require('mongoose');
+const mongoose = require('mongoose');
+const moment = require('moment');
 
 const MemdataSchema = new mongoose.Schema({
-    email:String,
-    memtype:String,
+    email: String,
+    memtype: String,
     validity: Number,
-    purchasedate:{
-        type: Date,
-        default: Date.now()},
-    validitydate: {
-        type: Date,
+    purchasedate: {
+        type: String, // Change type to String
         default: function () {
-          return new Date(Date.now() + this.validity * 24 * 60 * 60 * 1000);
-          },
+            return moment().format('DD-MM-YYYY'); // Format date as dd-mm-yyyy
         }
+    },
+    validitydate: {
+        type: String, // Change type to String
+        default: function () {
+            const validityDate = moment(this.purchasedate, 'DD-MM-YYYY').add(this.validity, 'days');
+            return validityDate.format('DD-MM-YYYY'); // Format date as dd-mm-yyyy
+        }
+    }
 });
 
-const Memdata = mongoose.model('Memdata',MemdataSchema);
+const Memdata = mongoose.model('Memdata', MemdataSchema);
 
-module.exports=Memdata;
+module.exports = Memdata;

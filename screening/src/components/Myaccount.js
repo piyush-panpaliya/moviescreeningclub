@@ -17,7 +17,7 @@ const Myaccount = () => {
         .then(response => {
           // Sort memberships based on purchase date in ascending order
           const sortedMemberships = response.data.memberships.sort((a, b) => {
-            return new Date(a.purchasedate) - new Date(b.purchasedate);
+            return new Date(a.purchasedate.split('-').reverse().join('-')) - new Date(b.purchasedate.split('-').reverse().join('-'));
           });
           // Update memberships state with the sorted data
           setMemberships(sortedMemberships);
@@ -43,8 +43,8 @@ const Myaccount = () => {
           {memberships.map((membership, index) => (
             <tr key={index}>
               <td>{membership.memtype}</td>
-              <td>{new Date(membership.purchasedate).toLocaleDateString()}</td>
-              <td>{new Date(membership.validitydate).toLocaleDateString()}</td>
+              <td>{new Date(membership.purchasedate.split('-').reverse().join('-')).toLocaleDateString()}</td>
+              <td>{new Date(membership.validitydate.split('-').reverse().join('-')).toLocaleDateString()}</td>
             </tr>
           ))}
         </tbody>

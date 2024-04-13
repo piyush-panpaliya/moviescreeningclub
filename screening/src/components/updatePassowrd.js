@@ -1,40 +1,47 @@
-import React from 'react';
-import { useNavigate ,Link} from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
-export default function UpdatePassword(){
+export default function UpdatePassword() {
   const [formData, setFormData] = useState({
-    email: localStorage.getItem("forgotpassEmail"),
-    password:"",
-    otp:"",
+    email: localStorage.getItem('forgotpassEmail') || '',
+    password: '',
+    otp: '',
   });
 
-  const {email,password,otp} = formData;
-  const navigate =useNavigate();
+  const { email, password, otp } = formData;
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit=async(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-      const res=await axios.post("http://localhost:8000/login/update",formData);
-      if(res.data.success){
+    try {
+      const res = await axios.post("http://localhost:8000/login/update", formData);
+      if (res.data.success) {
         console.log('updated');
+        localStorage.removeItem('forgotpassEmail');
         navigate('/login');
+      } else {
+        console.error('failed to save');
       }
-      else console.error('failed to save')
-    }catch(err){
+    } catch (err) {
       alert('invalid otp');
-      console.log("error: ",err)
+      console.log("error: ", err);
     }
+  };
+
+  // Check if forgotpassEmail exists in localStorage, if not, redirect to /forgot
+  if (!localStorage.getItem('forgotpassEmail')) {
+    navigate('/forgot');
   }
-  return(
+
+  return (
     <div className="App">
-      <h2>forgot password?</h2>
-      <h5>enter email to recieve OTP</h5>
+      <h2>Forgot Password?</h2>
+      <h5>Enter email to receive OTP</h5>
 
       <div className="form-group">
         <label htmlFor="email">Email:</label>
@@ -52,7 +59,7 @@ export default function UpdatePassword(){
         <label htmlFor="otp">OTP</label>
         <input
           type="password"
-          id="OTP"
+          id="otp"
           name="otp"
           required
           value={otp}
@@ -60,7 +67,7 @@ export default function UpdatePassword(){
         />
       </div>
       <div className="form-group">
-        <label htmlFor="password">new password</label>
+        <label htmlFor="password">New Password</label>
         <input
           type="password"
           id="password"
@@ -70,11 +77,11 @@ export default function UpdatePassword(){
           onChange={handleChange}
         />
       </div>
-      <span>already have an account <Link to='/login'>login</Link></span>
+      <span>Already have an account? <Link to='/login'>Login</Link></span>
       <br />
       <button onClick={handleSubmit}>
         Submit
       </button>
     </div>
-  )
+  );
 }

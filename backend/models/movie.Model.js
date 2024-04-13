@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const ShowtimeSchema = new mongoose.Schema({
-  date: { type: Date},
-  time: { type: String}
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true }, // Unique identifier for the showtime
+  date: { type: Date },
+  time: { type: String }
 });
 
 const MovieSchema = new mongoose.Schema({
@@ -14,8 +15,8 @@ const MovieSchema = new mongoose.Schema({
   currentscreening: { type: Boolean },
   showtimes: {
     type: [ShowtimeSchema]
-  }});
+  }
+});
 
 const Movie = mongoose.model('Movie', MovieSchema);
-
 module.exports = Movie;

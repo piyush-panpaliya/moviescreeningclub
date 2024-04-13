@@ -1,27 +1,70 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from '../images/logo.png';
 import { useLogin } from './LoginContext'; // Import useLogin hook
+import axios from 'axios';
 
 const Navbar = () => {
   const { loggedIn, logout } = useLogin();
   const navigate = useNavigate();
   const [userType, setUserType] = useState(localStorage.getItem('userType'));
   const [showMenu, setShowMenu] = useState(false);
+  const [hasMembership, setHasMembership] = useState(false); // New state to track existing membership
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const userType = localStorage.getItem('userType');
     setUserType(userType);
   }, [loggedIn]);
 
+  useEffect(() => {
+    // Check for existing membership when component mounts
+    const checkMembership = async () => {
+      try {
+        const email = localStorage.getItem('loggedInUserEmail'); // Get user's email from localStorage
+        const response = await axios.get(`http://localhost:8000/memrouter/checkMembership/${email}`);
+        if (response.data.hasMembership) {
+          setHasMembership(true);
+          console.log("TRUE",hasMembership);
+        }
+      } catch (error) {
+        console.error("Error checking membership:", error);
+      }
+    };
+    checkMembership();
+  }, []);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    // Add event listener when the dropdown is shown
+    if (showMenu) {
+      document.addEventListener('click', handleOutsideClick);
+    } else {
+      // Remove event listener when the dropdown is hidden
+      document.removeEventListener('click', handleOutsideClick);
+    }
+
+    // Cleanup function to remove event listener when the component unmounts
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [showMenu]);
+
   const handleLogout = () => {
     logout();
     navigate('/login'); 
   };
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu); 
-    console.log("ShowMenu current state",showMenu);
+  const toggleMenu = (event) => {
+    if (event) {
+      event.stopPropagation();
+    }
+    setShowMenu(prevState => !prevState);
   };
   
   return (
@@ -77,37 +120,37 @@ const Navbar = () => {
           
         </div>
       </div>
-      <div className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4 bg-gray-800 z-10' : 'hidden'}`}>
+      <div ref={dropdownRef} className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4 bg-gray-800 z-10' : 'hidden'}`}>
         <div className="px-2 pt-2 pb-3">
           {loggedIn ? (
                 <>
                   {userType === 'admin' && (
                     <>
                       <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
-                      <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>
+                      {!hasMembership && <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>}
                       <NavItem to='/adddropvolunteer' toggleMenu={toggleMenu}>Add/Drop Volunteer</NavItem>
                       <NavItem to='/scanner' toggleMenu={toggleMenu}>Scanner</NavItem>
-                      <NavItem to='/addmovie' toggleMenu={toggleMenu}>Add Movie</NavItem>
                       <NavItem to='/modifymovie' toggleMenu={toggleMenu}>Modify Movie</NavItem>
                     </>
                   )}
                   {userType === 'volunteer' && (
                     <>
                       <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
-                      <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>
+                      {!hasMembership && <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>}
                       <NavItem to='/scanner' toggleMenu={toggleMenu}>Scanner</NavItem>
-                      <NavItem to='/addmovie' toggleMenu={toggleMenu}>Add Movie</NavItem>
                     </>
                   )}
                   {userType === 'standard' && (
                     <>
                       <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
-                      <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>
+                      {!hasMembership && <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>}
                     </>
                   )}
                 </>
               ) : (
-                <NavItem to="/login" toggleMenu={toggleMenu}>Login</NavItem>
+                <> <NavItem disabled>My Profile</NavItem>
+                <NavItem disabled>Buy a new Membership</NavItem>
+                </>
               )}
         </div>
       </div>
@@ -116,15 +159,23 @@ const Navbar = () => {
   );
 }
 
-const NavItem = ({ to, children,toggleMenu }) => (
-  <Link
-    to={to}
-    onClick={toggleMenu} // Add onClick event to collapse the menu
-    className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out"
-  >
-    {children}
-  </Link>
-);
+const NavItem = ({ to, children, toggleMenu, disabled }) => {
+  const handleClick = () => {
+    if (!disabled) {
+      toggleMenu();
+    }
+  };
 
+  return (
+    <Link
+      to={to}
+      onClick={disabled ? null : handleClick}
+      className={`block px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      aria-disabled={disabled}
+    >
+      {children}
+    </Link>
+  );
+};
 
 export default Navbar;

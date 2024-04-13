@@ -17,6 +17,8 @@ import { LoginProvider } from './components/LoginContext';
 import ForgotPassword from "./components/forgotPassword.js";
 import UpdatePassword from "./components/updatePassowrd.js";
 import Showtime from "./components/showtime.js";
+import Showtimepage from "./components/AllShowTimings.js";
+import SeatMapPage from "./components/SeatMap.js";
 import Test from "./components/test.js";
 
 function App() {
@@ -40,6 +42,8 @@ function App() {
           <Route path="/update" element={<UpdatePassword/>}/>
           <Route path="/showtime/:movieId" element={<Showtime/>}/>
           <Route path = "/test" element={<Test/>}/>
+          <Route path="/allshowtime/:email" element={<Showtimepage/>}/>
+          <Route path="/seatmap/:showtimeId" element={<SeatMapPage />} />
         </Routes>
       </LoginProvider>
     </BrowserRouter>

@@ -64,7 +64,8 @@ export const Signup = () => {
       });
       console.log(res.data);
       console.log("Submitted");
-      localStorage.getItem("signupEmail");
+      localStorage.setItem("signupEmail",email);
+      localStorage.removeItem('getotpEmail');
       navigate("/login");
     } catch (err) {
       alert("Email already registered");
@@ -75,6 +76,10 @@ export const Signup = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  
+  if (!localStorage.getItem('getotpEmail')) {
+    navigate('/getOTP');
+  }
 
   const { name, phoneNumber, password, otp } = formData;
 

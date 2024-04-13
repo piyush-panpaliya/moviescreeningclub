@@ -4,6 +4,15 @@ const router = express.Router();
 
 router.post('/add-movies', movieController.addMovie);
 router.get('/movies',movieController.getMovie);
-router.delete('/delete-movie/:id', movieController.deleteMovie);
-router.post('/update-movie/:id', movieController.updateMovie);
+router.put("/movies/:id",movieController.updatemovie);
+router.delete('/movies/:id',movieController.deletemovie);
+router.get('/:movieId/showtimes',movieController.movieshowtimes);
+router.post('/:movieId/showtimes',movieController.addmovieshowtimes);
+router.delete('/:movieId/showtimes/:showtimeId',movieController.deletemovieshowtimes);
+
+
+
+
+
+
 module.exports = router;

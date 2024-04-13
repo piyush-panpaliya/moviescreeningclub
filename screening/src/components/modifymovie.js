@@ -10,6 +10,14 @@ const ModifyMovie = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const userType = localStorage.getItem('userType');
+    // If userType is not volunteer or admin, redirect to home page
+    if (!userType || userType === 'standard') {
+      navigate("/");
+    }
+  }, [navigate]);
+
+  useEffect(() => {
     const userType = localStorage.getItem("userType");
     if (!userType || userType === "standard") {
       navigate("/home");
