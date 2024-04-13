@@ -21,6 +21,7 @@ const AddDropVolunteer = () => {
   const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");
   const [userType, setUserType] = useState("standard");
+  const [roleFilter, setRoleFilter] = useState([]);
   const [filterValue, setFilterValue] = useState("");
   const onSearchChange = React.useCallback((value) => {
     if (value) {
@@ -52,6 +53,11 @@ const AddDropVolunteer = () => {
       if (filterValue) {
         url += `?search=${encodeURIComponent(filterValue)}`;
       }
+      if (roleFilter.length > 0) {
+        const roleParams = roleFilter.map((role) => `role=${encodeURIComponent(role)}`).join("&");
+        url += roleFilter.length > 0 ? `&${roleParams}` : "";
+      }
+
       const response = await fetch(url, {
         method: "GET",
       });
@@ -184,6 +190,12 @@ const AddDropVolunteer = () => {
 
   const columns = ["name", "email", "designation", "Role", "actions"];
 
+  const RoleOptions = [
+    { uid: 1, name: "admin" },
+    { uid: 2, name: "volunteer" },
+    { uid: 3, name: "standard" },
+  ];
+
   const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
@@ -217,13 +229,44 @@ const AddDropVolunteer = () => {
             onClear={() => setFilterValue("")}
             onValueChange={(value)=>setFilterValue(value)}
           />
+          <div className="flex gap-3">
+            <Dropdown>
+              <DropdownTrigger className="hidden sm:flex">
+                <Button
+                  endContent={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+                }
+                  size="sm"
+                  variant="flat"
+                >
+                  Role
+                </Button>
+              </DropdownTrigger>
+              <DropdownMenu
+                disallowEmptySelection
+                aria-label="Table Columns"
+                closeOnSelect={false}
+                selectedKeys={roleFilter}
+                selectionMode="multiple"
+                onSelectionChange={setRoleFilter}
+              >
+                {RoleOptions.map((Role) => (
+                  <DropdownItem key={Role.uid} className="capitalize">
+                    {(Role.name)}
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+          </div>
         </div>
       </div>
     );
   });
 
   const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(filterValue.toLowerCase())
+    user.name.toLowerCase().includes(filterValue.toLowerCase()) &&
+    (roleFilter.length === 0 || roleFilter.includes(user.usertype))
   );
 
   return (
