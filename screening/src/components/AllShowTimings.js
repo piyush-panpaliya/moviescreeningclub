@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import moment from "moment"; // Import moment library for date and time formatting
 
 const ShowtimePage = () => {
   const { email } = useParams();
-  const navigate = useNavigate(); // Using useNavigate instead of useHistory
+  const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     const userType = localStorage.getItem('userType');
-    // If userType is not volunteer or admin, redirect to home page
     if (!userType || userType === 'standard') {
       navigate("/");
     }
@@ -36,7 +36,7 @@ const ShowtimePage = () => {
   }, []);
 
   const handleShowtimeSelection = (showtimeId) => {
-    navigate(`/seatmap/${showtimeId}?email=${email}`); // Use navigate to redirect to seatmap
+    navigate(`/seatmap/${showtimeId}?email=${email}`);
   };
 
   return (
@@ -56,7 +56,7 @@ const ShowtimePage = () => {
             movie.showtimes.map((showtime, index) => (
               <tr key={`${movie._id}-${index}`}>
                 <td>{movie.title}</td>
-                <td>{showtime.date} - {showtime.time}</td>
+                <td>{moment(showtime.date).format("DD-MM-YYYY")} - {moment(showtime.time, "HH:mm").format("hh:mm A")}</td>
                 <td>
                   <button onClick={() => handleShowtimeSelection(showtime._id)}>Select</button>
                 </td>

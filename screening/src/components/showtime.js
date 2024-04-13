@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import moment from "moment"; // Import moment library for date and time formatting
 
 const Showtime = () => {
   const { movieId } = useParams();
@@ -83,8 +84,8 @@ const Showtime = () => {
         <tbody>
           {showtimes.map((showtime, index) => (
             <tr key={index}>
-              <td>{showtime.date}</td>
-              <td>{showtime.time}</td>
+              <td>{moment(showtime.date).format("DD-MM-YYYY")}</td>
+              <td>{moment(showtime.time, "HH:mm").format("hh:mm A")}</td>
               {userType === "admin" && (
                 <td>
                   <button onClick={() => handleDeleteShowtime(showtime._id)}>Delete</button>

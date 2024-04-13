@@ -1,53 +1,92 @@
-import React, { useState, useEffect } from "react";
-import { BrowserMultiFormatReader, NotFoundException } from "@zxing/library";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import jsQR from "jsqr";
 
 export const Scanner = () => {
   const [scanResult, setScanResult] = useState(null);
   const [scanResultInfo, setScanResultInfo] = useState(null);
-  const [showButton, setShowButton] = useState(false); // State to control button visibility
+  const [showButton, setShowButton] = useState(false);
   const navigate = useNavigate();
+  const videoRef = useRef(null);
 
   useEffect(() => {
     const userType = localStorage.getItem('userType');
-    // If userType is not volunteer or admin, redirect to home page
     if (!userType || userType === 'standard') {
       navigate("/");
     } else {
       initializeScanner();
     }
-  }, [navigate]); // Only navigate as dependency since we're not using it in the initialization
+  }, [navigate]);
 
+  useEffect(() => {
+    // Initialize the scanner when the component mounts
+    initializeScanner();
+  }, []);
+  
   const initializeScanner = () => {
-    const codeReader = new BrowserMultiFormatReader();
-    let isScanning = true; // Variable to track if scanning is ongoing
-
-    codeReader
-      .listVideoInputDevices()
-      .then((videoInputDevices) => {
-        // Select the first video input device
-        const selectedDeviceId = videoInputDevices[0].deviceId;
-        codeReader.decodeFromVideoDevice(
-          selectedDeviceId,
-          "reader",
-          (result, err) => {
-            if (isScanning) {
-              if (result) {
-                codeReader.reset();
-                console.log("Next QR"); // Log "Next QR" after identifying a QR code
-                setScanResult(result.getText());
-                isScanning = false; // Stop scanning once QR code is detected
-                sendApiRequest(result.getText());
-              } else if (err && !(err instanceof NotFoundException)) {
-                console.error("Error scanning:", err);
-              }
-            }
-          }
-        );
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+      .then((stream) => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          videoRef.current.addEventListener('loadedmetadata', () => {
+            videoRef.current.play();
+            scanQRCode();
+          });
+        }
       })
       .catch((err) => {
-        console.error("Error listing video devices:", err);
+        console.error("Error accessing camera:", err);
       });
+  };
+
+  const scanQRCode = () => {
+    const canvasElement = document.createElement("canvas");
+    canvasElement.width = videoRef.current.videoWidth;
+    canvasElement.height = videoRef.current.videoHeight;
+    const canvas = canvasElement.getContext("2d");
+
+    const checkQRCode = () => {
+      if (!videoRef.current || videoRef.current.videoWidth === 0) {
+        // If videoRef.current doesn't exist or videoWidth is 0, wait for the next frame
+        requestAnimationFrame(checkQRCode);
+        return;
+      }
+    
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+    
+      // Set canvas dimensions to match video dimensions
+      canvas.width = videoRef.current.videoWidth;
+      canvas.height = videoRef.current.videoHeight;
+    
+      // Draw video frame onto canvas
+      context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+    
+      // Get image data from canvas
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    
+      // Use jsQR to decode QR code from image data
+      const code = jsQR(imageData.data, imageData.width, imageData.height);
+    
+      if (code) {
+        setScanResult(code.data);
+        sendApiRequest(code.data);
+        stopCamera();
+      } else {
+        requestAnimationFrame(checkQRCode);
+      }
+    };
+    checkQRCode(); // Start checking for QR codes
+  };
+
+  const stopCamera = () => {
+    const stream = videoRef.current.srcObject;
+    const tracks = stream.getTracks();
+
+    tracks.forEach((track) => {
+      track.stop();
+    });
+    videoRef.current.srcObject = null;
   };
 
   const sendApiRequest = async (result) => {
@@ -64,8 +103,6 @@ export const Scanner = () => {
       }
       const data = await response.json();
       setScanResultInfo(data);
-      
-      // Update button visibility based on scan result
       setShowButton(data.exists && !data.validityPassed && !data.alreadyScanned);
       if (data.exists && !data.validityPassed && !data.alreadyScanned) {
         localStorage.setItem("seatassignment", "true");
@@ -74,7 +111,6 @@ export const Scanner = () => {
       console.error("Error fetching data:", error);
     }
   };
-
 
   return (
     <div style={{ width: "100%", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -109,7 +145,7 @@ export const Scanner = () => {
             )}
           </div>
         ) : (
-          <video id="reader" width="100%" height="100%"></video>
+          <video ref={videoRef} width="100%" height="100%"></video>
         )}
       </div>
     </div>
