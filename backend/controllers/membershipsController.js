@@ -27,23 +27,28 @@ exports.saveusermem =async (req, res) => {
   };
 
   
-
   exports.checkMembership = async (req, res) => {
     
     try {
         const { email } = req.params;
-        const existingMembership = await Memdata.findOne({ email });
+        const allMemberships = await Memdata.find({ email });
         
-        if (existingMembership) {
-            const validityDate = moment(existingMembership.validitydate, 'DD-MM-YYYY');
+        if (allMemberships.length > 0) {
             const currentDate = moment();
+            let hasMembership = false;
             
-            if (validityDate.isAfter(currentDate, 'day')) {
-                return res.json({ hasMembership: true });
+            for (const membership of allMemberships) {
+                const validityDate = moment(membership.validitydate, 'DD-MM-YYYY');
+                if (validityDate.isAfter(currentDate, 'day')) {
+                    hasMembership = true;
+                    break; // Exit the loop if any membership is valid
+                }
             }
+            
+            return res.json({ hasMembership });
+        } else {
+            return res.json({ hasMembership: false });
         }
-        
-        return res.json({ hasMembership: false });
     } catch (error) {
         console.error("Error checking membership:", error);
         return res.status(500).json({ message: "Internal server error" });

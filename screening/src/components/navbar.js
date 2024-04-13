@@ -20,12 +20,13 @@ const Navbar = () => {
   useEffect(() => {
     // Check for existing membership when component mounts
     const checkMembership = async () => {
+      console.log("TRUE",hasMembership);
       try {
         const email = localStorage.getItem('loggedInUserEmail'); // Get user's email from localStorage
         const response = await axios.get(`http://localhost:8000/memrouter/checkMembership/${email}`);
         if (response.data.hasMembership) {
           setHasMembership(true);
-          console.log("TRUE",hasMembership);
+          
         }
       } catch (error) {
         console.error("Error checking membership:", error);

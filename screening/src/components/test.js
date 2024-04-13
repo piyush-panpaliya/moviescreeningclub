@@ -1,30 +1,122 @@
 import React, { useState } from 'react';
-//import './styles.css'; // Import your CSS file for styling
 
-function Test() {
-  // State to manage the visibility of the dropdown menu
-  const [showDropdown, setShowDropdown] = useState(false);
+const Test = () => {
+    const [selectedSeat, setSelectedSeat] = useState(null);
 
-  // Function to toggle the visibility of the dropdown menu
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
+    const handleSeatClick = (seatNumber) => {
+        setSelectedSeat(seatNumber);
+    };
 
-  return (
-    <div className="navbar">
-      {/* Hamburger icon button */}
-      <button className="navbar-toggler" onClick={toggleDropdown}>
-        <span className="navbar-toggler-icon">&#9776;</span>
-      </button>
-      {/* Dropdown menu */}
-      <div className={`dropdown-menu ${showDropdown ? 'show' : ''}`}>
-        {/* Dropdown menu items */}
-        <a href="#">Item 1</a>
-        <a href="#">Item 2</a>
-        <a href="#">Item 3</a>
-      </div>
-    </div>
-  );
-}
+    return (
+        <div className="seat-booking">
+            <h1 className="text-3xl font-semibold mb-4">Movie Theatre Seat Booking</h1>
+            <div className="flex justify-center mb-4">
+                <span className="font-semibold text-lg">Screen</span>
+            </div>
+            <div className="flex justify-between gap-4">
+                <div className="flex flex-col gap-2">
+                    {[...Array(9).keys()].map(row => (
+                        <div key={row} className="flex gap-2">
+                            {[...Array(6).keys()].map(col => (
+                                <div
+                                    key={col}
+                                    className={`seat bg-gray-200 border border-gray-400 p-2 text-center cursor-pointer ${selectedSeat === row * 5 + col ? 'bg-yellow-400' : ''}`}
+                                    onClick={() => handleSeatClick(row * 5 + col)}
+                                >
+                                    <span className="block w-5 h-6">{row * 5 + col + 1}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+                <div className="w-4"></div> {/* Entrance space */}
+                <div className="flex flex-col gap-2">
+                    {[...Array(10).keys()].map(row => (
+                        <div key={row} className="flex gap-2">
+                            {[...Array(12).keys()].map(col => (
+                                <div
+                                    key={col}
+                                    className={`seat bg-gray-200 border border-gray-400 p-2 text-center cursor-pointer ${selectedSeat === 25 + row * 7 + col ? 'bg-yellow-400' : ''}`}
+                                    onClick={() => handleSeatClick(25 + row * 7 + col)}
+                                >
+                                    <span className="block w-5 h-6">{25 + row * 7 + col + 1}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+                <div className="w-4"></div> {/* Entrance space */}
+                <div className="flex flex-col gap-2">
+                    {[...Array(9).keys()].map(row => (
+                        <div key={row} className="flex gap-2">
+                            {[...Array(6).keys()].map(col => (
+                                <div
+                                    key={col}
+                                    className={`seat bg-gray-200 border border-gray-400 p-2 text-center cursor-pointer ${selectedSeat === 155 + row * 5 + col ? 'bg-yellow-400' : ''}`}
+                                    onClick={() => handleSeatClick(155 + row * 5 + col)}
+                                >
+                                    <span className="block w-5 h-6">{155 + row * 5 + col + 1}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className="flex justify-center mt-4 mb-4">
+                <span className="font-semibold text-lg">Entrance</span>
+            </div>
+            <div className="flex justify-between gap-4">
+                <div className="flex flex-col gap-2">
+                    {[...Array(7).keys()].map(row => (
+                        <div key={row} className="flex gap-2">
+                            {[...Array(7).keys()].map(col => (
+                                <div
+                                    key={col}
+                                    className={`seat bg-gray-200 border border-gray-400 p-2 text-center cursor-pointer ${selectedSeat === 180 + row * 7 + col ? 'bg-yellow-400' : ''}`}
+                                    onClick={() => handleSeatClick(180 + row * 7 + col)}
+                                >
+                                    <span className="block w-5 h-6">{180 + row * 7 + col + 1}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+
+                <div className="w-4"></div> {/* Entrance space */}
+                <div className="flex flex-col gap-2">
+                    {[...Array(5).keys()].map(row => (
+                        <div key={row} className="flex gap-2">
+                            {[...Array(5).keys()].map(col => (
+                                <div
+                                    key={col}
+                                    className={`seat bg-gray-200 border border-gray-400 p-2 text-center cursor-pointer ${selectedSeat === 221 + row * 5 + col ? 'bg-yellow-400' : ''}`}
+                                    onClick={() => handleSeatClick(221 + row * 5 + col)}
+                                >
+                                    <span className="block w-5 h-6">{221 + row * 5 + col + 1}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+                <div className="w-4"></div> {/* Entrance space */}
+                <div className="flex flex-col gap-2">
+                    {[...Array(7).keys()].map(row => (
+                        <div key={row} className="flex gap-2">
+                            {[...Array(7).keys()].map(col => (
+                                <div
+                                    key={col}
+                                    className={`seat bg-gray-200 border border-gray-400 p-2 text-center cursor-pointer ${selectedSeat === 246 + row * 7 + col ? 'bg-yellow-400' : ''}`}
+                                    onClick={() => handleSeatClick(246 + row * 7 + col)}
+                                >
+                                    <span className="block w-5 h-6">{246 + row * 7 + col + 1}</span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
 
 export default Test;
