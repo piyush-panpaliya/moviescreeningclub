@@ -14,27 +14,27 @@ export const Foram = () => {
   const token = getToken();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const storedEmail = localStorage.getItem('loggedInUserEmail');
-  //   if (!storedEmail) {
-  //     navigate('/home');
-  //   } else {
-  //     setEmail(storedEmail);
-  //     setDegree(getDegreeFromEmail(storedEmail));
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('loggedInUserEmail');
+    if (!storedEmail) {
+      navigate('/home');
+    } else {
+      setEmail(storedEmail);
+      setDegree(getDegreeFromEmail(storedEmail));
 
-  //     const checkMembership = async () => {
-  //       try {
-  //         const response = await axios.get(`http://localhost:8000/memrouter/checkMembership/${storedEmail}`);
-  //         if (response.data.hasMembership) {
-  //           setHasMembership(true);
-  //         }
-  //       } catch (error) {
-  //         console.error("Error checking membership:", error);
-  //       }
-  //     };
-  //     checkMembership();
-  //   }
-  // }, [navigate]);
+      const checkMembership = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8000/memrouter/checkMembership/${storedEmail}`);
+          if (response.data.hasMembership) {
+            setHasMembership(true);
+          }
+        } catch (error) {
+          console.error("Error checking membership:", error);
+        }
+      };
+      checkMembership();
+    }
+  }, [navigate]);
 
   const getDegreeFromEmail = (email) => {
     const emailDomain = email.substring(email.lastIndexOf("@") + 1);
@@ -324,8 +324,8 @@ export const Foram = () => {
       </div>
     );
   } else {
-    // navigate("/");
-    // return null;
+    navigate("/");
+    return null;
   }
 };
 
