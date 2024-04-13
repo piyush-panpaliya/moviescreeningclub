@@ -1,4 +1,5 @@
 const QR = require('../models/qr.Model');
+const moment = require('moment');
 
 exports.check = async (req, res) => {
   try {
@@ -10,10 +11,10 @@ exports.check = async (req, res) => {
     if (!payment) {
       res.json({ exists: false });
     } else {
-      const currentDate = new Date();
-      const validityDate = new Date(payment.validitydate);
+      const currentDate = moment();
+      const validityDate = moment(payment.validitydate, 'DD-MM-YYYY');
 
-      if (currentDate > validityDate) {
+      if (currentDate.isAfter(validityDate)) {
         res.json({ exists: true, validityPassed: true });
       } else {
         if (payment.used) {
