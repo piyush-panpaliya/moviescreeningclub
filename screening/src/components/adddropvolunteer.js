@@ -198,7 +198,7 @@ const AddDropVolunteer = () => {
 
   const topContent = React.useMemo(() => {
     return (
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 -z-10">
         <div className="flex justify-between gap-3 items-end">
           <Input
             isClearable
@@ -265,12 +265,11 @@ const AddDropVolunteer = () => {
   });
 
   const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(filterValue.toLowerCase()) &&
-    (roleFilter.length === 0 || roleFilter.includes(user.usertype))
+    user.name.toLowerCase().includes(filterValue.toLowerCase()) 
   );
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center -z-10">
       <Table
         isStriped
         className="w-[80%] mt-5"

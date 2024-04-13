@@ -9,32 +9,32 @@ export const Foram = () => {
   const [membership, setMembership] = useState("");
   const [degree, setDegree] = useState("");
   const [email, setEmail] = useState("");
-  const [hasMembership, setHasMembership] = useState(false); 
+  const [hasMembership, setHasMembership] = useState(false);
 
   const token = getToken();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedEmail = localStorage.getItem('loggedInUserEmail');
-    if (!storedEmail) {
-      navigate('/home');
-    } else {
-      setEmail(storedEmail);
-      setDegree(getDegreeFromEmail(storedEmail));
+  // useEffect(() => {
+  //   const storedEmail = localStorage.getItem('loggedInUserEmail');
+  //   if (!storedEmail) {
+  //     navigate('/home');
+  //   } else {
+  //     setEmail(storedEmail);
+  //     setDegree(getDegreeFromEmail(storedEmail));
 
-      const checkMembership = async () => {
-        try {
-          const response = await axios.get(`http://localhost:8000/memrouter/checkMembership/${storedEmail}`);
-          if (response.data.hasMembership) {
-            setHasMembership(true);
-          }
-        } catch (error) {
-          console.error("Error checking membership:", error);
-        }
-      };
-      checkMembership();
-    }
-  }, [navigate]);
+  //     const checkMembership = async () => {
+  //       try {
+  //         const response = await axios.get(`http://localhost:8000/memrouter/checkMembership/${storedEmail}`);
+  //         if (response.data.hasMembership) {
+  //           setHasMembership(true);
+  //         }
+  //       } catch (error) {
+  //         console.error("Error checking membership:", error);
+  //       }
+  //     };
+  //     checkMembership();
+  //   }
+  // }, [navigate]);
 
   const getDegreeFromEmail = (email) => {
     const emailDomain = email.substring(email.lastIndexOf("@") + 1);
@@ -58,7 +58,12 @@ export const Foram = () => {
     const amounts = {
       "B-Tech": { base: "130", silver: "240", gold: "330", diamond: "400" },
       "PHD/M-Tech": { base: "150", silver: "280", gold: "390", diamond: "440" },
-      "Faculty/Staff": { base: "170", silver: "320", gold: "450", diamond: "500" },
+      "Faculty/Staff": {
+        base: "170",
+        silver: "320",
+        gold: "450",
+        diamond: "500",
+      },
     };
     setAmount(amounts[selectedDegree][e.target.value]);
   };
@@ -70,7 +75,7 @@ export const Foram = () => {
       alert("Please select a membership and provide an email");
     } else {
       var options = {
-        key:"rzp_test_bVkTgi3UqyKgi7",
+        key: "rzp_test_bVkTgi3UqyKgi7",
         amount: amount * 100,
         currency: "INR",
         name: "STARTUP_PROJECTS",
@@ -89,21 +94,21 @@ export const Foram = () => {
         handler: function (response) {
           console.log("Payment successful:", response);
           if (membership === "base") {
-            saveuserData(email,"base",7);
-            saveData(response.razorpay_payment_id,1,'base',7);
-            generateAndSendEmail('base', response.razorpay_payment_id,1);
+            saveuserData(email, "base", 7);
+            saveData(response.razorpay_payment_id, 1, "base", 7);
+            generateAndSendEmail("base", response.razorpay_payment_id, 1);
           } else if (membership === "silver") {
-            saveuserData(email,"silver",15);
-            saveData(response.razorpay_payment_id,2,'silver',15);
-            generateAndSendEmail('silver', response.razorpay_payment_id,2);
+            saveuserData(email, "silver", 15);
+            saveData(response.razorpay_payment_id, 2, "silver", 15);
+            generateAndSendEmail("silver", response.razorpay_payment_id, 2);
           } else if (membership === "gold") {
-            saveuserData(email,"gold",30);
-            saveData(response.razorpay_payment_id ,3,'gold',30);
-            generateAndSendEmail('gold', response.razorpay_payment_id,3);
+            saveuserData(email, "gold", 30);
+            saveData(response.razorpay_payment_id, 3, "gold", 30);
+            generateAndSendEmail("gold", response.razorpay_payment_id, 3);
           } else if (membership === "diamond") {
-            saveuserData(email,"diamond",30);
-            saveData(response.razorpay_payment_id,4,'diamond',30);
-            generateAndSendEmail('diamond', response.razorpay_payment_id,4);
+            saveuserData(email, "diamond", 30);
+            saveData(response.razorpay_payment_id, 4, "diamond", 30);
+            generateAndSendEmail("diamond", response.razorpay_payment_id, 4);
           }
         },
       };
@@ -115,7 +120,7 @@ export const Foram = () => {
 
   const generateAndSendEmail = (membership, paymentId, totalTickets) => {
     let qrCodes = [];
-  
+
     for (let i = 1; i <= totalTickets; i++) {
       QRCode.toDataURL(paymentId + i)
         .then((qrCodeData) => {
@@ -129,7 +134,7 @@ export const Foram = () => {
         });
     }
   };
-  
+
   const sendEmail = (membership, paymentId, qrCodes) => {
     const emailContent = {
       email,
@@ -149,23 +154,24 @@ export const Foram = () => {
       });
   };
 
-  const saveuserData = (email,memtype,validity) => {
-    const userData = {email, memtype, validity};
+  const saveuserData = (email, memtype, validity) => {
+    const userData = { email, memtype, validity };
     console.log("a");
-    axios.post("http://localhost:8000/memrouter/saveusermem", userData)
-    .then((response) => {
-        console.log(`Usermem data saved successfully for ${memtype,email}`);
-        alert(`Usermem data saved successfully for ${memtype,email}`);
-    })
-    .catch((error) => {
-      console.error("Error saving Usermemdata:", error);
-      alert("Error saving Usermemdata. Please try again later.");
-    });
-};
+    axios
+      .post("http://localhost:8000/memrouter/saveusermem", userData)
+      .then((response) => {
+        console.log(`Usermem data saved successfully for ${(memtype, email)}`);
+        alert(`Usermem data saved successfully for ${(memtype, email)}`);
+      })
+      .catch((error) => {
+        console.error("Error saving Usermemdata:", error);
+        alert("Error saving Usermemdata. Please try again later.");
+      });
+  };
 
-  const saveData = (basePaymentId, totalTickets,memtype,validity) => {
+  const saveData = (basePaymentId, totalTickets, memtype, validity) => {
     let ticketsGenerated = 0;
-  
+
     const saveTicket = (ticketNumber) => {
       const paymentId = basePaymentId + ticketNumber; // Append ticket number to basePaymentId
       const QRData = { email, paymentId, validity, memtype };
@@ -187,7 +193,7 @@ export const Foram = () => {
         });
     };
     saveTicket(1); // Start with ticket number 1
-};
+  };
 
   useEffect(() => {
     if (!token) {
@@ -197,83 +203,129 @@ export const Foram = () => {
 
   if (!hasMembership) {
     return (
-      <>
-        <div className="flex justify-center bg-gradient-to-r from-yellow-300 via-yellow-200 to-yellow-100 min-h-screen">
-          <div className="container mx-auto my-5 p-10 bg-yellow-50 rounded-lg shadow-lg">
-            <h2 className="text-2xl mb-4 text-center">Razorpay Payment Integration</h2>
-            <hr className="border-b-2 border-primary mb-4"></hr>
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="name" className="form-label">Name:</label>
-                <input type="text" id="name exampleFormControlInput1" className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" name="name" placeholder="Name" required />
-              </div>
-              <div className="form-group">
-          <label htmlFor="rollNumber" className="form-label">Roll Number:</label>
-          <input type="text" id="rollNumber" name="rollNumber" className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" placeholder="Eg. BXXXXX" />
-        </div>
+      <div className="flex justify-center items-center bg-gray-200 h-screen">
+        <div className="flex flex-col items-center lg:w-1/2 h-[80%] border shadow-lg bg-white rounded-md">
+          <h2 className="text-2xl text-center mt-5 font-semibold ">
+            Razorpay Payment Integration
+          </h2>
+          <hr className="my-4"></hr>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-[60%]">
+            <div className="flex justify-between">
+              <label htmlFor="name" className="form-label">
+                Name:
+              </label>
+              <input
+                type="text"
+                id="name exampleFormControlInput1"
+                className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+                name="name"
+                placeholder="Name"
+                required
+              />
+            </div>
+            <div className="flex justify-between">
+              <label htmlFor="rollNumber" className="form-label">
+                Roll Number:
+              </label>
+              <input
+                type="text"
+                id="rollNumber"
+                name="rollNumber"
+                className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+                placeholder="Eg. BXXXXX"
+              />
+            </div>
 
-        <div className="form-group">
-          <label htmlFor="email" className="form-label">Email:</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-            required
-            value={email}
-            readOnly
-          />
-        </div>
+            <div className="flex justify-between">
+              <label htmlFor="email" className="form-label">
+                Email:
+              </label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+                required
+                value={email}
+                readOnly
+              />
+            </div>
 
-        <div className="form-group">
-          <label htmlFor="phoneNumber" className="form-label">Phone Number:</label>
-          <input type="text" id="phoneNumber" className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" name="phoneNumber"placeholder="Phone no." required />
-        </div>
+            <div className="flex justify-between">
+              <label htmlFor="phoneNumber" className="form-label">
+                Phone Number:
+              </label>
+              <input
+                type="text"
+                id="phoneNumber"
+                className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+                name="phoneNumber"
+                placeholder="Phone no."
+                required
+              />
+            </div>
 
-        <div className="form-group">
-          <label htmlFor="degree" className="form-label">Degree:</label>
-          <input
-            type="text"
-            id="degree"
-            name="degree"
-            className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-            value={degree}
-            readOnly
-          />
-        </div>
+            <div className="flex justify-between">
+              <label htmlFor="degree" className="form-label">
+                Degree:
+              </label>
+              <input
+                type="text"
+                id="degree"
+                name="degree"
+                className="form-control inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+                value={degree}
+                readOnly
+              />
+            </div>
 
-        <div className="form-group">
-          <label htmlFor="membership" className="form-label">Choose Membership:</label>
-          <select
-            className="form-select inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-            id="membership"
-            name="membership"
-            required
-            onChange={handleMembershipChange}
-          >
-            <option value="">Select One</option>
-            <option value="base">Base</option>
-            <option value="silver">Silver</option>
-            <option value="gold">Gold</option>
-            <option value="diamond">Diamond</option>
-          </select>
-        </div>
+            <div className="flex justify-between">
+              <label htmlFor="membership" className="form-label">
+                Choose Membership:
+              </label>
+              <select
+                className="form-select inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+                id="membership"
+                name="membership"
+                required
+                onChange={handleMembershipChange}
+              >
+                <option value="">Select One</option>
+                <option value="base">Base</option>
+                <option value="silver">Silver</option>
+                <option value="gold">Gold</option>
+                <option value="diamond">Diamond</option>
+              </select>
+            </div>
 
-        <div className="form-group">
-          <input className="inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500" type="text" placeholder="Amount" value={amount} readOnly />
-        </div>
+            <div className="flex justify-between">
+            <label htmlFor="membership" className="form-label">
+                Amount:
+              </label>
+              <input
+                className="inp border border-gray-400 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+                type="text"
+                placeholder="Amount"
+                value={amount}
+                readOnly
+              />
+            </div>
 
-              <div className="grid place-items-center">
-                <button type="submit" className="btn btn-primary sub py-2 px-4 rounded-md bg-blue-500 hover:bg-blue-700 text-white font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50">Submit</button>
-              </div>
-            </form>
-          </div>
+            <div className="grid place-items-center">
+              <button
+                type="submit"
+                className="btn btn-primary sub py-2 my-4 px-4 rounded-md bg-blue-500 hover:bg-blue-700 text-white font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
-      </>
+      </div>
     );
   } else {
-    navigate("/"); // Redirect the user to the home page if they have an existing membership
-    return null;
+    // navigate("/");
+    // return null;
   }
 };
 
