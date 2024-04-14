@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const SeatMapPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const email = searchParams.get("email");
   const showtimeId = location.pathname.split("/")[2];
+  const movie = searchParams.get("movie");
+  const date = searchParams.get("date");
+  const time = searchParams.get("time");
+  const date1 =moment(date).format("DD-MM-YYYY");
+  const time1 = moment(time, "HH:mm").format("hh:mm A");
 
   const [selectedSeat, setSelectedSeat] = useState(null);
   const [assignedSeat, setAssignedSeat] = useState(false);
@@ -28,6 +34,10 @@ const SeatMapPage = () => {
       try {
         const response = await axios.get(`http://localhost:8000/seatmaprouter/seatmap/${showtimeId}/seats`);
         setSeatOccupancy(response.data);
+        console.log(movie);
+        console.log(date1);
+        console.log(time1);
+        
       } catch (error) {
         console.error("Error fetching seat occupancy:", error);
       }
@@ -44,6 +54,7 @@ const SeatMapPage = () => {
       }, 0);
     }
   }, [showtimeId]);
+  
 
   const handleSeatSelection = (seat) => {
     if (assignedSeat || seatOccupancy[seat]) {
@@ -58,9 +69,19 @@ const SeatMapPage = () => {
     try {
       await axios.put(`http://localhost:8000/seatmaprouter/seatmap/${showtimeId}/${selectedSeat}`, { email });
       setAssignedSeat(true);
+        const emailContent = {
+          email,
+          selectedSeat,
+          movie,
+          date1,
+          time1
+        };
+        axios
+          .post("http://localhost:8000/seatmaprouter/send-email", emailContent)
+            console.log(`Email sent for seat assignment.`);
+      
       setErrorMessage(`The seat ${selectedSeat} is successfully assigned to ${email}. Redirecting to Scanner...`);
       localStorage.setItem("seatassignment", "false");
-      // Redirect to scanner page after 3 seconds
       setTimeout(() => {
         window.location.href = "/scanner";
       }, 5000);
@@ -189,7 +210,7 @@ const SeatMapPage = () => {
             </div>
 
             <div className="w-4"></div> {/* Entrance space */}
-            <div className="flex flex-col gap-2" style={{ marginTop: '80px' }}>
+            <div className="flex flex-col gap-2" style={{ marginTop: '90px' }}>
               {[...Array(5).keys()].map(row => (
                 <div key={row} className="flex gap-2">
                   {[...Array(5).keys()].map(col => {

@@ -6,27 +6,17 @@ const SeatMapSchema = new mongoose.Schema({
         required: true
     },
     seats: {
-        type: Object,
+        type: [Boolean], // Changed to an array of Booleans
         required: true,
         default: () => {
-            const defaultSeats = {};
+            const defaultSeats = [];
             for (let i = 1; i <= 381; i++) {
-                defaultSeats[i] = {
-                    isOccupied: {
-                        type: Boolean,
-                        default: false
-                    },
-                    email: {
-                        type: String,
-                        default: null
-                    }
-                };
+                defaultSeats.push(false); // Push false for each seat
             }
             return defaultSeats;
         }
     }
 });
-
 
 const SeatMap = mongoose.model('SeatMap', SeatMapSchema);
 

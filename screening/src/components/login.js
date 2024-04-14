@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useMembershipContext } from "./MembershipContext";
 import imageOne from '../images/undraw_secure_login_pdn4.png';
 import { useLogin } from './LoginContext'; // Import the useLogin hook
 
@@ -11,6 +12,7 @@ export default function Login() {
     password: "",
   });
   const navigate = useNavigate();
+  const { hasMembership, updateMembershipStatus } = useMembershipContext();
 
   useEffect(() => {
     // Check if token exists in local storage on component mount
@@ -32,15 +34,25 @@ export default function Login() {
       if (res.status === 200) {
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('loggedInUserEmail', formData.email);
-         // Fetch user type
         const userTypeResponse = await axios.get(`http://localhost:8000/user/${formData.email}`);
         const userTypeData = userTypeResponse.data;
         const userType = userTypeData.userType;
         localStorage.setItem('userType', userType);
-        console.log('successful authentication');
-        login(); // Update login status in context upon successful login
-        navigate('/home');
-       }
+        
+        // Check membership status after successful login
+        const email = formData.email; // Get user's email
+        const membershipResponse = await axios.get(`http://localhost:8000/memrouter/checkMembership/${email}`);
+        
+        if (membershipResponse.data.hasMembership) {
+          updateMembershipStatus(true); // Update context with membership status
+        }
+        else{
+          updateMembershipStatus(false);
+        }
+  
+        login(); // Update login status
+        navigate('/');
+      }
     } catch (err) {
       if (err.response.status === 404) {
         alert("User not found");
@@ -51,6 +63,7 @@ export default function Login() {
       }
     }
   };
+  
   
   return (
     <>
