@@ -6,6 +6,7 @@ import moment from "moment"; // Import moment library for date and time formatti
 const Showtime = () => {
   const { movieId } = useParams();
   const [showtimes, setShowtimes] = useState([]);
+  const [trailer,setTrailer] = useState([]);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
@@ -14,6 +15,9 @@ const Showtime = () => {
   useEffect(() => {
     fetchShowtimes();
   }, [movieId]);
+  useEffect(() => {
+    fetchTrailer();
+  }, [movieId]);
 
   const fetchShowtimes = async () => {
     try {
@@ -21,6 +25,15 @@ const Showtime = () => {
       setShowtimes(response.data || []);
     } catch (error) {
       console.error("Error fetching showtimes:", error);
+    }
+  };
+
+  const fetchTrailer = async () => {
+    try{
+      const response = await axios.get(`http://localhost:8000/movie/${movieId}/trailer`);
+      setTrailer(response.data || []);
+    } catch (error) {
+      console.error("Error fetching trailer:", error);
     }
   };
 
