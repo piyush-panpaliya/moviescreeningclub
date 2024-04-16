@@ -19,7 +19,7 @@ export default function Login() {
     const token = localStorage.getItem('token');
     if (token) {
       login(); // Update login status in context if token exists
-      navigate('/home'); // Redirect to form if already logged in
+      navigate('/'); // Redirect to form if already logged in
     }
   }, [login, navigate]);
 
