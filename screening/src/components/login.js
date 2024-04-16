@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
-import imageOne from "../images/undraw_secure_login_pdn4.png";
-import { useLogin } from "./LoginContext"; // Import the useLogin hook
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+import { useMembershipContext } from "./MembershipContext";
+import imageOne from '../images/undraw_secure_login_pdn4.png';
+import { useLogin } from './LoginContext'; // Import the useLogin hook
 
 export default function Login() {
   const { login } = useLogin(); // Use the login function from context
@@ -11,6 +12,7 @@ export default function Login() {
     password: "",
   });
   const navigate = useNavigate();
+  const { hasMembership, updateMembershipStatus } = useMembershipContext();
 
   useEffect(() => {
     // Check if token exists in local storage on component mount
@@ -33,18 +35,26 @@ export default function Login() {
         formData
       );
       if (res.status === 200) {
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("loggedInUserEmail", formData.email);
-        // Fetch user type
-        const userTypeResponse = await axios.get(
-          `http://localhost:8000/user/${formData.email}`
-        );
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('loggedInUserEmail', formData.email);
+        const userTypeResponse = await axios.get(`http://localhost:8000/user/${formData.email}`);
         const userTypeData = userTypeResponse.data;
         const userType = userTypeData.userType;
-        localStorage.setItem("userType", userType);
-        console.log("successful authentication");
-        login(); // Update login status in context upon successful login
-        navigate("/home");
+        localStorage.setItem('userType', userType);
+        
+        // Check membership status after successful login
+        const email = formData.email; // Get user's email
+        const membershipResponse = await axios.get(`http://localhost:8000/memrouter/checkMembership/${email}`);
+        
+        if (membershipResponse.data.hasMembership) {
+          updateMembershipStatus(true); // Update context with membership status
+        }
+        else{
+          updateMembershipStatus(false);
+        }
+  
+        login(); // Update login status
+        navigate('/');
       }
     } catch (err) {
       if (err.response.status === 404) {
@@ -56,7 +66,8 @@ export default function Login() {
       }
     }
   };
-
+  
+  
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
       <div className="flex flex-row justify-around items-center w-4/6 h-[70%] rounded-lg bg-white shadow-lg">

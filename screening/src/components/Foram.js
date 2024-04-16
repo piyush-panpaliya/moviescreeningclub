@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import QRCode from "qrcode";
 import axios from "axios";
+import { useMembershipContext } from "./MembershipContext";
 import { getToken } from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
 
 export const Foram = () => {
   const [amount, setAmount] = useState("");
+  const { hasMembership, updateMembershipStatus } = useMembershipContext();
   const [membership, setMembership] = useState("");
   const [degree, setDegree] = useState("");
   const [email, setEmail] = useState("");
-  const [hasMembership, setHasMembership] = useState(false);
 
   const token = getToken();
   const navigate = useNavigate();
@@ -21,19 +22,7 @@ export const Foram = () => {
     } else {
       setEmail(storedEmail);
       setDegree(getDegreeFromEmail(storedEmail));
-
-      const checkMembership = async () => {
-        try {
-          const response = await axios.get(`http://localhost:8000/memrouter/checkMembership/${storedEmail}`);
-          if (response.data.hasMembership) {
-            setHasMembership(true);
-          }
-        } catch (error) {
-          console.error("Error checking membership:", error);
-        }
-      };
-      checkMembership();
-    }
+  ;}
   }, [navigate]);
 
   const getDegreeFromEmail = (email) => {
@@ -93,6 +82,7 @@ export const Foram = () => {
         },
         handler: function (response) {
           console.log("Payment successful:", response);
+          updateMembershipStatus(true); 
           if (membership === "base") {
             saveuserData(email, "base", 7);
             saveData(response.razorpay_payment_id, 1, "base", 7);

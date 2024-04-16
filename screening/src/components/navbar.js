@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from '../images/logo.png';
 import { useLogin } from './LoginContext'; // Import useLogin hook
 import axios from 'axios';
+import { useMembershipContext } from "./MembershipContext";
 
 const Navbar = () => {
   const { loggedIn, logout } = useLogin();
+  const { hasMembership, updateMembershipStatus } = useMembershipContext();
   const navigate = useNavigate();
   const [userType, setUserType] = useState(localStorage.getItem('userType'));
   const [showMenu, setShowMenu] = useState(false);
-  const [hasMembership, setHasMembership] = useState(false); // New state to track existing membership
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -18,22 +19,20 @@ const Navbar = () => {
   }, [loggedIn]);
 
   useEffect(() => {
-    // Check for existing membership when component mounts
     const checkMembership = async () => {
-      console.log("TRUE",hasMembership);
+
       try {
         const email = localStorage.getItem('loggedInUserEmail'); // Get user's email from localStorage
         const response = await axios.get(`http://localhost:8000/memrouter/checkMembership/${email}`);
         if (response.data.hasMembership) {
-          setHasMembership(true);
-          
+          updateMembershipStatus(response.data.hasMembership);
         }
       } catch (error) {
         console.error("Error checking membership:", error);
       }
     };
     checkMembership();
-  }, []);
+  }, [updateMembershipStatus]);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -180,3 +179,8 @@ const NavItem = ({ to, children, toggleMenu, disabled }) => {
 };
 
 export default Navbar;
+
+
+
+
+

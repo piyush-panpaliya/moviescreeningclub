@@ -1,56 +1,49 @@
 const SeatMap = require('../models/seatmapModel');
+const nodemailer= require( "nodemailer");
 
 exports.seatOccupancy = async (req, res) => {
   try {
     const { showtimeId } = req.params;
 
-    // Find the SeatMap document for the specified showtime ID
-    const seatMap = await SeatMap.findOne({ showtimeid: showtimeId });
-
-    // If the showtime ID is not found, return an error
-    if (!seatMap) {
-      return res.status(404).json({ message: "Showtime ID not found" });
-    }
-
-    // Extract seat occupancy information
-    const seatOccupancy = {};
-    Object.keys(seatMap._doc).forEach(seat => {
-      if (seat !== "_id" && seat !== "showtimeid") {
-        seatOccupancy[seat] = seatMap[seat].isOccupied;
-      }
-    });
-
-    // Return seat occupancy information
-    res.json(seatOccupancy);
-  } catch (error) {
-    console.error("Error fetching seat occupancy:", error);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
-
-
-
-exports.seatassign = async (req, res) => {
-  try {
-    const { showtimeId, seat } = req.params;
-    const { email } = req.body;
-
-    // Find the SeatMap document for the specified showtime ID
+    // Find or create a SeatMap document for the given showtimeId
     let seatMap = await SeatMap.findOne({ showtimeid: showtimeId });
 
     // If the showtime ID is not found, create a new SeatMap document
     if (!seatMap) {
       seatMap = new SeatMap({ showtimeid: showtimeId });
     }
-    
-    // Check if the selected seat is already occupied
-    if (seatMap[seat].isOccupied) {
-      return res.status(400).json({ message: `Seat ${seat} is already occupied` });
+
+    // Extract seat occupancy information
+    const seatOccupancy = seatMap.seats;
+
+    // Return seat occupancy information
+    res.json(seatOccupancy);
+
+  } catch (error) {
+    console.error("Error fetching seat occupancy:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.seatassign = async (req, res) => {
+  try {
+    const { showtimeId, seat } = req.params;
+    const { email } = req.body;
+
+    // Find or create a SeatMap document for the given showtimeId
+    let seatMap = await SeatMap.findOne({ showtimeid: showtimeId });
+
+    if (!seatMap) {
+      seatMap = new SeatMap({ showtimeid: showtimeId });
     }
 
-    // Assign the seat for the specified showtime ID and update the email
-    seatMap[seat].isOccupied = true; // Mark the seat as occupied
-    seatMap[seat].email = email; // Assign the email to the seat
+    // If the seat is already occupied, return an error
+    if (seatMap.seats[seat]) {
+      return res.status(400).json({ error: `Seat ${seat} is already occupied` });
+    }
+
+    // Set the seat as occupied and assign the email
+    seatMap.seats[seat] = true;
 
     // Save the updated SeatMap document
     await seatMap.save();
@@ -63,3 +56,31 @@ exports.seatassign = async (req, res) => {
   }
 };
 
+exports.sendseatconfmail= (req, res) => {
+  const { email,selectedSeat,movie,date1,time1 } = req.body;
+
+  // Create a transporter using nodemailer
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: "Movie Screening Club Seat Assignment",
+    text: `You have successfully reserved the seat no. ${selectedSeat} for the movie ${movie} on ${date1} at ${time1} `
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending email:", error);
+      res.status(500).send("Error sending email");
+    } else {
+      res.status(200).send("Email sent successfully");
+    }
+  });
+};

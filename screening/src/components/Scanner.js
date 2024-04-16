@@ -16,13 +16,12 @@ export const Scanner = () => {
     } else {
       initializeScanner();
     }
+
+    return () => {
+      stopCamera(); // Cleanup function to stop the camera when unmounting
+    };
   }, [navigate]);
 
-  useEffect(() => {
-    // Initialize the scanner when the component mounts
-    initializeScanner();
-  }, []);
-  
   const initializeScanner = () => {
     navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
       .then((stream) => {
@@ -40,14 +39,8 @@ export const Scanner = () => {
   };
 
   const scanQRCode = () => {
-    const canvasElement = document.createElement("canvas");
-    canvasElement.width = videoRef.current.videoWidth;
-    canvasElement.height = videoRef.current.videoHeight;
-    const canvas = canvasElement.getContext("2d");
-
     const checkQRCode = () => {
       if (!videoRef.current || videoRef.current.videoWidth === 0) {
-        // If videoRef.current doesn't exist or videoWidth is 0, wait for the next frame
         requestAnimationFrame(checkQRCode);
         return;
       }
@@ -55,17 +48,13 @@ export const Scanner = () => {
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
     
-      // Set canvas dimensions to match video dimensions
       canvas.width = videoRef.current.videoWidth;
       canvas.height = videoRef.current.videoHeight;
     
-      // Draw video frame onto canvas
       context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
     
-      // Get image data from canvas
       const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
     
-      // Use jsQR to decode QR code from image data
       const code = jsQR(imageData.data, imageData.width, imageData.height);
     
       if (code) {
@@ -76,17 +65,19 @@ export const Scanner = () => {
         requestAnimationFrame(checkQRCode);
       }
     };
-    checkQRCode(); // Start checking for QR codes
+    checkQRCode();
   };
 
   const stopCamera = () => {
-    const stream = videoRef.current.srcObject;
-    const tracks = stream.getTracks();
-
-    tracks.forEach((track) => {
-      track.stop();
-    });
-    videoRef.current.srcObject = null;
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject;
+      const tracks = stream.getTracks();
+  
+      tracks.forEach((track) => {
+        track.stop();
+      });
+      videoRef.current.srcObject = null;
+    }
   };
 
   const sendApiRequest = async (result) => {
