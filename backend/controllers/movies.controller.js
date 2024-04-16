@@ -2,10 +2,9 @@ const Movie = require('../models/movie.Model');
 const SeatMap = require('../models/seatmapModel');
 
 exports.addMovie= (req, res) => {
-  const { title, poster, description, releaseDate, genre, currentscreening } = req.body;
+  const { title, poster, description, releaseDate, genre, trailer, currentscreening } = req.body;
   console.log(req.body);
-  const newMovie = new Movie({title,poster,description,releaseDate,genre,currentscreening});
-  console.log("hey post reached");
+  const newMovie = new Movie({title,poster,description,releaseDate,genre,trailer,currentscreening});
   console.log(newMovie);
   newMovie.save()
     .then(movie => res.status(201).json(movie))
@@ -56,6 +55,20 @@ exports.movieshowtimes = async (req, res) => {
     res.json(movie.showtimes);
   } catch (error) {
     console.error('Error fetching showtimes:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.movietrailer = async (req, res) => {
+  try {
+    const { movieId } = req.params;
+    const movie = await Movie.findById(movieId);
+    if (!movie) {
+      return res.status(404).json({ error: 'Movie not found' });
+    }
+    res.json(movie.trailer);
+  } catch (error) {
+    console.error('Error fetching trailer:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };

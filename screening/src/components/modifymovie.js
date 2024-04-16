@@ -45,6 +45,7 @@ const ModifyMovie = () => {
       description: movie.description,
       releaseDate: movie.releaseDate,
       genre: movie.genre,
+      trailer:movie.trailer,
       currentscreening: movie.currentscreening
     });
   };
@@ -114,6 +115,7 @@ const ModifyMovie = () => {
               <th className="px-4 py-2">Description</th>
               <th className="px-4 py-2">Release Date</th>
               <th className="px-4 py-2">Genre</th>
+              <th className="px-4 py-2">Trailer</th>
               <th className="px-4 py-2">Current Screening</th>
               <th className="px-4 py-2">Actions</th>
             </tr>
@@ -183,6 +185,18 @@ const ModifyMovie = () => {
                     />
                   ) : (
                     movie.genre
+                  )}
+                </td>
+                <td className="border px-4 py-2">
+                  {editingMovie === movie ? (
+                    <textarea 
+                      name="trailer" 
+                      value={editedData.trailer} 
+                      onChange={handleChange} 
+                      className="w-full"
+                    />
+                  ) : (
+                    movie.trailer
                   )}
                 </td>
                 <td className="border px-4 py-2">
@@ -259,6 +273,16 @@ const ModifyMovie = () => {
                     name="genre"
                     placeholder="Genre"
                     value={editedData.genre || ""}
+                    onChange={handleChange}
+                    className="w-full"
+                  />
+                </td>
+                <td className="border px-4 py-2">
+                  <input
+                    type="text"
+                    name="trailer"
+                    placeholder="Trailer"
+                    value={editedData.trailer || ""}
                     onChange={handleChange}
                     className="w-full"
                   />

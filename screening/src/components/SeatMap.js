@@ -125,7 +125,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-gray-200 border border-gray-400 p-2 text-center cursor-pointer ${selectedSeat === seatNumber ? 'bg-yellow-400' : ''}`}
+                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${selectedSeat === seatNumber ? 'bg-green-600' : seatOccupancy[seatNumber] ? 'bg-gray-200' : ''}`}
                         onClick={() => handleSeatSelection(seatNumber)}
                         disabled={assignedSeat || seatOccupancy[seatNumber]}
                         style={{ color: seatOccupancy[seatNumber] ? "red" : "black" }}
@@ -146,7 +146,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-gray-200 border border-gray-400 p-2 text-center cursor-pointer ${selectedSeat === seatNumber ? 'bg-yellow-400' : ''}`}
+                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${selectedSeat === seatNumber ? 'bg-green-600' : seatOccupancy[seatNumber] ? 'bg-gray-200' : ''}`}
                         onClick={() => handleSeatSelection(seatNumber)}
                         disabled={assignedSeat || seatOccupancy[seatNumber]}
                         style={{ color: seatOccupancy[seatNumber] ? "red" : "black" }}
@@ -169,8 +169,7 @@ const SeatMapPage = () => {
                       return (
                         <div
                           key={col}
-                          className={`seat bg-gray-200 border border-gray-400 p-2 text-center cursor-pointer ${selectedSeat === seatNumber ? 'bg-yellow-400' : ''}`}
-                          onClick={() => handleSeatSelection(seatNumber)}
+                          className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${selectedSeat === seatNumber ? 'bg-green-600' : seatOccupancy[seatNumber] ? 'bg-gray-200' : ''}`}
                           disabled={assignedSeat || seatOccupancy[seatNumber]}
                           style={{ color: seatOccupancy[seatNumber] ? "red" : "black" }}
                         >
@@ -196,7 +195,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-gray-200 border border-gray-400 p-2 text-center cursor-pointer ${selectedSeat === seatNumber ? 'bg-yellow-400' : ''}`}
+                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${selectedSeat === seatNumber ? 'bg-green-600' : seatOccupancy[seatNumber] ? 'bg-gray-200' : ''}`}
                         onClick={() => handleSeatSelection(seatNumber)}
                         disabled={assignedSeat || seatOccupancy[seatNumber]}
                         style={{ color: seatOccupancy[seatNumber] ? "red" : "black" }}
@@ -218,7 +217,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-gray-200 border border-gray-400 p-2 text-center cursor-pointer ${selectedSeat === seatNumber ? 'bg-yellow-400' : ''}`}
+                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${selectedSeat === seatNumber ? 'bg-green-600' : seatOccupancy[seatNumber] ? 'bg-gray-200' : ''}`}
                         onClick={() => handleSeatSelection(seatNumber)}
                         disabled={assignedSeat || seatOccupancy[seatNumber]}
                         style={{ color: seatOccupancy[seatNumber] ? "red" : "black" }}
@@ -239,7 +238,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-gray-200 border border-gray-400 p-2 text-center cursor-pointer ${selectedSeat === seatNumber ? 'bg-yellow-400' : ''}`}
+                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${selectedSeat === seatNumber ? 'bg-green-600' : seatOccupancy[seatNumber] ? 'bg-gray-200' : ''}`}
                         onClick={() => handleSeatSelection(seatNumber)}
                         disabled={assignedSeat || seatOccupancy[seatNumber]}
                         style={{ color: seatOccupancy[seatNumber] ? "red" : "black" }}

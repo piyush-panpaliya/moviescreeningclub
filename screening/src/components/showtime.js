@@ -6,6 +6,7 @@ import moment from "moment"; // Import moment library for date and time formatti
 const Showtime = () => {
   const { movieId } = useParams();
   const [showtimes, setShowtimes] = useState([]);
+  const [trailer, setTrailer] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
@@ -13,6 +14,7 @@ const Showtime = () => {
 
   useEffect(() => {
     fetchShowtimes();
+    fetchTrailer();
   }, [movieId]);
 
   const fetchShowtimes = async () => {
@@ -21,6 +23,15 @@ const Showtime = () => {
       setShowtimes(response.data || []);
     } catch (error) {
       console.error("Error fetching showtimes:", error);
+    }
+  };
+
+  const fetchTrailer = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/movie/${movieId}/trailer`);
+      setTrailer(response.data || "");
+    } catch (error) {
+      console.error("Error fetching trailer:", error);
     }
   };
 
@@ -60,41 +71,47 @@ const Showtime = () => {
 
   return (
     <div>
-      <h2>Showtimes for Movie</h2>
-      {userType === "admin" && !showAddForm && (
-        <button onClick={() => setShowAddForm(true)}>Add Showtime</button>
-      )}
-      {showAddForm && (
-        <div>
-          <label>Date:</label>
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-          <label>Time:</label>
-          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
-          <button onClick={handleAddShowtime}>Save</button>
-        </div>
-      )}
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {showtimes.map((showtime, index) => (
-            <tr key={index}>
-              <td>{moment(showtime.date).format("DD-MM-YYYY")}</td>
-              <td>{moment(showtime.time, "HH:mm").format("hh:mm A")}</td>
-              {userType === "admin" && (
-                <td>
-                  <button onClick={() => handleDeleteShowtime(showtime._id)}>Delete</button>
-                </td>
-              )}
+      <div>
+        <h2>Movie Trailer</h2>
+        {trailer && <iframe width="560" height="315" src={trailer} frameborder="0" allowfullscreen></iframe>}
+      </div>
+      <div>
+        <h2>Showtimes for Movie</h2>
+        {userType === "admin" && !showAddForm && (
+          <button onClick={() => setShowAddForm(true)}>Add Showtime</button>
+        )}
+        {showAddForm && (
+          <div>
+            <label>Date:</label>
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            <label>Time:</label>
+            <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+            <button onClick={handleAddShowtime}>Save</button>
+          </div>
+        )}
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {showtimes.map((showtime, index) => (
+              <tr key={index}>
+                <td>{moment(showtime.date).format("DD-MM-YYYY")}</td>
+                <td>{moment(showtime.time, "HH:mm").format("hh:mm A")}</td>
+                {userType === "admin" && (
+                  <td>
+                    <button onClick={() => handleDeleteShowtime(showtime._id)}>Delete</button>
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
