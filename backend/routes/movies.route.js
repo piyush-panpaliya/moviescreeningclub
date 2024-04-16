@@ -7,6 +7,7 @@ router.get('/movies',movieController.getMovie);
 router.put("/movies/:id",movieController.updatemovie);
 router.delete('/movies/:id',movieController.deletemovie);
 router.get('/:movieId/showtimes',movieController.movieshowtimes);
+router.get('/:movieId/trailer',movieController.movietrailer);
 router.post('/:movieId/showtimes',movieController.addmovieshowtimes);
 router.delete('/:movieId/showtimes/:showtimeId',movieController.deletemovieshowtimes);
 

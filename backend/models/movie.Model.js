@@ -15,7 +15,8 @@ const MovieSchema = new mongoose.Schema({
   currentscreening: { type: Boolean },
   showtimes: {
     type: [ShowtimeSchema]
-  }
+  },
+  trailer: { type: String } // New field for movie trailer
 });
 
 const Movie = mongoose.model('Movie', MovieSchema);
