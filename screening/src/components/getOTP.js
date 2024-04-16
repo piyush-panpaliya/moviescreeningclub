@@ -118,7 +118,7 @@ export default function GetOTP() {
                   {isSubmitting ? "Submitting ..." : "Submit"}
                 </button>
                 <span className="form-text border-t-2 w-4/5 text-center mt-2 pt-2">
-                  Already have an account:{" "}
+                  Already have an account -- {" "}
                   <Link className="text-blue-600" to="/login">
                     Login
                   </Link>
