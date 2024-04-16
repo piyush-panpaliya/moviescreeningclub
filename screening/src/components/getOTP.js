@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+import imgone from "../images/otpimg.svg";
 
 export default function GetOTP() {
   const [formData, setFormData] = useState({
@@ -17,23 +18,28 @@ export default function GetOTP() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email.endsWith('iitmandi.ac.in')) {
-      alert('Invalid email id. Use institute mail id.');
-      setFormData({ ...formData, email: '' });
+    if (!email.endsWith("iitmandi.ac.in")) {
+      alert("Invalid email id. Use institute mail id.");
+      setFormData({ ...formData, email: "" });
       return;
     }
-    
+
     try {
-      const res = await axios.post("http://localhost:8000/otp/user-otp", { email });
+      const res = await axios.post("http://localhost:8000/otp/user-otp", {
+        email,
+      });
       if (res.status === 200) {
         setIsSubmitting(true);
-        const sendOtpRes = await axios.post("http://localhost:8000/otp/send-otp", { email });
+        const sendOtpRes = await axios.post(
+          "http://localhost:8000/otp/send-otp",
+          { email }
+        );
         if (sendOtpRes.data.success) {
-          console.log('Email sent');
-          localStorage.setItem('getotpEmail', email); // Store email in local storage
-          navigate('/signup');
+          console.log("Email sent");
+          localStorage.setItem("getotpEmail", email); // Store email in local storage
+          navigate("/signup");
         } else {
-          console.error('Failed to send');
+          console.error("Failed to send");
         }
       }
     } catch (err) {
@@ -48,26 +54,80 @@ export default function GetOTP() {
   };
 
   return (
-    <div className="App">
-      <h2>OTP verification</h2>
+    <div className="flex justify-center items-center h-screen bg-[#e5e8f0]">
+      <div className="flex items-center justify-center w-[80%] h-[90%] bg-white rounded-3xl">
+        <div className="flex w-[99.5%] h-[99%] bg-gradient-to-r from-white to-gray-100 rounded-3xl">
+          <div className="w-[50%] h-full flex justify-center items-center">
+            <div className="w-[98%] h-[98%] rounded-2xl flex justify-center items-center bg-[#da9afe]">
+              <img
+                src={imgone}
+                className="rounded-2xl"
+                alt="Login"
+              />
+            </div>
+          </div>
+          <div className="flex justify-center items-center mt-4 w-1/2">
+            <div className="flex flex-col justify-center gap-6 h-full w-[90%]">
+              <div className="h-[20%]">
+                <p className="text-center font-bold text-3xl">
+                  Email Verification!
+                </p>
+                <p className="text-center font-normal text-2xl mt-4">
+                  Please verify Email to continue
+                </p>
+              </div>
 
-      <div className="form-group">
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          value={email}
-          onChange={handleChange}
-          disabled={isSubmitting}
-        />
+              <div className="flex flex-col items-center gap-3 h-[60%]">
+                <div className="flex justify-center text-lg h-[15%] w-[82%] border rounded-2xl">
+                  <div className="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      strokeOpacity={0.5}
+                      className="w-8 h-8 mx-2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    type="email"
+                    id="email"
+                    className="border w-full rounded-2xl text-center "
+                    name="email"
+                    placeholder="enter your email"
+                    required
+                    value={email}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                  />
+                </div>
+
+                <button
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                  className="flex justify-center items-center bg-[#fe6b68] w-4/5 h-[15%] p-2 text-white rounded-xl"
+                  type="button"
+                >
+                  {isSubmitting ? "Submitting ..." : "Submit"}
+                </button>
+                <span className="form-text border-t-2 w-4/5 text-center mt-2 pt-2">
+                  Already have an account:{" "}
+                  <Link className="text-blue-600" to="/login">
+                    Login
+                  </Link>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <span>already have an account <Link to='/login'>login</Link></span>
-      <br />
-      <button onClick={handleSubmit} disabled={isSubmitting}>
-        {isSubmitting ? 'Submitting ...' : 'Submit'} 
-      </button>
     </div>
-  )
+  );
 }

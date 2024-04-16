@@ -96,7 +96,6 @@ export default function Login() {
                   Please login to continue
                 </p>
               </div>
-              {/* <hr className="border border-primary opacity-75" /> */}
               <div className="flex flex-col items-center gap-3 h-[60%]">
                 <div className="flex justify-center text-lg h-[15%] w-[82%] border rounded-2xl">
                   <div className="flex items-center">
