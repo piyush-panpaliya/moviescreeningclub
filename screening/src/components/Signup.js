@@ -15,6 +15,7 @@ export const Signup = () => {
   const [email, setEmail] = useState("");
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showOTP, setShowOTP] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -77,6 +78,9 @@ export const Signup = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+  const toggleOTPVisibility = () => {
+    setShowOTP(!showOTP);
+  };
 
   if (!localStorage.getItem("getotpEmail")) {
     navigate("/getOTP");
@@ -99,7 +103,7 @@ export const Signup = () => {
           </div>
           <div className="flex justify-center items-center mt-4 w-1/2">
             <div className="flex flex-col justify-center gap-6 h-full w-[90%]">
-              <div className="h-[20%]">
+              <div className="h-[15%]">
                 <p className="text-center font-bold text-3xl">
                   New User Sign-up
                 </p>
@@ -108,7 +112,7 @@ export const Signup = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col items-center gap-3 h-[60%]">
+              <div className="flex flex-col items-center gap-3 h-[80%]">
                 <div className="flex justify-center text-lg h-[15%] w-[82%] border rounded-2xl">
                   <div className="flex items-center">
                     <svg
@@ -285,25 +289,46 @@ export const Signup = () => {
                 </div>
 
                 <div className="flex justify-center text-lg h-[15%] w-[82%] border rounded-2xl">
-                  <div className="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      strokeOpacity={0.5}
-                      className="w-8 h-8 mx-2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
-                      />
-                    </svg>
+                  <div
+                    className="flex items-center"
+                    onClick={toggleOTPVisibility}
+                  >
+                    {showOTP ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        strokeOpacity={0.5}
+                        className="w-8 h-8 mx-2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        strokeOpacity={0.5}
+                        className="w-8 h-8 mx-2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.5 10.5V6.75a4.5 4.5 0 1 1 9 0v3.75M3.75 21.75h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H3.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                        />
+                      </svg>
+                    )}
                   </div>
                   <input
-                    type="text"
+                    type={showOTP ? "password" : "text"}
                     id="otp"
                     name="otp"
                     placeholder="enter OTP"
@@ -321,8 +346,8 @@ export const Signup = () => {
                 >
                   Submit
                 </button>
-                <span className="form-text border-t-2 w-4/5 text-center mt-2 pt-2">
-                  Already have an account{" "}
+                <span className="form-text border-t-2 w-4/5 text-center mt-2 py-2">
+                  Already have an account --{" "}
                   <Link className="text-blue-600" to="/login">
                     Login
                   </Link>
