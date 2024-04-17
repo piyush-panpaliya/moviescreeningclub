@@ -40,7 +40,7 @@ function App() {
           <Route path="/adddropvolunteer" element={<AdddropVolunteer/>} />
           <Route path="/forgot" element={<ForgotPassword/>}/>
           <Route path="/update" element={<UpdatePassword/>}/>
-          <Route path="/showtime/:movieId" element={<Showtime/>}/>
+          <Route path="/showtime/:movieId/:poster" element={<Showtime/>}/>
           <Route path = "/test" element={<Test/>}/>
           <Route path="/allshowtime/:email" element={<Showtimepage/>}/>
           <Route path="/seatmap/:showtimeId" element={<SeatMapPage />} />

@@ -4,12 +4,12 @@ import axios from "axios";
 import moment from "moment"; // Import moment library for date and time formatting
 
 const Showtime = () => {
-  const { movieId } = useParams();
+  const { movieId, poster: encodedPosterUrl } = useParams();
+  const poster = decodeURIComponent(encodedPosterUrl);
   const [showtimes, setShowtimes] = useState([]);
   const [trailer, setTrailer] = useState("");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [newShowtime, setNewShowtime] = useState({ date: "", time: "" });
+  const [showAddRow, setShowAddRow] = useState(false); // State variable to control the display of the blank row
   const userType = localStorage.getItem("userType");
 
   useEffect(() => {
@@ -35,24 +35,23 @@ const Showtime = () => {
     }
   };
 
-  const handleAddShowtime = async () => {
-    if (!date || !time) {
+  const handleAddShowtime = () => {
+    setShowAddRow(true); // Set showAddRow to true when Add button is clicked
+  };
+
+  const handleSaveShowtime = async () => {
+    if (!newShowtime.date || !newShowtime.time) {
       console.error("Date and time must be filled");
       return;
     }
     try {
       // Add the new showtime to the database
-      await axios.post(`http://localhost:8000/movie/${movieId}/showtimes`, {
-        date,
-        time
-      });
+      await axios.post(`http://localhost:8000/movie/${movieId}/showtimes`, newShowtime);
       // Fetch updated showtimes
       fetchShowtimes();
-      // Clear input fields
-      setDate("");
-      setTime("");
-      // Hide the add form
-      setShowAddForm(false);
+      // Reset newShowtime and hide the add row
+      setNewShowtime({ date: "", time: "" });
+      setShowAddRow(false);
     } catch (error) {
       console.error("Error adding showtime:", error);
     }
@@ -69,50 +68,74 @@ const Showtime = () => {
     }
   };
 
+  const handleChange = (e, field) => {
+    setNewShowtime({ ...newShowtime, [field]: e.target.value });
+  };
+
   return (
-    <div>
-      <div>
-        <h2>Movie Trailer</h2>
-        {trailer && <iframe width="560" height="315" src={trailer} frameborder="0" allowfullscreen></iframe>}
-      </div>
-      <div>
-        <h2>Showtimes for Movie</h2>
-        {userType === "admin" && !showAddForm && (
-          <button onClick={() => setShowAddForm(true)}>Add Showtime</button>
-        )}
-        {showAddForm && (
-          <div>
-            <label>Date:</label>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-            <label>Time:</label>
-            <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
-            <button onClick={handleAddShowtime}>Save</button>
-          </div>
-        )}
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {showtimes.map((showtime, index) => (
-              <tr key={index}>
-                <td>{moment(showtime.date).format("DD-MM-YYYY")}</td>
-                <td>{moment(showtime.time, "HH:mm").format("hh:mm A")}</td>
-                {userType === "admin" && (
-                  <td>
-                    <button onClick={() => handleDeleteShowtime(showtime._id)}>Delete</button>
-                  </td>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <div className="flex">
+  <div className="flex-1">
+    {/* Left partition */}
+    <div className="p-4 border mb-4">
+      {/* Display movie poster here */}
+      <h2 className="text-lg font-bold mb-2">Movie Poster</h2>
+      <img src={poster} className="object-cover w-full h-full rounded-md" alt={poster} />
     </div>
+    <div className="flex-1 p-4 border overflow-auto">
+      {/* Display showtimes in a table here */}
+      <div className="flex justify-between mb-2">
+        <h2 className="text-lg font-bold mb-0">Showtimes </h2>
+        {userType === "admin" && (
+          <button onClick={handleAddShowtime} className="bg-blue-500 text-white px-2 py-1 rounded">Add</button>
+        )}
+      </div>
+      <table className="w-full">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {showtimes.map((showtime, index) => (
+            <tr key={index}>
+              <td>{moment(showtime.date).format("DD-MM-YYYY")}</td>
+              <td>{moment(showtime.time, "HH:mm").format("hh:mm A")}</td>
+              {userType === "admin" && (
+                <td>
+                  <button onClick={() => handleDeleteShowtime(showtime._id)} className="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
+                </td>
+              )}
+            </tr>
+          ))}
+          {/* Conditional rendering for the blank row */}
+          {showAddRow && userType === "admin" && (
+            <tr>
+              <td>
+                <input type="date" value={newShowtime.date} onChange={(e) => handleChange(e, "date")} />
+              </td>
+              <td>
+                <input type="time" value={newShowtime.time} onChange={(e) => handleChange(e, "time")} />
+              </td>
+              <td>
+                <button onClick={handleSaveShowtime} className="bg-green-500 text-white px-2 py-1 rounded">Save</button>
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div className="flex-2" style={{ width: '80%' }}> {/* Right partition */}
+    {/* Display trailer here */}
+    <div className="p-4 border">
+      <h2 className="text-lg font-bold mb-2">Movie Trailer</h2>
+      {trailer && <iframe title="movie-trailer" width="560" height="315" src={trailer} frameBorder="0" allowFullScreen></iframe>}
+    </div>
+  </div>
+</div>
+
   );
 };
 
