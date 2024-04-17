@@ -80,6 +80,41 @@ const Home = () => {
               ))}
             </div>
           </div>
+          <div className="flex flex-col bg-white h-1/2 w-4/5 my-10 rounded-xl shadow-lg">
+            <div className="flex justify-between my-3 mx-5">
+              <h2 className="text-xl font-semibold">Upcoming Movies</h2>
+              <p
+                className="font-inter cursor-pointer"
+                onClick={toggleShowMoreUpcoming}
+              >
+                {showMoreUpcoming ? "Show Less" : "Show More"}
+              </p>
+            </div>
+            <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mx-5">
+              {upcomingMovies.map((movie) => (
+                <Link
+                  to={`/showtime/${movie._id}/${encodePosterUrl(movie.poster)}`} // Encode poster URL
+                  key={movie._id}
+                  onClick={() => console.log("Clicked movie ID:", movie._id)} // Add onClick event handler
+                  className="flex items-center justify-center"
+                >
+                  <div className="w-full h-full object-cover">
+                    <div className="w-full h-4/5">
+                      <img
+                        className="object-cover w-full h-full rounded-md"
+                        src={movie.poster}
+                        alt={movie.title}
+                      />
+                    </div>
+                    <div className="flex flex-col mt-1">
+                      <p className="font-semibold text-2xl">{movie.title}</p>
+                      <p className="movie-genre">{movie.genre}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </>
