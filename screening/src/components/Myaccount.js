@@ -28,27 +28,32 @@ const Myaccount = () => {
     }
   }, [loggedIn, navigate]);
 
+  // Function to assign color to membership type
+  const getColor = (memType) => {
+    switch (memType.toLowerCase()) {
+      case 'gold':
+        return 'bg-yellow-300';
+      case 'silver':
+        return 'bg-gray-300';
+      case 'bronze':
+        return 'bg-orange-300';
+      default:
+        return 'bg-blue-300';
+    }
+  };
+
   return (
     <div>
-      <h2>Your Memberships:</h2>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Membership Type</th>
-            <th>Purchase Date</th>
-            <th>Validity Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {memberships.map((membership, index) => (
-            <tr key={index}>
-              <td>{membership.memtype}</td>
-              <td>{new Date(membership.purchasedate.split('-').reverse().join('-')).toLocaleDateString()}</td>
-              <td>{new Date(membership.validitydate.split('-').reverse().join('-')).toLocaleDateString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <h2 className="text-2xl font-semibold mb-4">Your Memberships:</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {memberships.map((membership, index) => (
+          <div key={index} className={`p-4 rounded-md shadow-lg ${getColor(membership.memtype)} text-center`}>
+            <h3 className="text-lg font-semibold mb-2">{membership.memtype}</h3>
+            <p><strong>Purchase Date:</strong> {new Date(membership.purchasedate.split('-').reverse().join('-')).toLocaleDateString()}</p>
+            <p><strong>Validity Date:</strong> {new Date(membership.validitydate.split('-').reverse().join('-')).toLocaleDateString()}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

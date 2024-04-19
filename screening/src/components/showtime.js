@@ -92,15 +92,16 @@ const Showtime = () => {
               <tr>
                 <th>Date</th>
                 <th>Time</th>
-                <th>Action</th>
+                {(userType === "admin" || userType === "volunteer") && <th>Action</th>}
               </tr>
             </thead>
+
             <tbody>
               {showtimes.map((showtime, index) => (
                 <tr key={index}>
                   <td>{moment(showtime.date).format("DD-MM-YYYY")}</td>
                   <td>{moment(showtime.time, "HH:mm").format("hh:mm A")}</td>
-                  {userType === "admin" && (
+                  {(userType === "admin"  || userType === "volunteer")&& (
                     <td>
                       <button onClick={() => handleDeleteShowtime(showtime._id)} className="bg-red-500 text-white px-2 py-1 rounded">Delete</button>
                     </td>
@@ -108,7 +109,7 @@ const Showtime = () => {
                 </tr>
               ))}
               {/* Conditional rendering for the blank row */}
-              {showAddRow && userType === "admin" && (
+              {showAddRow && (userType === "admin" || userType === "volunteer") && (
                 <tr>
                   <td>
                     <input type="date" value={newShowtime.date} onChange={(e) => handleChange(e, "date")} />
