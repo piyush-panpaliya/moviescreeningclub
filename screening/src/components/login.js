@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { useMembershipContext } from "./MembershipContext";
-import imageOne from "../images/undraw_home_cinema_l7yl.svg";
+import imageOne from "../images/home_cinema.svg";
 import { useLogin } from "./LoginContext"; // Import the useLogin hook
 
 export default function Login() {
@@ -182,7 +182,7 @@ export default function Login() {
                   />
                 </div>
                 <Link
-                  className="flex justify-end text-blue-600 w-4/5"
+                  className="flex justify-end text-blue-600 w-4/5 mb-3"
                   to="/forgot"
                 >
                   forgot password

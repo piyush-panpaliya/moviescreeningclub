@@ -108,7 +108,12 @@ export default function GetOTP() {
                     disabled={isSubmitting}
                   />
                 </div>
-
+                <Link
+                  className="flex justify-end text-blue-600 w-4/5 mb-3"
+                  to="/forgot"
+                >
+                  resend otp
+                </Link>
                 <button
                   onClick={handleSubmit}
                   disabled={isSubmitting}
