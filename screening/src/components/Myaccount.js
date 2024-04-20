@@ -13,7 +13,7 @@ const Myaccount = () => {
   useEffect(() => {
     const loggedInUseremail = localStorage.getItem('loggedInUserEmail');
     if (!loggedInUseremail) {
-      navigate('/home');
+      navigate('/');
     } else {
       axios.get(`http://localhost:8000/memrouter/${loggedInUseremail}`)
         .then(response => {
@@ -41,13 +41,13 @@ const Myaccount = () => {
   const getColor = (memType) => {
     switch (memType.toLowerCase()) {
       case 'gold':
-        return 'bg-yellow-300';
+        return 'bg-yellow-200';
       case 'silver':
-        return 'bg-gray-300';
+        return 'bg-gray-200';
       case 'base':
-        return 'bg-orange-300';
+        return 'bg-orange-200';
       default:
-        return 'bg-blue-300';
+        return 'bg-blue-200';
     }
   };
 
@@ -70,7 +70,7 @@ const Myaccount = () => {
 
       {/* Current Memberships Section */}
       <div>
-        <h3 className="text-xl font-semibold mb-2">Current Memberships:</h3>
+        <h3 className="text-xl font-semibold mb-2">Active Memberships:</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2"> {/* Reduced gap here */}
           {currentMemberships.map((membership, index) => (
             <div key={index} className="membership-card-container" style={{ margin: '8px' }}> {/* Added margin */}

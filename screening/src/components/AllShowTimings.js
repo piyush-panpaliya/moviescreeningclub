@@ -104,6 +104,43 @@ const ShowtimePage = () => {
           </TableBody>
         </Table>
       )}
+      {/* Render a second table */}
+      <table className="w-[80%] bg-gray-200">
+        <thead>
+          <tr>
+            <th>Movie</th>
+            <th>Showtime</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {movies.map((movie) =>
+            movie.showtimes.map((showtime, index) => (
+              <tr key={`${movie._id}-${index}`}>
+                <td>{movie.title}</td>
+                <td>
+                  {moment(showtime.date).format("DD-MM-YYYY")} -{" "}
+                  {moment(showtime.time, "HH:mm").format("hh:mm A")}
+                </td>
+                <td>
+                  <button
+                    onClick={() =>
+                      handleShowtimeSelection(
+                        showtime._id,
+                        movie.title,
+                        showtime.date,
+                        showtime.time
+                      )
+                    }
+                  >
+                    Select
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
     </div>
   );
   
