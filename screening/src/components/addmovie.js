@@ -18,7 +18,7 @@ const MovieForm = () => {
   useEffect(() => {
     // Check userType in local storage on component mount
     const userType = localStorage.getItem('userType');
-    if (!userType || userType === 'standard') {
+    if (!userType || userType === 'standard' || userType === 'ticketvolunteer') {
       // If userType is not found or is "standard", redirect to the home page
       navigate('/');
     }

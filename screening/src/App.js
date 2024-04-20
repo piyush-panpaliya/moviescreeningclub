@@ -20,6 +20,7 @@ import Showtime from "./components/showtime.js";
 import Showtimepage from "./components/AllShowTimings.js";
 import SeatMapPage from "./components/SeatMap.js";
 import Test from "./components/test.js";
+import QR from "./components/displayQR.js"
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           <Route path = "/test" element={<Test/>}/>
           <Route path="/allshowtime/:email" element={<Showtimepage/>}/>
           <Route path="/seatmap/:showtimeId" element={<SeatMapPage />} />
+          <Route path="/QR" element={<QR />} />
         </Routes>
       </LoginProvider>
     </BrowserRouter>

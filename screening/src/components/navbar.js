@@ -131,13 +131,22 @@ const Navbar = () => {
                       <NavItem to='/adddropvolunteer' toggleMenu={toggleMenu}>Add/Drop Volunteer</NavItem>
                       <NavItem to='/scanner' toggleMenu={toggleMenu}>Scanner</NavItem>
                       <NavItem to='/modifymovie' toggleMenu={toggleMenu}>Modify Movie</NavItem>
+                      <NavItem to='/addmovie' toggleMenu={toggleMenu}>Add Movie</NavItem>
                     </>
                   )}
-                  {userType === 'volunteer' && (
+                  {userType === 'ticketvolunteer' && (
                     <>
                       <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
                       {!hasMembership && <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>}
                       <NavItem to='/scanner' toggleMenu={toggleMenu}>Scanner</NavItem>
+                    </>
+                  )}
+                  {userType === 'movievolunteer' && (
+                    <>
+                      <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
+                      {!hasMembership && <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>}
+                      <NavItem to='/modifymovie' toggleMenu={toggleMenu}>Modify Movie</NavItem>
+                      <NavItem to='/addmovie' toggleMenu={toggleMenu}>Add Movie</NavItem>
                     </>
                   )}
                   {userType === 'standard' && (

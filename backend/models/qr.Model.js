@@ -8,21 +8,6 @@ const QRSchema = new mongoose.Schema({
   memtype:{
     type:String
     },
-  /*validitydate: {
-    type: Date,
-    default: function () {
-      return new Date(Date.now() + this.validity * 24 * 60 * 60 * 1000);
-      },
-    },
-  registrationDate:{
-    type: Date,
-    default: Date.now()
-    },
-  used:{
-    type:Boolean,
-    default:false,
-  }
-}*/
 validitydate: {
   type: String, // Change type to String
   default: function () {

@@ -23,7 +23,7 @@ const SeatMapPage = () => {
   useEffect(() => {
     const userType = localStorage.getItem('userType');
     // If userType is not volunteer or admin, redirect to home page
-    if (!userType || userType === 'standard') {
+    if (!userType) {
       navigate("/");
     }
   }, [navigate]);
