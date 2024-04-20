@@ -68,7 +68,7 @@ const Navbar = () => {
   };
   
   return (
-    <nav className="bg-gray-800 sticky">
+    <nav className="bg-gray-800 sticky z-10">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between h-16">
           <div className="flex">
@@ -120,8 +120,8 @@ const Navbar = () => {
           
         </div>
       </div>
-      <div ref={dropdownRef} className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4 bg-gray-800 z-10' : 'hidden'}`}>
-        <div className="px-2 pt-2 pb-3">
+      <div ref={dropdownRef} className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4 bg-gray-800 ' : 'hidden'}`}>
+        <div className="px-2 pt-2 pb-3 ">
           {loggedIn ? (
                 <>
                   {userType === 'admin' && (
