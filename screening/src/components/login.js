@@ -77,9 +77,9 @@ export default function Login() {
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#e5e8f0]">
-      <div className="flex items-center justify-center w-[80%] h-[90%] bg-white rounded-3xl">
+      <div className="flex items-center justify-center flex-wrap w-[80%] md:h-[90%] sm:h-[90%] max-sm:h-[60%] max-sm:w-[90%] bg-white rounded-3xl ">
         <div className="flex w-[99.5%] h-[99%] bg-gradient-to-r from-white to-gray-100 rounded-3xl">
-          <div className="w-[50%] h-full flex justify-center items-center">
+          <div className="w-[50%] h-full flex justify-center items-center max-sm:hidden">
             <div className="w-[98%] h-[98%] rounded-2xl flex justify-center items-center bg-[#da9afe]">
               <img
                 src={imageOne}
@@ -88,15 +88,15 @@ export default function Login() {
               />
             </div>
           </div>
-          <div className="flex justify-center items-center mt-4 w-1/2">
+          <div className="flex justify-center items-center mt-4 w-1/2 max-sm:w-full">
             <div className="flex flex-col justify-center gap-6 h-full w-[90%]">
               <div className="h-[20%]">
-                <p className="text-center font-bold text-3xl">Welcome Again!</p>
-                <p className="text-center font-normal text-2xl mt-4">
+                <p className="text-center font-bold text-3xl max-sm:text-xl">Welcome Again!</p>
+                <p className="text-center font-normal text-2xl mt-4 max-sm:text-medium">
                   Please login to continue
                 </p>
               </div>
-              <div className="flex flex-col items-center gap-3 h-[60%]">
+              <div className="flex flex-col items-center gap-3 h-[60%] max-sm:text-sm">
                 <div className="flex justify-center text-lg h-[15%] w-[82%] border rounded-2xl">
                   <div className="flex items-center">
                     <svg
@@ -106,7 +106,7 @@ export default function Login() {
                       strokeWidth={1.5}
                       stroke="currentColor"
                       strokeOpacity={0.5}
-                      className="w-8 h-8 mx-2"
+                      className="w-8 h-8 mx-2 max-sm:w-4"
                     >
                       <path
                         strokeLinecap="round"
@@ -119,7 +119,7 @@ export default function Login() {
                     type="email"
                     id="email"
                     name="email"
-                    className="border w-full rounded-2xl text-center "
+                    className="border w-full rounded-2xl text-center max-sm:text-sm "
                     placeholder="enter your email"
                     required
                     value={formData.email}
@@ -139,7 +139,7 @@ export default function Login() {
                         strokeWidth={1.5}
                         stroke="currentColor"
                         strokeOpacity={0.5}
-                        className="w-8 h-8 mx-2"
+                        className="w-8 h-8 mx-2 max-sm:w-4"
                       >
                         <path
                           strokeLinecap="round"
@@ -160,7 +160,7 @@ export default function Login() {
                         strokeWidth={1.2}
                         stroke="currentColor"
                         strokeOpacity={0.5}
-                        className="w-8 h-8 mx-2"
+                        className="w-8 h-8 mx-2 max-sm:w-4"
                       >
                         <path
                           strokeLinecap="round"
@@ -174,7 +174,7 @@ export default function Login() {
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
-                    className="border w-full rounded-2xl text-center"
+                    className="border w-full rounded-2xl text-center max-sm:text-sm"
                     placeholder="Password"
                     required
                     value={formData.password}
@@ -196,8 +196,8 @@ export default function Login() {
                   Submit
                 </button>
 
-                <span className="form-text border-t-2 w-4/5 text-center mt-2 pt-2">
-                  Don't have an account -- {" "}
+                <span className="border-t-2 w-4/5 text-center mt-2 pt-2 max-sm:text-sm">
+                  Don't have an account -- 
                   <Link className="text-blue-600" to="/getOTP">
                     Signup
                   </Link>

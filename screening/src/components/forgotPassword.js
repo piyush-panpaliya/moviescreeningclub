@@ -48,9 +48,9 @@ export default function ForgotPassword() {
   };
   return (
     <div className="flex justify-center items-center h-screen bg-[#e5e8f0]">
-      <div className="flex items-center justify-center w-[80%] h-[90%] bg-white rounded-3xl">
+      <div className="flex items-center justify-center w-[80%] h-[90%] bg-white rounded-3xl max-sm:h-[70%] max-sm:w-[90%]">
         <div className="flex w-[99.5%] h-[99%] bg-gradient-to-r from-white to-gray-100 rounded-3xl">
-          <div className="w-[50%] h-full flex justify-center items-center">
+          <div className="w-[50%] h-full flex justify-center items-center max-sm:hidden">
             <div className="w-[98%] h-[98%] rounded-2xl flex justify-center items-center bg-[#da9afe]">
               <img
                 src={imageOne}
@@ -59,16 +59,16 @@ export default function ForgotPassword() {
               />
             </div>
           </div>
-          <div className="flex justify-center items-center mt-4 w-1/2">
-            <div className="flex flex-col justify-center gap-6 h-full w-[90%]">
-              <div className="h-[20%]">
-                <p className="text-center font-bold text-3xl">
+          <div className="flex justify-center items-center w-1/2 max-sm:w-full">
+            <div className="flex flex-col justify-center gap-6 h-full w-[90%] max-sm:text-sm">
+              <div className="h-[20%] max-sm:h-[30%]">
+                <p className="text-center font-bold text-3xl max-sm:text-lg">
                   Forgot password?
                 </p>
-                <p className="text-center font-normal text-2xl mt-4">
+                <p className="text-center font-normal text-2xl mt-4 max-sm:text-medium">
                   No problem we got that covered
                 </p>
-                <p className="text-center font-normal text-2xl mt-4">
+                <p className="text-center font-normal text-2xl mt-4 max-sm:text-medium">
                   enter email to recieve OTP
                 </p>
               </div>
@@ -83,7 +83,7 @@ export default function ForgotPassword() {
                       strokeWidth={1.5}
                       stroke="currentColor"
                       strokeOpacity={0.5}
-                      className="w-8 h-8 mx-2"
+                      className="w-8 h-8 mx-2 max-sm:w-4"
                     >
                       <path
                         strokeLinecap="round"
@@ -96,7 +96,7 @@ export default function ForgotPassword() {
                     type="email"
                     id="email"
                     name="email"
-                    className="border w-full rounded-2xl text-center"
+                    className="border w-full rounded-2xl text-center max-sm:text-sm"
                     placeholder="enter your email"
                     required
                     value={email}

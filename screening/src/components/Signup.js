@@ -90,9 +90,9 @@ export const Signup = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#e5e8f0]">
-      <div className="flex items-center justify-center w-[80%] h-[90%] bg-white rounded-3xl">
+      <div className="flex items-center justify-center w-[80%] h-[90%] bg-white rounded-3xl max-sm:h-[80%] max-sm:w-[90%]">
         <div className="flex w-[99.5%] h-[99%] bg-gradient-to-r from-white to-gray-100 rounded-3xl">
-          <div className="w-[50%] h-full flex justify-center items-center">
+          <div className="w-[50%] h-full flex justify-center items-center max-sm:hidden">
             <div className="w-[98%] h-[98%] rounded-2xl flex justify-center items-center bg-[#da9afe]">
               <img
                 src={imageOne}
@@ -101,13 +101,13 @@ export const Signup = () => {
               />
             </div>
           </div>
-          <div className="flex justify-center items-center mt-4 w-1/2">
-            <div className="flex flex-col justify-center gap-6 h-full w-[90%]">
+          <div className="flex justify-center items-center mt-4 w-1/2 max-sm:w-full">
+            <div className="flex flex-col justify-center gap-6 h-full w-[90%] max-sm:text-sm">
               <div className="h-[15%]">
-                <p className="text-center font-bold text-3xl">
+                <p className="text-center font-bold text-3x max-sm:text-lg">
                   New User Sign-up
                 </p>
-                <p className="text-center font-normal text-2xl mt-4">
+                <p className="text-center font-normal text-2xl mt-4 max-sm:text-medium">
                   Please sign-up to continue
                 </p>
               </div>
@@ -122,7 +122,7 @@ export const Signup = () => {
                       strokeWidth={1.5}
                       stroke="currentColor"
                       strokeOpacity={0.5}
-                      className="w-8 h-8 mx-2"
+                      className="w-8 h-8 mx-2 max-sm:w-4"
                     >
                       <path
                         strokeLinecap="round"
@@ -139,7 +139,7 @@ export const Signup = () => {
                     required
                     value={name}
                     onChange={handleChange}
-                    className="border w-full rounded-2xl text-center"
+                    className="border w-full rounded-2xl text-center max-sm:text-sm"
                   />
                 </div>
                 <div className="flex justify-center text-lg h-[15%] w-[82%] border rounded-2xl">
@@ -151,7 +151,7 @@ export const Signup = () => {
                       strokeWidth={1.5}
                       stroke="currentColor"
                       strokeOpacity={0.5}
-                      className="w-8 h-8 mx-2"
+                      className="w-8 h-8 mx-2 max-sm:w-4"
                     >
                       <path
                         strokeLinecap="round"
@@ -167,7 +167,7 @@ export const Signup = () => {
                     placeholder="Enter your phone number"
                     value={phoneNumber}
                     onChange={handleChange}
-                    className="border w-full rounded-2xl text-center"
+                    className="border w-full rounded-2xl text-center max-sm:text-sm"
                   />
                 </div>
 
@@ -180,7 +180,7 @@ export const Signup = () => {
                       strokeWidth={1.5}
                       stroke="currentColor"
                       strokeOpacity={0.5}
-                      className="w-8 h-8 mx-2"
+                      className="w-8 h-8 mx-2 max-sm:w-4"
                     >
                       <path
                         strokeLinecap="round"
@@ -197,7 +197,7 @@ export const Signup = () => {
                     required
                     value={formData.designation}
                     readOnly
-                    className="border w-full rounded-2xl text-center"
+                    className="border w-full rounded-2xl text-center max-sm:text-sm"
                   />
                 </div>
 
@@ -210,7 +210,7 @@ export const Signup = () => {
                       strokeWidth={1.5}
                       stroke="currentColor"
                       strokeOpacity={0.5}
-                      className="w-8 h-8 mx-2"
+                      className="w-8 h-8 mx-2 max-sm:w-4"
                     >
                       <path
                         strokeLinecap="round"
@@ -228,7 +228,7 @@ export const Signup = () => {
                     value={email}
                     onChange={handleChange}
                     readOnly
-                    className="border w-full rounded-2xl text-center"
+                    className="border w-full rounded-2xl text-center max-sm:text-sm"
                   />
                 </div>
 
@@ -245,7 +245,7 @@ export const Signup = () => {
                         strokeWidth={1.5}
                         stroke="currentColor"
                         strokeOpacity={0.5}
-                        className="w-8 h-8 mx-2"
+                        className="w-8 h-8 mx-2 max-sm:w-4"
                       >
                         <path
                           strokeLinecap="round"
@@ -266,7 +266,7 @@ export const Signup = () => {
                         strokeWidth={1.2}
                         stroke="currentColor"
                         strokeOpacity={0.5}
-                        className="w-8 h-8 mx-2"
+                        className="w-8 h-8 mx-2 max-sm:w-4"
                       >
                         <path
                           strokeLinecap="round"
@@ -284,7 +284,7 @@ export const Signup = () => {
                     required
                     value={password}
                     onChange={handleChange}
-                    className="border w-full rounded-2xl text-center"
+                    className="border w-full rounded-2xl text-center max-sm:text-sm"
                   />
                 </div>
 
@@ -301,7 +301,7 @@ export const Signup = () => {
                         strokeWidth={1.5}
                         stroke="currentColor"
                         strokeOpacity={0.5}
-                        className="w-8 h-8 mx-2"
+                        className="w-8 h-8 mx-2 max-sm:w-4"
                       >
                         <path
                           strokeLinecap="round"
@@ -317,7 +317,7 @@ export const Signup = () => {
                         strokeWidth={1.5}
                         stroke="currentColor"
                         strokeOpacity={0.5}
-                        className="w-8 h-8 mx-2"
+                        className="w-8 h-8 mx-2 max-sm:w-4"
                       >
                         <path
                           strokeLinecap="round"
@@ -335,7 +335,7 @@ export const Signup = () => {
                     required
                     value={otp}
                     onChange={handleChange}
-                    className="border w-full rounded-2xl text-center"
+                    className="border w-full rounded-2xl text-center max-sm:text-sm"
                   />
                 </div>
 

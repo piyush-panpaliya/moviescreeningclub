@@ -1,6 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  Button,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  Chip,
+  Input,
+  getKeyValue,
+} from "@nextui-org/react";
 
 const ModifyMovie = () => {
   const [movies, setMovies] = useState([]);
@@ -10,9 +26,9 @@ const ModifyMovie = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userType = localStorage.getItem('userType');
+    const userType = localStorage.getItem("userType");
     // If userType is not volunteer or admin, redirect to home page
-    if (!userType || userType === 'standard') {
+    if (!userType || userType === "standard") {
       navigate("/");
     }
   }, [navigate]);
@@ -45,8 +61,8 @@ const ModifyMovie = () => {
       description: movie.description,
       releaseDate: movie.releaseDate,
       genre: movie.genre,
-      trailer:movie.trailer,
-      currentscreening: movie.currentscreening
+      trailer: movie.trailer,
+      currentscreening: movie.currentscreening,
     });
   };
 
@@ -73,7 +89,7 @@ const ModifyMovie = () => {
     const newValue = type === "checkbox" ? checked : value;
     setEditedData({
       ...editedData,
-      [name]: newValue
+      [name]: newValue,
     });
   };
 
@@ -92,7 +108,10 @@ const ModifyMovie = () => {
 
   const handleAddSave = async () => {
     try {
-      const res = await axios.post("http://localhost:8000/movie/add-movies", editedData);
+      const res = await axios.post(
+        "http://localhost:8000/movie/add-movies",
+        editedData
+      );
       console.log("Movie added:", res.data);
       setMovies([...movies, res.data]);
       setAddingMovie(false);
@@ -102,34 +121,48 @@ const ModifyMovie = () => {
     }
   };
 
+  
+
+  const columns = [
+    "title",
+    "poster",
+    "description",
+    "release Date",
+    "genre",
+    "trailer",
+    "current Screening",
+    "actions",
+  ];
+
   return (
     <div className="container mx-auto">
       <h1 className="text-3xl font-bold mb-4">Movie List</h1>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleAdd}>Add Movie</button>
-      <div className="overflow-x-auto">
-        <table className="table-auto w-full">
-          <thead>
-            <tr>
-              <th className="px-4 py-2">Title</th>
-              <th className="px-4 py-2">Poster</th>
-              <th className="px-4 py-2">Description</th>
-              <th className="px-4 py-2">Release Date</th>
-              <th className="px-4 py-2">Genre</th>
-              <th className="px-4 py-2">Trailer</th>
-              <th className="px-4 py-2">Current Screening</th>
-              <th className="px-4 py-2">Actions</th>
+      <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        onClick={handleAdd}
+      >
+        Add Movie
+      </button>
+      
+      <div className="flex justify-center">
+        <table className="w-4/5 shadow-lg">
+          <thead className="capitalize bg-slate-400">
+            <tr className="text-lg">
+              {columns.map((column) => (
+                <th key={column}>{column}</th>
+              ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="capitalize ">
             {movies.map((movie) => (
-              <tr key={movie._id}>
+            <tr key={movie._id}>
                 <td className="border px-4 py-2">
                   {editingMovie === movie ? (
-                    <input 
-                      type="text" 
-                      name="title" 
-                      value={editedData.title} 
-                      onChange={handleChange} 
+                    <input
+                      type="text"
+                      name="title"
+                      value={editedData.title}
+                      onChange={handleChange}
                       className="w-full"
                     />
                   ) : (
@@ -138,23 +171,27 @@ const ModifyMovie = () => {
                 </td>
                 <td className="border px-4 py-2">
                   {editingMovie === movie ? (
-                    <input 
-                      type="text" 
-                      name="poster" 
-                      value={editedData.poster} 
-                      onChange={handleChange} 
+                    <input
+                      type="text"
+                      name="poster"
+                      value={editedData.poster}
+                      onChange={handleChange}
                       className="w-full"
                     />
                   ) : (
-                    <img src={movie.poster} alt={movie.title} className="poster-image" />
+                    <img
+                      src={movie.poster}
+                      alt={movie.title}
+                      className="poster-image"
+                    />
                   )}
                 </td>
                 <td className="border px-4 py-2">
                   {editingMovie === movie ? (
-                    <textarea 
-                      name="description" 
-                      value={editedData.description} 
-                      onChange={handleChange} 
+                    <textarea
+                      name="description"
+                      value={editedData.description}
+                      onChange={handleChange}
                       className="w-full"
                     />
                   ) : (
@@ -163,11 +200,11 @@ const ModifyMovie = () => {
                 </td>
                 <td className="border px-4 py-2">
                   {editingMovie === movie ? (
-                    <input 
-                      type="date" 
-                      name="releaseDate" 
-                      value={editedData.releaseDate} 
-                      onChange={handleChange} 
+                    <input
+                      type="date"
+                      name="releaseDate"
+                      value={editedData.releaseDate}
+                      onChange={handleChange}
                       className="w-full"
                     />
                   ) : (
@@ -176,11 +213,11 @@ const ModifyMovie = () => {
                 </td>
                 <td className="border px-4 py-2">
                   {editingMovie === movie ? (
-                    <input 
-                      type="text" 
-                      name="genre" 
-                      value={editedData.genre} 
-                      onChange={handleChange} 
+                    <input
+                      type="text"
+                      name="genre"
+                      value={editedData.genre}
+                      onChange={handleChange}
                       className="w-full"
                     />
                   ) : (
@@ -189,10 +226,10 @@ const ModifyMovie = () => {
                 </td>
                 <td className="border px-4 py-2">
                   {editingMovie === movie ? (
-                    <textarea 
-                      name="trailer" 
-                      value={editedData.trailer} 
-                      onChange={handleChange} 
+                    <textarea
+                      name="trailer"
+                      value={editedData.trailer}
+                      onChange={handleChange}
                       className="w-full"
                     />
                   ) : (
@@ -201,32 +238,54 @@ const ModifyMovie = () => {
                 </td>
                 <td className="border px-4 py-2">
                   {editingMovie === movie ? (
-                    <input 
-                      type="checkbox" 
-                      name="currentscreening" 
-                      checked={editedData.currentscreening} 
-                      onChange={handleChange} 
+                    <input
+                      type="checkbox"
+                      name="currentscreening"
+                      checked={editedData.currentscreening}
+                      onChange={handleChange}
                     />
+                  ) : movie.currentscreening ? (
+                    "Yes"
                   ) : (
-                    movie.currentscreening ? "Yes" : "No"
+                    "No"
                   )}
                 </td>
                 <td className="border px-4 py-2">
                   {editingMovie === movie ? (
                     <div>
-                      <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={handleSave}>Save</button>
-                      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => setEditingMovie(null)}>Cancel</button>
+                      <button
+                        className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={handleSave}
+                      >
+                        Save
+                      </button>
+                      <button
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => setEditingMovie(null)}
+                      >
+                        Cancel
+                      </button>
                     </div>
                   ) : (
                     <div>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleEdit(movie)}>Edit</button>
-                      <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleDelete(movie._id)}>Delete</button>
+                      <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => handleEdit(movie)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => handleDelete(movie._id)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   )}
                 </td>
               </tr>
             ))}
-            {addingMovie && (
+            {/* {addingMovie && (
               <tr>
                 <td className="border px-4 py-2">
                   <input
@@ -296,10 +355,15 @@ const ModifyMovie = () => {
                   />
                 </td>
                 <td className="border px-4 py-2">
-                  <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={handleAddSave}>Save</button>
+                  <button
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                    onClick={handleAddSave}
+                  >
+                    Save
+                  </button>
                 </td>
               </tr>
-            )}
+            )} */}
           </tbody>
         </table>
       </div>
