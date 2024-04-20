@@ -137,7 +137,7 @@ const AddDropVolunteer = () => {
         );
       case "actions":
         return (
-          <div className="relative flex justify-start items-center">
+          <div className="relative flex justify-start items-center ">
             <Dropdown>
               <DropdownTrigger>
                 <Button isIconOnly size="sm" variant="light">
@@ -184,7 +184,7 @@ const AddDropVolunteer = () => {
           </div>
         );
       default:
-        return "";
+        return item.userType;
     }
   };
 
@@ -198,8 +198,8 @@ const AddDropVolunteer = () => {
 
   const topContent = React.useMemo(() => {
     return (
-      <div className="flex flex-col gap-4 -z-10">
-        <div className="flex justify-between gap-3 items-end">
+      <div className="flex flex-col gap-4 ">
+        <div className="flex justify-start gap-3 items-end">
           <Input
             isClearable
             classNames={{
@@ -269,10 +269,10 @@ const AddDropVolunteer = () => {
   );
 
   return (
-    <div className="flex justify-center -z-10">
+    <div className="flex justify-center">
       <Table
         isStriped
-        className="w-[80%] mt-5 -z-10"
+        className="w-[80%] my-5"
         aria-label="Controlled table example with dynamic content"
         topContent={topContent}
         topContentPlacement="outside"
