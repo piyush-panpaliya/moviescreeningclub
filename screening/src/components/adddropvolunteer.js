@@ -57,11 +57,11 @@ const AddDropVolunteer = () => {
         const roleParams = roleFilter.map((role) => `role=${encodeURIComponent(role)}`).join("&");
         url += roleFilter.length > 0 ? `&${roleParams}` : "";
       }
-
+  
       const response = await fetch(url, {
         method: "GET",
       });
-
+  
       if (!response.ok) {
         console.log(response.json());
         throw new Error("Failed to fetch user data");
@@ -69,9 +69,20 @@ const AddDropVolunteer = () => {
       const data = await response.json();
       // Sort users based on userType: admin, volunteer, standard
       const sortedUsers = data.users.sort((a, b) => {
-        if (a.usertype === "admin") return -1;
-        if (a.usertype === "volunteer" && b.usertype !== "admin") return -1;
-        return 1;
+        const userTypeOrder = {
+          admin: 0,
+          movievolunteer: 1,
+          ticketvolunteer: 2,
+          standard: 3,
+        };
+      
+        const userTypeA = a.usertype.toLowerCase();
+        const userTypeB = b.usertype.toLowerCase();
+      
+        // Compare the userTypeOrder to sort users
+        if (userTypeOrder[userTypeA] < userTypeOrder[userTypeB]) return -1;
+        if (userTypeOrder[userTypeA] > userTypeOrder[userTypeB]) return 1;
+        return 0;
       });
       setUsers(sortedUsers);
     } catch (error) {
@@ -79,6 +90,7 @@ const AddDropVolunteer = () => {
       // Handle error or display appropriate message to the user
     }
   };
+  
 
   const handleSubmit = async (email, userType) => {
     try {
@@ -167,10 +179,17 @@ const AddDropVolunteer = () => {
                 </DropdownItem>
                 <DropdownItem
                   onClick={() => {
-                    handleSubmit(item.email, "volunteer");
+                    handleSubmit(item.email, "ticketvolunteer");
                   }}
                 >
-                  Volunteer
+                  Ticket Volunteer
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    handleSubmit(item.email, "movievolunteer");
+                  }}
+                >
+                  Movie Volunteer
                 </DropdownItem>
                 <DropdownItem
                   onClick={() => {
@@ -192,8 +211,9 @@ const AddDropVolunteer = () => {
 
   const RoleOptions = [
     { uid: 1, name: "admin" },
-    { uid: 2, name: "volunteer" },
-    { uid: 3, name: "standard" },
+    { uid: 2, name: "ticketvolunteer" },
+    { uid: 3, name: "movievolunteer" },
+    { uid: 4, name: "standard" },
   ];
 
   const topContent = React.useMemo(() => {

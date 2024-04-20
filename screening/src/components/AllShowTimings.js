@@ -18,7 +18,7 @@ const ShowtimePage = () => {
 
   useEffect(() => {
     const userType = localStorage.getItem("userType");
-    if (!userType || userType === "standard") {
+    if (!userType) {
       navigate("/");
     }
   }, [navigate]);

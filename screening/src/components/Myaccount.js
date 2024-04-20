@@ -73,13 +73,15 @@ const Myaccount = () => {
         <h3 className="text-xl font-semibold mb-2">Active Memberships:</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2"> {/* Reduced gap here */}
           {currentMemberships.map((membership, index) => (
-            <div key={index} className="membership-card-container" style={{ margin: '8px' }}> {/* Added margin */}
-              <div className={`p-4 rounded-md shadow-lg ${getColor(membership.memtype)} text-center`} style={getCardStyle(150, 180)}>
-                <h3 className="text-lg font-semibold mb-2">{toTitleCase(membership.memtype)}</h3> {/* Convert to title case */}
-                <p><strong>Purchase Date:</strong> {new Date(membership.purchasedate.split('-').reverse().join('-')).toLocaleDateString()}</p>
-                <p><strong>Validity Date:</strong> {new Date(membership.validitydate.split('-').reverse().join('-')).toLocaleDateString()}</p>
+            <Link key={index} to={`/displayqr`} className="membership-card-link">
+              <div className="membership-card-container" style={{ margin: '8px' }}> {/* Added margin */}
+                <div className={`p-4 rounded-md shadow-lg ${getColor(membership.memtype)} text-center`} style={getCardStyle(150, 180)}>
+                  <h3 className="text-lg font-semibold mb-2">{toTitleCase(membership.memtype)}</h3> {/* Convert to title case */}
+                  <p><strong>Purchase Date:</strong> {new Date(membership.purchasedate.split('-').reverse().join('-')).toLocaleDateString()}</p>
+                  <p><strong>Validity Date:</strong> {new Date(membership.validitydate.split('-').reverse().join('-')).toLocaleDateString()}</p>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

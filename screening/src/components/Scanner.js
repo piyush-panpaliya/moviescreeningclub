@@ -11,7 +11,7 @@ export const Scanner = () => {
 
   useEffect(() => {
     const userType = localStorage.getItem('userType');
-    if (!userType || userType === 'standard') {
+    if (!userType || userType === 'standard'|| userType === 'movievolunteer') {
       navigate("/");
     } else {
       initializeScanner();
