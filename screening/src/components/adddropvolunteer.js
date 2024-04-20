@@ -272,7 +272,7 @@ const AddDropVolunteer = () => {
     <div className="flex justify-center -z-10">
       <Table
         isStriped
-        className="w-[80%] mt-5"
+        className="w-[80%] mt-5 -z-10"
         aria-label="Controlled table example with dynamic content"
         topContent={topContent}
         topContentPlacement="outside"

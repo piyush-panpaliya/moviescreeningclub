@@ -84,7 +84,7 @@ const Navbar = () => {
             {loggedIn ? (
               <button
                 onClick={handleLogout}
-                className="mr-3 inline-block px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700 transition duration-150 ease-in-out"
+                className="inline-block px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700 transition duration-150 ease-in-out"
               >
                 Logout
               </button>
@@ -98,7 +98,7 @@ const Navbar = () => {
             )}
           
           <div className="flex">
-            <div className="-mr-2 flex items-center">
+            <div className="-mr-2 flex items-center mx-2">
               <button
                 onClick={toggleMenu}
                 type="button"
