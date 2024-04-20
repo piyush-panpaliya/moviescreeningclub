@@ -70,77 +70,43 @@ const ShowtimePage = () => {
     <div>
       <div>Access granted for {email}.</div>
       <h1>Please select a Showtime from below:</h1>
-      {movies.length > 0 && ( // Render the table only when movies data is available
+      {movies.length > 0 && (
         <Table aria-label="Example table with dynamic content">
           <TableHeader columns={columns}>
             {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
           </TableHeader>
-          <TableBody items={movies.flatMap((movie) => movie.showtimes)}>
-            {(showtime, index) => (
-              <TableRow key={`${showtime._id}-${index}`}>
-                <TableCell>{showtime.movie && showtime.movie?.title}</TableCell>
-                <TableCell>
-                  {moment(showtime.date).format("DD-MM-YYYY")} -{" "}
-                  {moment(showtime.time, "HH:mm").format("hh:mm A")}
-                </TableCell>
-                <TableCell>
-                  <button
-                    onClick={() =>
-                      handleShowtimeSelection(
-                        showtime._id,
-                        showtime.movie && showtime.movie?.title,
-                        showtime.date,
-                        showtime.time
-                      )
-                    }
-                  >
-                    Select
-                  </button>
-                </TableCell>
-              </TableRow>
+          <TableBody>
+            {movies.map((movie) =>
+              movie.showtimes.map((showtime, index) => (
+                <TableRow key={`${movie._id}-${index}`}>
+                  <TableCell>{movie.title}</TableCell>
+                  <TableCell>
+                    {moment(showtime.date).format("DD-MM-YYYY")} -{" "}
+                    {moment(showtime.time, "HH:mm").format("hh:mm A")}
+                  </TableCell>
+                  <TableCell>
+                    <button
+                      onClick={() =>
+                        handleShowtimeSelection(
+                          showtime._id,
+                          movie.title,
+                          showtime.date,
+                          showtime.time
+                        )
+                      }
+                    >
+                      Select
+                    </button>
+                  </TableCell>
+                </TableRow>
+              ))
             )}
           </TableBody>
         </Table>
       )}
-      {/* Render the second table */}
-      <table className="w-[80%] bg-gray-200">
-        <thead className="w-full">
-          <tr className="grid-cols-3">
-            <th>Movie</th>
-            <th>Showtime</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {movies.map((movie) =>
-            movie.showtimes.map((showtime, index) => (
-              <tr key={`${movie._id}-${index}`} className="grid-col-3">
-                <td>{movie.title}</td>
-                <td>
-                  {moment(showtime.date).format("DD-MM-YYYY")} -{" "}
-                  {moment(showtime.time, "HH:mm").format("hh:mm A")}
-                </td>
-                <td>
-                  <button
-                    onClick={() =>
-                      handleShowtimeSelection(
-                        showtime._id,
-                        movie.title,
-                        showtime.date,
-                        showtime.time
-                      )
-                    }
-                  >
-                    Select
-                  </button>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
     </div>
   );
+  
 };
 
 export default ShowtimePage;
