@@ -44,7 +44,7 @@ const Myaccount = () => {
         return 'bg-yellow-300';
       case 'silver':
         return 'bg-gray-300';
-      case 'bronze':
+      case 'base':
         return 'bg-orange-300';
       default:
         return 'bg-blue-300';
