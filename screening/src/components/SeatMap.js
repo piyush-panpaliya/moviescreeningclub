@@ -7,7 +7,7 @@ const SERVERIP = "http://14.139.34.10:8000";
 const SeatMapPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const email = searchParams.get("email");
+  const paymentId = searchParams.get("paymentId");
   const showtimeId = location.pathname.split("/")[2];
   const movie = searchParams.get("movie");
   const date = searchParams.get("date");
@@ -51,7 +51,7 @@ const SeatMapPage = () => {
   useEffect(() => {
     if (seatAssignment === "false") {
       setTimeout(() => {
-        window.location.href = "/scanner";
+        window.location.href = "/QR";
       }, 0);
     }
   }, [showtimeId]);
@@ -68,23 +68,12 @@ const SeatMapPage = () => {
 
   const handleConfirmSeat = async () => {
     try {
-      await axios.put(`${SERVERIP}/seatmaprouter/seatmap/${showtimeId}/${selectedSeat}`, { email });
+      await axios.put(`${SERVERIP}/seatmaprouter/seatmap/${showtimeId}/${selectedSeat}`);
       setAssignedSeat(true);
-        const emailContent = {
-          email,
-          selectedSeat,
-          movie,
-          date1,
-          time1
-        };
-        axios
-          .post(`${SERVERIP}/seatmaprouter/send-email`, emailContent)
-            console.log(`Email sent for seat assignment.`);
-      
-      setErrorMessage(`The seat ${selectedSeat} is successfully assigned to ${email}. Redirecting to Scanner...`);
+      setErrorMessage(`The seat ${selectedSeat} is successfully assigned to you. Redirecting to QRs...`);
       localStorage.setItem("seatassignment", "false");
       setTimeout(() => {
-        window.location.href = "/scanner";
+        window.location.href = "/QR";
       }, 5000);
     } catch (error) {
       console.error("Error assigning seat:", error);

@@ -28,7 +28,6 @@ exports.seatOccupancy = async (req, res) => {
 exports.seatassign = async (req, res) => {
   try {
     const { showtimeId, seat } = req.params;
-    const { email } = req.body;
 
     // Find or create a SeatMap document for the given showtimeId
     let seatMap = await SeatMap.findOne({ showtimeid: showtimeId });
@@ -49,38 +48,9 @@ exports.seatassign = async (req, res) => {
     await seatMap.save();
 
     // Return a success message
-    res.json({ message: `Seat ${seat} assigned to ${email} for showtime ${showtimeId}` });
+    res.json({ message: `Seat ${seat} assigned to you for showtime ${showtimeId}` });
   } catch (error) {
     console.error("Error assigning seat:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-};
-
-exports.sendseatconfmail= (req, res) => {
-  const { email,selectedSeat,movie,date1,time1 } = req.body;
-
-  // Create a transporter using nodemailer
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD,
-    },
-  });
-
-  const mailOptions = {
-    from: process.env.EMAIL,
-    to: email,
-    subject: "Movie Screening Club Seat Assignment",
-    text: `You have successfully reserved the seat no. ${selectedSeat} for the movie ${movie} on ${date1} at ${time1} `
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error("Error sending email:", error);
-      res.status(500).send("Error sending email");
-    } else {
-      res.status(200).send("Email sent successfully");
-    }
-  });
 };

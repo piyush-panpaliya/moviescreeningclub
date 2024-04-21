@@ -13,7 +13,7 @@ import moment from "moment"; // Import moment library for date and time formatti
 const SERVERIP = "http://14.139.34.10:8000";
 
 const ShowtimePage = () => {
-  const { email } = useParams();
+  const { paymentId } = useParams();
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
 
@@ -28,10 +28,10 @@ const ShowtimePage = () => {
   useEffect(() => {
     if (seatAssignment === "false") {
       setTimeout(() => {
-        window.location.href = "/scanner";
+        window.location.href = "/QR";
       }, 0);
     }
-  }, [email]);
+  }, [paymentId]);
 
   useEffect(() => {
     axios
@@ -46,7 +46,7 @@ const ShowtimePage = () => {
 
   const handleShowtimeSelection = (showtimeId, MovieTitle, date, time) => {
     navigate(
-      `/seatmap/${showtimeId}?email=${email}&movie=${encodeURIComponent(
+      `/seatmap/${showtimeId}?paymentId=${paymentId}&movie=${encodeURIComponent(
         MovieTitle
       )}&date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`
     );
@@ -69,7 +69,6 @@ const ShowtimePage = () => {
 
   return (
     <div>
-      <div>Access granted for {email}.</div>
       <h1>Please select a Showtime from below:</h1>
       {movies.length > 0 && (
         <Table aria-label="Example table with dynamic content">
@@ -105,43 +104,6 @@ const ShowtimePage = () => {
           </TableBody>
         </Table>
       )}
-      {/* Render a second table */}
-      <table className="w-[80%] bg-gray-200">
-        <thead>
-          <tr>
-            <th>Movie</th>
-            <th>Showtime</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {movies.map((movie) =>
-            movie.showtimes.map((showtime, index) => (
-              <tr key={`${movie._id}-${index}`}>
-                <td>{movie.title}</td>
-                <td>
-                  {moment(showtime.date).format("DD-MM-YYYY")} -{" "}
-                  {moment(showtime.time, "HH:mm").format("hh:mm A")}
-                </td>
-                <td>
-                  <button
-                    onClick={() =>
-                      handleShowtimeSelection(
-                        showtime._id,
-                        movie.title,
-                        showtime.date,
-                        showtime.time
-                      )
-                    }
-                  >
-                    Select
-                  </button>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
     </div>
   );
   

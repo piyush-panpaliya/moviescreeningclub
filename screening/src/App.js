@@ -42,7 +42,7 @@ function App() {
           <Route path="/update" element={<UpdatePassword/>}/>
           <Route path="/showtime/:movieId/:poster" element={<Showtime/>}/>
           <Route path = "/test" element={<Test/>}/>
-          <Route path="/allshowtime/:email" element={<Showtimepage/>}/>
+          <Route path="/allshowtime/:paymentId" element={<Showtimepage/>}/>
           <Route path="/seatmap/:showtimeId" element={<SeatMapPage />} />
           <Route path="/QR" element={<QR />} />
         </Routes>
