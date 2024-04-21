@@ -70,6 +70,7 @@ const SeatMapPage = () => {
     try {
       await axios.put(`${SERVERIP}/seatmaprouter/seatmap/${showtimeId}/${selectedSeat}`);
       setAssignedSeat(true);
+      await axios.put(`${SERVERIP}/QR/markUsed/${paymentId}`);
       setErrorMessage(`The seat ${selectedSeat} is successfully assigned to you. Redirecting to QRs...`);
       localStorage.setItem("seatassignment", "false");
       setTimeout(() => {

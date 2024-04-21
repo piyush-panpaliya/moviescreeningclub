@@ -49,6 +49,7 @@ exports.sendQR= (req, res) => {
     }
   });
 };
+
 exports.getValidQRs = async (req, res) => {
   const { email } = req.params;
   try {
@@ -75,6 +76,32 @@ exports.getValidQRs = async (req, res) => {
   } catch (error) {
     console.error('Error fetching valid QR codes:', error);
     res.status(500).json({ error: 'Error fetching valid QR codes' });
+  }
+};
+
+exports.markQRUsed = async (req, res) => {
+  try {
+    const { paymentId } = req.params;
+
+    // Find the QR object based on the paymentId
+    const qr = await QR.findOne({ paymentId });
+
+    // If QR object not found, return 404 Not Found error
+    if (!qr) {
+      return res.status(404).json({ error: 'QR not found' });
+    }
+
+    // Update the 'used' field of the QR object
+    qr.used = true;
+
+    // Save the updated QR object back to the database
+    await qr.save();
+
+    // Respond with success message
+    res.status(200).json({ message: 'QR marked as used successfully' });
+  } catch (error) {
+    console.error('Error marking QR as used:', error);
+    res.status(500).json({ error: 'Error marking QR as used' });
   }
 };
 
