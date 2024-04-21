@@ -17,6 +17,7 @@ import {
   Input,
   getKeyValue,
 } from "@nextui-org/react";
+const SERVERIP = "http://14.139.34.10:8000";
 
 const ModifyMovie = () => {
   const [movies, setMovies] = useState([]);
@@ -46,7 +47,7 @@ const ModifyMovie = () => {
 
   const getMovies = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/movie/movies");
+      const response = await axios.get(`${SERVERIP}/movie/movies`);
       setMovies(response.data);
     } catch (error) {
       console.error("Error fetching movies:", error);
@@ -69,7 +70,7 @@ const ModifyMovie = () => {
   const handleSave = async () => {
     try {
       await axios.put(
-        `http://localhost:8000/movie/movies/${editingMovie._id}`,
+        `${SERVERIP}/movie/movies/${editingMovie._id}`,
         editedData
       );
       setMovies((prevMovies) =>
@@ -95,7 +96,7 @@ const ModifyMovie = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8000/movie/movies/${id}`);
+      await axios.delete(`${SERVERIP}/movie/movies/${id}`);
       setMovies((prevMovies) => prevMovies.filter((movie) => movie._id !== id));
     } catch (error) {
       console.error("Error deleting movie:", error);
@@ -109,7 +110,7 @@ const ModifyMovie = () => {
   const handleAddSave = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8000/movie/add-movies",
+        `${SERVERIP}/movie/add-movies`,
         editedData
       );
       console.log("Movie added:", res.data);

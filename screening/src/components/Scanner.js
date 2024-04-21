@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import jsQR from "jsqr";
+const SERVERIP = "http://14.139.34.10:8000";
 
 export const Scanner = () => {
   const [scanResult, setScanResult] = useState(null);
@@ -82,7 +83,7 @@ export const Scanner = () => {
 
   const sendApiRequest = async (result) => {
     try {
-      const response = await fetch("http://localhost:8000/payment/checkPayment", {
+      const response = await fetch(`${SERVERIP}/payment/checkPayment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

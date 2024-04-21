@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
+const SERVERIP = "http://14.139.34.10:8000";
 
 const SeatMapPage = () => {
   const location = useLocation();
@@ -11,7 +12,7 @@ const SeatMapPage = () => {
   const movie = searchParams.get("movie");
   const date = searchParams.get("date");
   const time = searchParams.get("time");
-  const date1 =moment(date).format("DD-MM-YYYY");
+  const date1 = moment(date).format("DD-MM-YYYY");
   const time1 = moment(time, "HH:mm").format("hh:mm A");
 
   const [selectedSeat, setSelectedSeat] = useState(null);
@@ -32,7 +33,7 @@ const SeatMapPage = () => {
     // Fetch seat occupancy information when the component mounts
     const fetchSeatOccupancy = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/seatmaprouter/seatmap/${showtimeId}/seats`);
+        const response = await axios.get(`${SERVERIP}/seatmaprouter/seatmap/${showtimeId}/seats`);
         setSeatOccupancy(response.data);
         console.log(movie);
         console.log(date1);
@@ -67,7 +68,7 @@ const SeatMapPage = () => {
 
   const handleConfirmSeat = async () => {
     try {
-      await axios.put(`http://localhost:8000/seatmaprouter/seatmap/${showtimeId}/${selectedSeat}`, { email });
+      await axios.put(`${SERVERIP}/seatmaprouter/seatmap/${showtimeId}/${selectedSeat}`, { email });
       setAssignedSeat(true);
         const emailContent = {
           email,
@@ -77,7 +78,7 @@ const SeatMapPage = () => {
           time1
         };
         axios
-          .post("http://localhost:8000/seatmaprouter/send-email", emailContent)
+          .post(`${SERVERIP}/seatmaprouter/send-email`, emailContent)
             console.log(`Email sent for seat assignment.`);
       
       setErrorMessage(`The seat ${selectedSeat} is successfully assigned to ${email}. Redirecting to Scanner...`);

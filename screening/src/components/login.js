@@ -4,6 +4,7 @@ import axios from "axios";
 import { useMembershipContext } from "./MembershipContext";
 import imageOne from "../images/home_cinema.svg";
 import { useLogin } from "./LoginContext"; // Import the useLogin hook
+const SERVERIP = "http://14.139.34.10:8000";
 
 export default function Login() {
   const { login } = useLogin(); // Use the login function from context
@@ -36,14 +37,14 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:8000/login/login",
+        `${SERVERIP}/login/login`,
         formData
       );
       if (res.status === 200) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("loggedInUserEmail", formData.email);
         const userTypeResponse = await axios.get(
-          `http://localhost:8000/user/${formData.email}`
+          `${SERVERIP}/user/${formData.email}`
         );
         const userTypeData = userTypeResponse.data;
         const userType = userTypeData.userType;
@@ -52,7 +53,7 @@ export default function Login() {
         // Check membership status after successful login
         const email = formData.email; // Get user's email
         const membershipResponse = await axios.get(
-          `http://localhost:8000/memrouter/checkMembership/${email}`
+          `${SERVERIP}/memrouter/checkMembership/${email}`
         );
 
         if (membershipResponse.data.hasMembership) {

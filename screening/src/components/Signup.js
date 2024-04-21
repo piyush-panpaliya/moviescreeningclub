@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import imageOne from "../images/signupImg.svg";
+const SERVERIP = "http://14.139.34.10:8000";
 
 export const Signup = () => {
   const [formData, setFormData] = useState({
@@ -60,7 +61,7 @@ export const Signup = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:8000/auth/signup", {
+      const res = await axios.post(`${SERVERIP}/auth/signup`, {
         ...formData,
         email,
       });

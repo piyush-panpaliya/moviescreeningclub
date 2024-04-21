@@ -6,10 +6,10 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [showMoreUpcoming, setShowMoreUpcoming] = useState(false);
   const [showMoreOngoing, setShowMoreOngoing] = useState(false);
-
+  const SERVERIP = "http://14.139.34.10:8000";
   useEffect(() => {
     axios
-      .get("http://localhost:8000/movie/movies")
+      .get(`${SERVERIP}/movie/movies`)
       .then((response) => {
         setMovies(response.data);
       })
@@ -18,7 +18,6 @@ const Home = () => {
       });
   }, []);
 
-  // Filter ongoing and upcoming movies
   const ongoingMovies = showMoreOngoing
     ? movies.filter((movie) => movie.currentscreening)
     : movies.filter((movie) => movie.currentscreening).slice(0, 4);

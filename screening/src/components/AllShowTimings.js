@@ -10,6 +10,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment"; // Import moment library for date and time formatting
+const SERVERIP = "http://14.139.34.10:8000";
 
 const ShowtimePage = () => {
   const { email } = useParams();
@@ -34,7 +35,7 @@ const ShowtimePage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/movie/movies")
+      .get(`${SERVERIP}/movie/movies`)
       .then((response) => {
         setMovies(response.data);
       })

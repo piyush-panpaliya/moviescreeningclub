@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-
+const SERVERIP = "http://14.139.34.10:8000";
 const MovieForm = () => {
   const [formData, setFormData] = useState({
     //id: '',
@@ -35,7 +35,7 @@ const MovieForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post("http://localhost:8000/movie/add-movies", formData)
+    axios.post(`${SERVERIP}/movie/add-movies`, formData)
       .then(res => {
         console.log('Movie added:', res.data);
         setFormData({

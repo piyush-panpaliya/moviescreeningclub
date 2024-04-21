@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-//import 'bootstrap/dist/css/bootstrap.css';
-// import "./css/output.css";
+
 import Navbar from "./components/navbar.js";
 import Foram from "./components/Foram.js";
 import Scanner from "./components/Scanner.js";
