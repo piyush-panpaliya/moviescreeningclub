@@ -120,7 +120,7 @@ const Navbar = () => {
           
         </div>
       </div>
-      <div ref={dropdownRef} className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4 bg-gray-800 ' : 'hidden'}`}>
+      <div ref={dropdownRef} className={`${showMenu ? 'block absolute right-0 mt-2 w-1/4 bg-gray-800 mr-2 max-sm:w-1/2' : 'hidden'}`}>
         <div className="px-2 pt-2 pb-3 ">
           {loggedIn ? (
                 <>
