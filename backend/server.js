@@ -34,8 +34,6 @@ const SeatMapRouter = require('./routes/seatmapRoutes.js');
 app.use('/seatmaprouter', SeatMapRouter);
 const membershipsRouter = require('./routes/membershipsRoutes.js');
 app.use('/memrouter', membershipsRouter);
-const from = process.env.EMAIL;
-    console.log(from);
 // Start server 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

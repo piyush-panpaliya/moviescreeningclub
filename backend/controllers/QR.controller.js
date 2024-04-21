@@ -49,3 +49,32 @@ exports.sendQR= (req, res) => {
     }
   });
 };
+exports.getValidQRs = async (req, res) => {
+  const { email } = req.params;
+  try {
+    const today = new Date();
+    const validQRs = [];
+    const allQRs = await QR.find({ email: email });
+
+    allQRs.forEach((qr) => {
+      // Extract date components from validitydate string
+      const parts = qr.validitydate.split('-');
+      const day = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1; // Months are 0-indexed
+      const year = parseInt(parts[2], 10);
+      
+      // Construct Date object
+      const validityDate = new Date(year, month, day);
+
+      // Check if validity date is after current date
+      if (validityDate > today) {
+        validQRs.push(qr);
+      }
+    });
+    res.status(200).json({ qrCodes: validQRs });
+  } catch (error) {
+    console.error('Error fetching valid QR codes:', error);
+    res.status(500).json({ error: 'Error fetching valid QR codes' });
+  }
+};
+
