@@ -24,15 +24,24 @@ const ShowtimePage = () => {
     }
   }, [navigate]);
 
-  const seatAssignment = localStorage.getItem("seatassignment");
   useEffect(() => {
-    if (seatAssignment === "false") {
-      setTimeout(() => {
-        window.location.href = "/QR";
-      }, 0);
-    }
-  }, [paymentId]);
-
+    axios.get(`${SERVERIP}/QR/qrData/${paymentId}`)
+      .then(response => {
+        const qrData = response.data;
+        if (qrData && !qrData.used) {
+          return;
+        } else {
+          // Redirect to QR page if QR data is used or does not exist
+          navigate("/QR");
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching QR data:", error);
+        // Redirect to QR page if there's an error fetching QR data
+        navigate("/QR");
+      });
+  }, [paymentId, navigate]);
+  
   useEffect(() => {
     axios
       .get(`${SERVERIP}/movie/movies`)

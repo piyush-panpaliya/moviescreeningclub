@@ -7,25 +7,31 @@ const QRSchema = new mongoose.Schema({
   validity: Number,
   memtype:{
     type:String
-    },
-validitydate: {
-  type: String, // Change type to String
-  default: function () {
-    const validityDate = moment(Date.now()).add(this.validity, 'days');
-    return validityDate.format('DD-MM-YYYY'); // Format date as dd-mm-yyyy
+  },
+  validitydate: {
+    type: String, // Change type to String
+    default: function () {
+      const validityDate = moment(Date.now()).add(this.validity, 'days');
+      return validityDate.format('DD-MM-YYYY'); // Format date as dd-mm-yyyy
+    }
+  },
+  registrationDate: {
+    type: String, // Change type to String
+    default: () => moment().format('DD-MM-YYYY') // Format date as dd-mm-yyyy
+  },
+  used: {
+    type: Boolean,
+    default: false,
+  },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
+  seen: {
+    type: Boolean,
+    default: false,
   }
-},
-registrationDate: {
-  type: String, // Change type to String
-  default: () => moment().format('DD-MM-YYYY') // Format date as dd-mm-yyyy
-},
-used: {
-  type: Boolean,
-  default: false,
-}
-}
-
-);
+});
 
 const QR = mongoose.model('QR',QRSchema);
 

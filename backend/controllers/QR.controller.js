@@ -105,3 +105,29 @@ exports.markQRUsed = async (req, res) => {
   }
 };
 
+exports.isQRUsed = async (req, res) => {
+  const paymentId = req.params.paymentId;
+
+  try {
+    // Find the QR data based on paymentId
+    const qrData = await QR.findOne({ paymentId });
+
+    if (!qrData) {
+      // If QR data does not exist for the given paymentId, send 404 Not Found
+      return res.status(404).json({ error: 'QR data not found' });
+    }
+
+    // Check if the QR data is used
+    if (qrData.used) {
+      // If QR data is already used, send a message indicating that it's used
+      return res.status(400).json({ message: 'QR data already used' });
+    }
+
+    // If QR data exists and is not used, send the QR data
+    res.json(qrData);
+  } catch (error) {
+    // If there's an error, send 500 Internal Server Error
+    console.error('Error fetching QR data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};

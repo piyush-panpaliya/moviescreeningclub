@@ -6,4 +6,5 @@ router.post('/saveQR', QRController.addQR);
 router.post('/send-email',QRController.sendQR);
 router.get('/:email', QRController.getValidQRs);
 router.put('/markUsed/:paymentId',QRController.markQRUsed);
+router.get('/qrData/:paymentId',QRController.isQRUsed);
 module.exports = router;
