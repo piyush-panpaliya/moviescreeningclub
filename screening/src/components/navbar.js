@@ -81,7 +81,6 @@ const Navbar = () => {
           </div>
           
           <div className="flex items-center">
-            {/* Login/Logout Button */}
             {loggedIn ? (
               <button
                 onClick={handleLogout}
@@ -133,12 +132,24 @@ const Navbar = () => {
                       <NavItem to='/scanner' toggleMenu={toggleMenu}>Scanner</NavItem>
                       <NavItem to='/modifymovie' toggleMenu={toggleMenu}>Modify Movie</NavItem>
                       <NavItem to='/addmovie' toggleMenu={toggleMenu}>Add Movie</NavItem>
+                      <NavItem to='/verifyqrotp' toggleMenu={toggleMenu}>Verify OTP</NavItem>
                     </>
                   )}
                   {userType === 'ticketvolunteer' && (
                     <>
                       <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
                       {!hasMembership && <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>}
+                      <NavItem to='/scanner' toggleMenu={toggleMenu}>Scanner</NavItem>
+                      <NavItem to='/verifyqrotp' toggleMenu={toggleMenu}>Verify OTP</NavItem>
+                    </>
+                  )}
+                  {userType === 'volunteer' && (
+                    <>
+                      <NavItem to='/myaccount' toggleMenu={toggleMenu}>My Profile</NavItem>
+                      {!hasMembership && <NavItem to='/form' toggleMenu={toggleMenu}>Buy a new Membership</NavItem>}
+                      <NavItem to='/modifymovie' toggleMenu={toggleMenu}>Modify Movie</NavItem>
+                      <NavItem to='/addmovie' toggleMenu={toggleMenu}>Add Movie</NavItem>
+                      <NavItem to='/verifyqrotp' toggleMenu={toggleMenu}>Verify OTP</NavItem>
                       <NavItem to='/scanner' toggleMenu={toggleMenu}>Scanner</NavItem>
                     </>
                   )}

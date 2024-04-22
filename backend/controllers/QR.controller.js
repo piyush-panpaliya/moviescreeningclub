@@ -1,5 +1,6 @@
 const QR = require('../models/qr.Model');
 const nodemailer= require( "nodemailer");
+const moment = require('moment');
 
 exports.addQR= (req, res) => {
   const { email, paymentId, validity, memtype } = req.body;
@@ -80,8 +81,10 @@ exports.getValidQRs = async (req, res) => {
 };
 
 exports.markQRUsed = async (req, res) => {
+  console.log("Reached");
   try {
     const { paymentId } = req.params;
+    const { date, showtime } = req.body; // Retrieve date and showtime from request body
 
     // Find the QR object based on the paymentId
     const qr = await QR.findOne({ paymentId });
@@ -91,19 +94,31 @@ exports.markQRUsed = async (req, res) => {
       return res.status(404).json({ error: 'QR not found' });
     }
 
+    // Parse date and showtime to construct expiration time
+    const expirationTime = moment(`${date} ${showtime}`, 'DD-MM-YYYY hh:mm A').add({ hours: 8, minutes: 30 });
+    console.log(expirationTime);
     // Update the 'used' field of the QR object
     qr.used = true;
+
+    // Set the expiration date for the QR
+    qr.expirationDate = expirationTime;
+    console.log(expirationTime);
 
     // Save the updated QR object back to the database
     await qr.save();
 
-    // Respond with success message
-    res.status(200).json({ message: 'QR marked as used successfully' });
+    // Respond with success message and showtime & date
+    res.status(200).json({ 
+      message: 'QR marked as used successfully', 
+      showtime: showtime, 
+      date: date 
+    });
   } catch (error) {
     console.error('Error marking QR as used:', error);
     res.status(500).json({ error: 'Error marking QR as used' });
   }
 };
+
 
 exports.isQRUsed = async (req, res) => {
   const paymentId = req.params.paymentId;
@@ -129,5 +144,90 @@ exports.isQRUsed = async (req, res) => {
     // If there's an error, send 500 Internal Server Error
     console.error('Error fetching QR data:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+exports.saveOTP = async (req, res) => {
+  try {
+    const { email, OTP, paymentId } = req.body;
+
+    // Find the QR object based on the paymentId
+    const qr = await QR.findOne({ paymentId });
+
+    // If QR object not found, return 404 Not Found error
+    if (!qr) {
+      return res.status(404).json({ error: 'QR not found' });
+    }
+
+    // Update the 'OTP' field of the QR object
+    qr.OTP = OTP;
+
+    // Save the updated QR object back to the database
+    await qr.save();
+
+    // Respond with success message
+    res.status(200).json({ message: 'OTP saved successfully' });
+  } catch (error) {
+    console.error('Error saving OTP:', error);
+    res.status(500).json({ error: 'Error saving OTP' });
+  }
+};
+
+exports.sendEmail = async (req, res) => {
+  const { email, seatNumber, otp } = req.body;
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD
+      }
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: 'Seat Booking Confirmation',
+      text: `Your seat has been successfully booked. Seat Number: ${seatNumber}. OTP: ${otp}`
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: 'Email sent successfully' });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+exports.verifyQR = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    // Find the QR object based on email and OTP
+    const qr = await QR.findOne({ email, OTP: otp });
+
+    // If QR object not found, return error message
+    if (!qr) {
+      return res.status(404).json({ error: 'Invalid QR or Email' });
+    }
+
+    // If QR object already verified, return message
+    if (qr.verified) {
+      return res.status(200).json({ message: 'QR is already verified earlier' });
+    }
+
+    // Update the 'verified' field of the QR object
+    qr.verified = true;
+
+    // Save the updated QR object back to the database
+    await qr.save();
+
+    // Respond with success message
+    res.status(200).json({ message: 'QR Verified successfully' });
+  } catch (error) {
+    console.error('Error verifying QR:', error);
+    res.status(500).json({ error: 'Error verifying QR' });
   }
 };

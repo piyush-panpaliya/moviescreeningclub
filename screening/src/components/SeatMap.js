@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
-const SERVERIP = "http://14.139.34.10:8000";
+const SERVERIP = "http://localhost:8000";
 
 const SeatMapPage = () => {
   const location = useLocation();
@@ -63,14 +63,15 @@ const SeatMapPage = () => {
       });
   }, [paymentId, navigate]);
 
-  const saveOTPToDatabase = async (otp) => {
+  const saveOTPToDatabase = async (otp, paymentId) => {
     try {
-      const response = await axios.post(`${SERVERIP}/otpQRRouter/saveOTP`, { email: localStorage.getItem('loggedInUserEmail'), otp: otp });
+      const email = localStorage.getItem('loggedInUserEmail');
+      const response = await axios.post(`${SERVERIP}/QR/saveOTP`, { email, OTP: otp, paymentId });
       console.log(response.data.message);
     } catch (error) {
       console.error("Error saving OTP to database:", error);
     }
-  };
+  };  
 
   const sendEmail = async (otp) => {
     try {
@@ -79,7 +80,7 @@ const SeatMapPage = () => {
         seatNumber: selectedSeat,
         otp: otp
       };
-      const response = await axios.post(`${SERVERIP}/otpQRRouter/sendEmail`, emailData);
+      const response = await axios.post(`${SERVERIP}/QR/sendEmail`, emailData);
       console.log(response.data.message);
     } catch (error) {
       console.error("Error sending email:", error);
@@ -99,13 +100,13 @@ const SeatMapPage = () => {
     try {
       await axios.put(`${SERVERIP}/seatmaprouter/seatmap/${showtimeId}/${selectedSeat}`);
       setAssignedSeat(true);
-      await axios.put(`${SERVERIP}/QR/markUsed/${paymentId}`);
+      await axios.put(`${SERVERIP}/QR/markUsed/${paymentId}`, { showtime: time1, date: date1 });
 
       // Generate OTP
       const otp = generateOTP();
 
       // Save OTP to database
-      await saveOTPToDatabase(otp);
+      await saveOTPToDatabase(otp,paymentId);
 
       // Send email
       await sendEmail(otp);
