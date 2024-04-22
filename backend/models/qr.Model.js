@@ -19,6 +19,9 @@ const QRSchema = new mongoose.Schema({
     type: String, // Change type to String
     default: () => moment().format('DD-MM-YYYY') // Format date as dd-mm-yyyy
   },
+  OTP: {
+    type: String
+  },
   used: {
     type: Boolean,
     default: false,
@@ -27,9 +30,9 @@ const QRSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  seen: {
-    type: Boolean,
-    default: false,
+  expirationDate: {
+    type: Date,
+    default: new Date('2100-01-01T12:00:00Z') // Set default to 12:00 pm, January 1, 2100
   }
 });
 
