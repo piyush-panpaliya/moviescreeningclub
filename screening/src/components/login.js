@@ -8,6 +8,7 @@ const SERVERIP = "http://14.139.34.10:8000";
 
 export default function Login() {
   const { login } = useLogin(); // Use the login function from context
+  const[clicked,setClicked]=useState("");
   const [formData, setFormData] = useState({
     email: localStorage.getItem("signupEmail") || "",
     password: "",
@@ -34,12 +35,9 @@ export default function Login() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
-      const res = await axios.post(
-        `${SERVERIP}/login/login`,
-        formData
-      );
+      const res = await axios.post(`${SERVERIP}/login/login`, formData);
       if (res.status === 200) {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("loggedInUserEmail", formData.email);
@@ -76,6 +74,16 @@ export default function Login() {
     }
   };
 
+  useEffect(() => {
+    onkeydown = async (e) => {
+      if (e.key === "Enter") {
+        setClicked(() => true);
+        await handleSubmit({ formData});
+        navigate('/home');
+      }
+    };
+  }, [formData, navigate]);
+
   return (
     <div className="flex justify-center items-center h-screen bg-[#e5e8f0]">
       <div className="flex items-center justify-center flex-wrap w-[80%] md:h-[90%] sm:h-[90%] max-sm:h-[60%] max-sm:w-[90%] bg-white rounded-3xl ">
@@ -92,7 +100,9 @@ export default function Login() {
           <div className="flex justify-center items-center mt-4 w-1/2 max-sm:w-full">
             <div className="flex flex-col justify-center gap-6 h-full w-[90%]">
               <div className="h-[20%]">
-                <p className="text-center font-bold text-3xl max-sm:text-xl">Welcome Again!</p>
+                <p className="text-center font-bold text-3xl max-sm:text-xl">
+                  Welcome Again!
+                </p>
                 <p className="text-center font-normal text-2xl mt-4 max-sm:text-medium">
                   Please login to continue
                 </p>
@@ -180,6 +190,7 @@ export default function Login() {
                     required
                     value={formData.password}
                     onChange={handleChange}
+                    
                   />
                 </div>
                 <Link
@@ -190,7 +201,10 @@ export default function Login() {
                 </Link>
 
                 <button
-                  onClick={handleSubmit}
+                  onClick={async()=>{
+                    setClicked(()=>true);
+                    await handleSubmit({formData});
+                  }}
                   className="flex justify-center items-center bg-[#fe6b68] w-4/5 h-[15%] p-2 text-white rounded-xl"
                   type="button"
                 >
@@ -198,7 +212,7 @@ export default function Login() {
                 </button>
 
                 <span className="border-t-2 w-4/5 text-center mt-2 pt-2 max-sm:text-sm">
-                  Don't have an account -- 
+                  Don't have an account --
                   <Link className="text-blue-600" to="/getOTP">
                     Signup
                   </Link>
