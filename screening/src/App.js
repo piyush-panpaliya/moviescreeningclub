@@ -19,7 +19,8 @@ import Showtime from "./components/showtime.js";
 import Showtimepage from "./components/AllShowTimings.js";
 import SeatMapPage from "./components/SeatMap.js";
 import Test from "./components/test.js";
-import QR from "./components/displayQR.js"
+import QR from "./components/displayQR.js";
+import OtpVerifyQR from "./components/otpQRverify.js";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/allshowtime/:paymentId" element={<Showtimepage/>}/>
           <Route path="/seatmap/:showtimeId" element={<SeatMapPage />} />
           <Route path="/QR" element={<QR />} />
+          <Route path="/verifyqrotp" element={<OtpVerifyQR />} />
         </Routes>
       </LoginProvider>
     </BrowserRouter>

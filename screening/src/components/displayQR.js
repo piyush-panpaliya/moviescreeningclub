@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import QRCode from 'qrcode';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { useNavigate } from 'react-router-dom'; 
 
 const SERVERIP = "http://14.139.34.10:8000";
+
 const QR = () => {
   const [validQRs, setValidQRs] = useState([]);
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchValidQRs = async () => {
       try {
-        const email = localStorage.getItem('loggedInUserEmail'); // Retrieve email from localStorage
+        const email = localStorage.getItem('loggedInUserEmail'); 
         const response = await axios.get(`${SERVERIP}/QR/${email}`);
         const qrCodes = await Promise.all(response.data.qrCodes.map(qr => generateQRCode(qr)));
-        setValidQRs(qrCodes);
+        const filteredQRs = qrCodes.filter(qr => new Date(qr.expirationDate) > new Date());
+        setValidQRs(filteredQRs);
       } catch (error) {
         console.error('Error fetching valid QR codes:', error);
       }
@@ -23,22 +25,32 @@ const QR = () => {
     fetchValidQRs();
   }, []);
 
-  // Function to generate QR code from payment ID
   const generateQRCode = async (qr) => {
     try {
       const dataURL = await QRCode.toDataURL(qr.paymentId);
-      return { ...qr, dataURL }; // Include the dataURL along with the QR object
+      return { ...qr, dataURL }; 
     } catch (error) {
       console.error('Error generating QR code:', error);
-      return { ...qr, dataURL: '' }; // Include an empty dataURL if generation fails
+      return { ...qr, dataURL: '' }; 
     }
   };
 
-  // Function to handle the button click
   const handleUseQR = (qr) => {
     localStorage.setItem("seatassignment", "true");
-    navigate(`/allshowtime/${qr.paymentId}`); // <-- Close the parenthesis here
+    navigate(`/allshowtime/${qr.paymentId}`); 
     console.log(`${qr.paymentId}`);
+  };
+
+  const renderQRStatus = (qr) => {
+    if (qr.verified) {
+      return "OTP is verified. Happy Show time";
+    } else {
+      if (qr.used) {
+        return "Seat selected but OTP not yet verified";
+      } else {
+        return <button onClick={() => handleUseQR(qr)}>Use this QR</button>;
+      }
+    }
   };
 
   return (
@@ -48,11 +60,7 @@ const QR = () => {
         {validQRs.map((qr, index) => (
           <div key={index} style={{ marginRight: '10px', marginBottom: '10px' }}>
             <img src={qr.dataURL} alt={`QR Code ${index}`} style={{ width: '100px', height: '100px' }} />
-            {!qr.used ? (
-              <button onClick={() => handleUseQR(qr)}>Use this QR</button>
-            ) : (
-              <p>Already used QR</p>
-            )}
+            <p>{renderQRStatus(qr)}</p>
           </div>
         ))}
       </div>
