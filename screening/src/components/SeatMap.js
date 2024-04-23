@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
-const SERVERIP = "http://localhost:8000";
+const SERVERIP = "http://14.139.34.10:8000";
 
 const SeatMapPage = () => {
   const location = useLocation();
@@ -157,7 +157,8 @@ const SeatMapPage = () => {
               strokeWidth="0.3"
             />
           </svg>
-          <div className="flex justify-between gap-4">
+          
+          <div className="flex justify-evenly gap-4 ">
             <div className="flex flex-col gap-2">
               {[...Array(9).keys()].map(row => (
                 <div key={row} className="flex gap-2">
@@ -171,7 +172,7 @@ const SeatMapPage = () => {
                         disabled={assignedSeat || seatOccupancy[seatNumber]}
                         style={{ color: seatOccupancy[seatNumber] ? "red" : "black" }}
                       >
-                        <span className="block w-4 h-5">{seatNumber}</span>
+                        <span className="block w-5 h-5">{seatNumber}</span>
                       </div>
                     );
                   })}
@@ -192,7 +193,7 @@ const SeatMapPage = () => {
                         disabled={assignedSeat || seatOccupancy[seatNumber]}
                         style={{ color: seatOccupancy[seatNumber] ? "red" : "black" }}
                       >
-                        <span className="block w-4 h-5">{seatNumber}</span>
+                        <span className="block w-5 h-5">{seatNumber}</span>
                       </div>
                     );
                   })}
@@ -200,9 +201,9 @@ const SeatMapPage = () => {
               ))}
             </div>
             <div className="w-4"></div> {/* Entrance space */}
-            <div className="flex flex-col gap-2">
+            <div className="flex justify-between gap-4 ">
               {/* Container for the 5x5 block */}
-              <div style={{ marginTop: '50px' }}>
+              <div className="flex flex-col gap-2">
                 {[...Array(9).keys()].map(row => (
                   <div key={row} className="flex gap-2">
                     {[...Array(6).keys()].map(col => {
@@ -214,7 +215,7 @@ const SeatMapPage = () => {
                           disabled={assignedSeat || seatOccupancy[seatNumber]}
                           style={{ color: seatOccupancy[seatNumber] ? "red" : "black" }}
                         >
-                          <span className="block w-4 h-5">{seatNumber}</span>
+                          <span className="block w-5 h-5">{seatNumber}</span>
                         </div>
                       );
                     })}
@@ -227,7 +228,7 @@ const SeatMapPage = () => {
           <div className="flex justify-center mt-4 mb-4">
             <span className="font-semibold text-lg">Entrance</span>
           </div>
-          <div className="flex justify-between gap-4">
+          <div className="flex justify-evenly gap-4">
             <div className="flex flex-col gap-2">
               {[...Array(7).keys()].map(row => (
                 <div key={row} className="flex gap-2">
@@ -241,7 +242,7 @@ const SeatMapPage = () => {
                         disabled={assignedSeat || seatOccupancy[seatNumber]}
                         style={{ color: seatOccupancy[seatNumber] ? "red" : "black" }}
                       >
-                        <span className="block w-4 h-5">{seatNumber}</span>
+                        <span className="block w-5 h-5">{seatNumber}</span>
                       </div>
                     );
                   })}
@@ -263,7 +264,7 @@ const SeatMapPage = () => {
                         disabled={assignedSeat || seatOccupancy[seatNumber]}
                         style={{ color: seatOccupancy[seatNumber] ? "red" : "black" }}
                       >
-                        <span className="block w-4 h-5">{seatNumber}</span>
+                        <span className="block w-5 h-5">{seatNumber}</span>
                       </div>
                     );
                   })}
@@ -284,7 +285,7 @@ const SeatMapPage = () => {
                         disabled={assignedSeat || seatOccupancy[seatNumber]}
                         style={{ color: seatOccupancy[seatNumber] ? "red" : "black" }}
                       >
-                        <span className="block w-4 h-5">{seatNumber}</span>
+                        <span className="block w-5 h-5">{seatNumber}</span>
                       </div>
                     );
                   })}
