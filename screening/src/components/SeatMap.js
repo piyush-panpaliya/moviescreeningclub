@@ -127,7 +127,6 @@ const SeatMapPage = () => {
   };
 
   const generateOTP = () => {
-    // Generate 6-digit OTP
     const digits = '0123456789';
     let OTP = '';
     for (let i = 0; i < 6; i++) {
@@ -228,7 +227,7 @@ const SeatMapPage = () => {
           <div className="flex justify-center mt-4 mb-4">
             <span className="font-semibold text-lg">Entrance</span>
           </div>
-          <div className="flex justify-evenly gap-4">
+          <div className="flex justify-evenly gap-4 mb-4">
             <div className="flex flex-col gap-2">
               {[...Array(7).keys()].map(row => (
                 <div key={row} className="flex gap-2">
@@ -271,8 +270,8 @@ const SeatMapPage = () => {
                 </div>
               ))}
             </div>
-            <div className="w-4"></div> {/* Entrance space */}
-            <div className="flex flex-col gap-2">
+            <div className="w-4"></div> 
+            <div className="flex flex-col gap-2 ">
               {[...Array(7).keys()].map(row => (
                 <div key={row} className="flex gap-2">
                   {[...Array(7).keys()].map(col => {
@@ -294,8 +293,8 @@ const SeatMapPage = () => {
             </div>
           </div>
           {selectedSeat && (
-            <div>
-              <p>Selected Seat: {selectedSeat}</p>
+            <div className="flex flex-col bg-green-400">
+              <p className="text-center">Selected Seat: {selectedSeat}</p>
               <button onClick={handleConfirmSeat}>Confirm Seat</button>
             </div>
           )}
