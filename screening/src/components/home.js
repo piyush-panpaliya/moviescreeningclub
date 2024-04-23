@@ -9,7 +9,7 @@ const Home = () => {
   const SERVERIP = "http://14.139.34.10:8000";
   useEffect(() => {
     axios
-      .get(`${SERVERIP}/movie/movies`)
+      .get(`./backend/server.js/movie/movies`)
       .then((response) => {
         setMovies(response.data);
       })

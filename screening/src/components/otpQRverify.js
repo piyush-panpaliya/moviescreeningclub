@@ -7,7 +7,7 @@ const OtpVerifyQR = () => {
   const [otp, setOTP] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const SERVERIP = "http://localhost:8000";
+  const SERVERIP = "http://14.139.34.10:8000";
 
   useEffect(() => {
     const userType = localStorage.getItem("userType");
