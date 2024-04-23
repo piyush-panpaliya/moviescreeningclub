@@ -21,6 +21,7 @@ import SeatMapPage from "./components/SeatMap.js";
 import Test from "./components/test.js";
 import QR from "./components/displayQR.js";
 import OtpVerifyQR from "./components/otpQRverify.js";
+import Footer from "./components/footer.js";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
           <Route path="/QR" element={<QR />} />
           <Route path="/verifyqrotp" element={<OtpVerifyQR />} />
         </Routes>
+        <Footer/>
       </LoginProvider>
     </BrowserRouter>
   );
