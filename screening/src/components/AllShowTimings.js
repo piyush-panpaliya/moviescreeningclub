@@ -25,8 +25,9 @@ const ShowtimePage = () => {
   }, [navigate]);
 
   useEffect(() => {
-    axios.get(`${SERVERIP}/QR/qrData/${paymentId}`)
-      .then(response => {
+    axios
+      .get(`${SERVERIP}/QR/qrData/${paymentId}`)
+      .then((response) => {
         const qrData = response.data;
         if (qrData && !qrData.used) {
           return;
@@ -35,13 +36,13 @@ const ShowtimePage = () => {
           navigate("/QR");
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Error fetching QR data:", error);
         // Redirect to QR page if there's an error fetching QR data
         navigate("/QR");
       });
   }, [paymentId, navigate]);
-  
+
   useEffect(() => {
     axios
       .get(`${SERVERIP}/movie/movies`)
@@ -77,45 +78,64 @@ const ShowtimePage = () => {
   ];
 
   return (
-    <div>
-      <h1>Please select a Showtime from below:</h1>
-      {movies.length > 0 && (
-        <Table aria-label="Example table with dynamic content">
-          <TableHeader columns={columns}>
-            {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
-          </TableHeader>
-          <TableBody>
-            {movies.map((movie) =>
-              movie.showtimes.map((showtime, index) => (
-                <TableRow key={`${movie._id}-${index}`}>
-                  <TableCell>{movie.title}</TableCell>
-                  <TableCell>
-                    {moment(showtime.date).format("DD-MM-YYYY")} -{" "}
-                    {moment(showtime.time, "HH:mm").format("hh:mm A")}
-                  </TableCell>
-                  <TableCell>
-                    <button
-                      onClick={() =>
-                        handleShowtimeSelection(
-                          showtime._id,
-                          movie.title,
-                          showtime.date,
-                          showtime.time
-                        )
-                      }
-                    >
-                      Select
-                    </button>
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      )}
+    <div className="flex justify-center items-center min-h-screen bg-[#e5e8f0]">
+      <div className="w-[90%] flex flex-col bg-white min-h-screen my-4 rounded-xl shadow-lg items-center">
+        <h1 className="text-2xl font-semibold my-4 text-center">
+          Please select a Showtime from below
+        </h1>
+        {movies.length > 0 && (
+          <Table
+            aria-label="Example table with dynamic content"
+            className="w-[90%]"
+            // isStriped
+          >
+            <TableHeader columns={columns}>
+              {(column) => (
+                <TableColumn key={column.key}>{column.label}</TableColumn>
+              )}
+            </TableHeader>
+            <TableBody>
+              {movies.map((movie) =>
+                movie.showtimes.map((showtime, index) => (
+                  <TableRow key={`${movie._id}-${index}`} className="even:bg-[#f4f4f5]">
+                    <TableCell>{movie.title}</TableCell>
+                    <TableCell>
+                      {moment(showtime.date).format("DD-MM-YYYY")} -{" "}
+                      {moment(showtime.time, "HH:mm").format("hh:mm A")}
+                    </TableCell>
+                    <TableCell>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="green"
+                        className="w-8 h-8"
+                        onClick={() =>
+                          handleShowtimeSelection(
+                            showtime._id,
+                            movie.title,
+                            showtime.date,
+                            showtime.time
+                          )
+                        }
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                        />
+                      </svg>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        )}
+      </div>
     </div>
   );
-  
 };
 
 export default ShowtimePage;
