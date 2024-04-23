@@ -80,17 +80,17 @@ const Showtime = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#e5e8f0]">
       <div className="w-[80%] flex flex-col bg-white h-[90%] my-4 rounded-xl shadow-lg">
-        <div className="flex justify-between">
-          <div className="w-[30%] flex justify-center mt-2 ml-2">
+        <div className="sm:flex max-sm:flex-col justify-between">
+          <div className="sm:w-[30%] max-sm:w-[95%] flex justify-center mt-2 ml-2">
             <img
               src={poster}
               className="rounded-md w-full h-[90%]"
               alt={poster}
             />
           </div>
-          <div className="flex flex-col w-[60%] gap-3 mr-4 mt-4">
-            <div className="flex justify-between mb-2">
-              <h2 className="text-2xl text-center font-bold mb-0 w-full">
+          <div className="flex flex-col sm:w-[60%] max-sm:w-full gap-3 sm:mr-4 mt-4">
+            <div className="flex justify-between mb-2 mr-2">
+              <h2 className="text-2xl text-center font-bold w-full">
                 Showtimes{" "}
               </h2>
               {userType === "admin" && (
@@ -109,17 +109,10 @@ const Showtime = () => {
                     d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                   />
                 </svg>
-
-                // <button
-                //   onClick={handleAddShowtime}
-                //   className="bg-blue-500 text-white px-2 py-1 mx-2 my-1 rounded"
-                // >
-                //   Add
-                // </button>
               )}
             </div>
-            <table className="flex flex-col items-center">
-              <thead className="flex justify-between w-2/3">
+            <table className="flex flex-col items-center mb-3">
+              <thead className="flex justify-between sm:w-2/3 max-sm:w-[90%]">
                 <tr className="flex justify-evenly gap-11 w-full text-lg">
                   <th>Date</th>
                   <th>Time</th>
@@ -129,7 +122,7 @@ const Showtime = () => {
                 </tr>
               </thead>
 
-              <tbody className="flex flex-col justify-center w-2/3 gap-3 mt-3">
+              <tbody className="flex flex-col justify-center sm:w-2/3 max-sm:w-[90%] gap-3 mt-3">
                 {showtimes.map((showtime, index) => (
                   <tr
                     key={index}
@@ -200,14 +193,15 @@ const Showtime = () => {
             </table>
           </div>
         </div>
-        <div className="flex justify-center mb-3">
-          <div className=" border">
+        <div className="flex justify-center mb-3 w-full">
+          <div className="flex sm:w-[90%] max-sm:w-[80%] max-sm:h-[40%]">
             {trailer && (
               <iframe
                 title="movie-trailer"
                 controls="false"
                 width="1010"
                 height="488"
+                className="w-full"
                 src={trailer}
                 allowFullScreen
               ></iframe>
