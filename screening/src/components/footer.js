@@ -75,11 +75,11 @@ export default function Footer() {
             </span>
             <div className="flex items-center gap-2">
               <a
-                href="#"
-                class="text-gray-500 hover:text-[#0866ff] dark:hover:text-white dark:text-gray-400"
+                href="https://facebook.com"
+                className="text-gray-500 hover:text-[#0866ff] dark:hover:text-white dark:text-gray-400"
               >
                 <svg
-                  class="w-8 h-8"
+                  className="w-8 h-8"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -99,11 +99,11 @@ export default function Footer() {
             </div>
             <div className="flex items-center gap-2">
               <a
-                href="#"
-                class="text-gray-500 hover:text-[#d62976] dark:hover:text-white dark:text-gray-400"
+                href="https://instagram.com"
+                className="text-gray-500 hover:text-[#d62976] dark:hover:text-white dark:text-gray-400"
               >
                 <svg
-                  class="w-8 h-8"
+                  className="w-8 h-8"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -123,11 +123,11 @@ export default function Footer() {
             </div>
             <div className="flex items-center gap-2">
               <a
-                href="#"
-                class="text-gray-500 hover:text-white dark:hover:text-white dark:text-gray-400"
+                href="https://twitter.com"
+                className="text-gray-500 hover:text-white dark:hover:text-white dark:text-gray-400"
               >
                 <svg
-                  class="w-8 h-8"
+                  className="w-8 h-8"
                   viewBox="0 0 357 322"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
