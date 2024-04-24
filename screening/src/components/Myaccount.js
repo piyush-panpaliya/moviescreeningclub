@@ -7,7 +7,7 @@ const SERVERIP = "http://14.139.34.10:8000";
 const Myaccount = () => {
   const { loggedIn } = useLogin(); // Use loggedIn state from context
   const navigate = useNavigate();
-  const [memberships, setMemberships] = useState([]);
+  // const [memberships, setMemberships] = useState([]);
   const [currentMemberships, setCurrentMemberships] = useState([]);
   const [previousMemberships, setPreviousMemberships] = useState([]);
 
@@ -75,10 +75,10 @@ const Myaccount = () => {
   return (
     <div>
       <div className="bg-gray-200 flex flex-col items-center min-h-screen">
-        <h2 className="text-2xl font-semibold mb-4 mt-7">Your Memberships:</h2>
-        <div className="flex flex-col bg-white h-1/2 w-4/5 my-10 rounded-xl shadow-lg">
-          <div className="flex flex-col justify-between my-3 mx-5">
-            <h3 className="text-xl font-semibold mb-2">Active Memberships:</h3>
+        <h2 className="text-2xl lg:text-3xl font-semibold mb-4 mt-7">Your Memberships</h2>
+        <div className="flex flex-col bg-white w-4/5 my-10 rounded-xl shadow-lg">
+          <div className="flex flex-col justify-between my-3 mx-5 ">
+            <h3 className="text-xl lg:text-2xl font-semibold mb-2">Active Memberships</h3>
             <div className="grid gap-6 my-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-5">
               {currentMemberships.map((membership, index) => (
                 <Link
@@ -94,20 +94,20 @@ const Myaccount = () => {
                     <div
                       className={`px-4 flex flex-col justify-evenly rounded-md shadow-lg ${getColor(
                         membership.memtype
-                      )} text-center w-[230px] h-[180px] max-sm:w-full `}
+                      )} text-center w-[230px] lg:w-[250px] h-[280px] max-sm:w-full `}
                       // style={getCardStyle(230, 180)}
                     >
-                      <h3 className="text-xl font-semibold">
+                      <h3 className="text-xl lg:text-2xl font-semibold">
                         {toTitleCase(membership.memtype)}
                       </h3>
                       <p>
-                        <strong>Purchase Date:</strong>
+                        <strong className="lg:text-lg">Purchase Date -</strong>{" "}
                         {new Date(
                           membership.purchasedate.split("-").reverse().join("-")
                         ).toLocaleDateString()}
                       </p>
                       <p>
-                        <strong>Validity Date:</strong>
+                        <strong className="lg:text-lg">Validity Date -</strong>{" "}
                         {new Date(
                           membership.validitydate.split("-").reverse().join("-")
                         ).toLocaleDateString()}
@@ -122,7 +122,7 @@ const Myaccount = () => {
 
         <div className="flex flex-col bg-white h-1/2 w-4/5 my-10 rounded-xl shadow-lg">
           <div className="flex flex-col justify-between my-3 mx-5">
-            <h3 className="text-xl font-semibold">Previous Memberships:</h3>
+            <h3 className="text-xl lg:text-2xl font-semibold">Previous Memberships</h3>
             <div className="grid gap-6 my-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-5">
               {previousMemberships.map((membership, index) => (
                 <div
@@ -133,20 +133,20 @@ const Myaccount = () => {
                   <div
                     className={`px-4 flex flex-col justify-evenly rounded-md shadow-lg ${getColor(
                       membership.memtype
-                    )} text-center w-[230px] h-[180px] max-sm:w-full `}
+                    )} text-center w-[230px] h-[280px] max-sm:w-full `}
                     // style={getCardStyle(150, 180)}
                   >
                     <h3 className="text-xl font-semibold ">
                       {toTitleCase(membership.memtype)}
                     </h3>
                     <p>
-                      <strong>Purchase Date:</strong>{" "}
+                      <strong className="lg:text-lg">Purchase Date -</strong>{' '}
                       {new Date(
                         membership.purchasedate.split("-").reverse().join("-")
                       ).toLocaleDateString()}
                     </p>
                     <p>
-                      <strong>Validity Date:</strong>{" "}
+                      <strong className="lg:text-lg">Validity Date -</strong>{' '}
                       {new Date(
                         membership.validitydate.split("-").reverse().join("-")
                       ).toLocaleDateString()}

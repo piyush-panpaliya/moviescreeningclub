@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/navbar.js";
 import Foram from "./components/Foram.js";
@@ -27,7 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       <LoginProvider>
-        <Navbar />
+        <Navbar/>
         <Routes>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />

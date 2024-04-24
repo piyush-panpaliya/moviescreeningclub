@@ -68,8 +68,8 @@ const Navbar = () => {
   };
   
   return (
-    <nav className="bg-gray-800 sticky z-10">
-      <div className="max-w-7xl mx-auto px-4">
+    <nav className="bg-gray-800 z-10 w-full md:sticky top-0">
+      <div className="w-full mx-auto px-4">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">

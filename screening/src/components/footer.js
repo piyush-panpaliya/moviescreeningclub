@@ -22,7 +22,7 @@ export default function Footer() {
             />
           </svg>
         </p>
-        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 mb-20">
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 mb-12">
           <div className="my-4 flex flex-col gap-1">
             <span className="text-xl font-semibold capitalize mb-2">
               contact us
