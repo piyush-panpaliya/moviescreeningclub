@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
 
 const SeatMapPage = () => {
   const location = useLocation();

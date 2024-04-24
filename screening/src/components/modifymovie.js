@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Chip,
-  Input,
-  getKeyValue,
-} from "@nextui-org/react";
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
+// import {
+//   Table,
+//   TableHeader,
+//   TableColumn,
+//   TableBody,
+//   TableRow,
+//   TableCell,
+//   Button,
+//   DropdownTrigger,
+//   Dropdown,
+//   DropdownMenu,
+//   DropdownItem,
+//   Chip,
+//   Input,
+//   getKeyValue,
+// } from "@nextui-org/react";
 
 const ModifyMovie = () => {
   const [movies, setMovies] = useState([]);

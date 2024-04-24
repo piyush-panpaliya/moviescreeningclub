@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { SERVERIP } from "../config";
 
 const OtpVerifyQR = () => {
   const [email, setEmail] = useState("");
   const [otp, setOTP] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const SERVERIP = "http://14.139.34.10:8000";
 
   useEffect(() => {
     const userType = localStorage.getItem("userType");

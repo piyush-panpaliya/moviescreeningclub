@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import moment from "moment"; // Import moment library for date and time formatting
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
 
 const Showtime = () => {
   const { movieId, poster: encodedPosterUrl } = useParams();

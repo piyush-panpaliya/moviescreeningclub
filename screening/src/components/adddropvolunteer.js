@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { SERVERIP } from "../config";
 import {
   Table,
   TableHeader,
@@ -16,7 +17,6 @@ import {
   Input,
   getKeyValue,
 } from "@nextui-org/react";
-const SERVERIP = "http://14.139.34.10:8000";
 const AddDropVolunteer = () => {
   const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");

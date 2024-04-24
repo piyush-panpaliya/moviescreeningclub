@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
 const MovieForm = () => {
   const [formData, setFormData] = useState({
     //id: '',

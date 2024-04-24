@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { SERVERIP } from "../config";
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [showMoreUpcoming, setShowMoreUpcoming] = useState(false);
   const [showMoreOngoing, setShowMoreOngoing] = useState(false);
-  const SERVERIP = "http://14.139.34.10:8000";
   useEffect(() => {
     axios
       .get(`${SERVERIP}/movie/movies`)

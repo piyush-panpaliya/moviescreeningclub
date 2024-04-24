@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import imageOne from "../images/forgotPassword.svg";
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
 
 export default function ForgotPassword() {
   const [formData, setFormData] = useState({
@@ -26,7 +26,7 @@ export default function ForgotPassword() {
       if (res.status === 200) {
         setIsSubmitting(true);
         const res1 = await axios.post(
-          "http://localhost:8000/otp/send-otp",
+          "${SERVERIP}/otp/send-otp",
           formData
         );
         if (res1.data.success) {

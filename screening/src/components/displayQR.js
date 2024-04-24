@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import QRCode from "qrcode";
 import { useNavigate } from "react-router-dom";
-
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
 
 const QR = () => {
   const [validQRs, setValidQRs] = useState([]);

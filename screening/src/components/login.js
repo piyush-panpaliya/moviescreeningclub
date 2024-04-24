@@ -4,7 +4,7 @@ import axios from "axios";
 import { useMembershipContext } from "./MembershipContext";
 import imageOne from "../images/home_cinema.svg";
 import { useLogin } from "./LoginContext"; // Import the useLogin hook
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
 
 export default function Login() {
   const { login } = useLogin(); // Use the login function from context

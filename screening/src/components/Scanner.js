@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import jsQR from "jsqr";
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
 
 export const Scanner = () => {
   const [scanResult, setScanResult] = useState(null);

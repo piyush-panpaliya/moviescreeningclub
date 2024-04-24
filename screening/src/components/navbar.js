@@ -4,7 +4,7 @@ import Logo from '../images/logo.png';
 import { useLogin } from './LoginContext'; // Import useLogin hook
 import axios from 'axios';
 import { useMembershipContext } from "./MembershipContext";
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
 
 const Navbar = () => {
   const { loggedIn, logout } = useLogin();

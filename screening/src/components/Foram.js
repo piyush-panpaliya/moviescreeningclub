@@ -4,7 +4,7 @@ import axios from "axios";
 import { useMembershipContext } from "./MembershipContext";
 import { getToken } from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
 
 export const Foram = () => {
   const [amount, setAmount] = useState("");

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useLogin } from "./LoginContext"; // Import useLogin hook
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
 
 const Myaccount = () => {
   const { loggedIn } = useLogin(); // Use loggedIn state from context

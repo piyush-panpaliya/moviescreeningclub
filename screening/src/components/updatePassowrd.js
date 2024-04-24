@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
 
 export default function UpdatePassword() {
   const [formData, setFormData] = useState({

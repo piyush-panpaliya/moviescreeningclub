@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-const SERVERIP = "http://14.139.34.10:8000";
+import { SERVERIP } from "../config";
 
 const MembershipContext = createContext();
 
