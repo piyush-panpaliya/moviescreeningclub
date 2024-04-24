@@ -127,7 +127,7 @@ export default function Footer() {
                 className="text-gray-500 hover:text-white dark:hover:text-white dark:text-gray-400"
               >
                 <svg
-                  className="w-8 h-8"
+                  className="w-7 h-7 ml-[2px]"
                   viewBox="0 0 357 322"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"

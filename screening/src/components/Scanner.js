@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef} from "react";
+import { useNavigate} from "react-router-dom";
 import jsQR from "jsqr";
 import { SERVERIP } from "../config";
 
@@ -105,7 +105,7 @@ export const Scanner = () => {
   };
 
   return (
-    <div style={{ width: "100%", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <div className="flex justify-center w-full h-100vh mt-6">
       <div style={{ width: "300px", height: "300px" }}>
         {scanResult ? (
           <div>

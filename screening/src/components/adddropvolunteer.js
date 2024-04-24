@@ -15,7 +15,6 @@ import {
   DropdownItem,
   Chip,
   Input,
-  getKeyValue,
 } from "@nextui-org/react";
 const AddDropVolunteer = () => {
   const [users, setUsers] = useState([]);
@@ -67,7 +66,7 @@ const AddDropVolunteer = () => {
         throw new Error("Failed to fetch user data");
       }
       const data = await response.json();
-      // Sort users based on userType: admin, volunteer, standard
+
       const sortedUsers = data.users.sort((a, b) => {
         const userTypeOrder = {
           admin: 0,
@@ -79,7 +78,6 @@ const AddDropVolunteer = () => {
         const userTypeA = a.usertype.toLowerCase();
         const userTypeB = b.usertype.toLowerCase();
       
-        // Compare the userTypeOrder to sort users
         if (userTypeOrder[userTypeA] < userTypeOrder[userTypeB]) return -1;
         if (userTypeOrder[userTypeA] > userTypeOrder[userTypeB]) return 1;
         return 0;
@@ -87,7 +85,7 @@ const AddDropVolunteer = () => {
       setUsers(sortedUsers);
     } catch (error) {
       console.error("Error fetching user data:", error);
-      // Handle error or display appropriate message to the user
+
     }
   };
   
@@ -112,13 +110,13 @@ const AddDropVolunteer = () => {
       setEmail("");
       setUserType("standard");
 
-      // Fetch updated user data
+
       fetchUserData();
 
-      // Handle success or display appropriate message to the user
+
     } catch (error) {
       console.error("Error updating user type:", error);
-      // Handle error or display appropriate message to the user
+
     }
   };
 
@@ -126,6 +124,8 @@ const AddDropVolunteer = () => {
     admin: "success",
     volunteer: "primary",
     standard: "secondary",
+    movievolunteer:'danger',
+    ticketvolunteer:'warning'
   };
 
   const getKeyValue = (item, key) => {
@@ -198,6 +198,13 @@ const AddDropVolunteer = () => {
                 >
                   Standard
                 </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
+                    handleSubmit(item.email, "volunteer");
+                  }}
+                >
+                  Vounteer
+                </DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </div>
@@ -210,10 +217,11 @@ const AddDropVolunteer = () => {
   const columns = ["name", "email", "designation", "Role", "actions"];
 
   const RoleOptions = [
-    { uid: 1, name: "admin" },
-    { uid: 2, name: "ticketvolunteer" },
-    { uid: 3, name: "movievolunteer" },
+    { uid: 1, name: "Admin" },
+    { uid: 2, name: "ticket volunteer" },
+    { uid: 3, name: "movie volunteer" },
     { uid: 4, name: "standard" },
+    { uid: 5, name: "volunteer" },
   ];
 
   const topContent = React.useMemo(() => {
