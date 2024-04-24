@@ -31,14 +31,14 @@ const Myaccount = () => {
           const currentDate = new Date();
           const current = sortedMemberships.filter(
             (membership) =>
-              new Date(membership.validitydate.split("-").reverse().join("-")) >
+              new Date(membership.validitydate.split("-").reverse().join("-")) >=
               currentDate
           );
           const previous = sortedMemberships.filter(
             (membership) =>
               new Date(
                 membership.validitydate.split("-").reverse().join("-")
-              ) <= currentDate
+              ) < currentDate
           );
 
           // Update state with filtered memberships
