@@ -136,13 +136,13 @@ const ModifyMovie = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#e5e8f0]">
-      <div className="w-[90%] flex flex-col bg-white h-[90%] my-4 rounded-xl shadow-lg items-center">
+      <div className="w-[90%] flex flex-col bg-white min-h-[90%] my-4 rounded-xl shadow-lg items-center">
         <h1 className="text-3xl font-bold my-4">Movie List</h1>
         <div class="flex flex-col w-[90%]">
           <div class="-m-1.5 overflow-x-auto">
             <div class="p-1.5 min-w-full inline-block align-middle">
               <div class="overflow-hidden flex justify-center">
-                <table className="w-[90%] divide-y divide-gray-200 dark:divide-neutral-700 my-3">
+                <table className="w-[90%] divide-y divide-gray-200 dark:divide-neutral-700 mt-3 mb-6">
                   <thead className="capitalize bg-[#f4f4f5]">
                     <tr className="text-lg">
                       {columns.map((column) => (
@@ -265,7 +265,7 @@ const ModifyMovie = () => {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="green"
-                                className="w-8 h-8"
+                                className="w-8 h-8 cursor-pointer"
                                 onClick={handleSave}
                               >
                                 <path
@@ -281,7 +281,7 @@ const ModifyMovie = () => {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="red"
-                                className="w-8 h-8"
+                                className="w-8 h-8 cursor-pointer"
                                 onClick={() => setEditingMovie(null)}
                               >
                                 <path
@@ -299,7 +299,7 @@ const ModifyMovie = () => {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="green"
-                                className="w-8 h-8"
+                                className="w-8 h-8 cursor-pointer"
                                 onClick={() => handleEdit(movie)}
                               >
                                 <path
@@ -314,7 +314,7 @@ const ModifyMovie = () => {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="red"
-                                className="w-8 h-8"
+                                className="w-8 h-8 cursor-pointer"
                                 onClick={() => handleDelete(movie._id)}
                               >
                                 <path
