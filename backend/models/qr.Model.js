@@ -2,6 +2,7 @@ const mongoose=require('mongoose');
 const moment = require('moment');
 
 const QRSchema = new mongoose.Schema({
+  name:String,
   email:String,
   paymentId:String,
   validity: Number,
@@ -25,6 +26,9 @@ const QRSchema = new mongoose.Schema({
   used: {
     type: Boolean,
     default: false,
+  },
+  seatnumber: {
+    type: String
   },
   verified: {
     type: Boolean,
