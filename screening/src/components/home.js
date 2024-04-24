@@ -53,7 +53,7 @@ const Home = () => {
               {showMoreOngoing ? "Show Less" : "Show More"}
             </p>
           </div>
-          <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mx-5">
+          <div className="grid gap-6 mb-8 max-sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 mx-5">
             {ongoingMovies.map((movie) => (
               <Link
                 to={`/showtime/${movie._id}/${encodePosterUrl(movie.poster)}`} // Encode poster URL
