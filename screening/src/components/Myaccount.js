@@ -7,7 +7,7 @@ const SERVERIP = "http://14.139.34.10:8000";
 const Myaccount = () => {
   const { loggedIn } = useLogin(); // Use loggedIn state from context
   const navigate = useNavigate();
-  const [memberships, setMemberships] = useState([]);
+  // const [memberships, setMemberships] = useState([]);
   const [currentMemberships, setCurrentMemberships] = useState([]);
   const [previousMemberships, setPreviousMemberships] = useState([]);
 
