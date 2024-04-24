@@ -41,19 +41,23 @@ const Home = () => {
   };
 
   return (
-    <div >
+    <div>
       <div className="bg-gray-200 flex flex-col items-center">
-        <div className="flex flex-col bg-white h-1/2 w-4/5 my-10 rounded-xl shadow-lg">
-          <div className="flex justify-between my-3 mx-5">
-            <h2 className="text-xl font-semibold">Ongoing Movies</h2>
-            <p
-              className="font-inter cursor-pointer"
-              onClick={toggleShowMoreOngoing}
-            >
-              {showMoreOngoing ? "Show Less" : "Show More"}
-            </p>
+        <div className="flex flex-col items-between justify-center bg-white h-1/2 w-4/5 max-sm:w-[95%] my-10 rounded-xl shadow-lg">
+          <div className="flex justify-between my-3 mx-5 max-sm:mx-2">
+            <div>
+              <h2 className="text-xl font-semibold">Ongoing Movies</h2>
+            </div>
+            <div className="flex justify-end">
+              <p
+                className="font-inter text-sm cursor-pointer"
+                onClick={toggleShowMoreOngoing}
+              >
+                {showMoreOngoing ? "Show Less" : "Show More"}
+              </p>
+            </div>
           </div>
-          <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mx-5">
+          <div className="grid gap-6 max-sm:gap-2 mb-8 max-sm:mb-4 max-sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-5 max-sm:mx-2">
             {ongoingMovies.map((movie) => (
               <Link
                 to={`/showtime/${movie._id}/${encodePosterUrl(movie.poster)}`} // Encode poster URL
@@ -62,7 +66,7 @@ const Home = () => {
                 className="flex items-center justify-center"
               >
                 <div className="w-full h-full object-cover">
-                  <div className="w-full h-4/5">
+                  <div className="w-full h-4/5 max-sm:h-2/3">
                     <img
                       className="object-cover w-full h-full rounded-md"
                       src={movie.poster}
@@ -70,25 +74,31 @@ const Home = () => {
                     />
                   </div>
                   <div className="flex flex-col mt-1">
-                    <p className="font-semibold text-2xl">{movie.title}</p>
-                    <p className="movie-genre">{movie.genre}</p>
+                    <p className="font-semibold text-2xl max-sm:text-lg">
+                      {movie.title}
+                    </p>
+                    <p className="max-sm:text-sm">{movie.genre}</p>
                   </div>
                 </div>
               </Link>
             ))}
           </div>
         </div>
-        <div className="flex flex-col bg-white h-1/2 w-4/5 my-10 rounded-xl shadow-lg">
-          <div className="flex justify-between my-3 mx-5">
-            <h2 className="text-xl font-semibold">Upcoming Movies</h2>
-            <p
-              className="font-inter cursor-pointer"
-              onClick={toggleShowMoreUpcoming}
-            >
-              {showMoreUpcoming ? "Show Less" : "Show More"}
-            </p>
+        <div className="flex flex-col bg-white h-1/2 w-4/5 max-sm:w-[95%] my-10 rounded-xl shadow-lg">
+          <div className="flex justify-between my-3 mx-5 max-sm:mx-2">
+            <div>
+              <h2 className="text-xl font-semibold">Upcoming Movies</h2>
+            </div>
+            <div className="flex justify-end">
+              <p
+                className="font-inter text-sm cursor-pointer"
+                onClick={toggleShowMoreUpcoming}
+              >
+                {showMoreUpcoming ? "Show Less" : "Show More"}
+              </p>
+            </div>
           </div>
-          <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 mx-5">
+          <div className="grid gap-6 max-sm:gap-2 mb-8 max-sm:mb-4 max-sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-5 max-sm:mx-2">
             {upcomingMovies.map((movie) => (
               <Link
                 to={`/showtime/${movie._id}/${encodePosterUrl(movie.poster)}`} // Encode poster URL
@@ -97,7 +107,7 @@ const Home = () => {
                 className="flex items-center justify-center"
               >
                 <div className="w-full h-full object-cover">
-                  <div className="w-full h-4/5">
+                  <div className="w-full h-4/5 max-sm:h-2/3">
                     <img
                       className="object-cover w-full h-full rounded-md"
                       src={movie.poster}
@@ -105,8 +115,8 @@ const Home = () => {
                     />
                   </div>
                   <div className="flex flex-col mt-1">
-                    <p className="font-semibold text-2xl">{movie.title}</p>
-                    <p className="movie-genre">{movie.genre}</p>
+                    <p className="font-semibold text-2xl max-sm:text-lg">{movie.title}</p>
+                    <p className="max-sm:text-sm">{movie.genre}</p>
                   </div>
                 </div>
               </Link>
