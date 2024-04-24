@@ -23,7 +23,7 @@ const ModifyMovie = () => {
   const [movies, setMovies] = useState([]);
   const [editingMovie, setEditingMovie] = useState(null);
   const [editedData, setEditedData] = useState({});
-  const [addingMovie, setAddingMovie] = useState(false);
+  // const [addingMovie, setAddingMovie] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -107,21 +107,21 @@ const ModifyMovie = () => {
     }
   };
 
-  const handleAdd = () => {
-    setAddingMovie(true);
-  };
+  // const handleAdd = () => {
+  //   setAddingMovie(true);
+  // };
 
-  const handleAddSave = async () => {
-    try {
-      const res = await axios.post(`${SERVERIP}/movie/add-movies`, editedData);
-      console.log("Movie added:", res.data);
-      setMovies([...movies, res.data]);
-      setAddingMovie(false);
-      setEditedData({});
-    } catch (error) {
-      console.error("Error adding movie:", error);
-    }
-  };
+  // const handleAddSave = async () => {
+  //   try {
+  //     const res = await axios.post(`${SERVERIP}/movie/add-movies`, editedData);
+  //     console.log("Movie added:", res.data);
+  //     setMovies([...movies, res.data]);
+  //     setAddingMovie(false);
+  //     setEditedData({});
+  //   } catch (error) {
+  //     console.error("Error adding movie:", error);
+  //   }
+  // };
 
   const columns = [
     "title",
