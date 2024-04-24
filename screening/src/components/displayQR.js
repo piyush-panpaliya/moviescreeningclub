@@ -3,8 +3,6 @@ import axios from "axios";
 import QRCode from "qrcode";
 import { useNavigate } from "react-router-dom";
 
-const SERVERIP = "http://14.139.34.10:8000";
-
 const QR = () => {
   const [validQRs, setValidQRs] = useState([]);
   const navigate = useNavigate();
@@ -13,7 +11,7 @@ const QR = () => {
     const fetchValidQRs = async () => {
       try {
         const email = localStorage.getItem("loggedInUserEmail");
-        const response = await axios.get(`${SERVERIP}/QR/${email}`);
+        const response = await axios.get(`/api/QR/${email}`);
         const qrCodes = await Promise.all(
           response.data.qrCodes.map((qr) => generateQRCode(qr))
         );

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import moment from "moment"; // Import moment library for date and time formatting
-const SERVERIP = "http://14.139.34.10:8000";
 
 const Showtime = () => {
   const { movieId, poster: encodedPosterUrl } = useParams();
@@ -21,7 +20,7 @@ const Showtime = () => {
   const fetchShowtimes = async () => {
     try {
       const response = await axios.get(
-        `${SERVERIP}/movie/${movieId}/showtimes`
+        `/api/movie/${movieId}/showtimes`
       );
       setShowtimes(response.data || []);
     } catch (error) {
@@ -31,7 +30,7 @@ const Showtime = () => {
 
   const fetchTrailer = async () => {
     try {
-      const response = await axios.get(`${SERVERIP}/movie/${movieId}/trailer`);
+      const response = await axios.get(`/api/movie/${movieId}/trailer`);
       setTrailer(response.data || "");
     } catch (error) {
       console.error("Error fetching trailer:", error);
@@ -49,7 +48,7 @@ const Showtime = () => {
     }
     try {
       // Add the new showtime to the database
-      await axios.post(`${SERVERIP}/movie/${movieId}/showtimes`, newShowtime);
+      await axios.post(`/api/movie/${movieId}/showtimes`, newShowtime);
       // Fetch updated showtimes
       fetchShowtimes();
       // Reset newShowtime and hide the add row
@@ -64,7 +63,7 @@ const Showtime = () => {
     try {
       // Delete the showtime from the database
       await axios.delete(
-        `${SERVERIP}/movie/${movieId}/showtimes/${showtimeId}`
+        `/api/movie/${movieId}/showtimes/${showtimeId}`
       );
       // Fetch updated showtimes
       fetchShowtimes();

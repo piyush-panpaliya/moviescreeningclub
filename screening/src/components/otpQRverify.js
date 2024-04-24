@@ -7,7 +7,6 @@ const OtpVerifyQR = () => {
   const [otp, setOTP] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const SERVERIP = "http://14.139.34.10:8000";
 
   useEffect(() => {
     const userType = localStorage.getItem("userType");
@@ -20,7 +19,7 @@ const OtpVerifyQR = () => {
     e.preventDefault(); // Prevent default form submission behavior
 
     try {
-      const response = await axios.post(`${SERVERIP}/QR/verifyqr`, { email, otp });
+      const response = await axios.post(`/api/QR/verifyqr`, { email, otp });
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response.data.error);

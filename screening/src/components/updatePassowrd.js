@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-const SERVERIP = "http://14.139.34.10:8000";
 
 export default function UpdatePassword() {
   const [formData, setFormData] = useState({
@@ -20,7 +19,7 @@ export default function UpdatePassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${SERVERIP}/login/update`, formData);
+      const res = await axios.post(`/api/login/update`, formData);
       if (res.data.success) {
         console.log('updated');
         localStorage.removeItem('forgotpassEmail');

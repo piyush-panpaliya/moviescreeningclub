@@ -4,7 +4,6 @@ import Logo from '../images/logo.png';
 import { useLogin } from './LoginContext'; // Import useLogin hook
 import axios from 'axios';
 import { useMembershipContext } from "./MembershipContext";
-const SERVERIP = "http://14.139.34.10:8000";
 
 const Navbar = () => {
   const { loggedIn, logout } = useLogin();
@@ -24,7 +23,7 @@ const Navbar = () => {
 
       try {
         const email = localStorage.getItem('loggedInUserEmail'); // Get user's email from localStorage
-        const response = await axios.get(`${SERVERIP}/memrouter/checkMembership/${email}`);
+        const response = await axios.get(`/api/memrouter/checkMembership/${email}`);
         if (response.data.hasMembership) {
           updateMembershipStatus(response.data.hasMembership);
         }

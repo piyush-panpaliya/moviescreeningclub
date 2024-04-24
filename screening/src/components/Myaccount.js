@@ -17,7 +17,7 @@ const Myaccount = () => {
       navigate("/");
     } else {
       axios
-        .get(`${SERVERIP}/memrouter/${loggedInUseremail}`)
+        .get(`/api/memrouter/${loggedInUseremail}`)
         .then((response) => {
           // Sort memberships based on purchase date in ascending order
           const sortedMemberships = response.data.memberships.sort((a, b) => {

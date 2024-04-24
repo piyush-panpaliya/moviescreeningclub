@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import imgone from "../images/otpimg.svg";
-const SERVERIP = "http://14.139.34.10:8000";
 
 export default function GetOTP() {
   const [formData, setFormData] = useState({
@@ -26,13 +25,13 @@ export default function GetOTP() {
     }
 
     try {
-      const res = await axios.post(`${SERVERIP}/otp/user-otp`, {
+      const res = await axios.post(`/api/otp/user-otp`, {
         email,
       });
       if (res.status === 200) {
         setIsSubmitting(true);
         const sendOtpRes = await axios.post(
-          `${SERVERIP}/otp/send-otp`,
+          `/api/otp/send-otp`,
           { email }
         );
         if (sendOtpRes.data.success) {

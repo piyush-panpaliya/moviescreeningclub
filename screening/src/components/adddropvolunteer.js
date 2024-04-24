@@ -16,7 +16,6 @@ import {
   Input,
   getKeyValue,
 } from "@nextui-org/react";
-const SERVERIP = "http://14.139.34.10:8000";
 const AddDropVolunteer = () => {
   const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");
@@ -48,7 +47,7 @@ const AddDropVolunteer = () => {
 
   const fetchUserData = async () => {
     try {
-      let url =`${SERVERIP}/user/fetchusers`;
+      let url =`/api/user/fetchusers`;
       // Append search query to the URL if filterValue is not empty
       if (filterValue) {
         url += `?search=${encodeURIComponent(filterValue)}`;
@@ -95,7 +94,7 @@ const AddDropVolunteer = () => {
   const handleSubmit = async (email, userType) => {
     try {
       const response = await fetch(
-        `${SERVERIP}/user/updateUserType`,
+        `/api/user/updateUserType`,
         {
           method: "POST",
           headers: {
