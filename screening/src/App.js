@@ -27,7 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       <LoginProvider>
-        <Navbar />
+        <Navbar/>
         <Routes>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
