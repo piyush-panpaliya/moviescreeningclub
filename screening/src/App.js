@@ -22,6 +22,7 @@ import Test from "./components/test.js";
 import QR from "./components/displayQR.js";
 import OtpVerifyQR from "./components/otpQRverify.js";
 import Footer from "./components/footer.js";
+import { SERVERIP } from "./config.js";
 
 function App() {
   return (

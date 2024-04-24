@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { SERVERIP } from "../config";
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -8,7 +9,7 @@ const Home = () => {
   const [showMoreOngoing, setShowMoreOngoing] = useState(false);
   useEffect(() => {
     axios
-      .get(`/api/movie/movies`)
+      .get(`${SERVERIP}/movie/movies`)
       .then((response) => {
         setMovies(response.data);
       })

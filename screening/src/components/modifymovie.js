@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Chip,
-  Input,
-  getKeyValue,
-} from "@nextui-org/react";
+import { SERVERIP } from "../config";
+// import {
+//   Table,
+//   TableHeader,
+//   TableColumn,
+//   TableBody,
+//   TableRow,
+//   TableCell,
+//   Button,
+//   DropdownTrigger,
+//   Dropdown,
+//   DropdownMenu,
+//   DropdownItem,
+//   Chip,
+//   Input,
+//   getKeyValue,
+// } from "@nextui-org/react";
 
 const ModifyMovie = () => {
   const [movies, setMovies] = useState([]);
@@ -50,7 +51,7 @@ const ModifyMovie = () => {
 
   const getMovies = async () => {
     try {
-      const response = await axios.get(`/api/movie/movies`);
+      const response = await axios.get(`${SERVERIP}/movie/movies`);
       setMovies(response.data);
     } catch (error) {
       console.error("Error fetching movies:", error);
@@ -73,7 +74,7 @@ const ModifyMovie = () => {
   const handleSave = async () => {
     try {
       await axios.put(
-        `/api/movie/movies/${editingMovie._id}`,
+        `${SERVERIP}/movie/movies/${editingMovie._id}`,
         editedData
       );
       setMovies((prevMovies) =>
@@ -99,7 +100,7 @@ const ModifyMovie = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/movie/movies/${id}`);
+      await axios.delete(`${SERVERIP}/movie/movies/${id}`);
       setMovies((prevMovies) => prevMovies.filter((movie) => movie._id !== id));
     } catch (error) {
       console.error("Error deleting movie:", error);
@@ -112,7 +113,7 @@ const ModifyMovie = () => {
 
   const handleAddSave = async () => {
     try {
-      const res = await axios.post(`/api/movie/add-movies`, editedData);
+      const res = await axios.post(`${SERVERIP}/movie/add-movies`, editedData);
       console.log("Movie added:", res.data);
       setMovies([...movies, res.data]);
       setAddingMovie(false);

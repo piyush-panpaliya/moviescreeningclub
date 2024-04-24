@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SERVERIP } from "../config";
 
 const Test = () => {
     const [selectedSeat, setSelectedSeat] = useState(null);

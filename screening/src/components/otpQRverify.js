@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { SERVERIP } from "../config";
 
 const OtpVerifyQR = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ const OtpVerifyQR = () => {
     e.preventDefault(); // Prevent default form submission behavior
 
     try {
-      const response = await axios.post(`/api/QR/verifyqr`, { email, otp });
+      const response = await axios.post(`${SERVERIP}/QR/verifyqr`, { email, otp });
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response.data.error);

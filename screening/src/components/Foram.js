@@ -4,6 +4,7 @@ import axios from "axios";
 import { useMembershipContext } from "./MembershipContext";
 import { getToken } from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
+import { SERVERIP } from "../config";
 
 export const Foram = () => {
   const [amount, setAmount] = useState("");
@@ -132,7 +133,7 @@ export const Foram = () => {
       paymentId,
       qrCodes,
     };
-    axios.post(`/api/QR/send-email`, emailContent)
+    axios.post(`${SERVERIP}/QR/send-email`, emailContent)
       .then((response) => {
         console.log(`Email sent for ${membership} membership.`);
         alert(`Email sent successfully for ${membership} membership.`);
@@ -146,7 +147,7 @@ export const Foram = () => {
   const saveuserData = (email, memtype, validity) => {
     const userData = { email, memtype, validity };
     console.log("a");
-    axios.post(`/api/memrouter/saveusermem`, userData)
+    axios.post(`${SERVERIP}/memrouter/saveusermem`, userData)
       .then((response) => {
         console.log(`Usermem data saved successfully for ${(memtype, email)}`);
         alert(`Usermem data saved successfully for ${(memtype, email)}`);
@@ -163,7 +164,7 @@ export const Foram = () => {
     const saveTicket = (ticketNumber) => {
       const paymentId = basePaymentId + ticketNumber; // Append ticket number to basePaymentId
       const QRData = { email, paymentId, validity, memtype };
-      axios.post(`/api/QR/saveQR`, QRData)
+      axios.post(`${SERVERIP}/QR/saveQR`, QRData)
         .then((response) => {
           ticketsGenerated++;
           if (ticketsGenerated === totalTickets) {

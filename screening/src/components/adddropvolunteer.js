@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { SERVERIP } from "../config";
 import {
   Table,
   TableHeader,
@@ -47,7 +48,7 @@ const AddDropVolunteer = () => {
 
   const fetchUserData = async () => {
     try {
-      let url =`/api/user/fetchusers`;
+      let url =`${SERVERIP}/user/fetchusers`;
       // Append search query to the URL if filterValue is not empty
       if (filterValue) {
         url += `?search=${encodeURIComponent(filterValue)}`;
@@ -94,7 +95,7 @@ const AddDropVolunteer = () => {
   const handleSubmit = async (email, userType) => {
     try {
       const response = await fetch(
-        `/api/user/updateUserType`,
+        `${SERVERIP}/user/updateUserType`,
         {
           method: "POST",
           headers: {

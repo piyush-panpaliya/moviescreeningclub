@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import imageOne from "../images/forgotPassword.svg";
+import { SERVERIP } from "../config";
 
 export default function ForgotPassword() {
   const [formData, setFormData] = useState({
@@ -19,13 +20,13 @@ export default function ForgotPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`/api/otp/user-otp1`, {
+      const res = await axios.post(`${SERVERIP}/otp/user-otp1`, {
         email,
       });
       if (res.status === 200) {
         setIsSubmitting(true);
         const res1 = await axios.post(
-          "/api/otp/send-otp",
+          "${SERVERIP}/otp/send-otp",
           formData
         );
         if (res1.data.success) {

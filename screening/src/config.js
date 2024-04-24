@@ -1,0 +1,1 @@
+export const SERVERIP = "http://14.139.34.10:8000";

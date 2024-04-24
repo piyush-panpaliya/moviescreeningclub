@@ -10,6 +10,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment"; // Import moment library for date and time formatting
+import { SERVERIP } from "../config";
 
 const ShowtimePage = () => {
   const { paymentId } = useParams();
@@ -25,7 +26,7 @@ const ShowtimePage = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/QR/qrData/${paymentId}`)
+      .get(`${SERVERIP}/QR/qrData/${paymentId}`)
       .then((response) => {
         const qrData = response.data;
         if (qrData && !qrData.used) {
@@ -44,7 +45,7 @@ const ShowtimePage = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/movie/movies`)
+      .get(`${SERVERIP}/movie/movies`)
       .then((response) => {
         setMovies(response.data);
       })

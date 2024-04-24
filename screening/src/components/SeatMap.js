@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
+import { SERVERIP } from "../config";
 
 const SeatMapPage = () => {
   const location = useLocation();
@@ -32,7 +33,7 @@ const SeatMapPage = () => {
     // Fetch seat occupancy information when the component mounts
     const fetchSeatOccupancy = async () => {
       try {
-        const response = await axios.get(`/api/seatmaprouter/seatmap/${showtimeId}/seats`);
+        const response = await axios.get(`${SERVERIP}/seatmaprouter/seatmap/${showtimeId}/seats`);
         setSeatOccupancy(response.data);
         console.log(movie);
         console.log(date1);
@@ -47,7 +48,7 @@ const SeatMapPage = () => {
   }, [showtimeId]);
 
   useEffect(() => {
-    axios.get(`/api/QR/qrData/${paymentId}`)
+    axios.get(`${SERVERIP}/QR/qrData/${paymentId}`)
       .then(response => {
         const qrData = response.data;
         if (qrData && !qrData.used) {
@@ -65,7 +66,7 @@ const SeatMapPage = () => {
   const saveOTPToDatabase = async (otp, paymentId) => {
     try {
       const email = localStorage.getItem('loggedInUserEmail');
-      const response = await axios.post(`/api/QR/saveOTP`, { email, OTP: otp, paymentId });
+      const response = await axios.post(`${SERVERIP}/QR/saveOTP`, { email, OTP: otp, paymentId });
       console.log(response.data.message);
     } catch (error) {
       console.error("Error saving OTP to database:", error);
@@ -79,7 +80,7 @@ const SeatMapPage = () => {
         seatNumber: selectedSeat,
         otp: otp
       };
-      const response = await axios.post(`/api/QR/sendEmail`, emailData);
+      const response = await axios.post(`${SERVERIP}/QR/sendEmail`, emailData);
       console.log(response.data.message);
     } catch (error) {
       console.error("Error sending email:", error);
@@ -97,9 +98,9 @@ const SeatMapPage = () => {
 
   const handleConfirmSeat = async () => {
     try {
-      await axios.put(`/api/seatmaprouter/seatmap/${showtimeId}/${selectedSeat}`);
+      await axios.put(`${SERVERIP}/seatmaprouter/seatmap/${showtimeId}/${selectedSeat}`);
       setAssignedSeat(true);
-      await axios.put(`/api/QR/markUsed/${paymentId}`, { showtime: time1, date: date1 });
+      await axios.put(`${SERVERIP}/QR/markUsed/${paymentId}`, { showtime: time1, date: date1 });
 
       // Generate OTP
       const otp = generateOTP();
