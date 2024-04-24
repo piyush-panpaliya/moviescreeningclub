@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser= require( "body-parser");
 const cors= require( "cors");
 const { config }= require( "dotenv");
-config({ path: "../screening/.env" });
+config({ path: "./.env" });
 const app = express();
 const { createServer }= require( "http");
 const https = createServer(app);
