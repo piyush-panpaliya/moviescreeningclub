@@ -123,12 +123,11 @@ const Myaccount = () => {
             <h3 className="text-xl lg:text-2xl font-semibold">
               Previous Memberships
             </h3>
-            <div className="grid gap-6 my-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
+            <div className="flex gap-6 my-4 flex-wrap">
               {previousMemberships.map((membership, index) => (
                 <div
                   key={index}
-                  className="membership-card-container"
-                  style={{ margin: "8px" }}
+                  className="flex flex-col py-3 px-3 justify-center bg-white rounded-lg"
                 >
                   <div
                     className={`px-4 flex flex-col justify-evenly rounded-md ${getColor(
@@ -146,12 +145,12 @@ const Myaccount = () => {
                       ).toLocaleDateString()}
                     </p> */}
                   <p>
-                    <strong className="flex capitalize">
+                    <div className="flex capitalize">
                       Valid till :{" "}
                       {new Date(
                         membership.validitydate.split("-").reverse().join("-")
                       ).toLocaleDateString()}
-                    </strong>{" "}
+                    </div>{" "}
                   </p>
                 </div>
               ))}
