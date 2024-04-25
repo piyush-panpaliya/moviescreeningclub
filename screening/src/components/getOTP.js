@@ -32,7 +32,7 @@ export default function GetOTP() {
       if (res.status === 200) {
         setIsSubmitting(true);
         const sendOtpRes = await axios.post(
-          `/api/otp/send-otp`,
+          `${SERVERIP}/otp/send-otp`,
           { email }
         );
         if (sendOtpRes.data.success) {
