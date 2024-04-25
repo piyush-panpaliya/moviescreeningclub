@@ -1,18 +1,17 @@
 import React, { useState, useEffect, useRef} from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import jsQR from "jsqr";
 import { SERVERIP } from "../config";
 
 export const Scanner = () => {
   const [scanResult, setScanResult] = useState(null);
   const [scanResultInfo, setScanResultInfo] = useState(null);
-  const [showButton, setShowButton] = useState(false);
   const navigate = useNavigate();
   const videoRef = useRef(null);
 
   useEffect(() => {
     const userType = localStorage.getItem('userType');
-    if (!userType || userType === 'standard'|| userType === 'movievolunteer') {
+    if (!userType || userType === 'standard' || userType === 'movievolunteer') {
       navigate("/");
     } else {
       initializeScanner();
@@ -95,13 +94,10 @@ export const Scanner = () => {
       }
       const data = await response.json();
       setScanResultInfo(data);
-      setShowButton(data.exists && !data.validityPassed && !data.alreadyScanned);
-      if (data.exists && !data.validityPassed && !data.alreadyScanned) {
-        localStorage.setItem("seatassignment", "true");
-      }
+      console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
-    }
+     }
   };
 
   return (
@@ -119,13 +115,16 @@ export const Scanner = () => {
                       <div> Access denied: Validity of this QR has expired.</div>
                     ) : (
                       <div>
-                        {scanResultInfo.alreadyScanned ? (
-                          <div> Access denied: QR already scanned.</div>
+                        {!scanResultInfo.seatbooked ? (
+                          <div> Access denied: Please book a seat with this QR.</div>
                         ) : (
-                          <>
-                            <div>Access granted for {scanResultInfo.email}.</div>
-                            {navigate(`/allshowtime/${scanResultInfo.email}`)}
-                          </>
+                          <div>
+                            {scanResultInfo.verified ? (
+                              <div> Access denied: This QR is already verified and used to watch a movie.</div>
+                            ) : (
+                              <div>Access granted for {scanResultInfo.email}.</div>
+                            )}
+                          </div>
                         )}
                       </div>
                     )}
