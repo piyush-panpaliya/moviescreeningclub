@@ -122,7 +122,7 @@ export const Scanner = () => {
                             {scanResultInfo.verified ? (
                               <div> Access denied: This QR is already verified and used to watch a movie.</div>
                             ) : (
-                              <div>Access granted for {scanResultInfo.email}.</div>
+                              <div>Access granted for {scanResultInfo.email}. Printing your ticket.</div>
                             )}
                           </div>
                         )}
