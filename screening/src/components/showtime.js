@@ -140,7 +140,7 @@ const Showtime = () => {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="red"
-                          className="w-6 h-6"
+                          className="w-6 h-6 cursor-pointer"
                           onClick={() => handleDeleteShowtime(showtime._id)}
                         >
                           <path

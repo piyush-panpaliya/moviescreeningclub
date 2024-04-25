@@ -6,6 +6,8 @@ import { SERVERIP } from "../config";
 
 const QR = () => {
   const [validQRs, setValidQRs] = useState([]);
+  const [openedIndex, setOpenedIndex] = useState(null);
+  const [isClicked, setClicked] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,6 +44,19 @@ const QR = () => {
     localStorage.setItem("seatassignment", "true");
     navigate(`/allshowtime/${qr.paymentId}`);
     console.log(`${qr.paymentId}`);
+  };
+
+  const handleShowDialog = (index) => {
+    setOpenedIndex(index === openedIndex ? null : index);
+    // setClicked(!isClicked);
+    // if(index!==openedIndex)setClicked(false);
+    if(index===null)setClicked(true);
+    else if(openedIndex!==index) setClicked(false);
+    else setClicked(true);
+    console.log("clicked");
+    console.log(openedIndex);
+    console.log(index);
+    console.log(isClicked);
   };
 
   const renderQRStatus = (qr) => {
@@ -127,8 +142,11 @@ const QR = () => {
       } else {
         return (
           <div className="flex flex-col capitalize mt-3">
-            <button className="flex justify-center bg-primary-600 p-2 text-white rounded-md mb-2" onClick={() => handleUseQR(qr)}>
-              Use this QR
+            <button
+              className="flex justify-center bg-primary-600 p-2 text-white rounded-md mb-2"
+              onClick={() => handleUseQR(qr)}
+            >
+              book seat
             </button>
             <p className="flex">
               qR used :{" "}
@@ -170,18 +188,39 @@ const QR = () => {
     }
   };
 
+  
   return (
     <div>
-      <div className="bg-gray-200 flex flex-col items-center min-h-screen">
+      <div className={`bg-gray-200 flex flex-col items-center min-h-screen`}>
         <h2 className="text-2xl font-semibold mb-4 mt-7">Valid QR Codes</h2>
-        <div className="flex flex-col bg-white h-1/2 w-4/5 my-10 rounded-xl shadow-lg">
+        <div className="flex flex-col bg-white h-1/2 w-4/5 max-sm:w-[95%] my-10 rounded-xl shadow-lg">
           <div className="grid gap-6 my-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-5">
             {validQRs.map((qr, index) => (
               <div
                 key={index}
-                className="even:bg-white odd:bg-slate-200 p-3 text-center flex flex-col items-center justify-center"
+                className={`even:bg-white odd:bg-slate-200 p-3 text-center flex flex-col items-center justify-center`}
               >
-                <img src={qr.dataURL} alt={`QR Code ${index}`} className="" />
+                <img
+                  className={`small ${isClicked?'blur-none':'blur-md'}`}
+                  src={qr.dataURL}
+                  onClick={()=>handleShowDialog(index)}
+                  alt={`QR Code ${index}`}
+                />
+                {openedIndex === index && (
+                  <dialog
+                    className={`absolute w-[30%] z-10 max-sm:w-[90%] ${isClicked?'blur-md':'blur-none'}`}
+                    open
+                    onClick={()=>handleShowDialog(null)}
+                  >
+                    <img
+                      className={`w-full h-full`}
+                      src={qr.dataURL}
+                      // onClick={()=>handleShowDialog(index)}
+                      alt={`QR Code ${index}`}
+                    />
+                  </dialog>
+                )}
+                
                 <p>{renderQRStatus(qr)}</p>
               </div>
             ))}
