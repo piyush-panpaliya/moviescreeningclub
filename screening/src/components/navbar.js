@@ -192,9 +192,6 @@ const Navbar = () => {
                     <NavItem to="/addmovie" toggleMenu={toggleMenu}>
                       Add Movie
                     </NavItem>
-                    <NavItem to="/verifyqrotp" toggleMenu={toggleMenu}>
-                      Verify OTP
-                    </NavItem>
                   </>
                 )}
                 {userType === "ticketvolunteer" && (
@@ -209,9 +206,6 @@ const Navbar = () => {
                     )}
                     <NavItem to="/scanner" toggleMenu={toggleMenu}>
                       Scanner
-                    </NavItem>
-                    <NavItem to="/verifyqrotp" toggleMenu={toggleMenu}>
-                      Verify OTP
                     </NavItem>
                   </>
                 )}
@@ -230,9 +224,6 @@ const Navbar = () => {
                     </NavItem>
                     <NavItem to="/addmovie" toggleMenu={toggleMenu}>
                       Add Movie
-                    </NavItem>
-                    <NavItem to="/verifyqrotp" toggleMenu={toggleMenu}>
-                      Verify OTP
                     </NavItem>
                     <NavItem to="/scanner" toggleMenu={toggleMenu}>
                       Scanner

@@ -147,35 +147,8 @@ exports.isQRUsed = async (req, res) => {
   }
 };
 
-
-exports.saveOTP = async (req, res) => {
-  try {
-    const { email, OTP, paymentId } = req.body;
-
-    // Find the QR object based on the paymentId
-    const qr = await QR.findOne({ paymentId });
-
-    // If QR object not found, return 404 Not Found error
-    if (!qr) {
-      return res.status(404).json({ error: 'QR not found' });
-    }
-
-    // Update the 'OTP' field of the QR object
-    qr.OTP = OTP;
-
-    // Save the updated QR object back to the database
-    await qr.save();
-
-    // Respond with success message
-    res.status(200).json({ message: 'OTP saved successfully' });
-  } catch (error) {
-    console.error('Error saving OTP:', error);
-    res.status(500).json({ error: 'Error saving OTP' });
-  }
-};
-
 exports.sendEmail = async (req, res) => {
-  const { email, seatNumber, otp } = req.body;
+  const { email, seatNumber} = req.body;
 
   try {
     const transporter = nodemailer.createTransport({
@@ -190,7 +163,7 @@ exports.sendEmail = async (req, res) => {
       from: process.env.EMAIL,
       to: email,
       subject: 'Seat Booking Confirmation',
-      text: `Your seat has been successfully booked. Seat Number: ${seatNumber}. OTP: ${otp}`
+      text: `Your seat has been successfully booked. Seat Number: ${seatNumber}`
     };
 
     await transporter.sendMail(mailOptions);
@@ -198,36 +171,5 @@ exports.sendEmail = async (req, res) => {
   } catch (error) {
     console.error('Error sending email:', error);
     res.status(500).json({ error: 'Internal Server Error' });
-  }
-};
-
-exports.verifyQR = async (req, res) => {
-  try {
-    const { email, otp } = req.body;
-
-    // Find the QR object based on email and OTP
-    const qr = await QR.findOne({ email, OTP: otp });
-
-    // If QR object not found, return error message
-    if (!qr) {
-      return res.status(404).json({ error: 'Invalid QR or Email' });
-    }
-
-    // If QR object already verified, return message
-    if (qr.verified) {
-      return res.status(200).json({ message: 'QR is already verified earlier' });
-    }
-
-    // Update the 'verified' field of the QR object
-    qr.verified = true;
-
-    // Save the updated QR object back to the database
-    await qr.save();
-
-    // Respond with success message
-    res.status(200).json({ message: 'QR Verified successfully' });
-  } catch (error) {
-    console.error('Error verifying QR:', error);
-    res.status(500).json({ error: 'Error verifying QR' });
   }
 };

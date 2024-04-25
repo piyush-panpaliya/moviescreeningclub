@@ -3,7 +3,6 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { SERVERIP } from "../config";
-
 const SeatMapPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
@@ -23,14 +22,12 @@ const SeatMapPage = () => {
 
   useEffect(() => {
     const userType = localStorage.getItem('userType');
-    // If userType is not volunteer or admin, redirect to home page
     if (!userType) {
       navigate("/");
     }
   }, [navigate]);
 
   useEffect(() => {
-    // Fetch seat occupancy information when the component mounts
     const fetchSeatOccupancy = async () => {
       try {
         const response = await axios.get(`${SERVERIP}/seatmaprouter/seatmap/${showtimeId}/seats`);
@@ -63,22 +60,11 @@ const SeatMapPage = () => {
       });
   }, [paymentId, navigate]);
 
-  const saveOTPToDatabase = async (otp, paymentId) => {
-    try {
-      const email = localStorage.getItem('loggedInUserEmail');
-      const response = await axios.post(`${SERVERIP}/QR/saveOTP`, { email, OTP: otp, paymentId });
-      console.log(response.data.message);
-    } catch (error) {
-      console.error("Error saving OTP to database:", error);
-    }
-  };  
-
-  const sendEmail = async (otp) => {
+  const sendEmail = async () => {
     try {
       const emailData = {
         email: localStorage.getItem('loggedInUserEmail'),
         seatNumber: selectedSeat,
-        otp: otp
       };
       const response = await axios.post(`${SERVERIP}/QR/sendEmail`, emailData);
       console.log(response.data.message);
@@ -102,14 +88,8 @@ const SeatMapPage = () => {
       setAssignedSeat(true);
       await axios.put(`${SERVERIP}/QR/markUsed/${paymentId}`, { showtime: time1, date: date1 });
 
-      // Generate OTP
-      const otp = generateOTP();
-
-      // Save OTP to database
-      await saveOTPToDatabase(otp,paymentId);
-
       // Send email
-      await sendEmail(otp);
+      await sendEmail();
 
       setErrorMessage(`The seat ${selectedSeat} is successfully assigned to you. Redirecting to QRs...`);
       localStorage.setItem("seatassignment", "false");
@@ -124,15 +104,6 @@ const SeatMapPage = () => {
         setErrorMessage("An error occurred while assigning the seat");
       }
     }
-  };
-
-  const generateOTP = () => {
-    const digits = '0123456789';
-    let OTP = '';
-    for (let i = 0; i < 6; i++) {
-      OTP += digits[Math.floor(Math.random() * 10)];
-    }
-    return OTP;
   };
 
   return (
