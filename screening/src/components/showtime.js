@@ -116,7 +116,7 @@ const Showtime = () => {
                 <tr className="flex justify-evenly gap-11 w-full text-lg">
                   <th>Date</th>
                   <th>Time</th>
-                  {(userType === "admin" || userType === "volunteer") && (
+                  {(userType === "admin" || userType === "volunteer"|| userType === "movievolunteer") && (
                     <th>Action</th>
                   )}
                 </tr>

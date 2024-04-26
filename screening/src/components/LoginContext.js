@@ -12,6 +12,9 @@ export const LoginProvider = ({ children }) => {
     if (token) {
       setLoggedIn(true);
     }
+    if (!token) {
+      setLoggedIn(false);
+    }
   }, []);
 
   const login = () => setLoggedIn(true);

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { getToken } from "../utils/getToken";
+import { Link, useNavigate } from "react-router-dom";
 import { SERVERIP } from "../config";
 
 const Home = () => {
+  const token = getToken();
+  const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
   const [showMoreUpcoming, setShowMoreUpcoming] = useState(false);
   const [showMoreOngoing, setShowMoreOngoing] = useState(false);
@@ -17,6 +20,11 @@ const Home = () => {
         console.error("Error fetching movies:", error);
       });
   }, []);
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  });
 
   const ongoingMovies = showMoreOngoing
     ? movies.filter((movie) => movie.currentscreening)
