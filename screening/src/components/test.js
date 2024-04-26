@@ -9,7 +9,7 @@ const Test = () => {
     };
 
     return (
-        <div className="seat-booking">
+        <div className="seat-booking font-monts">
             <h1 className="text-3xl font-semibold mb-4">Movie Theatre Seat Booking</h1>
             <div className="flex justify-center mb-4">
                 <span className="font-semibold text-lg" style={{ marginBottom: '20px' }}>Screen</span>

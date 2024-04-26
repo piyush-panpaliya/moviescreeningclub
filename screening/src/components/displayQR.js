@@ -62,7 +62,7 @@ const QR = () => {
   const renderQRStatus = (qr) => {
     if (qr.verified) {
       return (
-        <div className="flex flex-col capitalize mt-3">
+        <div className="flex flex-col capitalize mt-3 font-monts">
           <p>
             qR used :{" "}
             <svg

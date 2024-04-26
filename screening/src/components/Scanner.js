@@ -162,7 +162,7 @@ if (printWindow) {
   
   
   return (
-    <div className="flex justify-center w-full h-100vh mt-6">
+    <div className="flex justify-center w-full h-100vh mt-6 font-monts">
       <div style={{ width: "300px", height: "300px" }}>
         {scanResult ? (
           <div>

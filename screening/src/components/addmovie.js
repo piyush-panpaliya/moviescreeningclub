@@ -60,7 +60,7 @@ const MovieForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-[#e5e8f0]">
+    <div className="flex justify-center items-center h-screen bg-[#e5e8f0] font-monts">
       <div className="flex flex-col items-center flex-wrap w-[80%] md:h-[90%] sm:h-[90%] max-sm:h-[90%] max-sm:w-[95%] bg-white rounded-3xl shadow-lg overflow-auto">
         <div className="flex items-center text-2xl font-bold h-[10%]">
           <h2>Add a New Movie</h2>

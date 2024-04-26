@@ -40,7 +40,7 @@ export default function UpdatePassword() {
   }
 
   return (
-    <div className="App">
+    <div className="App font-monts">
       <h2>Forgot Password?</h2>
       <h5>Enter email to receive OTP</h5>
 

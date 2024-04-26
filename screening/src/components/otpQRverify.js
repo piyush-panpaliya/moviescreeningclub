@@ -33,7 +33,7 @@ const OtpVerifyQR = () => {
   };
 
   return (
-    <div>
+    <div className="font-monts">
       <h2>OTP Verification</h2>
       <form onSubmit={handleSubmit}>
         <label>Email:</label>

@@ -226,7 +226,7 @@ const AddDropVolunteer = () => {
 
   const topContent = React.useMemo(() => {
     return (
-      <div className="flex flex-col gap-4 ">
+      <div className="flex flex-col gap-4 font-monts">
         <div className="flex justify-start gap-3 items-end">
           <Input
             isClearable

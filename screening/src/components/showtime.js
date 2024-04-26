@@ -78,7 +78,7 @@ const Showtime = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#e5e8f0]">
+    <div className="flex justify-center items-center min-h-screen bg-[#e5e8f0] font-monts">
       <div className="sm:w-[80%] max-sm:w-[90%] flex flex-col bg-white h-[90%] my-4 rounded-xl shadow-lg">
         <div className="sm:flex max-sm:flex-col justify-between">
           <div className="sm:w-[30%] max-sm:w-[95%] flex justify-center mt-2 ml-2">
