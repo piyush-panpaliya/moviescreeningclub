@@ -78,8 +78,8 @@ const Myaccount = () => {
         <h2 className="text-2xl lg:text-3xl font-semibold mb-4 mt-7">
           Your Memberships
         </h2>
-        <div className="flex flex-col w-4/5 my-10">
-          <div className="flex flex-col justify-start my-3 mx-5 ">
+        <div className="flex flex-col items-start w-4/5 max-sm:w-[90%] my-10 max-sm:my-4">
+          <div className="flex flex-col w-full justify-start my-3 mx-5 max-sm:mx-2 ">
             <h3 className="text-xl lg:text-2xl font-semibold mb-2">
               Active Memberships
             </h3>
@@ -90,7 +90,7 @@ const Myaccount = () => {
                     <div
                       className={`rounded-md ${getColor(
                         membership.memtype
-                      )} text-center w-[230px] lg:w-[250px] h-[280px] max-sm:w-full max-sm:h-[200px] mb-5`}
+                      )} text-center w-[230px] lg:w-[250px] h-[280px] max-sm:h-[200px] mb-5`}
                       // style={getCardStyle(230, 180)}
                     >
                       {/* <p>
@@ -118,9 +118,9 @@ const Myaccount = () => {
           </div>
         </div>
 
-        <div className="flex flex-col h-1/2 w-4/5 my-10">
-          <div className="flex flex-col justify-between my-3 mx-5">
-            <h3 className="text-xl lg:text-2xl font-semibold">
+        <div className="flex flex-col items-start w-4/5 max-sm:w-[90%] my-10 max-sm:my-4">
+          <div className="flex flex-col w-full justify-start my-3 mx-5 max-sm:mx-2 ">
+            <h3 className="text-xl lg:text-2xl font-semibold mb-2">
               Previous Memberships
             </h3>
             <div className="flex gap-6 my-4 flex-wrap">
@@ -130,9 +130,9 @@ const Myaccount = () => {
                   className="flex flex-col py-3 px-3 justify-center bg-white rounded-lg"
                 >
                   <div
-                    className={`px-4 flex flex-col justify-evenly rounded-md ${getColor(
+                    className={`rounded-md ${getColor(
                       membership.memtype
-                    )} text-center w-[230px] lg:w-[250px] h-[280px] max-sm:w-full mb-5`}
+                    )} text-center w-[230px] lg:w-[250px] h-[280px] max-sm:h-[200px] mb-5`}
                     // style={getCardStyle(150, 180)}
                   ></div>
                   <h3 className="text-xl lg:text-2xl font-semibold mb-2">
