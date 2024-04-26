@@ -182,7 +182,7 @@ const AddDropVolunteer = () => {
                     handleSubmit(item.email, "volunteer");
                   }}
                 >
-                  Volunteer
+                  Vounteer
                 </DropdownItem>
                 <DropdownItem
                   onClick={() => {
@@ -300,7 +300,7 @@ const AddDropVolunteer = () => {
     <div className="flex justify-center">
       <Table
         isStriped
-        className="w-[80%] my-5"
+        className="w-4/5 max-sm:w-[95%] my-5"
         aria-label="Controlled table example with dynamic content"
         topContent={topContent}
         topContentPlacement="outside"

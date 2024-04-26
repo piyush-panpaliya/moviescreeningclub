@@ -4,7 +4,7 @@ export default function Footer() {
   const copyright = String.fromCodePoint(0x00a9);
   return (
     <div className="flex justify-center bg-gray-800 text-white">
-      <div className="w-[80%]">
+      <div className="w-4/5 max-sm:w-[90%]">
         <p className="border-b-2 py-4 text-3xl font-bold flex items-center gap-1">
           <span>CHALCHITRA </span>
           <svg
@@ -154,7 +154,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex justify-between border-t-2 pt-2">
+        <div className="flex max-sm:flex-col justify-between border-t-2 pt-2">
           <p>All rights reserved. </p>
           <p>{copyright} 2024 Chalchitra IIT Mandi</p>
         </div>

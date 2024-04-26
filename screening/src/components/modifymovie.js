@@ -136,7 +136,7 @@ const ModifyMovie = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#e5e8f0]">
-      <div className="w-[90%] flex flex-col bg-white min-h-[90%] my-4 rounded-xl shadow-lg items-center">
+      <div className="w-[95%] flex flex-col bg-white min-h-[90%] my-4 rounded-xl shadow-lg items-center">
         <h1 className="text-3xl font-bold my-4">Movie List</h1>
         <div class="flex flex-col w-[90%]">
           <div class="-m-1.5 overflow-x-auto">
