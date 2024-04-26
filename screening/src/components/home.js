@@ -42,7 +42,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className="bg-gray-200 flex flex-col items-center">
+      <div className="bg-gray-200 flex flex-col items-center font-monts">
         <div className="flex flex-col items-between justify-center bg-white h-1/2 w-4/5 max-sm:w-[95%] my-10 rounded-xl shadow-lg">
           <div className="flex justify-between my-3 mx-5 max-sm:mx-2">
             <div>

@@ -78,7 +78,7 @@ const ShowtimePage = () => {
   ];
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#e5e8f0]">
+    <div className="flex justify-center items-center min-h-screen bg-[#e5e8f0] font-monts">
       <div className="w-[90%] flex flex-col bg-white min-h-screen my-4 rounded-xl shadow-lg items-center">
         <h1 className="text-2xl font-semibold my-4 text-center">
           Please select a Showtime from below

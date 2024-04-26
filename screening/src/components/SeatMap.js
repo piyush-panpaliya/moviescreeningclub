@@ -118,7 +118,7 @@ const SeatMapPage = () => {
   };
 
   return (
-    <div className="seat-booking">
+    <div className="seat-booking font-monts">
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       {assignedSeat && (
         <div className="flex justify-center items-center h-screen">

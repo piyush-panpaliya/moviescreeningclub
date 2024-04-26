@@ -191,7 +191,7 @@ export const Foram = () => {
 
   if (!hasMembership) {
     return (
-      <div className="flex justify-center items-center bg-gray-200 h-screen">
+      <div className="flex justify-center items-center bg-gray-200 h-screen font-monts">
         <div className="flex flex-col items-center lg:w-1/2 h-[80%] border shadow-lg bg-white rounded-md">
           <h2 className="text-2xl text-center mt-5 font-semibold ">
             Razorpay Payment Integration

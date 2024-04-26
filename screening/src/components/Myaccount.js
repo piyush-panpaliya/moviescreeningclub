@@ -118,7 +118,7 @@ const Myaccount = () => {
           </div>
         </div>
 
-        <div className="flex flex-col items-start w-4/5 max-sm:w-[90%] my-10 max-sm:my-4">
+        <div className="flex flex-col items-start w-4/5 max-sm:w-[90%] my-10 max-sm:my-4 font-monts">
           <div className="flex flex-col w-full justify-start my-3 mx-5 max-sm:mx-2 ">
             <h3 className="text-xl lg:text-2xl font-semibold mb-2">
               Previous Memberships

@@ -163,7 +163,7 @@ const Navbar = () => {
           ref={dropdownRef}
           className={`${
             showMenu
-              ? "block absolute right-0 mt-2 w-1/4 bg-gray-800 mr-2 max-sm:w-1/2 z-20 rounded-md"
+              ? "block absolute right-0 mt-2 w-1/4 bg-gray-800 mr-2 max-sm:w-1/2 z-20 rounded-md font-monts"
               : "hidden"
           }`}
         >
