@@ -179,10 +179,10 @@ const AddDropVolunteer = () => {
                 </DropdownItem>
                 <DropdownItem
                   onClick={() => {
-                    handleSubmit(item.email, "ticketvolunteer");
+                    handleSubmit(item.email, "volunteer");
                   }}
                 >
-                  Ticket Volunteer
+                  Vounteer
                 </DropdownItem>
                 <DropdownItem
                   onClick={() => {
@@ -193,17 +193,17 @@ const AddDropVolunteer = () => {
                 </DropdownItem>
                 <DropdownItem
                   onClick={() => {
+                    handleSubmit(item.email, "ticketvolunteer");
+                  }}
+                >
+                  Ticket Volunteer
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
                     handleSubmit(item.email, "standard");
                   }}
                 >
                   Standard
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    handleSubmit(item.email, "volunteer");
-                  }}
-                >
-                  Vounteer
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -300,7 +300,7 @@ const AddDropVolunteer = () => {
     <div className="flex justify-center">
       <Table
         isStriped
-        className="w-[80%] my-5"
+        className="w-4/5 max-sm:w-[95%] my-5"
         aria-label="Controlled table example with dynamic content"
         topContent={topContent}
         topContentPlacement="outside"
