@@ -2,22 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { SERVERIP } from "../config";
-// import {
-//   Table,
-//   TableHeader,
-//   TableColumn,
-//   TableBody,
-//   TableRow,
-//   TableCell,
-//   Button,
-//   DropdownTrigger,
-//   Dropdown,
-//   DropdownMenu,
-//   DropdownItem,
-//   Chip,
-//   Input,
-//   getKeyValue,
-// } from "@nextui-org/react";
 
 const ModifyMovie = () => {
   const [movies, setMovies] = useState([]);
@@ -28,7 +12,6 @@ const ModifyMovie = () => {
 
   useEffect(() => {
     const userType = localStorage.getItem("userType");
-    // If userType is not volunteer or admin, redirect to home page
     if (
       !userType ||
       userType === "standard" ||
@@ -77,17 +60,20 @@ const ModifyMovie = () => {
         `${SERVERIP}/movie/movies/${editingMovie._id}`,
         editedData
       );
+  
       setMovies((prevMovies) =>
         prevMovies.map((movie) =>
-          movie._id === editingMovie._id ? editedData : movie
+          movie._id === editingMovie._id ? { ...movie, ...editedData } : movie
         )
       );
+  
       setEditingMovie(null);
       setEditedData({});
     } catch (error) {
       console.error("Error updating movie:", error);
     }
   };
+  
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -106,22 +92,6 @@ const ModifyMovie = () => {
       console.error("Error deleting movie:", error);
     }
   };
-
-  // const handleAdd = () => {
-  //   setAddingMovie(true);
-  // };
-
-  // const handleAddSave = async () => {
-  //   try {
-  //     const res = await axios.post(`${SERVERIP}/movie/add-movies`, editedData);
-  //     console.log("Movie added:", res.data);
-  //     setMovies([...movies, res.data]);
-  //     setAddingMovie(false);
-  //     setEditedData({});
-  //   } catch (error) {
-  //     console.error("Error adding movie:", error);
-  //   }
-  // };
 
   const columns = [
     "title",
