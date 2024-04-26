@@ -26,7 +26,7 @@ export default function ForgotPassword() {
       if (res.status === 200) {
         setIsSubmitting(true);
         const res1 = await axios.post(
-          "${SERVERIP}/otp/send-otp",
+          `${SERVERIP}/otp/send-otp`,
           formData
         );
         if (res1.data.success) {

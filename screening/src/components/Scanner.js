@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import jsQR from "jsqr";
 import { SERVERIP } from "../config";
@@ -10,8 +10,8 @@ export const Scanner = () => {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    const userType = localStorage.getItem('userType');
-    if (!userType || userType === 'standard' || userType === 'movievolunteer') {
+    const userType = localStorage.getItem("userType");
+    if (!userType || userType === "standard" || userType === "movievolunteer") {
       navigate("/");
     } else {
       initializeScanner();
@@ -23,11 +23,12 @@ export const Scanner = () => {
   }, [navigate]);
 
   const initializeScanner = () => {
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+    navigator.mediaDevices
+      .getUserMedia({ video: { facingMode: "environment" } })
       .then((stream) => {
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
-          videoRef.current.addEventListener('loadedmetadata', () => {
+          videoRef.current.addEventListener("loadedmetadata", () => {
             videoRef.current.play();
             scanQRCode();
           });
@@ -44,19 +45,30 @@ export const Scanner = () => {
         requestAnimationFrame(checkQRCode);
         return;
       }
-    
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-    
+
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+
       canvas.width = videoRef.current.videoWidth;
       canvas.height = videoRef.current.videoHeight;
-    
-      context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-    
-      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    
+
+      context.drawImage(
+        videoRef.current,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      const imageData = context.getImageData(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
       const code = jsQR(imageData.data, imageData.width, imageData.height);
-    
+
       if (code) {
         setScanResult(code.data);
         sendApiRequest(code.data);
@@ -72,7 +84,7 @@ export const Scanner = () => {
     if (videoRef.current && videoRef.current.srcObject) {
       const stream = videoRef.current.srcObject;
       const tracks = stream.getTracks();
-  
+
       tracks.forEach((track) => {
         track.stop();
       });
@@ -95,11 +107,60 @@ export const Scanner = () => {
       const data = await response.json();
       setScanResultInfo(data);
       console.log(data);
+  
+      // After access is granted, generate printable HTML content
+      if (data && data.exists && !data.verified && !data.validityPassed && data.seatbooked) {
+        const printContent = `
+          <html>
+            <head>
+              <title>Print Ticket</title>
+              <style>
+                /* Add CSS styles for ticket layout */
+                body {
+                  font-family: Arial, sans-serif;
+                  margin: 0;
+                  padding: 0;
+                }
+                .ticket {
+                  width: 200px; /* Adjust width for receipt size */
+                  padding: 10px;
+                  border: 1px solid #ccc;
+                  text-align: center;
+                }
+              </style>
+            </head>
+            <body>
+              <div class="ticket">
+                <h2>Ticket Details</h2>
+                <p>Access granted for ${data.email}</p>
+                <p>TIme : ${data.showtime}</p>
+                <p>Date : ${data.showdate}</p>
+                <img id ="ticketImage" src="https://static-koimoi.akamaized.net/wp-content/new-galleries/2015/05/abcd-any-body-can-dance-2-movie-poster-1.jpg" alt="Image" width="100" height="100">
+              </div>
+            </body>
+          </html>
+        `;
+        const printWindow = window.open("", "_blank");
+if (printWindow) {
+  printWindow.document.write(printContent);
+  printWindow.document.close();
+  
+  // Wait for the image to load before triggering print dialog
+  const ticketImage = printWindow.document.getElementById("ticketImage");
+  ticketImage.onload = function() {
+    printWindow.print(); // Trigger print dialog after image has loaded
+  };
+          
+        } else {
+          console.error("Failed to open print window");
+        }
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
-     }
+    }
   };
-
+  
+  
   return (
     <div className="flex justify-center w-full h-100vh mt-6">
       <div style={{ width: "300px", height: "300px" }}>

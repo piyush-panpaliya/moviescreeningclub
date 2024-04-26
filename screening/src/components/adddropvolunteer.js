@@ -179,10 +179,10 @@ const AddDropVolunteer = () => {
                 </DropdownItem>
                 <DropdownItem
                   onClick={() => {
-                    handleSubmit(item.email, "ticketvolunteer");
+                    handleSubmit(item.email, "volunteer");
                   }}
                 >
-                  Ticket Volunteer
+                  Volunteer
                 </DropdownItem>
                 <DropdownItem
                   onClick={() => {
@@ -193,17 +193,17 @@ const AddDropVolunteer = () => {
                 </DropdownItem>
                 <DropdownItem
                   onClick={() => {
+                    handleSubmit(item.email, "ticketvolunteer");
+                  }}
+                >
+                  Ticket Volunteer
+                </DropdownItem>
+                <DropdownItem
+                  onClick={() => {
                     handleSubmit(item.email, "standard");
                   }}
                 >
                   Standard
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    handleSubmit(item.email, "volunteer");
-                  }}
-                >
-                  Vounteer
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>

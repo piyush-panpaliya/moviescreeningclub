@@ -24,7 +24,11 @@ exports.check = async (req, res) => {
       else {
           payment.verified = true;
           await payment.save();
-          res.json({ exists: true, validityPassed: false, seatbooked:true, verified:false, email: payment.email });
+          const expirationDate = new Date(payment.expirationDate);
+          expirationDate.setHours(expirationDate.getHours() - 3);
+          const formattedDate = `${expirationDate.getDate()}/${expirationDate.getMonth() + 1}/${expirationDate.getFullYear()}`;
+          const formattedTime = `${String(expirationDate.getHours()).padStart(2, '0')}:${String(expirationDate.getMinutes()).padStart(2, '0')}`;
+          res.json({ exists: true, validityPassed: false, seatbooked:true, verified:false, email: payment.email, showdate: formattedDate, showtime: formattedTime });
         }
     }
   } catch (error) {
