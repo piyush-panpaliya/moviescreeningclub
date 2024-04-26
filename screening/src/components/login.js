@@ -85,7 +85,7 @@ export default function Login() {
   }, [formData, navigate]);
 
   return (
-    <div className="flex justify-center items-center h-screen bg-[#e5e8f0]">
+    <div className="flex justify-center items-center h-screen bg-[#e5e8f0] font-monts">
       <div className="flex items-center justify-center flex-wrap w-[80%] md:h-[90%] sm:h-[90%] max-sm:h-[60%] max-sm:w-[90%] bg-white rounded-3xl ">
         <div className="flex w-[99.5%] h-[99%] bg-gradient-to-r from-white to-gray-100 rounded-3xl">
           <div className="w-[50%] h-full flex justify-center items-center max-sm:hidden">
