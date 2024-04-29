@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
-import imgone from "../images/otpimg.svg";
+import imageOne from "../images/forgotPassword.svg";
 import { SERVERIP } from "../config";
 import Swal from "sweetalert2";
 
-export default function GetOTP() {
+export default function ForgotPassword() {
   const [formData, setFormData] = useState({
     email: "",
   });
-
-  const [isSubmitting, setIsSubmitting] = useState(false); // State to track if form is submitting
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { email } = formData;
   const navigate = useNavigate();
 
@@ -20,69 +20,58 @@ export default function GetOTP() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if(!email.endsWith("iitmandi.ac.in")){
-      setFormData({ ...formData, email: "" });
-      Swal.fire({
-        title: "Error",
-        text: "Invalid email id. Use institute mail id.",
-        icon: "error",
-    })}
-    else{
-      try {
-        const res = await axios.post(`${SERVERIP}/otp/user-otp`, {
-          email,
-        });
-        if (res.status === 200) {
-          setIsSubmitting(true);
-          const sendOtpRes = await axios.post(`${SERVERIP}/otp/send-otp`, {
-            email,
-          });
-          if (sendOtpRes.data.success) {
-            console.log("Email sent");
-            localStorage.setItem("getotpEmail", email); // Store email in local storage
-            navigate("/signup");
-          } else {
-            console.error("Failed to send");
-          }
+    try {
+      const res = await axios.post(`${SERVERIP}/otp/user-otp1`, {
+        email,
+      });
+      if (res.status === 200) {
+        setIsSubmitting(true);
+        const res1 = await axios.post(
+          `${SERVERIP}/otp/send-otp`,
+          formData
+        );
+        if (res1.data.success) {
+          console.log("email sent");
+          localStorage.setItem("forgotpassEmail", formData.email); // Store email in local storage
+          navigate("/update");
+        } else {
+          console.log("failed to send");
         }
-      } catch (err) {
-        if (err.response.status === 401) {
-          Swal.fire({
-            title: "Error",
-            text: "User already exists please login",
-            icon: "error",
-          });
-        } else if (err.response.status === 500) {
-          Swal.fire({
-            title: "Error",
-            text: "Internal server error",
-            icon: "error",
-          });
-        }
-      } finally {
-        setIsSubmitting(false);
       }
+    } catch (err) {
+      if (err.response.status === 401) {
+        Swal.fire({ title: "Error", text: "User does not exist please sign up", icon: "error" });
+      } else if (err.response.status === 500) {
+        Swal.fire({ title: "Error", text: "Internal server error", icon: "error" });
+      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
-  
   return (
-    <div className="flex justify-center items-center h-screen bg-[#e5e8f0] font-monts">
-      <div className="flex items-center justify-center w-[80%] h-[90%] bg-white rounded-3xl max-sm:h-[60%] max-sm:w-[90%]">
+    <div className="flex justify-center items-center h-screen bg-[#e5e8f0] capitalize font-monts">
+      <div className="flex items-center justify-center w-[80%] h-[90%] bg-white rounded-3xl max-sm:h-[70%] max-sm:w-[90%]">
         <div className="flex w-[99.5%] h-[99%] bg-gradient-to-r from-white to-gray-100 rounded-3xl">
           <div className="w-[50%] h-full flex justify-center items-center max-sm:hidden">
             <div className="w-[98%] h-[98%] rounded-2xl flex justify-center items-center bg-[#da9afe]">
-              <img src={imgone} className="rounded-2xl" alt="Login" />
+              <img
+                src={imageOne}
+                className="h-2/3 w-2/3 rounded-2xl"
+                alt="Login"
+              />
             </div>
           </div>
-          <div className="flex justify-center items-center mt-4 w-1/2 max-sm:w-full ">
+          <div className="flex justify-center items-center w-1/2 max-sm:w-full">
             <div className="flex flex-col justify-center gap-6 h-full w-[90%] max-sm:text-sm">
-              <div className="h-[20%]">
+              <div className="h-[20%] max-sm:h-[30%]">
                 <p className="text-center font-bold text-3xl max-sm:text-lg">
-                  Email Verification!
+                  Forgot password?
                 </p>
                 <p className="text-center font-normal text-2xl mt-4 max-sm:text-medium">
-                  Please verify Email to continue
+                  No problem we got that covered
+                </p>
+                <p className="text-center font-normal text-2xl mt-4 max-sm:text-medium">
+                  enter email to recieve OTP
                 </p>
               </div>
 
@@ -108,8 +97,8 @@ export default function GetOTP() {
                   <input
                     type="email"
                     id="email"
-                    className="border w-full rounded-2xl text-center max-sm:text-sm"
                     name="email"
+                    className="border w-full rounded-2xl text-center max-sm:text-sm"
                     placeholder="enter your email"
                     required
                     value={email}
@@ -125,13 +114,12 @@ export default function GetOTP() {
                 </Link>
                 <button
                   onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  className="flex justify-center items-center bg-[#fe6b68] w-4/5 h-[15%] p-2 text-white rounded-xl"
+                  className="flex justify-center items-center bg-[#fe6b68] w-4/5 h-[15%] p-2 text-white rounded-xl "
                   type="button"
                 >
-                  {isSubmitting ? "Submitting ..." : "Submit"}
+                  Submit
                 </button>
-                <span className="form-text border-t-2 w-4/5 text-center mt-2 pt-2">
+                <span className="form-text border-t-2 w-4/5 text-center mt-2 py-2">
                   Already have an account --{" "}
                   <Link className="text-blue-600" to="/login">
                     Login
