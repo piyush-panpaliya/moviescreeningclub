@@ -34,6 +34,8 @@ const SeatMapRouter = require('./routes/seatmapRoutes.js');
 app.use('/seatmaprouter', SeatMapRouter);
 const membershipsRouter = require('./routes/membershipsRoutes.js');
 app.use('/memrouter', membershipsRouter);
+const votepagerouter = require('./routes/voteroute.js');
+app.use('/voterouter', votepagerouter);
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

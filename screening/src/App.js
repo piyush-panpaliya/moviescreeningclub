@@ -21,6 +21,7 @@ import SeatMapPage from "./components/SeatMap.js";
 import Test from "./components/test.js";
 import QR from "./components/displayQR.js";
 import Footer from "./components/footer.js";
+import MovieList from "./components/VotePage.js";
 import { SERVERIP } from "./config.js";
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
           <Route path="/allshowtime/:paymentId" element={<Showtimepage/>}/>
           <Route path="/seatmap/:showtimeId" element={<SeatMapPage />} />
           <Route path="/QR" element={<QR />} />
+          <Route path="/VotePage" element={<MovieList />} />
         </Routes>
         <Footer/>
       </LoginProvider>

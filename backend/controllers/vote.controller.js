@@ -1,0 +1,44 @@
+const Movie = require('../models/voteModel');
+
+// Controller to fetch all movies
+exports.getAllMovies = async (req, res) => {
+  try {
+    const movies = await Movie.find();
+    res.status(200).json({ movies });
+  } catch (error) {
+    console.error('Error fetching movies:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+exports.voteMovie = async (req, res) => {
+    const { movieId, voteType, userEmail } = req.body;
+
+    try {
+        const movie = await Movie.findById(movieId);
+        if (!movie) {
+            return res.status(404).json({ message: 'Movie not found' });
+        }
+        if (movie.voters.includes(userEmail)) {
+            return res.status(403).json({ message: 'You have already voted for this movie' });
+        }
+    
+        // Update the vote count based on the vote type
+        if (voteType === 'yes') {
+            movie.yesCount++;
+        } else if (voteType === 'no') {
+            movie.noCount++;
+        }
+    
+        // Add the user to the voters list
+        movie.voters.push(userEmail);
+    
+        // Save the updated movie
+        await movie.save();
+    
+        res.status(200).json({ message: 'Vote recorded successfully' });
+    } catch (error) {
+        console.error('Error voting for movie:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};

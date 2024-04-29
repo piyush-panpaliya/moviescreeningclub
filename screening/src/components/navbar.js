@@ -126,7 +126,6 @@ const Navbar = () => {
                   aria-label="Main menu"
                   aria-expanded="false"
                 >
-                  {/* Heroicon name: menu */}
                   <svg
                     className="block h-6 w-6"
                     stroke="white"
