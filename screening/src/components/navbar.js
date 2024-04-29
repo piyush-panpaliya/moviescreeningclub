@@ -70,7 +70,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 w-full md:sticky top-0">
+    <nav className="bg-gray-800 w-full md:sticky top-0 z-20">
       <div className="w-full mx-auto px-4">
         <div className="flex justify-between h-16">
           <div className="flex">

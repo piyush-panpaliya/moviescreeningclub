@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import imageOne from "../images/forgotPassword.svg";
 import { SERVERIP } from "../config";
+import Swal from "sweetalert2";
 
 export default function UpdatePassword() {
   const [formData, setFormData] = useState({
@@ -31,7 +32,7 @@ export default function UpdatePassword() {
         console.error("failed to save");
       }
     } catch (err) {
-      alert("invalid otp");
+      Swal.fire({ title: "Error", text: "invalid otp", icon: "error" });
       console.log("error: ", err);
     }
   };

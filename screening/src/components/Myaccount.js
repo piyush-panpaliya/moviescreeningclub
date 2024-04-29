@@ -74,7 +74,7 @@ const Myaccount = () => {
 
   return (
     <div>
-      <div className="bg-gray-200 flex flex-col items-center min-h-screen">
+      <div className="bg-gray-200 flex flex-col items-center min-h-screen font-monts">
         <h2 className="text-2xl lg:text-3xl font-semibold mb-4 mt-7">
           Your Memberships
         </h2>

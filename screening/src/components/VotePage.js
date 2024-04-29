@@ -63,7 +63,7 @@ const MovieList = () => {
   
     // Conditionally render voting options based on whether the user has already voted for the movie
     return (
-      <div className="flex items-start bg-white rounded-lg shadow-md p-4 mb-4">
+      <div className="flex bg-white rounded-lg shadow-md p-4 m-4 w-2/5">
         <div className="w-full h-full object-cover">
           <div className="w-32 h-auto mb-2 rounded mr-4">
             <img
@@ -126,7 +126,7 @@ const MovieList = () => {
   
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4">
+    <div className="flex flex-wrap gap-4 justify-evenly">
       {movies.map((movie) => (
         <MovieCard key={movie._id} movie={movie} />
       ))}

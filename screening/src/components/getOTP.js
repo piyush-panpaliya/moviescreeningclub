@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import imgone from "../images/otpimg.svg";
 import { SERVERIP } from "../config";
+import Swal from "sweetalert2";
 
 export default function GetOTP() {
   const [formData, setFormData] = useState({
@@ -19,22 +20,27 @@ export default function GetOTP() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email.endsWith("iitmandi.ac.in")) {
-      alert("Invalid email id. Use institute mail id.");
-      setFormData({ ...formData, email: "" });
-      return;
-    }
-
+    
     try {
+      if (!email.endsWith("iitmandi.ac.in")) {
+        Swal.fire({
+          title: "Error",
+          text: "Invalid email id. Use institute mail id.",
+          icon: "error",
+        }).then(() => {
+          // return;
+          setFormData({ ...formData, email: "" });
+        });
+      }
+
       const res = await axios.post(`${SERVERIP}/otp/user-otp`, {
         email,
       });
       if (res.status === 200) {
         setIsSubmitting(true);
-        const sendOtpRes = await axios.post(
-          `${SERVERIP}/otp/send-otp`,
-          { email }
-        );
+        const sendOtpRes = await axios.post(`${SERVERIP}/otp/send-otp`, {
+          email,
+        });
         if (sendOtpRes.data.success) {
           console.log("Email sent");
           localStorage.setItem("getotpEmail", email); // Store email in local storage
@@ -45,26 +51,32 @@ export default function GetOTP() {
       }
     } catch (err) {
       if (err.response.status === 401) {
-        alert("User already exists please login");
+        Swal.fire({
+          title: "Error",
+          text: "User already exists please login",
+          icon: "error",
+        });
       } else if (err.response.status === 500) {
-        alert("Internal server error");
+        Swal.fire({
+          title: "Error",
+          text: "Internal server error",
+          icon: "error",
+        });
       }
     } finally {
       setIsSubmitting(false);
     }
-  };
 
+    
+  };
+  
   return (
     <div className="flex justify-center items-center h-screen bg-[#e5e8f0] font-monts">
       <div className="flex items-center justify-center w-[80%] h-[90%] bg-white rounded-3xl max-sm:h-[60%] max-sm:w-[90%]">
         <div className="flex w-[99.5%] h-[99%] bg-gradient-to-r from-white to-gray-100 rounded-3xl">
           <div className="w-[50%] h-full flex justify-center items-center max-sm:hidden">
             <div className="w-[98%] h-[98%] rounded-2xl flex justify-center items-center bg-[#da9afe]">
-              <img
-                src={imgone}
-                className="rounded-2xl"
-                alt="Login"
-              />
+              <img src={imgone} className="rounded-2xl" alt="Login" />
             </div>
           </div>
           <div className="flex justify-center items-center mt-4 w-1/2 max-sm:w-full ">
@@ -124,7 +136,7 @@ export default function GetOTP() {
                   {isSubmitting ? "Submitting ..." : "Submit"}
                 </button>
                 <span className="form-text border-t-2 w-4/5 text-center mt-2 pt-2">
-                  Already have an account -- {" "}
+                  Already have an account --{" "}
                   <Link className="text-blue-600" to="/login">
                     Login
                   </Link>

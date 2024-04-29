@@ -5,6 +5,7 @@ import { useMembershipContext } from "./MembershipContext";
 import { getToken } from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
 import { SERVERIP } from "../config";
+import Swal from "sweetalert2";
 
 export const Foram = () => {
   const [amount, setAmount] = useState("");
@@ -62,7 +63,7 @@ export const Foram = () => {
     e.preventDefault();
     console.log("Submit button clicked");
     if (amount === "" || email === "") {
-      alert("Please select a membership and provide an email");
+      Swal.fire({ title: "Error", text: "Please select a membership and provide an email", icon: "error" });
     } else {
       var options = {
         key: "rzp_test_bVkTgi3UqyKgi7",
@@ -136,11 +137,11 @@ export const Foram = () => {
     axios.post(`${SERVERIP}/QR/send-email`, emailContent)
       .then((response) => {
         console.log(`Email sent for ${membership} membership.`);
-        alert(`Email sent successfully for ${membership} membership.`);
+        Swal.fire({ title: "Error", text: `Email sent successfully for ${membership} membership.`, icon: "error" });
       })
       .catch((error) => {
         console.error("Error sending email:", error);
-        alert("Error sending email. Please try again later.");
+        Swal.fire({ title: "Error", text: "Error sending email. Please try again later.", icon: "error" });
       });
   };
 
@@ -150,11 +151,11 @@ export const Foram = () => {
     axios.post(`${SERVERIP}/memrouter/saveusermem`, userData)
       .then((response) => {
         console.log(`Usermem data saved successfully for ${(memtype, email)}`);
-        alert(`Usermem data saved successfully for ${(memtype, email)}`);
+        Swal.fire({ title: "Error", text: `Usermem data saved successfully for ${(memtype, email)}`, icon: "error" });
       })
       .catch((error) => {
         console.error("Error saving Usermemdata:", error);
-        alert("Error saving Usermemdata. Please try again later.");
+        Swal.fire({ title: "Error", text: "Error saving Usermemdata. Please try again later.", icon: "error" });
       });
   };
 
@@ -169,7 +170,7 @@ export const Foram = () => {
           ticketsGenerated++;
           if (ticketsGenerated === totalTickets) {
             console.log(`QR data saved successfully for ${memtype} membership`);
-            alert(`QR data saved successfully for ${memtype} membership`);
+            Swal.fire({ title: "Error", text: `QR data saved successfully for ${memtype} membership`, icon: "error" });
           } else {
             const nextTicketNumber = ticketNumber + 1;
             saveTicket(nextTicketNumber); // Call the function recursively until all tickets are generated
@@ -177,7 +178,7 @@ export const Foram = () => {
         })
         .catch((error) => {
           console.error("Error saving QR data:", error);
-          alert("Error saving QR data. Please try again later.");
+          Swal.fire({ title: "Error", text:"Error saving QR data. Please try again later.", icon: "error" });
         });
     };
     saveTicket(1); // Start with ticket number 1

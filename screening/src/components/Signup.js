@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import imageOne from "../images/signupImg.svg";
 import { SERVERIP } from "../config";
+import Swal from "sweetalert2";
 
 export const Signup = () => {
   const [formData, setFormData] = useState({
@@ -56,7 +57,7 @@ export const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isValidEmail) {
-      alert("Please enter a valid college email ID.");
+      Swal.fire({ title: "Error", text: "Please enter a valid college email ID.", icon: "error" });
       return;
     }
 
@@ -71,7 +72,7 @@ export const Signup = () => {
       localStorage.removeItem("getotpEmail");
       navigate("/login");
     } catch (err) {
-      alert("Email already registered");
+      Swal.fire({ title: "Error", text: "Email already registered", icon: "error" });
       console.error("Error occurred:", err);
     }
   };

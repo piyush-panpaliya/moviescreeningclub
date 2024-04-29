@@ -5,10 +5,11 @@ import { useMembershipContext } from "./MembershipContext";
 import imageOne from "../images/home_cinema.svg";
 import { useLogin } from "./LoginContext"; // Import the useLogin hook
 import { SERVERIP } from "../config";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const { login } = useLogin(); // Use the login function from context
-  const[clicked,setClicked]=useState("");
+  const [clicked, setClicked] = useState("");
   const [formData, setFormData] = useState({
     email: localStorage.getItem("signupEmail") || "",
     password: "",
@@ -65,11 +66,11 @@ export default function Login() {
       }
     } catch (err) {
       if (err.response.status === 404) {
-        alert("User not found");
+        Swal.fire({ title: "Error", text: "User not found", icon: "error" });
       } else if (err.response.status === 401) {
-        alert("Email or password is wrong");
+        Swal.fire({ title: "Error", text: "Email or password is wrong", icon: "error" });
       } else {
-        alert("Internal server error");
+        Swal.fire({ title: "Error", text: "Internal server error", icon: "error" });
       }
     }
   };
@@ -78,8 +79,8 @@ export default function Login() {
     onkeydown = async (e) => {
       if (e.key === "Enter") {
         setClicked(() => true);
-        await handleSubmit({ formData});
-        navigate('/home');
+        await handleSubmit({ formData });
+        navigate("/home");
       }
     };
   }, [formData, navigate]);
@@ -190,7 +191,6 @@ export default function Login() {
                     required
                     value={formData.password}
                     onChange={handleChange}
-                    
                   />
                 </div>
                 <Link
@@ -201,9 +201,9 @@ export default function Login() {
                 </Link>
 
                 <button
-                  onClick={async()=>{
-                    setClicked(()=>true);
-                    await handleSubmit({formData});
+                  onClick={async () => {
+                    setClicked(() => true);
+                    await handleSubmit({ formData });
                   }}
                   className="flex justify-center items-center bg-[#fe6b68] w-4/5 h-[15%] p-2 text-white rounded-xl"
                   type="button"

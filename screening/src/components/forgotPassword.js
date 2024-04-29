@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import imageOne from "../images/forgotPassword.svg";
 import { SERVERIP } from "../config";
+import Swal from "sweetalert2";
 
 export default function ForgotPassword() {
   const [formData, setFormData] = useState({
@@ -39,9 +40,9 @@ export default function ForgotPassword() {
       }
     } catch (err) {
       if (err.response.status === 401) {
-        alert("User does not exist please sign up");
+        Swal.fire({ title: "Error", text: "User does not exist please sign up", icon: "error" });
       } else if (err.response.status === 500) {
-        alert("Internal server error");
+        Swal.fire({ title: "Error", text: "Internal server error", icon: "error" });
       }
     } finally {
       setIsSubmitting(false);
