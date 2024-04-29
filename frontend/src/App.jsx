@@ -22,6 +22,7 @@ import QR from "./components/displayQR";
 import Footer from "./components/footer";
 import MovieList from "./components/VotePage";
 import { SERVERIP } from "./config";
+import Foram from "./components/Foram";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
-          {/* <Route path="/form" element={<Foram />} /> */}
+          <Route path="/form" element={<Foram />} />
           <Route path="/scanner" element={<Scanner />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
