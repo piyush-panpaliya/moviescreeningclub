@@ -1,27 +1,27 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/navbar.js";
-import Foram from "./components/Foram.js";
-import Scanner from "./components/Scanner.js";
-import Myaccount from "./components/Myaccount.js";
-import Login from "./components/login.js";
-import MovieForm from "./components/addmovie.js";
-import ModifyMovie from "./components/modifymovie.js";
-import Home from "./components/home.js";
-import GetOTP from "./components/getOTP.js";
-import Signup from "./components/Signup.js";
-import AdddropVolunteer from "./components/adddropvolunteer.js";
-import { LoginProvider } from './components/LoginContext.js';
-import ForgotPassword from "./components/forgotPassword.js";
-import UpdatePassword from "./components/updatePassowrd.js";
-import Showtime from "./components/showtime.js";
-import Showtimepage from "./components/AllShowTimings.js";
-import SeatMapPage from "./components/SeatMap.js";
-import Test from "./components/test.js";
-import QR from "./components/displayQR.js";
-import Footer from "./components/footer.js";
-import MovieList from "./components/VotePage.js";
-import { SERVERIP } from "./config.js";
+import Navbar from "./components/navbar";
+// import Foram from "./components/Foram";
+import Scanner from "./components/Scanner";
+import Myaccount from "./components/Myaccount";
+import Login from "./components/login";
+import MovieForm from "./components/addmovie";
+import ModifyMovie from "./components/modifymovie";
+import Home from "./components/home";
+import GetOTP from "./components/getOTP";
+import Signup from "./components/Signup";
+import AdddropVolunteer from "./components/adddropvolunteer";
+import { LoginProvider } from './components/LoginContext';
+import ForgotPassword from "./components/forgotPassword";
+import UpdatePassword from "./components/updatePassowrd";
+import Showtime from "./components/showtime";
+import Showtimepage from "./components/AllShowTimings";
+import SeatMapPage from "./components/SeatMap";
+import Test from "./components/test";
+import QR from "./components/displayQR";
+import Footer from "./components/footer";
+import MovieList from "./components/VotePage";
+import { SERVERIP } from "./config";
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/form" element={<Foram />} />
+          {/* <Route path="/form" element={<Foram />} /> */}
           <Route path="/scanner" element={<Scanner />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

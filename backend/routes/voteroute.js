@@ -7,5 +7,7 @@ router.get('/movies', movieController.getAllMovies);
 
 // Route to vote for a movie
 router.post('/vote', movieController.voteMovie);
+router.post('/addvotemovie', movieController.addvotemovie);
+router.delete('/deletevotemovie/:id', movieController.deletevotemovie);
 
 module.exports = router;
