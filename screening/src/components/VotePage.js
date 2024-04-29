@@ -81,7 +81,7 @@ const MovieList = () => {
         </div>
   
         <div className="flex flex-col items-center ml-auto">
-          <div className="flex flex-col items-center mb-2">
+          <div className="flex flex-colz items-center mb-2">
             <div className="flex flex-row pt-20">
               <span className="font-semibold text-gray-600 px-2">Yes</span>
               <div className="bg-blue-200 h-8 w-96 rounded-xl">

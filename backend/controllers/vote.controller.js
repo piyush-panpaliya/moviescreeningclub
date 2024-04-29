@@ -42,3 +42,29 @@ exports.voteMovie = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+exports.addvotemovie = async (req, res) => {
+    try {
+      const { title, poster, genre } = req.body;
+      // Create a new movie document
+      const newMovie = new Movie({ title, poster, genre });
+      // Save the new movie to the database
+      await newMovie.save();
+      res.status(201).json({ message: "Movie added successfully" });
+    } catch (error) {
+      console.error("Error adding movie:", error);
+      res.status(500).json({ error: "Failed to add movie" });
+    }
+  };
+  
+  // Route to delete a movie by ID
+exports.deletevotemovie=async (req, res) => {
+    try {
+      const movieId = req.params.id;
+      await Movie.findByIdAndDelete(movieId);
+      res.json({ message: "Movie deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting movie:", error);
+      res.status(500).json({ error: "Failed to delete movie" });
+    }
+  };
