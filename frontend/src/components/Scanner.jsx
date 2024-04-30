@@ -111,35 +111,26 @@ export const Scanner = () => {
       // After access is granted, generate printable HTML content
       if (data && data.exists && !data.verified && !data.validityPassed && data.seatbooked) {
         const printContent = `
-          <html>
-            <head>
-              <title>Print Ticket</title>
-              <style>
-                /* Add CSS styles for ticket layout */
-                body {
-                  font-family: Arial, sans-serif;
-                  margin: 0;
-                  padding: 0;
-                }
-                .ticket {
-                  width: 200px; /* Adjust width for receipt size */
-                  padding: 10px;
-                  border: 1px solid #ccc;
-                  text-align: center;
-                }
-              </style>
-            </head>
-            <body>
-              <div class="ticket">
-                <h2>Ticket Details</h2>
-                <p>Access granted for ${data.email}</p>
-                <p>TIme : ${data.showtime}</p>
-                <p>Date : ${data.showdate}</p>
-                <img id ="ticketImage" src="https://static-koimoi.akamaized.net/wp-content/new-galleries/2015/05/abcd-any-body-can-dance-2-movie-poster-1.jpg" alt="Image" width="100" height="100">
-              </div>
-            </body>
-          </html>
-        `;
+  <html>
+    <head>
+      <title>Print Ticket</title>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+      <style>
+        /* Add custom CSS styles here */
+      </style>
+    </head>
+    <body>
+      <div class="ticket w-58"> <!-- Tailwind class to set width to 58mm -->
+        <h2 class="text-lg font-bold">Ticket Details</h2>
+        <p>Access granted for ${data.email}</p>
+        <p>Time: ${data.showtime}</p>
+        <p>Date: ${data.showdate}</p>
+        <img id="ticketImage" src="https://static-koimoi.akamaized.net/wp-content/new-galleries/2015/05/abcd-any-body-can-dance-2-movie-poster-1.jpg" alt="Image" class="w-24 h-24 mx-auto" width="100" height="100">
+      </div>
+    </body>
+  </html>
+`;
+
         const printWindow = window.open("", "_blank");
 if (printWindow) {
   printWindow.document.write(printContent);

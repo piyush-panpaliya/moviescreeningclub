@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Razorpay  from 'razorpay';
 import QRCode from "qrcode";
 import axios from "axios";
 import { useMembershipContext } from "./MembershipContext";
@@ -587,7 +588,7 @@ export const Foram = () => {
                 </button>
               </div>
             </div>
-            
+
             <div className="bg-[#864AF9] w-[20%] hover:border-3 border-[#332941] rounded-lg flex flex-col gap-5 mb-10">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
