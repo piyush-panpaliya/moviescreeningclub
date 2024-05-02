@@ -70,13 +70,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 w-full md:sticky top-0 z-20 p-1">
+    <nav className="bg-gray-800 w-full md:sticky top-0 z-20">
       <div className="w-full mx-auto">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <Link to="/">
-                <img className="h-14 ml-3 w-auto" src={Logo} alt="Movies" />
+                <img className="h-14 w-auto" src={Logo} alt="Movies" />
               </Link>
             </div>
           </div>
