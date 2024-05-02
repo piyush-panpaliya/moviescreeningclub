@@ -94,9 +94,9 @@ export const Foram = () => {
   const handleSubmit = (e, selectedMembership) => {
     e.preventDefault();
     const amounts = {
-      'B-Tech': { base: 130, silver: 240, gold: 330, diamond: 400 },
-      'PHD/M-Tech': { base: 150, silver: 280, gold: 390, diamond: 440 },
-      'Faculty/Staff': { base: 170, silver: 320, gold: 450, diamond: 500 },
+      'B-Tech': { base: 1, silver: 240, gold: 330, diamond: 400 },
+      'PHD/M-Tech': { base: 1, silver: 280, gold: 390, diamond: 440 },
+      'Faculty/Staff': { base: 1, silver: 320, gold: 450, diamond: 500 },
     };
     setMembership(selectedMembership);
     setAmount(amounts[degree][selectedMembership]);
