@@ -85,6 +85,7 @@ const MovieList = () => {
   };
 
   const handleDeleteMovie = async (movieId) => {
+    console.log("deleting");
     try {
       const response = await fetch(`http://localhost:8000/voterouter/deletevotemovie/${movieId}`, {
         method: "DELETE",
@@ -99,12 +100,11 @@ const MovieList = () => {
     }
   };
   const MovieCard = ({ movie }) => {
-    // Calculate vote percentages
+
     const totalVotes = movie.yesCount + movie.noCount;
     const yesPercentage = totalVotes === 0 ? 0 : (movie.yesCount / totalVotes) * 100;
     const noPercentage = totalVotes === 0 ? 0 : (movie.noCount / totalVotes) * 100;
-  
-    // Conditionally render voting options based on whether the user has already voted for the movie
+    console.log(movie._id);
     return (
       <div className="flex bg-white rounded-lg shadow-md p-4 m-4 w-full relative">
         <div className="w-full h-full object-cover">
@@ -173,12 +173,11 @@ const MovieList = () => {
       {movies.map((movie) => (
         <div key={movie._id} className="w-full  lg:w-1/3">
           <MovieCard movie={movie} />
-          <button onClick={() => handleDeleteMovie(movie._id)}>Delete</button>
+         
         </div>
       ))}
       
-      {/* Form to add new movie */}
-      <div className="w-full lg:w-1/3">
+      <div className="flex bg-white rounded-lg shadow-md p-4 m-4 w-full relative">
         <h2>Add New Movie</h2>
         <input 
           type="text" 

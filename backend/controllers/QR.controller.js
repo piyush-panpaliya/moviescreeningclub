@@ -81,7 +81,6 @@ exports.getValidQRs = async (req, res) => {
 };
 
 exports.markQRUsed = async (req, res) => {
-  console.log("Reached");
   try {
     const { paymentId } = req.params;
     const { date, showtime } = req.body; // Retrieve date and showtime from request body

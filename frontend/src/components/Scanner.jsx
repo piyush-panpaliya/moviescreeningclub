@@ -122,7 +122,7 @@ export const Scanner = () => {
     <body>
       <div class="ticket w-58"> <!-- Tailwind class to set width to 58mm -->
         <h2 class="text-lg font-bold">Ticket Details</h2>
-        <p>Access granted for ${data.email}</p>
+        <p>Access granted for ${localStorage.getItem("userName")}</p>
         <p>Time: ${data.showtime}</p>
         <p>Date: ${data.showdate}</p>
         <img id="ticketImage" src="https://static-koimoi.akamaized.net/wp-content/new-galleries/2015/05/abcd-any-body-can-dance-2-movie-poster-1.jpg" alt="Image" class="w-24 h-24 mx-auto" width="100" height="100">

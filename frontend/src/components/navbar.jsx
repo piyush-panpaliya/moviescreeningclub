@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../images/logo.png";
-import { useLogin } from "./LoginContext"; // Import useLogin hook
+import Logo from "../images/logo2.jpg";
+import { useLogin } from "./LoginContext";
 import axios from "axios";
 import { useMembershipContext } from "./MembershipContext";
 import { SERVERIP } from "../config";
@@ -70,13 +70,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 w-full md:sticky top-0 z-20">
-      <div className="w-full mx-auto px-4">
+    <nav className="bg-gray-800 w-full md:sticky top-0 z-20 p-1">
+      <div className="w-full mx-auto">
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <Link to="/">
-                <img className="h-12 w-auto" src={Logo} alt="Movies" />
+                <img className="h-14 ml-3 w-auto" src={Logo} alt="Movies" />
               </Link>
             </div>
           </div>

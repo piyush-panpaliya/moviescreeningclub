@@ -106,17 +106,24 @@ const AddDropVolunteer = () => {
       if (!response.ok) {
         throw new Error("Failed to update user type");
       }
-
+      const userTypeResponse = await axios.get(
+        `${SERVERIP}/user/${formData.email}`
+      );
+      const userTypeData = userTypeResponse.data;
+      const userType = userTypeData.userType;
+      localStorage.setItem("userType", userType);
       setEmail("");
       setUserType("standard");
-
-
       fetchUserData();
-
-
     } catch (error) {
       console.error("Error updating user type:", error);
 
+    }
+    finally{
+      const storedUserType = localStorage.getItem("userType");
+    if (!storedUserType || storedUserType !== "admin") {
+      // If userType is not found or not "admin", redirect to the home page
+      navigate("/");}
     }
   };
 
