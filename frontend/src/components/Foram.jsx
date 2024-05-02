@@ -94,9 +94,9 @@ export const Foram = () => {
   const handleSubmit = (e, selectedMembership) => {
     e.preventDefault();
     const amounts = {
-      'B-Tech': { base: 1, silver: 280, gold: 450, diamond: 640 },
-      'PHD/M-Tech': { base: 1, silver: 320, gold: 510, diamond: 720 },
-      'Faculty/Staff': { base: 1, silver: 360, gold: 570, diamond: 800 },
+      'B-Tech': { base: 1, silver: 300, gold: 420, diamond: 520 },
+      'PHD/M-Tech': { base: 1, silver: 340, gold: 480, diamond: 600 },
+      'Faculty/Staff': { base: 1, silver: 380, gold: 540, diamond: 680 },
     };
     setMembership(selectedMembership);
     setAmount(amounts[degree][selectedMembership]);
@@ -218,7 +218,7 @@ export const Foram = () => {
             Choose Your Plan
           </h2>
           <div className="flex gap-4 w-full justify-center h-[85%] pt-10">
-            <div className="bg-gradient-to-bl from-rose-400 via-rose-300 to-rose-50 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10">
+            <div className="bg-gradient-to-bl from-rose-400 via-rose-300 to-rose-50 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
@@ -346,7 +346,7 @@ export const Foram = () => {
                 </button>
               </div>
             </div>
-            <div className="bg-gradient-to-bl from-zinc-400 to-gray-50 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10">
+            <div className="bg-gradient-to-bl from-zinc-400 to-gray-50 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10 hover:scale-110 transition-transform duration-300 ">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
@@ -472,7 +472,7 @@ export const Foram = () => {
                 </button>
               </div>
             </div>
-            <div className="bg-gradient-to-bl from-amber-400 to-yellow-100 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10">
+            <div className="bg-gradient-to-bl from-amber-400 to-yellow-100 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
@@ -598,7 +598,7 @@ export const Foram = () => {
               </div>
             </div>
 
-            <div className="bg-gradient-to-bl from-blue-400 to-cyan-50 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10">
+            <div className="bg-gradient-to-bl from-blue-400 to-cyan-50 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
