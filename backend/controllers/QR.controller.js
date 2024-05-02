@@ -135,9 +135,9 @@ exports.isQRUsed = async (req, res) => {
     const currentDate = new Date();
     const validityDate = new Date(qrData.validitydate);
 
-    if (validityDate.getTime() <= currentDate.getTime()) {
-      // If the validity date is not after the current date, send a 400 error response
-      return res.status(400).json({ error: 'QR data has expired' });
+    if (validityDate.toISOString() <= currentDate.toISOString()) {
+    // If the validity date is not after the current date, send a 400 error response
+    return res.status(400).json({ error: 'QR data has expired' });
     }
 
     // Check if the QR data is used
