@@ -263,7 +263,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$130/</p>
+                        <p className="text-xl ml-2 font-semibold">$1/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -286,7 +286,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$150/</p>
+                        <p className="text-xl ml-2 font-semibold">$1/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -309,7 +309,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$170/</p>
+                        <p className="text-xl ml-2 font-semibold">$1/</p>
                         <p>Month </p>
                       </span>
                     </li>
