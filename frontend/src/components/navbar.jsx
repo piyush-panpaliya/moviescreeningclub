@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../images/logo2.jpg";
 import { useLogin } from "./LoginContext";
@@ -76,7 +76,7 @@ const Navbar = () => {
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <Link to="/">
-                <img className="h-14 w-auto" src={Logo} alt="Movies" />
+                <img className="h-14 w-auto ml-2" src={Logo} alt="Movies" />
               </Link>
             </div>
           </div>
@@ -118,7 +118,7 @@ const Navbar = () => {
             )}
 
             <div className="flex">
-              <div className="-mr-2 flex items-center mx-2">
+              <div className=" flex items-center mx-2">
                 <button
                   onClick={toggleMenu}
                   type="button"
