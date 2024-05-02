@@ -94,9 +94,9 @@ export const Foram = () => {
   const handleSubmit = (e, selectedMembership) => {
     e.preventDefault();
     const amounts = {
-      'B-Tech': { base: 1,   silver: 240, gold: 330, diamond: 400 },
-      'PHD/M-Tech': { base: 1, silver: 280, gold: 390, diamond: 440 },
-      'Faculty/Staff': { base: 1, silver: 320, gold: 450, diamond: 500 },
+      'B-Tech': { base: 1, silver: 280, gold: 450, diamond: 640 },
+      'PHD/M-Tech': { base: 1, silver: 320, gold: 510, diamond: 720 },
+      'Faculty/Staff': { base: 1, silver: 360, gold: 570, diamond: 800 },
     };
     setMembership(selectedMembership);
     setAmount(amounts[degree][selectedMembership]);
@@ -213,12 +213,12 @@ export const Foram = () => {
   if (!hasMembership) {
     return (
       <div className="flex justify-center items-center bg-gray-200 h-screen font-monts">
-        <div className="flex flex-col items-center lg:w-[90%] h-[95%] border shadow-lg bg-gray-200 rounded-md">
+        <div className="flex flex-col items-center lg:w-[90%] h-[95%] border rounded-md">
           <h2 className="text-3xl text-center mt-5 font-bold ">
             Choose Your Plan
           </h2>
           <div className="flex gap-4 w-full justify-center h-[85%] pt-10">
-            <div className="bg-[#864AF9] w-[20%] hover:border-2 border-[#332941] rounded-lg flex flex-col gap-5 mt-10">
+            <div className="bg-gradient-to-bl from-rose-400 via-rose-300 to-rose-50 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
@@ -263,7 +263,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$1/</p>
+                        <p className="text-xl ml-2 font-semibold">₹1/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -286,7 +286,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$1/</p>
+                        <p className="text-xl ml-2 font-semibold">₹1/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -309,23 +309,44 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$1/</p>
+                        <p className="text-xl ml-2 font-semibold">₹1/</p>
                         <p>Month </p>
                       </span>
                     </li>
                   )}
+                  <li className="flex gap-5 items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6 "
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+                      />
+                    </svg>
+                    <span className="flex items-end">
+                      <p>Validity: </p>
+                      <p className="text-lg ml-2 font-semibold">7 </p>
+                      <p>Days</p>
+                    </span>
+                  </li>
                 </ul>
               </div>
               <div className="flex justify-center items-center h-[15%]">
                 <button
                   onClick={(e) => handleSubmit(e, "base")}
-                  className=" w-4/5 h-[60%] bg-gradient-to-l from-[#F8E559] to-[#EFF396] flex justify-center items-center rounded-lg"
+                  className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg"
                 >
                   subscribe
                 </button>
               </div>
             </div>
-            <div className="bg-[#864AF9] w-[20%] hover:border-2 border-[#332941] rounded-lg flex flex-col gap-5 mb-10">
+            <div className="bg-gradient-to-bl from-zinc-400 to-gray-50 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
@@ -352,20 +373,6 @@ export const Foram = () => {
                     </svg>
                     <span>2 Shows</span>
                   </li>
-                  <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-6 h-6 "
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
-                      />
-                    </svg>
                     
                   {degree === "B-Tech" && (
                     <li className="flex gap-5 items-center">
@@ -385,7 +392,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$240/</p>
+                        <p className="text-xl ml-2 font-semibold">₹240/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -408,7 +415,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$280/</p>
+                        <p className="text-xl ml-2 font-semibold">₹280/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -431,7 +438,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$320/</p>
+                        <p className="text-xl ml-2 font-semibold">₹320/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -460,12 +467,12 @@ export const Foram = () => {
                 </ul>
               </div>
               <div className="flex justify-center items-center h-[15%]">
-                <button onClick={(e) => handleSubmit(e, "silver")} className=" w-4/5 h-[60%] bg-gradient-to-l from-[#F8E559] to-[#EFF396] flex justify-center items-center rounded-lg">
+                <button onClick={(e) => handleSubmit(e, "silver")} className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg">
                   subscribe
                 </button>
               </div>
             </div>
-            <div className="bg-[#864AF9] w-[20%] hover:border-2 border-[#332941] rounded-lg flex flex-col gap-5 mt-10">
+            <div className="bg-gradient-to-bl from-amber-400 to-yellow-100 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
@@ -510,7 +517,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$330/</p>
+                        <p className="text-xl ml-2 font-semibold">₹330/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -533,7 +540,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$390/</p>
+                        <p className="text-xl ml-2 font-semibold">₹390/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -556,21 +563,42 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$450/</p>
+                        <p className="text-xl ml-2 font-semibold">₹450/</p>
                         <p>Month </p>
                       </span>
                     </li>
                   )}
+                  <li className="flex gap-5 items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6 "
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+                      />
+                    </svg>
+                    <span className="flex items-end">
+                      <p>Validity: </p>
+                      <p className="text-lg ml-2 font-semibold">30 </p>
+                      <p>Days</p>
+                    </span>
+                  </li>
                 </ul>
               </div>
               <div className="flex justify-center items-center h-[15%]">
-                <button onClick={(e) => handleSubmit(e, "gold")} className=" w-4/5 h-[60%] bg-gradient-to-l from-[#F8E559] to-[#EFF396] flex justify-center items-center rounded-lg">
+                <button onClick={(e) => handleSubmit(e, "gold")} className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg">
                   subscribe
                 </button>
               </div>
             </div>
 
-            <div className="bg-[#864AF9] w-[20%] hover:border-2 border-[#332941] rounded-lg flex flex-col gap-5 mb-10">
+            <div className="bg-gradient-to-bl from-blue-400 to-cyan-50 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
@@ -615,7 +643,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$400/</p>
+                        <p className="text-xl ml-2 font-semibold">₹400/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -638,7 +666,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$440/</p>
+                        <p className="text-xl ml-2 font-semibold">₹440/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -661,15 +689,36 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">$500/</p>
+                        <p className="text-xl ml-2 font-semibold">₹500/</p>
                         <p>Month </p>
                       </span>
                     </li>
                   )}
+                  <li className="flex gap-5 items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6 "
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+                      />
+                    </svg>
+                    <span className="flex items-end">
+                      <p>Validity: </p>
+                      <p className="text-lg ml-2 font-semibold">30 </p>
+                      <p>Days</p>
+                    </span>
+                  </li>
                 </ul>
               </div>
               <div className="flex justify-center items-center h-[15%]">
-                <button onClick={(e) => handleSubmit(e, "diamond")} className=" w-4/5 h-[60%] bg-gradient-to-l from-[#F8E559] to-[#EFF396] flex justify-center items-center rounded-lg">
+                <button onClick={(e) => handleSubmit(e, "diamond")} className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg">
                   subscribe
                 </button>
               </div>
