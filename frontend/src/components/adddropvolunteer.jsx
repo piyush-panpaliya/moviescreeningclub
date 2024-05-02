@@ -47,20 +47,22 @@ const AddDropVolunteer = () => {
 
   const fetchUserData = async () => {
     try {
-      let url =`${SERVERIP}/user/fetchusers`;
+      let url = `${SERVERIP}/user/fetchusers`;
       // Append search query to the URL if filterValue is not empty
       if (filterValue) {
         url += `?search=${encodeURIComponent(filterValue)}`;
       }
       if (roleFilter.length > 0) {
-        const roleParams = roleFilter.map((role) => `role=${encodeURIComponent(role)}`).join("&");
+        const roleParams = roleFilter
+          .map((role) => `role=${encodeURIComponent(role)}`)
+          .join("&");
         url += roleFilter.length > 0 ? `&${roleParams}` : "";
       }
-  
+
       const response = await fetch(url, {
         method: "GET",
       });
-  
+
       if (!response.ok) {
         console.log(response.json());
         throw new Error("Failed to fetch user data");
@@ -74,10 +76,10 @@ const AddDropVolunteer = () => {
           ticketvolunteer: 2,
           standard: 3,
         };
-      
+
         const userTypeA = a.usertype.toLowerCase();
         const userTypeB = b.usertype.toLowerCase();
-      
+
         if (userTypeOrder[userTypeA] < userTypeOrder[userTypeB]) return -1;
         if (userTypeOrder[userTypeA] > userTypeOrder[userTypeB]) return 1;
         return 0;
@@ -85,23 +87,18 @@ const AddDropVolunteer = () => {
       setUsers(sortedUsers);
     } catch (error) {
       console.error("Error fetching user data:", error);
-
     }
   };
-  
 
   const handleSubmit = async (email, userType) => {
     try {
-      const response = await fetch(
-        `${SERVERIP}/user/updateUserType`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, userType }),
-        }
-      );
+      const response = await fetch(`${SERVERIP}/user/updateUserType`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, userType }),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to update user type");
@@ -117,13 +114,12 @@ const AddDropVolunteer = () => {
       fetchUserData();
     } catch (error) {
       console.error("Error updating user type:", error);
-
-    }
-    finally{
+    } finally {
       const storedUserType = localStorage.getItem("userType");
-    if (!storedUserType || storedUserType !== "admin") {
-      // If userType is not found or not "admin", redirect to the home page
-      navigate("/");}
+      if (!storedUserType || storedUserType !== "admin") {
+        // If userType is not found or not "admin", redirect to the home page
+        navigate("/");
+      }
     }
   };
 
@@ -131,14 +127,14 @@ const AddDropVolunteer = () => {
     admin: "success",
     volunteer: "primary",
     standard: "secondary",
-    movievolunteer:'danger',
-    ticketvolunteer:'warning'
+    movievolunteer: "danger",
+    ticketvolunteer: "warning",
   };
 
   const getKeyValue = (item, key) => {
     switch (key) {
       case "name":
-        return item.name;
+        return <div className="font-semibold">{item.name}</div>;
       case "email":
         return item.email;
       case "designation":
@@ -262,16 +258,28 @@ const AddDropVolunteer = () => {
             value={filterValue}
             variant="bordered"
             onClear={() => setFilterValue("")}
-            onValueChange={(value)=>setFilterValue(value)}
+            onValueChange={(value) => setFilterValue(value)}
           />
           <div className="flex gap-3">
             <Dropdown>
               <DropdownTrigger className="hidden sm:flex">
                 <Button
-                  endContent={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                </svg>
-                }
+                  endContent={
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                      />
+                    </svg>
+                  }
                   size="sm"
                   variant="flat"
                 >
@@ -288,7 +296,7 @@ const AddDropVolunteer = () => {
               >
                 {RoleOptions.map((Role) => (
                   <DropdownItem key={Role.uid} className="capitalize">
-                    {(Role.name)}
+                    {Role.name}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
@@ -300,7 +308,7 @@ const AddDropVolunteer = () => {
   });
 
   const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(filterValue.toLowerCase()) 
+    user.name.toLowerCase().includes(filterValue.toLowerCase())
   );
 
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
 // import Foram from "./components/Foram";
@@ -21,7 +21,7 @@ import Test from "./components/test";
 import QR from "./components/displayQR";
 import Footer from "./components/footer";
 import MovieList from "./components/VotePage";
-import { SERVERIP } from "./config";
+// import { SERVERIP } from "./config";
 import Foram from "./components/Foram";
 
 function App() {
