@@ -2,14 +2,25 @@ const User = require('../models/userModel');
 
 
 exports.fetchUsers = async (req, res) => {
-    try {
-      const users = await User.find();
-      res.json({ users });
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      res.status(500).json({ error: 'Failed to fetch users' });
+  try {
+    let query = {};
+    
+    // Check if role filter is provided in query parameters
+    if (req.query.role) {
+      // If role filter is provided, construct the query to filter users by role
+      query = { usertype: req.query.role };
     }
-  };
+    
+    // Fetch users based on the constructed query
+    const users = await User.find(query);
+    
+    res.json({ users });
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+};
+
   
   exports.updateUserType = async (req, res) => {
     try {

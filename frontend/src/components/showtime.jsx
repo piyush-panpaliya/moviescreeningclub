@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getToken } from "../utils/getToken";
 import moment from "moment"; // Import moment library for date and time formatting
 import { SERVERIP } from "../config";
 
 const Showtime = () => {
   const { movieId, poster: encodedPosterUrl } = useParams();
+  const token = getToken();
+  const navigate = useNavigate();
   const poster = decodeURIComponent(encodedPosterUrl);
   const [showtimes, setShowtimes] = useState([]);
   const [trailer, setTrailer] = useState("");
@@ -17,6 +20,12 @@ const Showtime = () => {
     fetchShowtimes();
     fetchTrailer();
   }, [movieId]);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  });
 
   const fetchShowtimes = async () => {
     try {
@@ -93,7 +102,7 @@ const Showtime = () => {
               <h2 className="text-2xl text-center font-bold w-full">
                 Showtimes{" "}
               </h2>
-              {userType === "admin" && (
+              {(userType === "admin" || userType === "movievolunteer" || userType === "volunteer") && (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -132,7 +141,7 @@ const Showtime = () => {
                     <td className="pr-7">
                       {moment(showtime.time, "HH:mm").format("hh:mm A")}
                     </td>
-                    {(userType === "admin" || userType === "volunteer") && (
+                    {(userType === "admin" || userType === "volunteer" || userType === "movievolunteer") && (
                       <td>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -154,7 +163,7 @@ const Showtime = () => {
                   </tr>
                 ))}
                 {showAddRow &&
-                  (userType === "admin" || userType === "volunteer") && (
+                  (userType === "admin" || userType === "volunteer" || userType === "movievolunteer") && (
                     <tr className="flex justify-evenly w-full text-medium mr-6">
                       <td>
                         <input

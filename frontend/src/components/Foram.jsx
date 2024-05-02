@@ -131,11 +131,11 @@ export const Foram = () => {
       .post(`${SERVERIP}/QR/send-email`, emailContent)
       .then((response) => {
         console.log(`Email sent for ${membership} membership.`);
-        Swal.fire({
-          title: "Error",
-          text: `Email sent successfully for ${membership} membership.`,
-          icon: "error",
-        });
+        // Swal.fire({
+        //   title: "Error",
+        //   text: `Email sent successfully for ${membership} membership.`,
+        //   icon: "error",
+        // });
       })
       .catch((error) => {
         console.error("Error sending email:", error);
@@ -154,11 +154,11 @@ export const Foram = () => {
       .post(`${SERVERIP}/memrouter/saveusermem`, userData)
       .then((response) => {
         console.log(`Usermem data saved successfully for ${(memtype, email)}`);
-        Swal.fire({
-          title: "Error",
-          text: `Usermem data saved successfully for ${(memtype, email)}`,
-          icon: "error",
-        });
+        // Swal.fire({
+        //   title: "Error",
+        //   text: `Usermem data saved successfully for ${(memtype, email)}`,
+        //   icon: "error",
+        // });
       })
       .catch((error) => {
         console.error("Error saving Usermemdata:", error);
@@ -184,7 +184,7 @@ export const Foram = () => {
             console.log(`QR data saved successfully for ${memtype} membership`);
             Swal.fire({
               title: "Error",
-              text: `QR data saved successfully for ${memtype} membership`,
+              text: `${memtype} membership purchase successful`,
               icon: "error",
             });
           } else {

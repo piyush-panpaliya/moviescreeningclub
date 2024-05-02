@@ -174,6 +174,9 @@ const Navbar = () => {
                     <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                       My Profile
                     </NavItem>
+                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      VotePage
+                    </NavItem>
                     {!hasMembership && (
                       <NavItem to="/form" toggleMenu={toggleMenu}>
                         Buy a new Membership
@@ -182,14 +185,14 @@ const Navbar = () => {
                     <NavItem to="/adddropvolunteer" toggleMenu={toggleMenu}>
                       Add/Drop Volunteer
                     </NavItem>
-                    <NavItem to="/scanner" toggleMenu={toggleMenu}>
-                      Scanner
-                    </NavItem>
                     <NavItem to="/modifymovie" toggleMenu={toggleMenu}>
                       Modify Movie
                     </NavItem>
                     <NavItem to="/addmovie" toggleMenu={toggleMenu}>
                       Add Movie
+                    </NavItem>
+                    <NavItem to="/scanner" toggleMenu={toggleMenu}>
+                      Scanner
                     </NavItem>
                   </>
                 )}
@@ -197,6 +200,9 @@ const Navbar = () => {
                   <>
                     <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                       My Profile
+                    </NavItem>
+                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      VotePage
                     </NavItem>
                     {!hasMembership && (
                       <NavItem to="/form" toggleMenu={toggleMenu}>
@@ -212,6 +218,9 @@ const Navbar = () => {
                   <>
                     <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                       My Profile
+                    </NavItem>
+                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      VotePage
                     </NavItem>
                     {!hasMembership && (
                       <NavItem to="/form" toggleMenu={toggleMenu}>
@@ -234,6 +243,9 @@ const Navbar = () => {
                     <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                       My Profile
                     </NavItem>
+                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      VotePage
+                    </NavItem>
                     {!hasMembership && (
                       <NavItem to="/form" toggleMenu={toggleMenu}>
                         Buy a new Membership
@@ -252,6 +264,9 @@ const Navbar = () => {
                     <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                       My Profile
                     </NavItem>
+                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      VotePage
+                    </NavItem>
                     {!hasMembership && (
                       <NavItem to="/form" toggleMenu={toggleMenu}>
                         Buy a new Membership
@@ -264,6 +279,7 @@ const Navbar = () => {
               <>
                 {" "}
                 <NavItem disabled>My Profile</NavItem>
+                <NavItem disabled>VotePage</NavItem>
                 <NavItem disabled>Buy a new Membership</NavItem>
               </>
             )}

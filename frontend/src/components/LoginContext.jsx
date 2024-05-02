@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 const LoginContext = createContext();
 
@@ -10,9 +11,21 @@ export const LoginProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      setLoggedIn(true);
-    }
-    if (!token) {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {
+        localStorage.removeItem('token');
+        setLoggedIn(false);
+      } else {
+        setLoggedIn(true);
+        const expirationTime = decodedToken.exp - currentTime;
+        const timer = setTimeout(() => {
+          localStorage.removeItem('token');
+          setLoggedIn(false);
+        }, expirationTime * 1000);
+        return () => clearTimeout(timer);
+      }
+    } else {
       setLoggedIn(false);
     }
   }, []);
@@ -20,9 +33,9 @@ export const LoginProvider = ({ children }) => {
   const login = () => setLoggedIn(true);
   const logout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('loggedInUserEmail'); 
-    localStorage.removeItem('signupEmail'); 
-    localStorage.removeItem('userType'); 
+    localStorage.removeItem('loggedInUserEmail');
+    localStorage.removeItem('signupEmail');
+    localStorage.removeItem('userType');
     localStorage.removeItem('getotpEmail');
     setLoggedIn(false);
   };

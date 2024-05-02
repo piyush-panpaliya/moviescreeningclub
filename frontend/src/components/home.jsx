@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { SERVERIP } from "../config";
 
 const Home = () => {
-  console.log("here");
   const token = getToken();
   const navigate = useNavigate();
   const [movies, setMovies] = useState([]);

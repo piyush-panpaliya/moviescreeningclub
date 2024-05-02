@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SERVERIP } from "../config";
+import axios from "axios";
 import {
   Table,
   TableHeader,
@@ -72,16 +73,22 @@ const AddDropVolunteer = () => {
       const sortedUsers = data.users.sort((a, b) => {
         const userTypeOrder = {
           admin: 0,
-          movievolunteer: 1,
-          ticketvolunteer: 2,
-          standard: 3,
+          volunteer: 1,
+          movievolunteer: 2,
+          ticketvolunteer: 3,
+          standard: 4,
         };
 
         const userTypeA = a.usertype.toLowerCase();
         const userTypeB = b.usertype.toLowerCase();
 
+        // Sort by userType first
         if (userTypeOrder[userTypeA] < userTypeOrder[userTypeB]) return -1;
         if (userTypeOrder[userTypeA] > userTypeOrder[userTypeB]) return 1;
+
+        // If userType is same, sort alphabetically by name
+        if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+        if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
         return 0;
       });
       setUsers(sortedUsers);
@@ -89,6 +96,7 @@ const AddDropVolunteer = () => {
       console.error("Error fetching user data:", error);
     }
   };
+
 
   const handleSubmit = async (email, userType) => {
     try {
@@ -103,18 +111,19 @@ const AddDropVolunteer = () => {
       if (!response.ok) {
         throw new Error("Failed to update user type");
       }
-      const userTypeResponse = await axios.get(
-        `${SERVERIP}/user/${formData.email}`
-      );
-      const userTypeData = userTypeResponse.data;
-      const userType = userTypeData.userType;
-      localStorage.setItem("userType", userType);
       setEmail("");
       setUserType("standard");
       fetchUserData();
+      console.log(localStorage.getItem("userType"));
     } catch (error) {
       console.error("Error updating user type:", error);
     } finally {
+      const userTypeResponse = await axios.get(
+        `${SERVERIP}/user/${localStorage.getItem("loggedInUserEmail")}`
+      );
+      const userTypeData = userTypeResponse.data;
+      const userTypeown = userTypeData.userType;
+      localStorage.setItem("userType", userTypeown);
       const storedUserType = localStorage.getItem("userType");
       if (!storedUserType || storedUserType !== "admin") {
         // If userType is not found or not "admin", redirect to the home page
@@ -185,7 +194,7 @@ const AddDropVolunteer = () => {
                     handleSubmit(item.email, "volunteer");
                   }}
                 >
-                  Vounteer
+                  Volunteer
                 </DropdownItem>
                 <DropdownItem
                   onClick={() => {
@@ -312,7 +321,7 @@ const AddDropVolunteer = () => {
   );
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center min-h-lvh">
       <Table
         isStriped
         className="w-4/5 max-sm:w-[95%] my-5"

@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { SERVERIP } from "../config";
 const SeatMapPage = () => {
+  const token = getToken();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const paymentId = searchParams.get("paymentId");
@@ -50,7 +51,11 @@ const SeatMapPage = () => {
       .get(`${SERVERIP}/QR/qrData/${paymentId}`)
       .then((response) => {
         const qrData = response.data;
-        if (qrData && !qrData.used) {
+        const currentDate = new Date();
+        const validityDate = new Date(qrData.validitydate);
+  
+        // Check if qrData exists, not used, and validityDate is after currentDate
+        if (qrData && !qrData.used && validityDate > currentDate) {
           return;
         } else {
           navigate("/QR");
@@ -61,6 +66,7 @@ const SeatMapPage = () => {
         navigate("/QR");
       });
   }, [paymentId, navigate]);
+  
 
   const sendEmail = async () => {
     try {

@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { getToken } from "../utils/getToken";
+import { useNavigate } from "react-router-dom";
 
 const MovieList = () => {
+  const token = getToken();
+  const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
   const [userEmail, setUserEmail] = useState("");
   const [userVotes, setUserVotes] = useState([]);
+  const userType = localStorage.getItem("userType");
   const [newMovieData, setNewMovieData] = useState({
     title: "",
     poster: "",
@@ -18,9 +23,15 @@ const MovieList = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  });
+
   const fetchMovies = async () => {
     try {
-      const response = await fetch("http://localhost:8000/voterouter/movies");
+      const response = await fetch(`${SERVERIP}/voterouter/movies`);
       if (!response.ok) {
         throw new Error("Failed to fetch movies");
       }
@@ -38,7 +49,7 @@ const MovieList = () => {
 
   const handleVoteClick = async (movieId, voteType) => {
     try {
-      const response = await fetch("http://localhost:8000/voterouter/vote", {
+      const response = await fetch(`${SERVERIP}/voterouter/vote`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,7 +73,7 @@ const MovieList = () => {
   const handleAddMovie = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/voterouter/addvotemovie",
+        `${SERVERIP}/voterouter/addvotemovie`,
         {
           method: "POST",
           headers: {
@@ -91,7 +102,7 @@ const MovieList = () => {
     console.log("deleting");
     try {
       const response = await fetch(
-        `http://localhost:8000/voterouter/deletevotemovie/${movieId}`,
+        `{SERVERIP}/voterouter/deletevotemovie/${movieId}`,
         {
           method: "DELETE",
         }
@@ -221,8 +232,7 @@ const MovieList = () => {
             <MovieCard movie={movie} />
           </div>
         ))}
-
-        <div className="flex flex-col items-center rounded-lg shadow-md w-full gap-2 py-2">
+      {(userType=="movievolunteer" || userType=="volunteer" || userType=="admin") && <div className="flex flex-col items-center rounded-lg shadow-md w-full gap-2 py-2">
           <h2 className="font-semibold text-lg">Add New Movie</h2>
           <input
             type="text"
@@ -267,7 +277,8 @@ const MovieList = () => {
               />
             </svg>
           </button>
-        </div>
+        </div>}
+        
       </div>
     </div>
   );

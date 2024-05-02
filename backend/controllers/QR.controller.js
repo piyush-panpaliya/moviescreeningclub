@@ -131,13 +131,22 @@ exports.isQRUsed = async (req, res) => {
       return res.status(404).json({ error: 'QR data not found' });
     }
 
+    // Check if the validity date is after the current date
+    const currentDate = new Date();
+    const validityDate = new Date(qrData.validitydate);
+
+    if (validityDate.getTime() <= currentDate.getTime()) {
+      // If the validity date is not after the current date, send a 400 error response
+      return res.status(400).json({ error: 'QR data has expired' });
+    }
+
     // Check if the QR data is used
     if (qrData.used) {
       // If QR data is already used, send a message indicating that it's used
       return res.status(400).json({ message: 'QR data already used' });
     }
 
-    // If QR data exists and is not used, send the QR data
+    // If QR data exists, is valid, and not used, send the QR data
     res.json(qrData);
   } catch (error) {
     // If there's an error, send 500 Internal Server Error
@@ -145,6 +154,7 @@ exports.isQRUsed = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 exports.sendEmail = async (req, res) => {
   const { email, seatNumber} = req.body;
