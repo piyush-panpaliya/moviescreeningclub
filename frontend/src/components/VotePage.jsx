@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getToken } from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
+import { SERVERIP } from "../config";
 
 const MovieList = () => {
   const token = getToken();

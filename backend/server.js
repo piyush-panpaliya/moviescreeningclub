@@ -4,7 +4,6 @@ const bodyParser= require( "body-parser");
 const cors= require( "cors");
 const { config }= require( "dotenv");
 config({ path: "./.env" });
-const Razorpay = require('razorpay');
 const app = express();
 const { createServer }= require( "http");
 const https = createServer(app);
@@ -16,27 +15,6 @@ mongoose.connect(`${process.env.MongoDB}`,)
 
 const PORT = 8000;
 app.use(bodyParser.json());
-
-const razorpay = new Razorpay({
-  key_id: 'rzp_test_raxyaoALaCjvBM',
-  key_secret: 'T9H7xWLMo5rl7jEmgU55Tdhh',
-});
-
-app.post('/api/initiate-payment', async (req, res) => {
-  try {
-    console.log("reached");
-    const order = await razorpay.orders.create({
-      amount: 1000,
-      currency: 'INR',
-      receipt: 'receipt_order_123',
-    });
-    console.log(order);
-    res.json({ order });
-  } catch (error) {
-    console.error('Error initiating payment:', error);
-    res.status(500).json({ error: 'Failed to initiate payment' });
-  }
-});
 
 const loginRouter = require('./routes/login.route.js');
 app.use('/login', loginRouter);
