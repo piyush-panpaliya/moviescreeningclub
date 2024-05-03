@@ -212,13 +212,13 @@ export const Foram = () => {
 
   if (!hasMembership) {
     return (
-      <div className="flex justify-center items-center bg-gray-200 h-screen font-monts">
+      <div className="flex justify-center items-center bg-gray-200 min-h-screen font-monts pb-3">
         <div className="flex flex-col items-center lg:w-[90%] h-[95%] border rounded-md">
           <h2 className="text-3xl text-center mt-5 font-bold ">
             Choose Your Plan
           </h2>
-          <div className="flex gap-4 w-full justify-center h-[85%] pt-10">
-            <div className="bg-gradient-to-bl from-rose-400 via-rose-300 to-rose-50 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 hover:scale-110 transition-transform duration-300">
+          <div className="grid grid-cols-4 max-sm:grid-cols-1 max-lg:grid-cols-2 gap-4 w-full justify-items-center h-[85%] pt-10">
+            <div className="bg-gradient-to-bl from-rose-400 via-rose-300 to-rose-50 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
@@ -340,13 +340,13 @@ export const Foram = () => {
               <div className="flex justify-center items-center h-[15%]">
                 <button
                   onClick={(e) => handleSubmit(e, "base")}
-                  className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg"
+                  className=" w-4/5 h-[60%] max-sm:h-full max-sm:mb-3 bg-gray-800 text-white flex justify-center items-center rounded-lg"
                 >
                   subscribe
                 </button>
               </div>
             </div>
-            <div className="bg-gradient-to-bl from-zinc-400 to-gray-50 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10 hover:scale-110 transition-transform duration-300 ">
+            <div className="bg-gradient-to-bl from-zinc-400 to-gray-50 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10 hover:scale-110 transition-transform duration-300 ">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
@@ -392,7 +392,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">₹300/</p>
+                        <p className="text-xl ml-2 font-semibold">₹240/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -415,7 +415,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">₹340/</p>
+                        <p className="text-xl ml-2 font-semibold">₹280/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -438,7 +438,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">₹380/</p>
+                        <p className="text-xl ml-2 font-semibold">₹320/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -467,12 +467,12 @@ export const Foram = () => {
                 </ul>
               </div>
               <div className="flex justify-center items-center h-[15%]">
-                <button onClick={(e) => handleSubmit(e, "silver")} className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg">
+                <button onClick={(e) => handleSubmit(e, "silver")} className=" w-4/5 h-[60%] max-sm:h-full max-sm:mb-3 bg-gray-800 text-white flex justify-center items-center rounded-lg">
                   subscribe
                 </button>
               </div>
             </div>
-            <div className="bg-gradient-to-bl from-amber-400 to-yellow-100 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 hover:scale-110 transition-transform duration-300">
+            <div className="bg-gradient-to-bl from-amber-400 to-yellow-100 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 max-sm:mt-0 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
@@ -517,7 +517,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">₹420/</p>
+                        <p className="text-xl ml-2 font-semibold">₹330/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -540,7 +540,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">₹480/</p>
+                        <p className="text-xl ml-2 font-semibold">₹390/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -563,7 +563,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">₹540/</p>
+                        <p className="text-xl ml-2 font-semibold">₹450/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -591,14 +591,14 @@ export const Foram = () => {
                   </li>
                 </ul>
               </div>
-              <div className="flex justify-center items-center h-[15%]">
-                <button onClick={(e) => handleSubmit(e, "gold")} className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg">
+              <div className="flex justify-center items-center h-[15%] ">
+                <button onClick={(e) => handleSubmit(e, "gold")} className=" w-4/5 h-[60%] max-sm:h-full max-sm:mb-3 bg-gray-800 text-white flex justify-center items-center rounded-lg">
                   subscribe
                 </button>
               </div>
             </div>
 
-            <div className="bg-gradient-to-bl from-blue-400 to-cyan-50 w-[20%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10 hover:scale-110 transition-transform duration-300">
+            <div className="bg-gradient-to-bl from-blue-400 to-cyan-50 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
@@ -643,7 +643,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">₹520/</p>
+                        <p className="text-xl ml-2 font-semibold">₹400/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -666,7 +666,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">₹600/</p>
+                        <p className="text-xl ml-2 font-semibold">₹440/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -689,7 +689,7 @@ export const Foram = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Price: </p>
-                        <p className="text-xl ml-2 font-semibold">₹680/</p>
+                        <p className="text-xl ml-2 font-semibold">₹500/</p>
                         <p>Month </p>
                       </span>
                     </li>
@@ -718,7 +718,7 @@ export const Foram = () => {
                 </ul>
               </div>
               <div className="flex justify-center items-center h-[15%]">
-                <button onClick={(e) => handleSubmit(e, "diamond")} className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg">
+                <button onClick={(e) => handleSubmit(e, "diamond")} className=" w-4/5 h-[60%] max-sm:h-full max-sm:mb-3 bg-gray-800 text-white flex justify-center items-center rounded-lg">
                   subscribe
                 </button>
               </div>
