@@ -1,1 +1,1 @@
-export const SERVERIP = "/api";
+export const SERVERIP = "http://localhost:8000";

@@ -15,7 +15,7 @@ export const Foram = () => {
   const [membership, setMembership] = useState("");
   const [degree, setDegree] = useState("");
   const [email, setEmail] = useState("");
-  const [openRazorpay, setOpenRazorpay] = useState(false)
+  const [openRazorpay, setOpenRazorpay] = useState(false);
 
   const token = getToken();
   const navigate = useNavigate();
@@ -45,47 +45,46 @@ export const Foram = () => {
     }
   };
 
-
   useEffect(() => {
-    if (membership !== '' && amount !== '' && openRazorpay) {
+    if (membership !== "" && amount !== "" && openRazorpay) {
       const options = {
-        key: 'rzp_test_raxyaoALaCjvBM',
+        key: "rzp_test_raxyaoALaCjvBM",
         amount: amount * 100,
-        currency: 'INR',
-        name: 'Chalchitra',
-        description: 'for testing purpose',
+        currency: "INR",
+        name: "Chalchitra",
+        description: "for testing purpose",
         prefill: {
-          name: 'Aryan',
+          name: "Aryan",
         },
         notes: {
-          address: 'Razorpay Corporate office',
+          address: "Razorpay Corporate office",
         },
         theme: {
-          color: '#3399cc',
+          color: "#3399cc",
         },
         handler: function (response) {
           updateMembershipStatus(true);
           // Process membership based on the selected membership type
-          if (membership === 'base') {
+          if (membership === "base") {
             saveuserData(email, "base", 7);
             saveData(response.razorpay_payment_id, 1, "base", 7);
-            generateAndSendEmail("base", response.razorpay_payment_id, 1)
-          } else if (membership === 'silver') {
+            generateAndSendEmail("base", response.razorpay_payment_id, 1);
+          } else if (membership === "silver") {
             saveuserData(email, "silver", 15);
             saveData(response.razorpay_payment_id, 2, "silver", 15);
             generateAndSendEmail("silver", response.razorpay_payment_id, 2);
-          } else if (membership === 'gold') {
+          } else if (membership === "gold") {
             saveuserData(email, "gold", 30);
             saveData(response.razorpay_payment_id, 3, "gold", 30);
             generateAndSendEmail("gold", response.razorpay_payment_id, 3);
-          } else if (membership === 'diamond') {
+          } else if (membership === "diamond") {
             saveuserData(email, "diamond", 30);
             saveData(response.razorpay_payment_id, 4, "diamond", 30);
             generateAndSendEmail("diamond", response.razorpay_payment_id, 4);
           }
         },
       };
-      console.log('Options object:', options);
+      console.log("Options object:", options);
       const pay = new window.Razorpay(options);
       pay.open();
     }
@@ -94,9 +93,9 @@ export const Foram = () => {
   const handleSubmit = (e, selectedMembership) => {
     e.preventDefault();
     const amounts = {
-      'B-Tech': { base: 1, silver: 300, gold: 420, diamond: 520 },
-      'PHD/M-Tech': { base: 1, silver: 340, gold: 480, diamond: 600 },
-      'Faculty/Staff': { base: 1, silver: 380, gold: 540, diamond: 680 },
+      "B-Tech": { base: 1, silver: 300, gold: 420, diamond: 520 },
+      "PHD/M-Tech": { base: 1, silver: 340, gold: 480, diamond: 600 },
+      "Faculty/Staff": { base: 1, silver: 380, gold: 540, diamond: 680 },
     };
     setMembership(selectedMembership);
     setAmount(amounts[degree][selectedMembership]);
@@ -183,9 +182,12 @@ export const Foram = () => {
           if (ticketsGenerated === totalTickets) {
             console.log(`QR data saved successfully for ${memtype} membership`);
             Swal.fire({
-              title: "Error",
+              title: "Success",
               text: `${memtype} membership purchase successful`,
-              icon: "error",
+              icon: "success",
+              customClass: {
+                icon: "swal2-success-icon", // Class for the success icon
+              }
             });
           } else {
             const nextTicketNumber = ticketNumber + 1;
@@ -373,7 +375,7 @@ export const Foram = () => {
                     </svg>
                     <span>2 Shows</span>
                   </li>
-                    
+
                   {degree === "B-Tech" && (
                     <li className="flex gap-5 items-center">
                       <svg
@@ -467,7 +469,10 @@ export const Foram = () => {
                 </ul>
               </div>
               <div className="flex justify-center items-center h-[15%]">
-                <button onClick={(e) => handleSubmit(e, "silver")} className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg">
+                <button
+                  onClick={(e) => handleSubmit(e, "silver")}
+                  className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg"
+                >
                   subscribe
                 </button>
               </div>
@@ -592,7 +597,10 @@ export const Foram = () => {
                 </ul>
               </div>
               <div className="flex justify-center items-center h-[15%]">
-                <button onClick={(e) => handleSubmit(e, "gold")} className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg">
+                <button
+                  onClick={(e) => handleSubmit(e, "gold")}
+                  className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg"
+                >
                   subscribe
                 </button>
               </div>
@@ -718,7 +726,10 @@ export const Foram = () => {
                 </ul>
               </div>
               <div className="flex justify-center items-center h-[15%]">
-                <button onClick={(e) => handleSubmit(e, "diamond")} className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg">
+                <button
+                  onClick={(e) => handleSubmit(e, "diamond")}
+                  className=" w-4/5 h-[60%] bg-gray-800 text-white flex justify-center items-center rounded-lg"
+                >
                   subscribe
                 </button>
               </div>
