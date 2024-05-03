@@ -62,7 +62,7 @@ const SeatMapPage = () => {
 
   useEffect(() => {
     axios
-      .get(`${SERVERIP}/QR/qrData/${paymentId}`)
+      .get(`http://localhost:8000/QR/qrData/${paymentId}`)
       .then((response) => {
         const qrData = response.data;
         const currentDate = new Date();
