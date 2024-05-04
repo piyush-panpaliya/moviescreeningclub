@@ -46,11 +46,16 @@ const Myaccount = () => {
           if (current.length > 0) {
             // Fetch the status of all QRs and update the state accordingly
             axios
-              .post(`${SERVERIP}/areallQRUsed`, { email: loggedInUseremail })
+              .post(`${SERVERIP}/QR/areallQRused/${loggedInUseremail}`)
               .then((response) => {
-                setAllQRsUsed(
-                  response.data.message === "All valid QRs are already used"
-                );
+                if (response.data.message === "All valid QRs are already used") {
+                  console.log('All valid QRs are already used');
+                  setAllQRsUsed(true);
+                } else {
+                  // Set allQRsUsed to false or handle the case accordingly
+                  console.log('All valid QRs are not already used');
+                  setAllQRsUsed(false);
+                }
               })
               .catch((error) => {
                 console.error("Error fetching QR data:", error);

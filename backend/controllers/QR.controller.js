@@ -151,7 +151,6 @@ exports.isQRUsed = async (req, res) => {
 };
 
 exports.areallQRUsed = async (req, res) => {
-  console.log("here");
   const { email } = req.params;
   try {
     const today = new Date();
@@ -174,15 +173,14 @@ exports.areallQRUsed = async (req, res) => {
       }
     });
     const allUsed = validQRs.every(qr => qr.used);
-
     if (allUsed) {
       // If all valid QRs are used, return success response
-      console.log("all used");
+      console.log('All valid QRs are already used');
       res.status(200).json({ message: 'All valid QRs are already used' });
     } else {
-      // If any valid QRs are not used, return error 400
-      console.log("all not used");
-      res.status(400).json({ error: 'Some valid QRs are not used yet' });
+      // If any valid QRs are not used, return 200 status with a custom message
+      console.log('All valid QRs are not already used');
+      res.status(200).json({ message: 'Some valid QRs are not used yet' });
     }
   } catch (error) {
     console.error('Error fetching valid QR codes:', error);
