@@ -1,3 +1,4 @@
+const nodemailer = require('nodemailer');
 const otpGenerator = require( 'otp-generator');
 const OTP = require('../models/otp.Model');
 const User = require('../models/userModel');
@@ -40,26 +41,38 @@ exports.sendOTP = async (req, res) => {
   try {
     const { email } = req.body;
 
-    let otp = otpGenerator.generate(6, {
+    // Generate OTP
+    const otp = otpGenerator.generate(6, {
       upperCaseAlphabets: false,
       lowerCaseAlphabets: false,
       specialChars: false,
     });
-    let result = await OTP.findOne({ otp: otp });
-    while (result) {
-      otp = otpGenerator.generate(6, {
-        upperCaseAlphabets: false,
-      });
-      result = await OTP.findOne({ otp: otp });
-    }
-    const otpPayload = { email, otp };
-    const otpBody = await OTP.create(otpPayload);
-    // await sendVerificationEmail(email.otp);
+
+    // Save OTP in the database
+    await OTP.create({ email, otp });
+
+    // Create Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail", // e.g., 'Gmail'
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: 'Verify your Chalchitra Email Address',
+      html:`<h1>Please confirm your OTP</h1>
+      <p>Here is your OTP code: ${otp}</p>`,
+    };
+
+    await transporter.sendMail(mailOptions);
 
     res.status(200).json({
       success: true,
       message: 'OTP sent successfully',
-      otp,
     });
   } catch (error) {
     console.error('Error sending OTP:', error);

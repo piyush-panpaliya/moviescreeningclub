@@ -26,7 +26,6 @@ exports.saveusermem =async (req, res) => {
       });
   };
 
-  
   exports.checkMembership = async (req, res) => {
     
     try {
@@ -36,7 +35,6 @@ exports.saveusermem =async (req, res) => {
         if (allMemberships.length > 0) {
             const currentDate = moment();
             let hasMembership = false;
-            
             for (const membership of allMemberships) {
                 const validityDate = moment(membership.validitydate, 'DD-MM-YYYY');
                 if (validityDate.isAfter(currentDate, 'day')) {
