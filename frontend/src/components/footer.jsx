@@ -1,7 +1,18 @@
-import React from "react";
+import {
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@material-tailwind/react";
+import { useState } from "react";
 
 export default function Footer() {
   const copyright = String.fromCodePoint(0x00a9);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(!open);
+
   return (
     <div className="flex justify-center bg-[#414359] text-white font-monts">
       <div className="w-4/5 max-sm:w-[90%]">
@@ -65,7 +76,9 @@ export default function Footer() {
           </div>
           <div className="my-4 flex flex-col gap-1">
             <span className="text-xl font-semibold capitalize mb-2">Legal</span>
-            <div className="capitalize">privacy policy</div>
+            <div className="capitalize">
+              <button onClick={handleOpen}>Privacy Policy</button>
+            </div>
             <div className="capitalize">cookie settings</div>
             <div className="capitalize">contracts</div>
           </div>
@@ -159,6 +172,98 @@ export default function Footer() {
           <p>{copyright} 2024 Chalchitra IIT Mandi</p>
         </div>
       </div>
+      <Dialog open={open} handler={handleOpen} className="h-[70%] overflow-y-scroll">
+        <DialogHeader>Our Privacy Policy</DialogHeader>
+        <DialogBody className="">
+          <p className="text-lg font-bold mb-3">Rules and Regulation</p>
+          <div>
+            <span className="font-semibold mr-2">1. Resspanectful Behavior:</span>
+            All attendees must behave respectfully towards others, including
+            fellow audience members, organizers, and staff.
+          </div>
+          <div>
+            <span className="font-semibold mr-2">2. No Outside Food or Drink:</span>
+            For cleanliness and safety reasons, attendees should not bring
+            outside food or drink into the auditorium. Food items purchased in
+            lobby are also not allowed inside auditorium.
+          </div>
+          <div>
+            <span className="font-semibold mr-2">3. Arrival Time:</span>
+            Attendees are encouraged to arrive 15 minutes before the screening
+            time to minimize waiting times/disruptions once the movie starts.
+          </div>
+          <div>
+            <span className="font-semibold mr-2">
+              4. No Talking During the Movie:
+            </span>
+            Attendees are requested to refrain from talking during the movie to
+            ensure everyone can enjoy the film without distractions.
+          </div>
+          <div>
+            <span className="font-semibold mr-2">5. Silence Mobile Devices:</span>
+            Attendees are asked to silence their mobile phones or set them to
+            vibrate mode to avoid disruptions.
+          </div>
+          <div>
+            <span className="font-semibold mr-2">
+              6. Respect the Seating Arrangement:
+            </span>
+            Attendees should sit only in designated seats and not block aisles
+            or exits. Strict action would be taken if attendees are found to be
+            sitting on seats not assigned to them.
+          </div>
+          <div>
+            <span className="font-semibold mr-2">
+              7. No Recording or Photography:
+            </span>
+            The recording or photography of the movie screen during the
+            screening is strictly prohibited. Legal action would be initiated
+            against violators.
+          </div>
+          <div>
+            <span className="font-semibold mr-2">
+              8. Follow Instructions from Staff:
+            </span>
+            Attendees should comply with any instructions given by event staff
+            or volunteers.
+          </div>
+          <div>
+            <span className="font-semibold mr-2">
+              9. Children&lsquo;s Supervision:
+            </span>
+            Parents are requested to supervise their children to ensure they do
+            not disturb other attendees.
+          </div>
+          <div>
+            <span className="font-semibold mr-2">10. Cleanliness:</span>
+            Attendees to keep the auditorium clean by disposing of trash
+            properly and respecting the facility.
+          </div>
+          <div>
+            <span className="font-semibold mr-2">
+              11. Respect Intellectual Property:
+            </span>
+            Movie being screened is for personal enjoyment only and not for any
+            commercial purposes or distribution.
+          </div>
+          <div>
+            <span className="font-semibold mr-2">12. Ticket Validity:</span>
+            Once a ticket is scanned you are not allowed to exit the auditorium
+            premises, once exited ticket will not be valid.
+          </div>
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="gradient"
+            color="red"
+            onClick={handleOpen}
+            className="mr-1"
+          >
+            <span>Close</span>
+          </Button>
+          
+        </DialogFooter>
+      </Dialog>
     </div>
   );
 }

@@ -88,7 +88,7 @@ const Navbar = () => {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <div className="rounded-md bg-[#EADBC8] text-black h-9 px-2 pt-1 mt-1 mr-2">
+              <div className="rounded-md bg-[#EADBC8] text-black h-9 px-2 py-1 mt-1 mr-2 font-normal">
                 Welcome {getDisplayName(localStorage.getItem("userName"))}
               </div>
               {loggedIn ? (
@@ -183,10 +183,10 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
-                      <NavItem to = "/QR" toggleMenu={toggleMenu}> 
-                    My QRs
-                    </NavItem>
-                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      <NavItem to="/QR" toggleMenu={toggleMenu}>
+                        My QRs
+                      </NavItem>
+                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
                         VotePage
                       </NavItem>
                       {!hasMembership && (
@@ -216,10 +216,10 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
-                      <NavItem to = "/QR" toggleMenu={toggleMenu}> 
-                    My QRs
-                    </NavItem>
-                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      <NavItem to="/QR" toggleMenu={toggleMenu}>
+                        My QRs
+                      </NavItem>
+                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
                         VotePage
                       </NavItem>
                       {!hasMembership && (
@@ -240,10 +240,10 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
-                      <NavItem to = "/QR" toggleMenu={toggleMenu}> 
-                    My QRs
-                    </NavItem>
-                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      <NavItem to="/QR" toggleMenu={toggleMenu}>
+                        My QRs
+                      </NavItem>
+                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
                         VotePage
                       </NavItem>
                       {!hasMembership && (
@@ -270,10 +270,10 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
-                      <NavItem to = "/QR" toggleMenu={toggleMenu}> 
-                    My QRs
-                    </NavItem>
-                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      <NavItem to="/QR" toggleMenu={toggleMenu}>
+                        My QRs
+                      </NavItem>
+                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
                         VotePage
                       </NavItem>
                       {!hasMembership && (
@@ -297,10 +297,10 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
-                      <NavItem to = "/QR" toggleMenu={toggleMenu}> 
-                    My QRs
-                    </NavItem>
-                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      <NavItem to="/QR" toggleMenu={toggleMenu}>
+                        My QRs
+                      </NavItem>
+                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
                         VotePage
                       </NavItem>
                       <NavItem to="/guidelines" toggleMenu={toggleMenu}>
@@ -320,44 +320,44 @@ const Navbar = () => {
                   <NavItem disabled>My Profile</NavItem>
                   <NavItem disabled>VotePage</NavItem>
                   <NavItem disabled>My QRs</NavItem>
-                <NavItem disabled>Buy a new Membership</NavItem>
-                  <NavItem to='/guidelines'>Booking Guidelines/Help</NavItem>
+                  <NavItem disabled>Buy a new Membership</NavItem>
+                  <NavItem to="/guidelines">Booking Guidelines/Help</NavItem>
                 </>
               )}
             </div>
           </div>
         </div>
       </nav>
-      <div className="bg-[#6c738f] py-2 text-xl flex justify-center capitalize text-white">
-      <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-8 h-8 mr-2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
-        welcome to Chalchitra IIT mandi 
+      <div className="bg-[#6c738f] py-1 text-lg flex justify-center items-center capitalize text-white md:sticky top-[4rem] ">
         <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-8 h-8 scale-x-[-1] ml-2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-8 h-8 mr-2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
+          />
+        </svg>
+        welcome to Chalchitra IIT mandi
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-8 h-8 scale-x-[-1] ml-2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
+          />
+        </svg>
       </div>
     </>
   );
