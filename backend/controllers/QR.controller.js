@@ -191,7 +191,7 @@ exports.areallQRUsed = async (req, res) => {
 
 
 exports.sendEmail = async (req, res) => {
-  const { email, seatNumber} = req.body;
+  const { email, seatNumber, movie, date, time} = req.body;
 
   try {
     const transporter = nodemailer.createTransport({
@@ -206,7 +206,7 @@ exports.sendEmail = async (req, res) => {
       from: process.env.EMAIL,
       to: email,
       subject: 'Seat Booking Confirmation',
-      text: `Your seat has been successfully booked. Seat Number: ${seatNumber}`
+      text: `Your seat has been successfully booked. Seat Number: ${seatNumber} for ${movie} on ${date} at ${time}  `
     };
 
     await transporter.sendMail(mailOptions);

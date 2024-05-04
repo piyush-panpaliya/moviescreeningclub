@@ -66,8 +66,6 @@ export const Signup = () => {
         ...formData,
         email,
       });
-      console.log(res.data);
-      console.log("Submitted");
       localStorage.setItem("signupEmail", email);
       localStorage.removeItem("getotpEmail");
       navigate("/login");
