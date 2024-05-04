@@ -3,7 +3,7 @@ import React from "react";
 export default function Footer() {
   const copyright = String.fromCodePoint(0x00a9);
   return (
-    <div className="flex justify-center bg-gray-800 text-white font-monts">
+    <div className="flex justify-center bg-[#414359] text-white font-monts">
       <div className="w-4/5 max-sm:w-[90%]">
         <p className="border-b-2 py-4 text-3xl font-bold flex items-center gap-1">
           <span>CHALCHITRA </span>
