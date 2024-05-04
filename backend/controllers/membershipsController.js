@@ -52,3 +52,40 @@ exports.saveusermem =async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 };
+
+
+exports.suspendMembership = async (req, res) => {
+  console.log("reached");
+  const { email } = req.body;
+  try {
+    const currentDate = moment().format("DD-MM-YYYY"); // Get the current date in "dd-mm-yyyy" format
+    const formattedCurrentDate = moment(currentDate, "DD-MM-YYYY").toDate(); // Convert current date to JavaScript Date object
+    const userMemberships = await Memdata.find({ email }); // Get all memberships associated with the user's email
+    let membershipSuspended = false;
+
+    // Iterate through each membership
+    for (const membership of userMemberships) {
+      // Format the validity date of the membership to match the format of the current date
+      const formattedValidityDate = moment(membership.validitydate, "DD-MM-YYYY").toDate();
+
+      // Compare the formatted validity date with the formatted current date
+      if (formattedValidityDate >= formattedCurrentDate) {
+        const newValidityDate = moment(formattedCurrentDate).subtract(1, 'days').format("DD-MM-YYYY");
+
+        // Update the membership's validity date to the new validity date
+        membership.validitydate = newValidityDate;
+        await membership.save();
+        membershipSuspended = true;
+      }
+    }
+
+    if (membershipSuspended) {
+      res.status(200).send("Memberships suspended successfully");
+    } else {
+      res.status(404).send("No current memberships found for the user");
+    }
+  } catch (error) {
+    console.error("Error suspending memberships:", error);
+    res.status(500).send("Internal server error");
+  }
+};
