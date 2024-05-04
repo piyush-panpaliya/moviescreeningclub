@@ -187,7 +187,7 @@ export const Foram = () => {
               icon: "success",
               customClass: {
                 icon: "swal2-success-icon", // Class for the success icon
-              }
+              },
             });
           } else {
             const nextTicketNumber = ticketNumber + 1;
@@ -342,7 +342,7 @@ export const Foram = () => {
               <div className="flex justify-center items-center h-[15%]">
                 <button
                   onClick={(e) => handleSubmit(e, "base")}
-                  className=" w-4/5 h-[60%] max-sm:h-full max-sm:mb-3 bg-gray-800 text-white flex justify-center items-center rounded-lg"
+                  className=" w-4/5 h-[60%] max-sm:h-full max-sm:mb-3 bg-gray-800 text-white flex justify-center items-center rounded-lg py-4"
                 >
                   subscribe
                 </button>
@@ -469,7 +469,10 @@ export const Foram = () => {
                 </ul>
               </div>
               <div className="flex justify-center items-center h-[15%]">
-                <button onClick={(e) => handleSubmit(e, "silver")} className=" w-4/5 h-[60%] max-sm:h-full max-sm:mb-3 bg-gray-800 text-white flex justify-center items-center rounded-lg">
+                <button
+                  onClick={(e) => handleSubmit(e, "silver")}
+                  className=" w-4/5 h-[60%] max-sm:h-full max-sm:mb-3 bg-gray-800 text-white flex justify-center items-center rounded-lg py-4"
+                >
                   subscribe
                 </button>
               </div>
@@ -594,7 +597,10 @@ export const Foram = () => {
                 </ul>
               </div>
               <div className="flex justify-center items-center h-[15%] ">
-                <button onClick={(e) => handleSubmit(e, "gold")} className=" w-4/5 h-[60%] max-sm:h-full max-sm:mb-3 bg-gray-800 text-white flex justify-center items-center rounded-lg">
+                <button
+                  onClick={(e) => handleSubmit(e, "gold")}
+                  className=" w-4/5 h-[60%] max-sm:h-full max-sm:mb-3 bg-gray-800 text-white flex justify-center items-center rounded-lg py-4"
+                >
                   subscribe
                 </button>
               </div>
@@ -720,7 +726,10 @@ export const Foram = () => {
                 </ul>
               </div>
               <div className="flex justify-center items-center h-[15%]">
-                <button onClick={(e) => handleSubmit(e, "diamond")} className=" w-4/5 h-[60%] max-sm:h-full max-sm:mb-3 bg-gray-800 text-white flex justify-center items-center rounded-lg">
+                <button
+                  onClick={(e) => handleSubmit(e, "diamond")}
+                  className=" w-4/5 h-[60%] max-sm:h-full max-sm:mb-3 bg-gray-800 text-white flex justify-center items-center rounded-lg py-4"
+                >
                   subscribe
                 </button>
               </div>
