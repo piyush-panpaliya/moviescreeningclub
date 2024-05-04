@@ -86,11 +86,11 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
-          
-          <div className="flex items-center">
-          <div className="rounded-md bg-red-500 text-white h-9 px-2 pt-1 mt-1 mr-2">
-            Welcome {getDisplayName(localStorage.getItem("userName"))}
-          </div>
+
+          <div className="flex items-center gap-2">
+            <div className="rounded-md bg-[#EADBC8] text-black h-9 px-2 pt-1 mt-1 mr-2">
+              Welcome {getDisplayName(localStorage.getItem("userName"))}
+            </div>
             {loggedIn ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
