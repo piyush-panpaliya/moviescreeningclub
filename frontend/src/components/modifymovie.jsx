@@ -105,14 +105,14 @@ const ModifyMovie = () => {
   ];
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#e5e8f0] font-monts">
+    <div className="flex justify-center items-center h-screen bg-[#e5e8f0] font-monts overflow-y-auto">
       <div className="w-[95%] flex flex-col bg-white min-h-[90%] my-4 rounded-xl shadow-lg items-center">
         <h1 className="text-3xl font-bold my-4">Movie List</h1>
-        <div class="flex flex-col w-[90%]">
-          <div class="-m-1.5 overflow-x-auto">
-            <div class="p-1.5 min-w-full inline-block align-middle">
-              <div class="overflow-hidden flex justify-center">
-                <table className="w-[90%] divide-y divide-gray-200 dark:divide-neutral-700 mt-3 mb-6">
+        <div className="flex flex-col w-[90%]">
+          <div className="-m-1.5 overflow-x-auto">
+            <div className="p-1.5 min-w-full inline-block align-middle">
+              <div className="overflow-hidden flex justify-center">
+                <table className="w-[95%] divide-y divide-gray-200 dark:divide-neutral-700 mt-3 mb-6">
                   <thead className="capitalize bg-[#f4f4f5]">
                     <tr className="text-lg">
                       {columns.map((column) => (
