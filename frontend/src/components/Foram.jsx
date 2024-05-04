@@ -226,7 +226,7 @@ export const Foram = () => {
             Choose Your Plan
           </h2>
           <div className="grid grid-cols-4 max-sm:grid-cols-1 max-lg:grid-cols-2 gap-4 w-full justify-items-center h-[85%] pt-10">
-            <div className="bg-gradient-to-bl from-rose-400 via-rose-300 to-rose-50 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 hover:scale-110 transition-transform duration-300">
+            <div className="bg-gradient-to-bl from-red-400 to-red-100 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
@@ -354,7 +354,7 @@ export const Foram = () => {
                 </button>
               </div>
             </div>
-            <div className="bg-gradient-to-bl from-zinc-400 to-gray-50 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10 hover:scale-110 transition-transform duration-300 ">
+            <div className="bg-gradient-to-bl from-gray-400 to-gray-50 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10 hover:scale-110 transition-transform duration-300 ">
               <div className="flex justify-evenly my-8">
                 <img src={Image} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
