@@ -204,6 +204,9 @@ const Navbar = () => {
                       <NavItem to="/scanner" toggleMenu={toggleMenu}>
                         Scanner
                       </NavItem>
+                      <NavItem to="/guidelines" toggleMenu={toggleMenu}>
+                        Booking Guidelines/Help
+                      </NavItem>
                     </>
                   )}
                   {userType === "ticketvolunteer" && (
@@ -221,6 +224,9 @@ const Navbar = () => {
                       )}
                       <NavItem to="/scanner" toggleMenu={toggleMenu}>
                         Scanner
+                      </NavItem>
+                      <NavItem to="/guidelines" toggleMenu={toggleMenu}>
+                        Booking Guidelines/Help
                       </NavItem>
                     </>
                   )}
@@ -246,6 +252,9 @@ const Navbar = () => {
                       <NavItem to="/scanner" toggleMenu={toggleMenu}>
                         Scanner
                       </NavItem>
+                      <NavItem to="/guidelines" toggleMenu={toggleMenu}>
+                        Booking Guidelines/Help
+                      </NavItem>
                     </>
                   )}
                   {userType === "movievolunteer" && (
@@ -267,6 +276,9 @@ const Navbar = () => {
                       <NavItem to="/addmovie" toggleMenu={toggleMenu}>
                         Add Movie
                       </NavItem>
+                      <NavItem to="/guidelines" toggleMenu={toggleMenu}>
+                        Booking Guidelines/Help
+                      </NavItem>
                     </>
                   )}
                   {userType === "standard" && (
@@ -276,6 +288,9 @@ const Navbar = () => {
                       </NavItem>
                       <NavItem to="/VotePage" toggleMenu={toggleMenu}>
                         VotePage
+                      </NavItem>
+                      <NavItem to="/guidelines" toggleMenu={toggleMenu}>
+                        Booking Guidelines/Help
                       </NavItem>
                       {!hasMembership && (
                         <NavItem to="/form" toggleMenu={toggleMenu}>
@@ -291,6 +306,7 @@ const Navbar = () => {
                   <NavItem disabled>My Profile</NavItem>
                   <NavItem disabled>VotePage</NavItem>
                   <NavItem disabled>Buy a new Membership</NavItem>
+                  <NavItem to='/guidelines'>Booking Guidelines/Help</NavItem>
                 </>
               )}
             </div>

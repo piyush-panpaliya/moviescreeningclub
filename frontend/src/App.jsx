@@ -23,6 +23,7 @@ import Footer from "./components/footer";
 import MovieList from "./components/VotePage";
 // import { SERVERIP } from "./config";
 import Foram from "./components/Foram";
+import Guidelines from "./components/guidelines";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="/seatmap/:showtimeId" element={<SeatMapPage />} />
           <Route path="/QR" element={<QR />} />
           <Route path="/VotePage" element={<MovieList />} />
+          <Route path="/guidelines" element={<Guidelines />} />
         </Routes>
         <Footer/>
       </LoginProvider>
