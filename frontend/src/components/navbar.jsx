@@ -312,7 +312,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <div className="bg-[#6c738f] py-2 text-2xl flex justify-center capitalize text-white">
+      <div className="bg-[#6c738f] py-2 text-xl flex justify-center capitalize text-white">
       <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
