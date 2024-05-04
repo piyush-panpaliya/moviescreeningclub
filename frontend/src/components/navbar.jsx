@@ -87,7 +87,6 @@ const Navbar = () => {
                 </Link>
               </div>
             </div>
-
             <div className="flex items-center gap-2">
               <div className="rounded-md bg-[#EADBC8] text-black h-9 px-2 pt-1 mt-1 mr-2">
                 Welcome {getDisplayName(localStorage.getItem("userName"))}
@@ -184,7 +183,10 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
-                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      <NavItem to = "/QR" toggleMenu={toggleMenu}> 
+                    My QRs
+                    </NavItem>
+                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
                         VotePage
                       </NavItem>
                       {!hasMembership && (
@@ -214,7 +216,10 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
-                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      <NavItem to = "/QR" toggleMenu={toggleMenu}> 
+                    My QRs
+                    </NavItem>
+                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
                         VotePage
                       </NavItem>
                       {!hasMembership && (
@@ -235,7 +240,10 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
-                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      <NavItem to = "/QR" toggleMenu={toggleMenu}> 
+                    My QRs
+                    </NavItem>
+                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
                         VotePage
                       </NavItem>
                       {!hasMembership && (
@@ -262,7 +270,10 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
-                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      <NavItem to = "/QR" toggleMenu={toggleMenu}> 
+                    My QRs
+                    </NavItem>
+                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
                         VotePage
                       </NavItem>
                       {!hasMembership && (
@@ -286,7 +297,10 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
-                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                      <NavItem to = "/QR" toggleMenu={toggleMenu}> 
+                    My QRs
+                    </NavItem>
+                    <NavItem to="/VotePage" toggleMenu={toggleMenu}>
                         VotePage
                       </NavItem>
                       <NavItem to="/guidelines" toggleMenu={toggleMenu}>
@@ -305,7 +319,8 @@ const Navbar = () => {
                   {" "}
                   <NavItem disabled>My Profile</NavItem>
                   <NavItem disabled>VotePage</NavItem>
-                  <NavItem disabled>Buy a new Membership</NavItem>
+                  <NavItem disabled>My QRs</NavItem>
+                <NavItem disabled>Buy a new Membership</NavItem>
                   <NavItem to='/guidelines'>Booking Guidelines/Help</NavItem>
                 </>
               )}
