@@ -87,11 +87,16 @@ export const Foram = () => {
       console.log("Options object:", options);
       const pay = new window.Razorpay(options);
       pay.open();
+      setOpenRazorpay(false);
     }
   }, [membership, amount, openRazorpay]);
 
   const handleSubmit = (e, selectedMembership) => {
     e.preventDefault();
+    setMembership("");
+    setAmount("");
+    setOpenRazorpay(false);
+  
     const amounts = {
       "B-Tech": { base: 1, silver: 300, gold: 420, diamond: 520 },
       "PHD/M-Tech": { base: 1, silver: 340, gold: 480, diamond: 600 },
@@ -101,6 +106,7 @@ export const Foram = () => {
     setAmount(amounts[degree][selectedMembership]);
     setOpenRazorpay(true);
   };
+  
 
   const generateAndSendEmail = (membership, paymentId, totalTickets) => {
     let qrCodes = [];
