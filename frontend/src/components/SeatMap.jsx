@@ -132,7 +132,7 @@ const SeatMapPage = () => {
   };
 
   return (
-    <div className="seat-booking font-monts overflow-auto">
+    <div className="seat-booking font-monts overflow-auto mb-3">
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       {assignedSeat && (
         <div className="flex justify-center items-center h-screen">
@@ -192,13 +192,33 @@ const SeatMapPage = () => {
       {!assignedSeat && (
         <div>
           <div className="flex justify-evenly gap-4">
-            <div className="flex flex-col gap-2 items-center mt-32">
+            <div className="flex flex-col gap-2 items-center">
+              <div className="flex flex-col items-start justify-center mb-8 w-full mt-4">
+                <div>
+                  <span
+                    className={`bg-white-50 border border-green-600 bg-green-600 px-2 text-center cursor-pointer font-roboto text-10`}
+                  ></span>
+                  <span>Selected Seat</span>
+                </div>
+                <div>
+                  <span
+                    className={`seat bg-white-50 border border-red-400 bg-red-400 px-2 text-center cursor-pointer font-roboto text-10`}
+                  ></span>
+                  Seat Already Booked
+                </div>
+                <div>
+                  <span
+                    className={`seat bg-white-50 border border-gray-400 px-2 text-center cursor-pointer font-roboto text-10`}
+                  ></span>
+                  Seat Not Booked Yet
+                </div>
+              </div>
               {[...Array(1).keys()].map((row) => (
                 <div key={row} className="flex gap-2">
                   {[...Array(10).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    seatNumber=`A${seatNumber}`
+                    seatNumber = `A${seatNumber}`;
                     return (
                       <div
                         key={col}
@@ -228,9 +248,11 @@ const SeatMapPage = () => {
                   {[...Array(11).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    {seatNumber < 22
-                      ?seatNumber= `B${seatNumber - 10}`
-                      :seatNumber= `C${seatNumber - 21}`}
+                    {
+                      seatNumber < 22
+                        ? (seatNumber = `B${seatNumber - 10}`)
+                        : (seatNumber = `C${seatNumber - 21}`);
+                    }
                     return (
                       <div
                         key={col}
@@ -260,9 +282,11 @@ const SeatMapPage = () => {
                   {[...Array(12).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    {seatNumber < 45
-                      ?seatNumber= `D${seatNumber - 32}`
-                      : seatNumber=`E${seatNumber - 44}`}
+                    {
+                      seatNumber < 45
+                        ? (seatNumber = `D${seatNumber - 32}`)
+                        : (seatNumber = `E${seatNumber - 44}`);
+                    }
                     return (
                       <div
                         key={col}
@@ -292,9 +316,11 @@ const SeatMapPage = () => {
                   {[...Array(13).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    {seatNumber < 70
-                      ?seatNumber= `F${seatNumber - 56}`
-                      : seatNumber=`G${seatNumber - 69}`}
+                    {
+                      seatNumber < 70
+                        ? (seatNumber = `F${seatNumber - 56}`)
+                        : (seatNumber = `G${seatNumber - 69}`);
+                    }
                     return (
                       <div
                         key={col}
@@ -324,9 +350,11 @@ const SeatMapPage = () => {
                   {[...Array(14).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    {seatNumber < 97
-                      ?seatNumber= `H${seatNumber - 82}`
-                      : seatNumber=`I${seatNumber - 96}`}
+                    {
+                      seatNumber < 97
+                        ? (seatNumber = `H${seatNumber - 82}`)
+                        : (seatNumber = `I${seatNumber - 96}`);
+                    }
                     return (
                       <div
                         key={col}
@@ -354,32 +382,27 @@ const SeatMapPage = () => {
             </div>
             <div className="w-4"></div> {/* Entrance space */}
             <div className="flex flex-col gap-2 items-center">
-              <div className="flex justify-center mb-4 w-full">
-                <span
-                  className="font-semibold text-lg"
-                  style={{ marginBottom: "20px" }}
+              <div className="flex flex-col items-center justify-center mb-4 w-full mt-4">
+                <svg
+                  className="w-full mx-auto mb-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 100 10"
                 >
-                  Screen
-                </span>
+                  <path
+                    d="M0 5 C 25 -2, 75 -2, 100 5"
+                    fill="none"
+                    stroke="black"
+                    strokeWidth="1"
+                  />
+                </svg>
+                <span className="font-semibold text-lg">Screen</span>
               </div>
-              <svg
-                className="w-3/4 mx-auto mb-4"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 100 10"
-              >
-                <path
-                  d="M0 5 C 25 -2, 75 -2, 100 5"
-                  fill="none"
-                  stroke="black"
-                  strokeWidth="0.3"
-                />
-              </svg>
               {[...Array(1).keys()].map((row) => (
                 <div key={row} className="flex gap-2">
                   {[...Array(7).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    seatNumber=`A${seatNumber - 100}`
+                    seatNumber = `A${seatNumber - 100}`;
                     return (
                       <div
                         key={col}
@@ -409,9 +432,11 @@ const SeatMapPage = () => {
                   {[...Array(8).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    {seatNumber < 126
-                      ?seatNumber= `B${seatNumber - 106}`
-                      :seatNumber= `C${seatNumber - 114}`}
+                    {
+                      seatNumber < 126
+                        ? (seatNumber = `B${seatNumber - 106}`)
+                        : (seatNumber = `C${seatNumber - 114}`);
+                    }
                     return (
                       <div
                         key={col}
@@ -441,7 +466,7 @@ const SeatMapPage = () => {
                   {[...Array(9).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    seatNumber=`D${seatNumber-121}`
+                    seatNumber = `D${seatNumber - 121}`;
                     return (
                       <div
                         key={col}
@@ -471,9 +496,11 @@ const SeatMapPage = () => {
                   {[...Array(10).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    {seatNumber < 153
-                      ? seatNumber=`E${seatNumber - 130}`
-                      :seatNumber= `F${seatNumber - 139}`}
+                    {
+                      seatNumber < 153
+                        ? (seatNumber = `E${seatNumber - 130}`)
+                        : (seatNumber = `F${seatNumber - 139}`);
+                    }
                     return (
                       <div
                         key={col}
@@ -503,7 +530,7 @@ const SeatMapPage = () => {
                   {[...Array(11).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    seatNumber=`G${seatNumber - 149}`
+                    seatNumber = `G${seatNumber - 149}`;
                     return (
                       <div
                         key={col}
@@ -533,9 +560,11 @@ const SeatMapPage = () => {
                   {[...Array(12).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    {seatNumber < 186
-                      ?seatNumber= `H${seatNumber - 159}`
-                      : seatNumber=`I${seatNumber - 171}`}
+                    {
+                      seatNumber < 186
+                        ? (seatNumber = `H${seatNumber - 159}`)
+                        : (seatNumber = `I${seatNumber - 171}`);
+                    }
                     return (
                       <div
                         key={col}
@@ -553,7 +582,7 @@ const SeatMapPage = () => {
                         }}
                       >
                         <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
-                          {seatNumber }
+                          {seatNumber}
                         </span>
                       </div>
                     );
@@ -570,7 +599,7 @@ const SeatMapPage = () => {
                     {[...Array(10).keys()].map((col) => {
                       let seatNumber = column + 1;
                       column = seatNumber;
-                      seatNumber=`A${seatNumber-180}`
+                      seatNumber = `A${seatNumber - 180}`;
                       return (
                         <div
                           key={col}
@@ -600,9 +629,11 @@ const SeatMapPage = () => {
                     {[...Array(11).keys()].map((col) => {
                       let seatNumber = column + 1;
                       column = seatNumber;
-                      {seatNumber < 219
-                        ? seatNumber=`B${seatNumber - 188}`
-                        :seatNumber= `C${seatNumber - 199}`}
+                      {
+                        seatNumber < 219
+                          ? (seatNumber = `B${seatNumber - 188}`)
+                          : (seatNumber = `C${seatNumber - 199}`);
+                      }
                       return (
                         <div
                           key={col}
@@ -632,9 +663,11 @@ const SeatMapPage = () => {
                     {[...Array(12).keys()].map((col) => {
                       let seatNumber = column + 1;
                       column = seatNumber;
-                      {seatNumber < 242
-                        ? seatNumber=`D${seatNumber - 208}`
-                        : seatNumber=`E${seatNumber - 219}`}
+                      {
+                        seatNumber < 242
+                          ? (seatNumber = `D${seatNumber - 208}`)
+                          : (seatNumber = `E${seatNumber - 219}`);
+                      }
                       return (
                         <div
                           key={col}
@@ -664,7 +697,7 @@ const SeatMapPage = () => {
                     {[...Array(13).keys()].map((col) => {
                       let seatNumber = column + 1;
                       column = seatNumber;
-                      seatNumber=`F${seatNumber-230}`
+                      seatNumber = `F${seatNumber - 230}`;
                       return (
                         <div
                           key={col}
@@ -694,9 +727,11 @@ const SeatMapPage = () => {
                     {[...Array(14).keys()].map((col) => {
                       let seatNumber = column + 1;
                       column = seatNumber;
-                      {seatNumber < 281
-                        ? seatNumber=`G${seatNumber - 242}`
-                        :seatNumber= `H${seatNumber - 254}`}
+                      {
+                        seatNumber < 281
+                          ? (seatNumber = `G${seatNumber - 242}`)
+                          : (seatNumber = `H${seatNumber - 254}`);
+                      }
                       return (
                         <div
                           key={col}
@@ -726,7 +761,7 @@ const SeatMapPage = () => {
                     {[...Array(15).keys()].map((col) => {
                       let seatNumber = column + 1;
                       column = seatNumber;
-                      seatNumber=`I${seatNumber - 268}`
+                      seatNumber = `I${seatNumber - 268}`;
                       return (
                         <div
                           key={col}
@@ -762,27 +797,29 @@ const SeatMapPage = () => {
                   {[...Array(15).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    {seatNumber < 325
-                      ?seatNumber= `J${seatNumber - 309}`
-                      : seatNumber < 340
-                      ?seatNumber= `K${seatNumber - 324}`
-                      : seatNumber < 355
-                      ?seatNumber= `L${seatNumber - 339}`
-                      : seatNumber < 370
-                      ?seatNumber= `M${seatNumber - 354}`
-                      : seatNumber < 385
-                      ?seatNumber= `N${seatNumber - 369}`
-                      : seatNumber < 400
-                      ?seatNumber= `O${seatNumber - 384}`
-                      : seatNumber < 415
-                      ?seatNumber= `P${seatNumber - 399}`
-                      : seatNumber < 430
-                      ?seatNumber= `Q${seatNumber - 414}`
-                      : seatNumber < 445
-                      ?seatNumber= `R${seatNumber - 429}`
-                      : seatNumber < 460
-                      ?seatNumber= `S${seatNumber - 444}`
-                      :seatNumber= `T${seatNumber - 459}`}
+                    {
+                      seatNumber < 325
+                        ? (seatNumber = `J${seatNumber - 309}`)
+                        : seatNumber < 340
+                        ? (seatNumber = `K${seatNumber - 324}`)
+                        : seatNumber < 355
+                        ? (seatNumber = `L${seatNumber - 339}`)
+                        : seatNumber < 370
+                        ? (seatNumber = `M${seatNumber - 354}`)
+                        : seatNumber < 385
+                        ? (seatNumber = `N${seatNumber - 369}`)
+                        : seatNumber < 400
+                        ? (seatNumber = `O${seatNumber - 384}`)
+                        : seatNumber < 415
+                        ? (seatNumber = `P${seatNumber - 399}`)
+                        : seatNumber < 430
+                        ? (seatNumber = `Q${seatNumber - 414}`)
+                        : seatNumber < 445
+                        ? (seatNumber = `R${seatNumber - 429}`)
+                        : seatNumber < 460
+                        ? (seatNumber = `S${seatNumber - 444}`)
+                        : (seatNumber = `T${seatNumber - 459}`);
+                    }
                     return (
                       <div
                         key={col}
@@ -801,7 +838,7 @@ const SeatMapPage = () => {
                       >
                         <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
                           {/* {seatNumber < 10 ? "A" : seatNumber < 20 ? "B" : seatNumber < 70 ? "C" : null} */}
-                          {seatNumber }
+                          {seatNumber}
                         </span>
                       </div>
                     );
@@ -821,19 +858,21 @@ const SeatMapPage = () => {
                       {[...Array(3).keys()].map((col) => {
                         let seatNumber = column + 1;
                         column = seatNumber;
-                        {seatNumber < 478
-                          ?seatNumber= `J${seatNumber - 459}`
-                          : seatNumber < 481
-                          ?seatNumber= `K${seatNumber - 462}`
-                          : seatNumber < 484
-                          ?seatNumber= `L${seatNumber - 465}`
-                          : seatNumber < 487
-                          ?seatNumber= `M${seatNumber - 468}`
-                          : seatNumber < 490
-                          ?seatNumber= `N${seatNumber - 471}`
-                          : seatNumber < 493
-                          ?seatNumber= `O${seatNumber - 474}`
-                          : seatNumber=`P${seatNumber - 477}`}
+                        {
+                          seatNumber < 478
+                            ? (seatNumber = `J${seatNumber - 459}`)
+                            : seatNumber < 481
+                            ? (seatNumber = `K${seatNumber - 462}`)
+                            : seatNumber < 484
+                            ? (seatNumber = `L${seatNumber - 465}`)
+                            : seatNumber < 487
+                            ? (seatNumber = `M${seatNumber - 468}`)
+                            : seatNumber < 490
+                            ? (seatNumber = `N${seatNumber - 471}`)
+                            : seatNumber < 493
+                            ? (seatNumber = `O${seatNumber - 474}`)
+                            : (seatNumber = `P${seatNumber - 477}`);
+                        }
                         return (
                           <div
                             key={col}
@@ -853,7 +892,7 @@ const SeatMapPage = () => {
                             }}
                           >
                             <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
-                              {seatNumber }
+                              {seatNumber}
                             </span>
                           </div>
                         );
@@ -867,19 +906,21 @@ const SeatMapPage = () => {
                       {[...Array(3).keys()].map((col) => {
                         let seatNumber = column + 1;
                         column = seatNumber;
-                        {seatNumber < 499
-                          ?seatNumber= `J${seatNumber - 477}`
-                          : seatNumber < 502
-                          ?seatNumber= `K${seatNumber - 480}`
-                          : seatNumber < 505
-                          ?seatNumber= `L${seatNumber - 483}`
-                          : seatNumber < 508
-                          ?seatNumber= `M${seatNumber - 486}`
-                          : seatNumber < 511
-                          ?seatNumber= `N${seatNumber - 489}`
-                          : seatNumber < 514
-                          ?seatNumber= `O${seatNumber - 492}`
-                          :seatNumber= `P${seatNumber - 495}`}
+                        {
+                          seatNumber < 499
+                            ? (seatNumber = `J${seatNumber - 477}`)
+                            : seatNumber < 502
+                            ? (seatNumber = `K${seatNumber - 480}`)
+                            : seatNumber < 505
+                            ? (seatNumber = `L${seatNumber - 483}`)
+                            : seatNumber < 508
+                            ? (seatNumber = `M${seatNumber - 486}`)
+                            : seatNumber < 511
+                            ? (seatNumber = `N${seatNumber - 489}`)
+                            : seatNumber < 514
+                            ? (seatNumber = `O${seatNumber - 492}`)
+                            : (seatNumber = `P${seatNumber - 495}`);
+                        }
                         return (
                           <div
                             key={col}
@@ -899,7 +940,7 @@ const SeatMapPage = () => {
                             }}
                           >
                             <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
-                              {seatNumber }
+                              {seatNumber}
                             </span>
                           </div>
                         );
@@ -913,7 +954,7 @@ const SeatMapPage = () => {
                   {[...Array(13).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    seatNumber=`Q${seatNumber - 501}`
+                    seatNumber = `Q${seatNumber - 501}`;
                     return (
                       <div
                         key={col}
@@ -943,9 +984,11 @@ const SeatMapPage = () => {
                   {[...Array(14).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    {seatNumber < 544
-                      ? seatNumber=`R${seatNumber - 514}`
-                      : seatNumber=`S${seatNumber - 528}`}
+                    {
+                      seatNumber < 544
+                        ? (seatNumber = `R${seatNumber - 514}`)
+                        : (seatNumber = `S${seatNumber - 528}`);
+                    }
                     return (
                       <div
                         key={col}
@@ -963,7 +1006,7 @@ const SeatMapPage = () => {
                         }}
                       >
                         <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
-                          {seatNumber }
+                          {seatNumber}
                         </span>
                       </div>
                     );
@@ -975,7 +1018,7 @@ const SeatMapPage = () => {
                   {[...Array(15).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    seatNumber=`T${seatNumber - 542}`
+                    seatNumber = `T${seatNumber - 542}`;
                     return (
                       <div
                         key={col}
@@ -993,7 +1036,7 @@ const SeatMapPage = () => {
                         }}
                       >
                         <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
-                          {seatNumber }
+                          {seatNumber}
                         </span>
                       </div>
                     );
@@ -1008,19 +1051,21 @@ const SeatMapPage = () => {
                   {[...Array(15).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    {seatNumber < 588
-                      ?seatNumber= `J${seatNumber - 551}`
-                      : seatNumber < 603
-                      ? seatNumber=`K${seatNumber - 566}`
-                      : seatNumber < 618
-                      ?seatNumber= `L${seatNumber - 581}`
-                      : seatNumber < 633
-                      ?seatNumber= `M${seatNumber - 596}`
-                      : seatNumber < 648
-                      ? seatNumber=`N${seatNumber - 611}`
-                      : seatNumber < 663
-                      ?seatNumber= `O${seatNumber - 626}`
-                      : seatNumber=`P${seatNumber - 641}`}
+                    {
+                      seatNumber < 588
+                        ? (seatNumber = `J${seatNumber - 551}`)
+                        : seatNumber < 603
+                        ? (seatNumber = `K${seatNumber - 566}`)
+                        : seatNumber < 618
+                        ? (seatNumber = `L${seatNumber - 581}`)
+                        : seatNumber < 633
+                        ? (seatNumber = `M${seatNumber - 596}`)
+                        : seatNumber < 648
+                        ? (seatNumber = `N${seatNumber - 611}`)
+                        : seatNumber < 663
+                        ? (seatNumber = `O${seatNumber - 626}`)
+                        : (seatNumber = `P${seatNumber - 641}`);
+                    }
                     return (
                       <div
                         key={col}
@@ -1038,7 +1083,7 @@ const SeatMapPage = () => {
                         }}
                       >
                         <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
-                          {seatNumber }
+                          {seatNumber}
                         </span>
                       </div>
                     );
@@ -1050,13 +1095,15 @@ const SeatMapPage = () => {
                   {[...Array(14).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
-                    {seatNumber < 692
-                      ? seatNumber=`Q${seatNumber - 649}`
-                      : seatNumber < 706
-                      ? seatNumber=`R${seatNumber - 662}`
-                      : seatNumber < 720
-                      ? seatNumber=`S${seatNumber - 676}`
-                      : seatNumber=`T${seatNumber - 689}`}
+                    {
+                      seatNumber < 692
+                        ? (seatNumber = `Q${seatNumber - 649}`)
+                        : seatNumber < 706
+                        ? (seatNumber = `R${seatNumber - 662}`)
+                        : seatNumber < 720
+                        ? (seatNumber = `S${seatNumber - 676}`)
+                        : (seatNumber = `T${seatNumber - 689}`);
+                    }
                     return (
                       <div
                         key={col}
@@ -1092,19 +1139,20 @@ const SeatMapPage = () => {
           </div>
           {selectedSeat && (
             <div className="flex justify-center items-center py-2 text-green-600">
-              <p className="text-center text-2xl">
-                Confirm Selected Seat: {selectedSeat}
+              <p className="text-center text-2xl capitalize">
+                You have selected Selected Seat {selectedSeat} --
               </p>
               <button
                 onClick={handleConfirmSeat}
-                className="flex justify-center mx-2 py-2"
+                className="flex justify-center mx-2 p-2 bg-green-400 text-white rounded-lg font-bold text-lg"
               >
+                Proceed
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
-                  stroke="green"
+                  stroke="currentColor"
                   className="w-6 h-6"
                 >
                   <path
