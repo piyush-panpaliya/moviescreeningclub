@@ -31,14 +31,14 @@ const Myaccount = () => {
           const currentDate = new Date();
           const current = sortedMemberships.filter(
             (membership) =>
-              new Date(membership.validitydate.split("-").reverse().join("-")) >=
-              currentDate
+              new Date(
+                membership.validitydate.split("-").reverse().join("-")
+              ) >= currentDate
           );
           const previous = sortedMemberships.filter(
             (membership) =>
-              new Date(
-                membership.validitydate.split("-").reverse().join("-")
-              ) < currentDate
+              new Date(membership.validitydate.split("-").reverse().join("-")) <
+              currentDate
           );
 
           // Update state with filtered memberships
@@ -62,6 +62,22 @@ const Myaccount = () => {
         return "bg-gradient-to-t from-orange-100 to-orange-300";
       default:
         return "bg-gradient-to-t from-blue-200 to-blue-300";
+    }
+  };
+
+  const suspendMembership = async () => {
+    try {
+      const loggedInUserEmail = localStorage.getItem("loggedInUserEmail");
+      const res = await axios.put(`${SERVERIP}/memrouter/suspend`, {
+        email: loggedInUserEmail,
+      });
+      if (res.status === 200) {
+        // Reload memberships after updating
+        // You can also consider updating the state directly if the backend returns the updated memberships
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error suspending membership:", error);
     }
   };
 
@@ -115,6 +131,12 @@ const Myaccount = () => {
                 </Link>
               ))}
             </div>
+            <button
+              onClick={suspendMembership}
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 w-48 mt-8 ml-9 rounded"
+            >
+              Suspend Current Membership
+            </button>
           </div>
         </div>
 
