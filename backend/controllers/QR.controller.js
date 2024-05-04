@@ -150,6 +150,47 @@ exports.isQRUsed = async (req, res) => {
   }
 };
 
+exports.areallQRUsed = async (req, res) => {
+  console.log("here");
+  const { email } = req.params;
+  try {
+    const today = new Date();
+    const validQRs = [];
+    const allQRs = await QR.find({ email: email });
+
+    allQRs.forEach((qr) => {
+      // Extract date components from validitydate string
+      const parts = qr.validitydate.split('-');
+      const day = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1; // Months are 0-indexed
+      const year = parseInt(parts[2], 10);
+      
+      // Construct Date object
+      const validityDate = new Date(year, month, day);
+
+      // Check if validity date is after current date
+      if (validityDate > today) {
+        validQRs.push(qr);
+      }
+    });
+    const allUsed = validQRs.every(qr => qr.used);
+
+    if (allUsed) {
+      // If all valid QRs are used, return success response
+      console.log("all used");
+      res.status(200).json({ message: 'All valid QRs are already used' });
+    } else {
+      // If any valid QRs are not used, return error 400
+      console.log("all not used");
+      res.status(400).json({ error: 'Some valid QRs are not used yet' });
+    }
+  } catch (error) {
+    console.error('Error fetching valid QR codes:', error);
+    res.status(500).json({ error: 'Error fetching valid QR codes' });
+  }
+};
+
+
 
 exports.sendEmail = async (req, res) => {
   const { email, seatNumber} = req.body;

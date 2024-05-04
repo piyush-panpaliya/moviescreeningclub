@@ -10,6 +10,7 @@ const Myaccount = () => {
   // const [memberships, setMemberships] = useState([]);
   const [currentMemberships, setCurrentMemberships] = useState([]);
   const [previousMemberships, setPreviousMemberships] = useState([]);
+  const [allQRsUsed, setAllQRsUsed] = useState(true);
 
   useEffect(() => {
     const loggedInUseremail = localStorage.getItem("loggedInUserEmail");
@@ -40,10 +41,21 @@ const Myaccount = () => {
               new Date(membership.validitydate.split("-").reverse().join("-")) <
               currentDate
           );
-
-          // Update state with filtered memberships
           setCurrentMemberships(current);
           setPreviousMemberships(previous);
+          if (current.length > 0) {
+            // Fetch the status of all QRs and update the state accordingly
+            axios
+              .post(`${SERVERIP}/areallQRUsed`, { email: loggedInUseremail })
+              .then((response) => {
+                setAllQRsUsed(
+                  response.data.message === "All valid QRs are already used"
+                );
+              })
+              .catch((error) => {
+                console.error("Error fetching QR data:", error);
+              });
+          }
         })
         .catch((error) => {
           console.error("Error fetching memberships:", error);
@@ -131,12 +143,14 @@ const Myaccount = () => {
                 </Link>
               ))}
             </div>
-            <button
-              onClick={suspendMembership}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 w-48 mt-8 ml-9 rounded"
-            >
-              Suspend Current Membership
-            </button>
+            {currentMemberships.length > 0 && allQRsUsed && (
+              <button
+                onClick={suspendMembership}
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 w-48 mt-8 ml-9 rounded"
+              >
+                Suspend Current Membership
+              </button>
+            )}
           </div>
         </div>
 
