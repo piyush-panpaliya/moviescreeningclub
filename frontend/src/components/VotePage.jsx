@@ -103,7 +103,7 @@ const MovieList = () => {
     console.log("deleting");
     try {
       const response = await fetch(
-        `{SERVERIP}/voterouter/deletevotemovie/${movieId}`,
+        `${SERVERIP}/voterouter/deletevotemovie/${movieId}`,
         {
           method: "DELETE",
         }
@@ -142,7 +142,8 @@ const MovieList = () => {
           </div>
         </div>
         <div className="flex flex-col justify-between mr-2 w-full">
-          <div className="flex justify-end">
+          {(userType==="admin" || userType==="movievolunteer" || userType==="volunteer" ) &&
+            <div className="flex justify-end">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -150,7 +151,7 @@ const MovieList = () => {
               strokeWidth={1.5}
               stroke="red"
               className="w-6 h-6 cursor-pointer"
-              onClick={handleDeleteMovie}
+              onClick={() => handleDeleteMovie(movie._id)}
             >
               <path
                 strokeLinecap="round"
@@ -159,6 +160,8 @@ const MovieList = () => {
               />
             </svg>
           </div>
+          }
+          
           <div className="flex flex-col items-center justify-center">
             <div className="flex flex-col items-center mb-2">
               <div className="flex flex-row ">

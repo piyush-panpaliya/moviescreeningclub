@@ -32,12 +32,7 @@ exports.sendQR= (req, res) => {
     from: process.env.EMAIL,
     to: email,
     subject: "Payment Successful",
-    text: `Your payment was successful. Membership: ${membership}`,
-    attachments: qrCodes.map((qrCodeData, index) => ({
-      filename: `QR_${index + 1}.jpg`,
-      content: qrCodeData.split("base64,")[1],
-      encoding: "base64",
-    })),
+    text: `Your payment was successful for ${membership} membership`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {

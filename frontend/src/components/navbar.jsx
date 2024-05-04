@@ -69,6 +69,12 @@ const Navbar = () => {
     setShowMenu((prevState) => !prevState);
   };
 
+  function getDisplayName(fullName) {
+    if (!fullName) return ""; // Handle case when fullName is not available
+    const parts = fullName.split(" ");
+    return parts[0]; // Return the first part of the name
+  }
+
   return (
     <nav className="bg-gray-800 w-full md:sticky top-0 z-20">
       <div className="w-full mx-auto">
@@ -80,8 +86,11 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
-
+          
           <div className="flex items-center">
+          <div className="rounded-md bg-red-500 text-white h-9 px-2 pt-1 mt-1 mr-2">
+            Welcome {getDisplayName(localStorage.getItem("userName"))}
+          </div>
             {loggedIn ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"

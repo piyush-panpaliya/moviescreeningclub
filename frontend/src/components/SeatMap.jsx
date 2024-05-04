@@ -62,7 +62,7 @@ const SeatMapPage = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/QR/qrData/${paymentId}`)
+      .get(`${SERVERIP}/QR/qrData/${paymentId}`)
       .then((response) => {
         if (response.status === 200) {
           return;
