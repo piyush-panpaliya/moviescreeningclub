@@ -49,9 +49,6 @@ const SeatMapPage = () => {
           `${SERVERIP}/seatmaprouter/seatmap/${showtimeId}/seats`
         );
         setSeatOccupancy(response.data);
-        console.log(movie);
-        console.log(date1);
-        console.log(time1);
       } catch (error) {
         console.error("Error fetching seat occupancy:", error);
       }
@@ -81,9 +78,11 @@ const SeatMapPage = () => {
       const emailData = {
         email: localStorage.getItem("loggedInUserEmail"),
         seatNumber: selectedSeat,
+        movie: movie,
+        date: date1,
+        time:time1
       };
       const response = await axios.post(`${SERVERIP}/QR/sendEmail`, emailData);
-      console.log(response.data.message);
     } catch (error) {
       console.error("Error sending email:", error);
     }

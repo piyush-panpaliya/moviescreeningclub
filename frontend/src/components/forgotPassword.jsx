@@ -27,7 +27,7 @@ export default function ForgotPassword() {
       if (res.status === 200) {
         setIsSubmitting(true);
         const res1 = await axios.post(
-          `${SERVERIP}/otp/send-otp`,
+          `${SERVERIP}/otp/send-otp-forgot`,
           formData
         );
         if (res1.data.success) {
@@ -114,10 +114,11 @@ export default function ForgotPassword() {
                 </Link>
                 <button
                   onClick={handleSubmit}
+                  disabled={isSubmitting}
                   className="flex justify-center items-center bg-[#fe6b68] w-4/5 h-[15%] p-2 text-white rounded-xl "
                   type="button"
                 >
-                  Submit
+                  {isSubmitting ? "Submitting ..." : "Submit"}
                 </button>
                 <span className="form-text border-t-2 w-4/5 text-center mt-2 py-2">
                   Already have an account --{" "}

@@ -37,12 +37,12 @@ exports.seatassign = async (req, res) => {
     }
 
     // If the seat is already occupied, return an error
-    if (seatMap.seats[seat]) {
+    if (seatMap.seats.get(seat)) {
       return res.status(400).json({ error: `Seat ${seat} is already occupied` });
     }
 
-    // Set the seat as occupied and assign the email
-    seatMap.seats[seat] = true;
+    // Set the seat as occupied
+    seatMap.seats.set(seat, true);
 
     // Save the updated SeatMap document
     await seatMap.save();

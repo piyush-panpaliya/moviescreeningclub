@@ -82,3 +82,49 @@ exports.sendOTP = async (req, res) => {
     });
   }
 };
+
+exports.sendOTPforgot = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Generate OTP
+    const otp = otpGenerator.generate(6, {
+      upperCaseAlphabets: false,
+      lowerCaseAlphabets: false,
+      specialChars: false,
+    });
+
+    // Save OTP in the database
+    await OTP.create({ email, otp });
+
+    // Create Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail", // e.g., 'Gmail'
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: 'Password Reset',
+      html:`<h1>Please confirm your OTP</h1>
+      <p>Here is your OTP code: ${otp}</p>`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({
+      success: true,
+      message: 'OTP sent successfully',
+    });
+  } catch (error) {
+    console.error('Error sending OTP:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to send OTP. Please try again later.',
+    });
+  }
+};
