@@ -60,7 +60,7 @@ export default function Footer() {
                 />
               </svg>
 
-              <span>+91-5356738215</span>
+              <span>+91-9799000999</span>
             </div>
           </div>
           <div className="my-4 flex flex-col gap-1">
@@ -144,14 +144,14 @@ export default function Footer() {
               </a>
             </div>
           </div>
-          <div className="my-4 flex flex-col gap-1">
+          {/* <div className="my-4 flex flex-col gap-1">
             <span className="text-xl font-semibold capitalize mb-2">
               meet the team
             </span>
             <div className="capitalize">aryan jain</div>
             <div className="capitalize">tarun srivastava</div>
             <div className="capitalize">siddharth shainesh</div>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex max-sm:flex-col justify-between border-t-2 pt-2">
