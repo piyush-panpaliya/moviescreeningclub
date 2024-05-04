@@ -64,12 +64,7 @@ const SeatMapPage = () => {
     axios
       .get(`http://localhost:8000/QR/qrData/${paymentId}`)
       .then((response) => {
-        const qrData = response.data;
-        const currentDate = new Date();
-        const validityDate = new Date(qrData.validitydate);
-  
-        // Check if qrData exists, not used, and validityDate is after currentDate
-        if (qrData && !qrData.used && validityDate > currentDate) {
+        if (response.status===200) {
           return;
         } else {
           navigate("/QR");

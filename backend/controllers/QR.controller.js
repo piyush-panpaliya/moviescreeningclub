@@ -132,13 +132,13 @@ exports.isQRUsed = async (req, res) => {
     }
 
     // Check if the validity date is after the current date
-    const currentDate = new Date();
-    const validityDate = new Date(qrData.validitydate);
+    // const currentDate = new Date();
+    // const validityDate = new Date(qrData.validitydate);
 
-    if (validityDate.toISOString() <= currentDate.toISOString()) {
-    // If the validity date is not after the current date, send a 400 error response
-    return res.status(400).json({ error: 'QR data has expired' });
-    }
+    // if (validityDate.toISOString() <= currentDate.toISOString()) {
+    // // If the validity date is not after the current date, send a 400 error response
+    // return res.status(400).json({ error: 'QR data has expired' });
+    // }
 
     // Check if the QR data is used
     if (qrData.used) {
@@ -147,7 +147,7 @@ exports.isQRUsed = async (req, res) => {
     }
 
     // If QR data exists, is valid, and not used, send the QR data
-    res.json(qrData);
+    res.json(200);
   } catch (error) {
     // If there's an error, send 500 Internal Server Error
     console.error('Error fetching QR data:', error);
