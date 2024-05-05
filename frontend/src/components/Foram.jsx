@@ -225,7 +225,7 @@ export const Foram = () => {
     return (
       <div className="flex justify-center items-center bg-gray-200 min-h-screen font-monts pb-3">
         <div className="flex flex-col items-center lg:w-[90%] h-[95%] border rounded-md">
-          <h2 className="text-3xl text-center font-bold ">
+          <h2 className="text-3xl text-center font-bold mt-4">
             Choose Your Plan
           </h2>
           <div className="grid grid-cols-4 max-sm:grid-cols-1 max-lg:grid-cols-2 gap-4 w-full justify-items-center h-[85%] pt-10">
