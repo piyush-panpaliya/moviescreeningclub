@@ -77,15 +77,15 @@ exports.getValidQRs = async (req, res) => {
 
 exports.markQRUsed = async (req, res) => {
   try {
-    const { paymentId } = req.params;
+    const { paymentId, seat } = req.params;
     const { date, showtime } = req.body; // Retrieve date and showtime from request body
 
     // Find the QR object based on the paymentId
-    const qr = await QR.findOne({ paymentId });
+    const qr = await QR.findOne({ paymentId:paymentId });
 
     // If QR object not found, return 404 Not Found error
     if (!qr) {
-      return res.status(404).json({ error: 'QR not found' });
+      return res.status(404).json({ error:'QR not found' });
     }
 
     // Parse date and showtime to construct expiration time
@@ -93,6 +93,8 @@ exports.markQRUsed = async (req, res) => {
     console.log(expirationTime);
     // Update the 'used' field of the QR object
     qr.used = true;
+    qr.seatnumber = seat;
+    console.log("Seat assigned",seat);
 
     // Set the expiration date for the QR
     qr.expirationDate = expirationTime;
@@ -115,7 +117,7 @@ exports.markQRUsed = async (req, res) => {
 
 
 exports.isQRUsed = async (req, res) => {
-  const paymentId = req.params.paymentId;
+  const {paymentId,seat} = req.params;
 
   try {
     // Find the QR data based on paymentId
@@ -125,15 +127,6 @@ exports.isQRUsed = async (req, res) => {
       // If QR data does not exist for the given paymentId, send 404 Not Found
       return res.status(404).json({ error: 'QR data not found' });
     }
-
-    // Check if the validity date is after the current date
-    // const currentDate = new Date();
-    // const validityDate = new Date(qrData.validitydate);
-
-    // if (validityDate.toISOString() <= currentDate.toISOString()) {
-    // // If the validity date is not after the current date, send a 400 error response
-    // return res.status(400).json({ error: 'QR data has expired' });
-    // }
 
     // Check if the QR data is used
     if (qrData.used) {

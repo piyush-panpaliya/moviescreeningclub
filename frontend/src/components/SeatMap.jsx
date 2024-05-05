@@ -105,7 +105,7 @@ const SeatMapPage = () => {
         `${SERVERIP}/seatmaprouter/seatmap/${showtimeId}/${selectedSeat}`
       );
       setAssignedSeat(true);
-      await axios.put(`${SERVERIP}/QR/markUsed/${paymentId}`, {
+      await axios.put(`${SERVERIP}/QR/markUsed/${paymentId}/${selectedSeat}`, {
         showtime: time1,
         date: date1,
       });
