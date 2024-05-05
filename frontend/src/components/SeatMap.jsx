@@ -81,6 +81,7 @@ const SeatMapPage = () => {
         movie: movie,
         date: date1,
         time: time1,
+        qr: paymentId,
       };
       const response = await axios.post(`${SERVERIP}/QR/sendEmail`, emailData);
     } catch (error) {

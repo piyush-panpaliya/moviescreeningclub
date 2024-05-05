@@ -1,96 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        @page {
-            size: 44mm 72mm;
-            margin: 0;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: start;
-            align-items: center;
-        }
-        .container {
-            width: 28mm; /* 44mm - (5mm * 2) */
-            height: 62mm; /* 72mm - (5mm * 2) */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            padding: 4mm;
-            border: 1mm solid #000; /* Add border around the content */
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 2mm; /* Add spacing below the header */
-        }
-        .logo {
-            width: 15mm; /* Reduced logo size */
-            height: 15mm; /* Reduced logo size */
-            margin: auto;
-            display: block;
-        }
-        .title {
-            color: #333;
-            font-weight: bold;
-            font-size: 3.5mm; /* Reduced font size */
-            margin-top: 1mm; /* Reduced spacing */
-            margin-bottom: 1mm; /* Reduced spacing */
-        }
-        .subtitle {
-            color: #666;
-            font-size: 3mm; /* Reduced font size */
-            margin-top: 0.5mm; /* Reduced spacing */
-            margin-bottom: 0.5mm; /* Reduced spacing */
-        }
-        .seat-number {
-            background-color: #f2f2f2;
-            padding: 1mm; /* Reduced padding */
-            text-align: center;
-            font-weight: bold;
-            font-size: 2.5mm; /* Reduced font size */
-            margin-top: 0.5mm; /* Reduced spacing */
-            margin-bottom: 1mm;
-        }
-        .footer {
-            text-align: center;
-            font-size: 2mm; /* Reduced font size */
-            color: #666;
-        }
-        .name {
-            font-weight: bold;
-            color: #333;
-            font-size: 2.5mm; /* Reduced font size */
-        }
-        .line-between {
-            border-bottom: 1px solid #000; /* Add line between "Movie Name" and "IIT Mandi" */
-            margin-left: 5mm; /* Add margin from the left border */
-            margin-right: 5mm; /* Add margin from the right border */
-        }
-    </style>
-</head>
-<body>
-    <di class="container ticket w-44 h-72">
-        <div class="header">
-            <img src="../images/logo2-DANloDCY-Photoroom.png" alt="Film Screening Logo" class="logo">
-            <h2 class="title">IIT Mandi</h2>
-            <p class="line-between"></p>
-            <p class="subtitle">Laapata Ladies</p>
-            <p class="subtitle">05 May 2024</p>
-            <p class="subtitle">07:00 PM</p>
-        </div>
-        <div class="seat-number">Seat Number: B22</div>
-        <div class="footer">
-            <p class="subtitle">Thanks for being a Valuable Member!</p>
-            <p class="name">Vivek Gupta</p>
-        </div>
-    </ticket>
-</body>
-</html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            @page {
+                size: 58mm 80mm;
+                margin: 0;
+            }
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+            }
+            .container {
+                width: 48mm; /* 44mm - (5mm * 2) */
+                height: 70mm; /* 72mm - (5mm * 2) */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                padding: 4mm;
+                border: 1mm solid #000;
+            }
+            .header {
+                text-align: center;
+                margin-bottom: 2mm; 
+            }
+            .logo {
+                width: 18mm; /* Reduced logo size */
+                height: 18mm; /* Reduced logo size */
+                margin: auto;
+                display: block;
+            }
+            .title {
+                color: #333;
+                font-weight: bold;
+                font-size: 3.5mm; /* Reduced font size */
+                margin-top: 1mm; /* Reduced spacing */
+                margin-bottom: 1mm; /* Reduced spacing */
+            }
+            .subtitle {
+                color: #666;
+                font-size: 3mm; /* Reduced font size */
+                margin-top: 0.5mm; /* Reduced spacing */
+                margin-bottom: 0.5mm; /* Reduced spacing */
+            }
+            .seat-number {
+                padding: 1mm; /* Reduced padding */
+                text-align: center;
+                font-weight: bold;
+                font-size: 3.6mm; /* Reduced font size */
+                margin-top: 0.5mm; /* Reduced spacing */
+                margin-bottom: 1mm;
+            }
+            .footer {
+                text-align: center;
+                font-size: 3mm; /* Reduced font size */
+                color: #666;
+            }
+            .name {
+                font-weight: bold;
+                color: #333;
+                font-size: 3.5mm; /* Reduced font size */
+            }
+            .line-between {
+                border-bottom: 1px solid #000; /* Add line between "Movie Name" and "IIT Mandi" */
+                margin-left: 3mm; /* Add margin from the left border */
+                margin-right: 3mm; /* Add margin from the right border */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container ticket w-54 h-72">
+                    <div class="header">
+                        <img id="logoImage" src="https://github.com/aryanjain2005/repo1/blob/main/logo2-DANloDCY-Photoroom.png?raw=true" alt="Film Screening Logo" class="logo">
+                        <h2 class="title">IIT Mandi</h2> 
+                        <p class="line-between"></p>
+                        <p class="subtitle">Laapata Ladies</p>
+                        <p class="subtitle">${formatDate(data.showdate)}</p>
+                        <p class="subtitle">${convertTo12HourFormat(data.showtime)}</p>
+                    </div>
+                    <div class="seat-number">Seat Number: ${data.seat}</div>
+                    <div class="footer">
+                        <p class="subtitle">Thanks for being a Valuable Member!</p>
+                        <p class="subtitle">${data.name}</p>
+                    </div>
+                </ticket>
+            </body>
+            </html>

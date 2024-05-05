@@ -1,10 +1,12 @@
 const QR = require('../models/qr.Model');
 const nodemailer= require( "nodemailer");
+const QRCode=require("qrcode");
+// import QRCode from "qrcode";
 const moment = require('moment');
 
 exports.addQR= (req, res) => {
-  const { email, paymentId, validity, memtype } = req.body;
-  const newQR = new QR({ email, paymentId, validity, memtype });
+  const { name, email, paymentId, validity, memtype } = req.body;
+  const newQR = new QR({ name, email, paymentId, validity, memtype });
   newQR.save()
     .then((savedQR) => {
       console.log("QR details saved:", savedQR);
@@ -77,11 +79,11 @@ exports.getValidQRs = async (req, res) => {
 
 exports.markQRUsed = async (req, res) => {
   try {
-    const { paymentId, seat } = req.params;
-    const { date, showtime } = req.body; // Retrieve date and showtime from request body
+    const { paymentId, seat } = req.params; // Access seat number as 'seat'
+    const { date, showtime } = req.body; 
 
     // Find the QR object based on the paymentId
-    const qr = await QR.findOne({ paymentId:paymentId });
+    const qr = await QR.findOne({ paymentId });
 
     // If QR object not found, return 404 Not Found error
     if (!qr) {
@@ -90,15 +92,15 @@ exports.markQRUsed = async (req, res) => {
 
     // Parse date and showtime to construct expiration time
     const expirationTime = moment(`${date} ${showtime}`, 'DD-MM-YYYY hh:mm A').add({ hours: 8, minutes: 30 });
-    console.log(expirationTime);
+
     // Update the 'used' field of the QR object
     qr.used = true;
+
+    // Set the seat number for the QR
     qr.seatnumber = seat;
-    console.log("Seat assigned",seat);
 
     // Set the expiration date for the QR
     qr.expirationDate = expirationTime;
-    console.log(expirationTime);
 
     // Save the updated QR object back to the database
     await qr.save();
@@ -114,6 +116,7 @@ exports.markQRUsed = async (req, res) => {
     res.status(500).json({ error: 'Error marking QR as used' });
   }
 };
+
 
 
 exports.isQRUsed = async (req, res) => {
@@ -184,9 +187,10 @@ exports.areallQRUsed = async (req, res) => {
 
 
 exports.sendEmail = async (req, res) => {
-  const { email, seatNumber, movie, date, time} = req.body;
+  const { email, seatNumber, movie, date, time, qr} = req.body;
 
   try {
+    const qrDataURL = await QRCode.toDataURL(qr);
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -237,7 +241,14 @@ exports.sendEmail = async (req, res) => {
             </div>
           </div>
         </body>
-      `
+      `,
+      attachments: [
+        {
+          filename: 'qr_code.png',
+          content: qrDataURL.split(';base64,').pop(),
+          encoding: 'base64'
+        }
+      ]
     };
 
     await transporter.sendMail(mailOptions);

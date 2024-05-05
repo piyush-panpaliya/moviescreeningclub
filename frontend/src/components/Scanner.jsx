@@ -96,6 +96,7 @@ export const Scanner = () => {
       const data = await response.json();
       setScanResultInfo(data);
       console.log(data);
+      console.log(data.name);
 
       // After access is granted, generate printable HTML content
       if (
@@ -105,127 +106,159 @@ export const Scanner = () => {
         !data.validityPassed &&
         data.seatbooked
       ) {
-        const printContent = `
-        <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        @page {
-            size: 44mm 72mm;
-            margin: 0;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container {
-            width: 34mm; /* 44mm - (5mm * 2) */
-            height: 62mm; /* 72mm - (5mm * 2) */
-            display: flex;
-            flex-direction: column;
-            align-items-center;
-            justify-content: space-between;
-            padding: 4mm;
-            border: 1mm solid #000;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 2mm; 
-        }
-        .logo {
-            width: 15mm; /* Reduced logo size */
-            height: 15mm; /* Reduced logo size */
-            margin: auto;
-            display: block;
-        }
-        .title {
-            color: #333;
-            font-weight: bold;
-            font-size: 3.5mm; /* Reduced font size */
-            margin-top: 1mm; /* Reduced spacing */
-            margin-bottom: 1mm; /* Reduced spacing */
-        }
-        .subtitle {
-            color: #666;
-            font-size: 3mm; /* Reduced font size */
-            margin-top: 0.5mm; /* Reduced spacing */
-            margin-bottom: 0.5mm; /* Reduced spacing */
-        }
-        .seat-number {
-            background-color: #f2f2f2;
-            padding: 1mm; /* Reduced padding */
-            text-align: center;
-            font-weight: bold;
-            font-size: 2.5mm; /* Reduced font size */
-            margin-top: 0.5mm; /* Reduced spacing */
-            margin-bottom: 1mm;
-        }
-        .footer {
-            text-align: center;
-            font-size: 2mm; /* Reduced font size */
-            color: #666;
-        }
-        .name {
-            font-weight: bold;
-            color: #333;
-            font-size: 2.5mm; /* Reduced font size */
-        }
-        .line-between {
-            border-bottom: 1px solid #000; /* Add line between "Movie Name" and "IIT Mandi" */
-            margin-left: 5mm; /* Add margin from the left border */
-            margin-right: 5mm; /* Add margin from the right border */
-        }
-    </style>
-</head>
-<body>
-    <div class="container ticket w-44 h-72">
-                <div class="header">
-                    <img src="https://github.com/aryanjain2005/repo1/blob/main/logo2-DANloDCY-Photoroom.png?raw=true" alt="Film Screening Logo" class="logo">
-                    <h2 class="title">IIT Mandi</h2> 
-                    <p class="line-between"></p>
-                    <p class="subtitle">Laapata Ladies</p>
-                    <p class="subtitle">05 May 2024</p>
-                    <p class="subtitle">07:00 PM</p>
-                </div>
-                <div class="seat-number">Seat Number: B22</div>
-                <div class="footer">
-                    <p class="subtitle">Thanks for being a Valuable Member!</p>
-                    <p class="name">Vivek Gupta</p>
-                </div>
-            </ticket>
-        </body>
-        </html>        
-`;
-
-        const printWindow = window.open("", "_blank");
-        if (printWindow) {
-          printWindow.document.write(printContent);
-          printWindow.document.close();
-
-          // Wait for the image to load before triggering print dialog
-          const ticketImage =
-            printWindow.document.getElementById("ticketImage");
-          ticketImage.onload = function () {
-            printWindow.print(); // Trigger print dialog after image has loaded
-          };
-        } else {
-          console.error("Failed to open print window");
-        }
+        printTicket(data);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
+  const printTicket = (data) => {
+    const printContent = `
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            @page {
+                size: 58mm 85mm;
+                margin: 0;
+            }
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+            }
+            .container {
+                width: 48mm; /* 44mm - (5mm * 2) */
+                height: 75mm; /* 72mm - (5mm * 2) */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                padding: 4mm;
+                border: 1mm solid #000;
+            }
+            .header {
+                text-align: center; 
+            }
+            .logo {
+                width: 20mm; /* Reduced logo size */
+                height: 20mm; /* Reduced logo size */
+                margin: auto;
+                display: block;
+            }
+            .title {
+                font-weight: bold;
+                font-size: 4.5mm; /* Reduced font size */
+                margin-top: 1mm; /* Reduced spacing */
+                margin-bottom: 0.5mm; /* Reduced spacing */
+            }
+            .subtitle {
+                font-size: 4mm; /* Reduced font size */
+                margin-top: 0.5mm; /* Reduced spacing */
+                margin-bottom: 1mm; /* Reduced spacing */
+            }
+            .seat-number {
+                padding: 0.5mm; /* Reduced padding */
+                text-align: center;
+                font-weight: bold;
+                font-size: 4mm; /* Reduced font size */
+                margin-top: 1mm; /* Reduced spacing */
+                margin-bottom: 1mm;
+            }
+            .footer {
+                text-align: center;
+                font-size: 4mm; /* Reduced font size */
+            }
+            .name {
+                font-weight: bold;
+                color: #333;
+                font-size: 4.5mm; /* Reduced font size */
+            }
+            .line-between {
+                border-bottom: 1px solid #000; /* Add line between "Movie Name" and "IIT Mandi" */
+                margin-left: 1mm; /* Add margin from the left border */
+                margin-right: 1mm; /* Add margin from the right border */
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container ticket w-54 h-72">
+                    <div class="header">
+                        <img id="logoImage" src="https://github.com/aryanjain2005/repo1/blob/main/logo2-DANloDCY-Photoroom.png?raw=true" alt="Film Screening Logo" class="logo">
+                        <h2 class="title">IIT Mandi</h2> 
+                        <p class="line-between"></p>
+                        <p class="subtitle">Laapata Ladies</p>
+                        <p class="subtitle">${formatDate(data.showdate)}</p>
+                        <p class="subtitle">${convertTo12HourFormat(data.showtime)}</p>
+                    </div>
+                    <div class="seat-number">Seat Number: ${data.seat}</div>
+                    <div class="footer">
+                        <p class="subtitle">Thanks for being a Valuable Member!</p>
+                        <p class="subtitle">${data.name}</p>
+                    </div>
+                </ticket>
+            </body>
+            </html>        
+    `;
+  
+    // Create a new window
+    const printWindow = window.open("", "_self");
+    if (printWindow) {
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+  
+      // Wait for the logo image to load completely before printing
+      const logoImage = printWindow.document.getElementById("logoImage");
+      if (logoImage) {
+        logoImage.onload = () => {
+          printWindow.print();
+        };
+      } else {
+        console.error("Failed to find logo image element");
+        printWindow.print(); // Print even if logo image fails to load
+      }
+    } else {
+      console.error("Failed to open print window");
+    }
+  };
+
+  const convertTo12HourFormat = (time) => {
+    // Extract hours and minutes
+    const [hours, minutes] = time.split(':');
+    
+    // Convert hours to 12-hour format
+    const ampm = hours >= 12 ? 'pm' : 'am';
+    const adjustedHours = hours % 12 || 12;
+
+    // Construct the formatted time
+    return `${adjustedHours}:${minutes.padStart(2, '0')} ${ampm}`;
+  };
+
+  const formatDate = (dateString) => {
+    const dateParts = dateString.split('/');
+    const monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+
+    const day = parseInt(dateParts[0], 10);
+    const monthIndex = parseInt(dateParts[1], 10) - 1;
+    const year = parseInt(dateParts[2], 10);
+
+    return `${day} ${monthNames[monthIndex]}, ${year}`;
+  };
+
   return (
-    <div className="flex justify-center w-full h-100vh mt-6 font-monts">
-      <div style={{ width: "300px", height: "300px" }}>
+    <div className="flex justify-center w-full h-full mt-6 font-monts">
+      <div style={{ maxWidth: "100%", height: "auto" }}>
         {scanResult ? (
           <div>
             {scanResultInfo === null ? (
@@ -272,7 +305,7 @@ export const Scanner = () => {
             )}
           </div>
         ) : (
-          <video ref={videoRef} width="100%" height="100%"></video>
+          <video ref={videoRef} width="100%" height="auto"></video>
         )}
       </div>
     </div>

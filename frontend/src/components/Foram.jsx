@@ -16,6 +16,7 @@ export const Foram = () => {
   const [degree, setDegree] = useState("");
   const [email, setEmail] = useState("");
   const [openRazorpay, setOpenRazorpay] = useState(false);
+  const name = localStorage.getItem("userName");
 
   const token = getToken();
   const navigate = useNavigate();
@@ -64,6 +65,7 @@ export const Foram = () => {
         },
         handler: function (response) {
           updateMembershipStatus(true);
+
           // Process membership based on the selected membership type
           if (membership === "base") {
             saveuserData(email, "base", 7);
@@ -183,13 +185,12 @@ export const Foram = () => {
 
     const saveTicket = (ticketNumber) => {
       const paymentId = basePaymentId + ticketNumber; // Append ticket number to basePaymentId
-      const QRData = { email, paymentId, validity, memtype };
+      const QRData = { name, email, paymentId, validity, memtype };
       axios
         .post(`${SERVERIP}/QR/saveQR`, QRData)
         .then((response) => {
           ticketsGenerated++;
           if (ticketsGenerated === totalTickets) {
-            console.log(`QR data saved successfully for ${memtype} membership`);
             Swal.fire({
               title: "Success",
               text: `${memtype} membership purchase successful`,

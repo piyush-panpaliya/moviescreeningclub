@@ -1,5 +1,5 @@
-const QR = require('../models/qr.Model');
-const moment = require('moment');
+const QR = require("../models/qr.Model");
+const moment = require("moment");
 
 exports.check = async (req, res) => {
   try {
@@ -10,26 +10,52 @@ exports.check = async (req, res) => {
       res.json({ exists: false });
     } else {
       const currentDate = moment();
-      const validityDate = moment(payment.validitydate, 'DD-MM-YYYY');
+      const validityDate = moment(payment.validitydate, "DD-MM-YYYY");
 
       if (currentDate.isAfter(validityDate)) {
-        res.json({ exists: true, validityPassed: true,seatbooked:true, verified: false });
+        res.json({
+          exists: true,
+          validityPassed: true,
+          seatbooked: true,
+          verified: false,
+        });
+      } else if (!payment.used) {
+        res.json({
+          exists: true,
+          validityPassed: false,
+          seatbooked: false,
+          verified: false,
+        });
+      } else if (payment.verified) {
+        res.json({
+          exists: true,
+          validityPassed: false,
+          seatbooked: true,
+          verified: true,
+        });
+      } else {
+        payment.verified = true;
+        await payment.save();
+        const expirationDate = new Date(payment.expirationDate);
+        expirationDate.setHours(expirationDate.getHours() - 8);
+        expirationDate.setMinutes(expirationDate.getMinutes() - 30);
+        
+        const formattedDate = `${expirationDate.getDate()}/${expirationDate.getMonth() + 1}/${expirationDate.getFullYear()}`;
+        const formattedTime = `${String(expirationDate.getHours()).padStart(2, '0')}:${String(expirationDate.getMinutes()).padStart(2, '0')}`;
+        
+
+        res.json({
+          exists: true,
+          validityPassed: false,
+          seatbooked: true,
+          verified: false,
+          email: payment.email,
+          seat: payment.seatnumber,
+          name: payment.name,
+          showdate: formattedDate,
+          showtime: formattedTime,
+        });
       }
-      else if(!payment.used){
-        res.json({ exists: true, validityPassed: false,seatbooked:false,verified: false });
-      }
-      else if(payment.verified){
-        res.json({ exists: true, validityPassed: false,seatbooked:true,verified:true });
-      }
-      else {
-          payment.verified = true;
-          await payment.save();
-          const expirationDate = new Date(payment.expirationDate);
-          expirationDate.setHours(expirationDate.getHours() - 3);
-          const formattedDate = `${expirationDate.getDate()}/${expirationDate.getMonth() + 1}/${expirationDate.getFullYear()}`;
-          const formattedTime = `${String(expirationDate.getHours()).padStart(2, '0')}:${String(expirationDate.getMinutes()).padStart(2, '0')}`;
-          res.json({ exists: true, validityPassed: false, seatbooked:true, verified:false, email: payment.email, showdate: formattedDate, showtime: formattedTime });
-        }
     }
   } catch (error) {
     console.error("Error:", error);

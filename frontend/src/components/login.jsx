@@ -213,12 +213,12 @@ const Login = () => {
                   Submit
                 </button>
 
-                {/* <span className="border-t-2 w-4/5 text-center mt-2 pt-2 max-sm:text-sm">
+                <span className="border-t-2 w-4/5 text-center mt-2 pt-2 max-sm:text-sm">
                   Don't have an account 
                   <Link className="text-blue-600 ml-3" to="/getOTP">
                     Signup
                   </Link>
-                </span> */}
+                </span>
               </div>
             </div>
           </div>
