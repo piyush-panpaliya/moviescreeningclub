@@ -80,7 +80,7 @@ const SeatMapPage = () => {
         seatNumber: selectedSeat,
         movie: movie,
         date: date1,
-        time:time1
+        time: time1,
       };
       const response = await axios.post(`${SERVERIP}/QR/sendEmail`, emailData);
     } catch (error) {
@@ -193,48 +193,28 @@ const SeatMapPage = () => {
           <div className="flex justify-evenly gap-4">
             <div className="flex flex-col gap-2 items-center">
               <div className="flex flex-row justify-between">
-              <div className="flex flex-col items-start justify-center mb-8 w-full mt-4">
-                <div>
-                  <span
-                    className={`bg-white-50 border border-green-600 bg-green-600 px-2 text-center cursor-pointer font-roboto text-10`}
-                  ></span>
-                  <span>Selected Seat</span>
-                </div>
-                <div>
-                  <span
-                    className={`seat bg-white-50 border border-red-400 bg-red-400 px-2 text-center cursor-pointer font-roboto text-10`}
-                  ></span>
-                  Seat Already Booked
-                </div>
-                <div>
-                  <span
-                    className={`seat bg-white-50 border border-gray-400 px-2 text-center cursor-pointer font-roboto text-10`}
-                  ></span>
-                  Seat Not Booked Yet
-                </div>
-              </div>
-              <div className="flex flex-col justify-center mb-8 w-full mt-4">
-                <div>
-                  <span
-                    className={`bg-white-50 border border-green-600 bg-green-600 px-2 text-center cursor-pointer font-roboto text-10`}
-                  ></span>
-                  <span>{movie}</span>
-                </div>
-                <div>
-                  <span
-                    className={`seat bg-white-50 border border-red-400 bg-red-400 px-2 text-center cursor-pointer font-roboto text-10`}
-                  ></span>
-                  Date: {date1}
-                </div>
-                <div>
-                  <span
-                    className={`seat bg-white-50 border border-gray-400 px-2 text-center cursor-pointer font-roboto text-10`}
-                  ></span>
-                  Time: {time1}
+                <div className="flex flex-col items-start justify-center mb-8 w-full mt-4">
+                  <div>
+                    <span
+                      className={`bg-white-50 border border-green-600 bg-green-600 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
+                    ></span>
+                    <span className="text-lg">Selected Seat</span>
+                  </div>
+                  <div>
+                    <span
+                      className={`seat bg-white-50 border border-red-400 bg-red-400 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
+                    ></span>
+                    <span className="text-lg">Seat Already Booked</span>
+                  </div>
+                  <div>
+                    <span
+                      className={`seat bg-white-50 border border-gray-400 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
+                    ></span>
+                    <span className="text-lg">Seat Not Booked Yet</span>
+                  </div>
                 </div>
               </div>
-              </div>
-              
+
               {[...Array(1).keys()].map((row) => (
                 <div key={row} className="flex gap-2">
                   {[...Array(10).keys()].map((col) => {
@@ -246,7 +226,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -280,7 +260,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -314,7 +294,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -348,7 +328,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -382,7 +362,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -404,7 +384,7 @@ const SeatMapPage = () => {
             </div>
             <div className="w-4"></div> {/* Entrance space */}
             <div className="flex flex-col gap-2 items-center">
-              <div className="flex flex-col items-center justify-center mb-4 w-full mt-4">
+              <div className="flex flex-col items-center justify-center mb-4 w-full mt-7">
                 <svg
                   className="w-full mx-auto mb-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -430,7 +410,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -464,7 +444,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -494,7 +474,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -528,7 +508,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -558,7 +538,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -592,7 +572,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -615,7 +595,21 @@ const SeatMapPage = () => {
             <div className="w-4"></div> {/* Entrance space */}
             <div className="flex justify-between gap-4">
               {/* Container for the 5x5 block */}
-              <div className="flex flex-col gap-2 items-center mt-32">
+              <div className="flex flex-col gap-2 items-center">
+                <div className="flex flex-col items-end mb-8 w-full mt-4 text-lg mr-4">
+                  <div>
+                    <span className="font-semibold">Movie:</span>
+                    <span>{movie}</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold">Date:</span>
+                    <span>{date1}</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold">Time:</span>
+                    <span>{time1}</span> 
+                    </div>
+                </div>
                 {[...Array(1).keys()].map((row) => (
                   <div key={row} className="flex gap-2">
                     {[...Array(10).keys()].map((col) => {
@@ -627,7 +621,7 @@ const SeatMapPage = () => {
                           key={col}
                           className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                             selectedSeat === seatNumber
-                              ? "bg-green-600"
+                              ? "bg-green-600 text-white"
                               : seatOccupancy[seatNumber]
                               ? "bg-gray-200"
                               : ""
@@ -661,7 +655,7 @@ const SeatMapPage = () => {
                           key={col}
                           className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                             selectedSeat === seatNumber
-                              ? "bg-green-600"
+                              ? "bg-green-600 text-white"
                               : seatOccupancy[seatNumber]
                               ? "bg-gray-200"
                               : ""
@@ -695,7 +689,7 @@ const SeatMapPage = () => {
                           key={col}
                           className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                             selectedSeat === seatNumber
-                              ? "bg-green-600"
+                              ? "bg-green-600 text-white"
                               : seatOccupancy[seatNumber]
                               ? "bg-gray-200"
                               : ""
@@ -725,7 +719,7 @@ const SeatMapPage = () => {
                           key={col}
                           className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                             selectedSeat === seatNumber
-                              ? "bg-green-600"
+                              ? "bg-green-600 text-white"
                               : seatOccupancy[seatNumber]
                               ? "bg-gray-200"
                               : ""
@@ -759,7 +753,7 @@ const SeatMapPage = () => {
                           key={col}
                           className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                             selectedSeat === seatNumber
-                              ? "bg-green-600"
+                              ? "bg-green-600 text-white"
                               : seatOccupancy[seatNumber]
                               ? "bg-gray-200"
                               : ""
@@ -789,7 +783,7 @@ const SeatMapPage = () => {
                           key={col}
                           className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                             selectedSeat === seatNumber
-                              ? "bg-green-600"
+                              ? "bg-green-600 text-white"
                               : seatOccupancy[seatNumber]
                               ? "bg-gray-200"
                               : ""
@@ -847,7 +841,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -900,7 +894,7 @@ const SeatMapPage = () => {
                             key={col}
                             className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                               selectedSeat === seatNumber
-                                ? "bg-green-600"
+                                ? "bg-green-600 text-white"
                                 : seatOccupancy[seatNumber]
                                 ? "bg-gray-200"
                                 : ""
@@ -948,7 +942,7 @@ const SeatMapPage = () => {
                             key={col}
                             className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                               selectedSeat === seatNumber
-                                ? "bg-green-600"
+                                ? "bg-green-600 text-white"
                                 : seatOccupancy[seatNumber]
                                 ? "bg-gray-200"
                                 : ""
@@ -982,7 +976,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -1016,7 +1010,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -1046,7 +1040,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -1093,7 +1087,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""
@@ -1131,7 +1125,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
                           selectedSeat === seatNumber
-                            ? "bg-green-600"
+                            ? "bg-green-600 text-white"
                             : seatOccupancy[seatNumber]
                             ? "bg-gray-200"
                             : ""

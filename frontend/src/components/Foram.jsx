@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 //import Razorpay  from 'razorpay';
 import QRCode from "qrcode";
 import axios from "axios";
@@ -98,9 +98,12 @@ export const Foram = () => {
     setOpenRazorpay(false);
   
     const amounts = {
-      "B-Tech": { base: 1, silver: 300, gold: 420, diamond: 520 },
-      "PHD/M-Tech": { base: 1, silver: 340, gold: 480, diamond: 600 },
-      "Faculty/Staff": { base: 1, silver: 380, gold: 540, diamond: 680 },
+      // "B-Tech": { base: 1, silver: 300, gold: 420, diamond: 520 },
+      "B-Tech": { base: 1, silver: 1, gold: 1, diamond: 1 },
+      // "PHD/M-Tech": { base: 1, silver: 340, gold: 480, diamond: 600 },
+      "PHD/M-Tech": { base: 1, silver: 1, gold: 1, diamond: 1 },
+      // "Faculty/Staff": { base: 1, silver: 380, gold: 540, diamond: 680 },
+      "Faculty/Staff": { base: 1, silver: 1, gold: 1, diamond: 1 },
     };
     setMembership(selectedMembership);
     setAmount(amounts[degree][selectedMembership]);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Table,
   TableHeader,
@@ -11,6 +11,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment"; // Import moment library for date and time formatting
 import { SERVERIP } from "../config";
+import { Button } from "@material-tailwind/react";
 
 const ShowtimePage = () => {
   const { paymentId } = useParams();
@@ -104,7 +105,17 @@ const ShowtimePage = () => {
                       {moment(showtime.time, "HH:mm").format("hh:mm A")}
                     </TableCell>
                     <TableCell>
-                      <svg
+                      <Button color="green" className="text-white capitalize" onClick={()=>(
+                        handleShowtimeSelection(
+                          showtime._id,
+                          movie.title,
+                          showtime.date,
+                          showtime.time
+                        )
+                      )}>
+                        book seat
+                      </Button>
+                      {/* <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -125,7 +136,7 @@ const ShowtimePage = () => {
                           strokeLinejoin="round"
                           d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                         />
-                      </svg>
+                      </svg> */}
                     </TableCell>
                   </TableRow>
                 ))

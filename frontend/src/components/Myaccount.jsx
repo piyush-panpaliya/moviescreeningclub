@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useLogin } from "./LoginContext"; // Import useLogin hook
@@ -74,7 +74,7 @@ const Myaccount = () => {
       case "gold":
         return "bg-gradient-to-t from-yellow-100 to-yellow-200";
       case "silver":
-        return "bg-gradient-to-t from-neutral-300 to-stone-400";
+        return "bg-gradient-to-t from-gray-300 to-gray-400";
       case "base":
         return "bg-gradient-to-t from-orange-100 to-orange-300";
       default:

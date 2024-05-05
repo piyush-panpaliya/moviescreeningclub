@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import QRCode from "qrcode";
 import { useNavigate } from "react-router-dom";
@@ -62,9 +62,9 @@ const QR = () => {
   const renderQRStatus = (qr) => {
     if (qr.verified) {
       return (
-        <div className="flex flex-col capitalize mt-3 font-monts">
-          <p>
-            qR used :{" "}
+        <div className="flex flex-col capitalize mt-3 font-monts ">
+          <p className="flex">
+            Seat Booked :{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -80,8 +80,8 @@ const QR = () => {
               />
             </svg>
           </p>
-          <p>
-            qR verified :{" "}
+          <p className="flex">
+            Ticket Scanned :{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -104,7 +104,7 @@ const QR = () => {
         return (
           <div className="flex flex-col capitalize mt-3">
             <p className="flex">
-              qR used :{" "}
+              Seat Booked :{" "}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -121,7 +121,7 @@ const QR = () => {
               </svg>
             </p>
             <p className="flex">
-              qR verified :{" "}
+              Ticket Scanned :{" "}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -149,7 +149,7 @@ const QR = () => {
               book seat
             </button>
             <p className="flex">
-              qR used :{" "}
+              Seat Booked :{" "}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -166,7 +166,7 @@ const QR = () => {
               </svg>
             </p>
             <p className="flex">
-              qR verified :{" "}
+              Ticket Scanned :{" "}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
