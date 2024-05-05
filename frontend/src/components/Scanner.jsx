@@ -52,20 +52,9 @@ export const Scanner = () => {
       canvas.width = videoRef.current.videoWidth;
       canvas.height = videoRef.current.videoHeight;
 
-      context.drawImage(
-        videoRef.current,
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
+      context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
 
-      const imageData = context.getImageData(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
+      const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
 
       const code = jsQR(imageData.data, imageData.width, imageData.height);
 
@@ -107,41 +96,123 @@ export const Scanner = () => {
       const data = await response.json();
       setScanResultInfo(data);
       console.log(data);
-  
+
       // After access is granted, generate printable HTML content
-      if (data && data.exists && !data.verified && !data.validityPassed && data.seatbooked) {
+      if (
+        data &&
+        data.exists &&
+        !data.verified &&
+        !data.validityPassed &&
+        data.seatbooked
+      ) {
         const printContent = `
-  <html>
-    <head>
-      <title>Print Ticket</title>
-      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-      <style>
-        /* Add custom CSS styles here */
-      </style>
-    </head>
-    <body>
-      <div class="ticket w-58"> <!-- Tailwind class to set width to 58mm -->
-        <h2 class="text-lg font-bold">Ticket Details</h2>
-        <p>Access granted for ${localStorage.getItem("userName")}</p>
-        <p>Time: ${data.showtime}</p>
-        <p>Date: ${data.showdate}</p>
-        <img id="ticketImage" src="https://static-koimoi.akamaized.net/wp-content/new-galleries/2015/05/abcd-any-body-can-dance-2-movie-poster-1.jpg" alt="Image" class="w-24 h-24 mx-auto" width="100" height="100">
-      </div>
-    </body>
-  </html>
+        <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @page {
+            size: 44mm 72mm;
+            margin: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 34mm; /* 44mm - (5mm * 2) */
+            height: 62mm; /* 72mm - (5mm * 2) */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 4mm;
+            border: 1mm solid #000; /* Add border around the content */
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 2mm; /* Add spacing below the header */
+        }
+        .logo {
+            width: 15mm; /* Reduced logo size */
+            height: 15mm; /* Reduced logo size */
+            margin: auto;
+            display: block;
+        }
+        .title {
+            color: #333;
+            font-weight: bold;
+            font-size: 3.5mm; /* Reduced font size */
+            margin-top: 1mm; /* Reduced spacing */
+            margin-bottom: 1mm; /* Reduced spacing */
+        }
+        .subtitle {
+            color: #666;
+            font-size: 3mm; /* Reduced font size */
+            margin-top: 0.5mm; /* Reduced spacing */
+            margin-bottom: 0.5mm; /* Reduced spacing */
+        }
+        .seat-number {
+            background-color: #f2f2f2;
+            padding: 1mm; /* Reduced padding */
+            text-align: center;
+            font-weight: bold;
+            font-size: 2.5mm; /* Reduced font size */
+            margin-top: 0.5mm; /* Reduced spacing */
+            margin-bottom: 1mm;
+        }
+        .footer {
+            text-align: center;
+            font-size: 2mm; /* Reduced font size */
+            color: #666;
+        }
+        .name {
+            font-weight: bold;
+            color: #333;
+            font-size: 2.5mm; /* Reduced font size */
+        }
+        .line-between {
+            border-bottom: 1px solid #000; /* Add line between "Movie Name" and "IIT Mandi" */
+            margin-left: 5mm; /* Add margin from the left border */
+            margin-right: 5mm; /* Add margin from the right border */
+        }
+    </style>
+</head>
+<body>
+    <di class="container ticket w-44 h-72">
+                <div class="header">
+                    <img src="https://github.com/aryanjain2005/repo1/blob/main/logo2-DANloDCY-Photoroom.png?raw=true" alt="Film Screening Logo" class="logo">
+                    <h2 class="title">IIT Mandi</h2>
+                    <p class="line-between"></p>
+                    <p class="subtitle">Laapata Ladies</p>
+                    <p class="subtitle">05 May 2024</p>
+                    <p class="subtitle">07:00 PM</p>
+                </div>
+                <div class="seat-number">Seat Number: B22</div>
+                <div class="footer">
+                    <p class="subtitle">Thanks for being a Valuable Member!</p>
+                    <p class="name">Vivek Gupta</p>
+                </div>
+            </ticket>
+        </body>
+        </html>        
 `;
 
         const printWindow = window.open("", "_blank");
-if (printWindow) {
-  printWindow.document.write(printContent);
-  printWindow.document.close();
-  
-  // Wait for the image to load before triggering print dialog
-  const ticketImage = printWindow.document.getElementById("ticketImage");
-  ticketImage.onload = function() {
-    printWindow.print(); // Trigger print dialog after image has loaded
-  };
-          
+        if (printWindow) {
+          printWindow.document.write(printContent);
+          printWindow.document.close();
+
+          // Wait for the image to load before triggering print dialog
+          const ticketImage =
+            printWindow.document.getElementById("ticketImage");
+          ticketImage.onload = function () {
+            printWindow.print(); // Trigger print dialog after image has loaded
+          };
         } else {
           console.error("Failed to open print window");
         }
@@ -150,8 +221,7 @@ if (printWindow) {
       console.error("Error fetching data:", error);
     }
   };
-  
-  
+
   return (
     <div className="flex justify-center w-full h-100vh mt-6 font-monts">
       <div style={{ width: "300px", height: "300px" }}>
@@ -164,17 +234,30 @@ if (printWindow) {
                 {scanResultInfo.exists ? (
                   <div>
                     {scanResultInfo.validityPassed ? (
-                      <div> Access denied: Validity of this QR has expired.</div>
+                      <div>
+                        {" "}
+                        Access denied: Validity of this QR has expired.
+                      </div>
                     ) : (
                       <div>
                         {!scanResultInfo.seatbooked ? (
-                          <div> Access denied: Please book a seat with this QR.</div>
+                          <div>
+                            {" "}
+                            Access denied: Please book a seat with this QR.
+                          </div>
                         ) : (
                           <div>
                             {scanResultInfo.verified ? (
-                              <div> Access denied: This QR is already verified and used to watch a movie.</div>
+                              <div>
+                                {" "}
+                                Access denied: This QR is already verified and
+                                used to watch a movie.
+                              </div>
                             ) : (
-                              <div>Access granted for {scanResultInfo.email}. Printing your ticket.</div>
+                              <div>
+                                Access granted for {scanResultInfo.email}.
+                                Printing your ticket.
+                              </div>
                             )}
                           </div>
                         )}
