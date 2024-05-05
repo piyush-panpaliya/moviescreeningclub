@@ -175,7 +175,7 @@ const Navbar = () => {
                 : "hidden"
             }`}
           >
-            <div className="px-2 pt-2 pb-3">
+            <div className="px-2 pt-2 pb-3 z-30">
               {loggedIn ? (
                 <>
                   {userType === "admin" && (
@@ -328,7 +328,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <div className="bg-[#6c738f] py-1 text-lg flex justify-center items-center capitalize text-white md:sticky top-[4rem] z-20">
+      <div className="bg-[#6c738f] py-1 text-lg flex justify-center items-center capitalize text-white md:sticky top-[4rem] z-10">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
