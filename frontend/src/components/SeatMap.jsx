@@ -192,6 +192,7 @@ const SeatMapPage = () => {
         <div>
           <div className="flex justify-evenly gap-4">
             <div className="flex flex-col gap-2 items-center">
+              <div className="flex flex-row justify-between">
               <div className="flex flex-col items-start justify-center mb-8 w-full mt-4">
                 <div>
                   <span
@@ -212,6 +213,28 @@ const SeatMapPage = () => {
                   Seat Not Booked Yet
                 </div>
               </div>
+              <div className="flex flex-col justify-center mb-8 w-full mt-4">
+                <div>
+                  <span
+                    className={`bg-white-50 border border-green-600 bg-green-600 px-2 text-center cursor-pointer font-roboto text-10`}
+                  ></span>
+                  <span>{movie}</span>
+                </div>
+                <div>
+                  <span
+                    className={`seat bg-white-50 border border-red-400 bg-red-400 px-2 text-center cursor-pointer font-roboto text-10`}
+                  ></span>
+                  Date: {date1}
+                </div>
+                <div>
+                  <span
+                    className={`seat bg-white-50 border border-gray-400 px-2 text-center cursor-pointer font-roboto text-10`}
+                  ></span>
+                  Time: {time1}
+                </div>
+              </div>
+              </div>
+              
               {[...Array(1).keys()].map((row) => (
                 <div key={row} className="flex gap-2">
                   {[...Array(10).keys()].map((col) => {
