@@ -187,7 +187,7 @@ export const Scanner = () => {
     <div class="container ticket w-44 h-72">
                 <div class="header">
                     <img src="https://github.com/aryanjain2005/repo1/blob/main/logo2-DANloDCY-Photoroom.png?raw=true" alt="Film Screening Logo" class="logo">
-                    <h2 class="title">IIT Mandi</h2>
+                    <h2 class="title">IIT Mandi</h2> 
                     <p class="line-between"></p>
                     <p class="subtitle">Laapata Ladies</p>
                     <p class="subtitle">05 May 2024</p>
