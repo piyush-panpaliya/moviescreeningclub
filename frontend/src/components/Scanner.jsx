@@ -129,13 +129,14 @@ export const Scanner = () => {
             height: 62mm; /* 72mm - (5mm * 2) */
             display: flex;
             flex-direction: column;
+            align-items-center;
             justify-content: space-between;
             padding: 4mm;
-            border: 1mm solid #000; /* Add border around the content */
+            border: 1mm solid #000;
         }
         .header {
             text-align: center;
-            margin-bottom: 2mm; /* Add spacing below the header */
+            margin-bottom: 2mm; 
         }
         .logo {
             width: 15mm; /* Reduced logo size */
@@ -183,7 +184,7 @@ export const Scanner = () => {
     </style>
 </head>
 <body>
-    <di class="container ticket w-44 h-72">
+    <div class="container ticket w-44 h-72">
                 <div class="header">
                     <img src="https://github.com/aryanjain2005/repo1/blob/main/logo2-DANloDCY-Photoroom.png?raw=true" alt="Film Screening Logo" class="logo">
                     <h2 class="title">IIT Mandi</h2> 
