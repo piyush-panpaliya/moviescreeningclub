@@ -211,17 +211,18 @@ exports.sendEmail = async (req, res) => {
           <div class="max-w-lg mx-auto p-4">
             <div class="bg-white dark:bg-zinc-900 shadow-lg rounded-lg p-5">
               <div class="flex-container" style="display: flex; align-items: center; justify-content: space-between;">
-                <div class="mr-4"><img src="https://github.com/aryanjain2005/repo1/blob/main/logo2-DANloDCY.jpg?raw=true" alt="Logo" style="width: 100px; height: 100px;"></div>
-                <div>
-                  <h1 class="text-lg font-bold mb-2">IIT Mandi</h1>
-                  <p class="text-sm mb-1">Your seat has been booked.</p>
-                  <div class="text-left">
-                    <p><strong>Movie Name:</strong> ${movie}</p>
-                    <p><strong>Date:</strong> ${date}</p>
-                    <p><strong>Time:</strong> ${time}</p>
-                    <p><strong>Seat Number:</strong> ${seatNumber}</p>
-                  </div>
-                </div>
+              <div class="mr-4 my-4" style="margin-right: 20px;">
+              <img src="https://github.com/aryanjain2005/repo1/blob/main/logo2-DANloDCY.jpg?raw=true" alt="Logo" style="width: 100px; height: 100px;">
+            </div>
+            <div class="mx-5" style="margin-left: 20px;">
+              <p class="text-sm mb-1">Your seat has been booked.</p>
+              <div class="text-left">
+                <p><strong>Movie Name:</strong> ${movie}</p>
+                <p><strong>Date:</strong> ${date}</p>
+                <p><strong>Time:</strong> ${time}</p>
+                <p><strong>Seat Number:</strong> ${seatNumber}</p>
+              </div>
+            </div>
               </div>
               <div class="mt-6">
                 <h2 class="font-bold text-xl mb-3">Rules and Regulation</h2>
