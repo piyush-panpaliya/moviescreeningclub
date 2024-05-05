@@ -328,14 +328,14 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <div className="bg-[#6c738f] py-1 text-lg flex justify-center items-center capitalize text-white md:sticky top-[4rem] z-10">
+      <div className="bg-[#6c738f] py-1 text-lg max-sm:text-sm flex justify-center items-center capitalize text-white md:sticky top-[4rem] z-10">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-8 h-8 mr-2"
+          className="w-8 h-8 mr-2 max-sm:w-6 max-sm:h-6"
         >
           <path
             strokeLinecap="round"
@@ -350,7 +350,7 @@ const Navbar = () => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-8 h-8 scale-x-[-1] ml-2"
+          className="w-8 h-8 scale-x-[-1] ml-2 max-sm:w-6 max-sm:h-6"
         >
           <path
             strokeLinecap="round"

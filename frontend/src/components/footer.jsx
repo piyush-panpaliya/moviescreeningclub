@@ -254,10 +254,10 @@ export default function Footer() {
         </DialogBody>
         <DialogFooter>
           <Button
-            variant="gradient"
-            color="red"
+            // variant="gradient"
+            // color="red"
             onClick={handleOpen}
-            className="mr-1"
+            className="mr-1 bg-red-500"
           >
             <span>Close</span>
           </Button>
