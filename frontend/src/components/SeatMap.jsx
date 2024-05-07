@@ -191,7 +191,7 @@ const SeatMapPage = () => {
       )}
       {!assignedSeat && (
         <div>
-          <div className="flex justify-evenly gap-4">
+          <div className="flex flex-row-reverse justify-evenly gap-4">
             <div className="flex flex-col gap-2 items-center">
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col items-start justify-center mb-8 w-full mt-4">
@@ -217,7 +217,7 @@ const SeatMapPage = () => {
               </div>
 
               {[...Array(1).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(10).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -247,7 +247,7 @@ const SeatMapPage = () => {
                 </div>
               ))}
               {[...Array(2).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(11).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -281,7 +281,7 @@ const SeatMapPage = () => {
                 </div>
               ))}
               {[...Array(2).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(12).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -315,7 +315,7 @@ const SeatMapPage = () => {
                 </div>
               ))}
               {[...Array(2).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(13).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -349,7 +349,7 @@ const SeatMapPage = () => {
                 </div>
               ))}
               {[...Array(2).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(14).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -401,7 +401,7 @@ const SeatMapPage = () => {
                 <span className="font-semibold text-lg">Screen</span>
               </div>
               {[...Array(1).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(7).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -431,7 +431,7 @@ const SeatMapPage = () => {
                 </div>
               ))}
               {[...Array(2).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(8).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -465,7 +465,7 @@ const SeatMapPage = () => {
                 </div>
               ))}
               {[...Array(1).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(9).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -495,7 +495,7 @@ const SeatMapPage = () => {
                 </div>
               ))}
               {[...Array(2).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(10).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -529,7 +529,7 @@ const SeatMapPage = () => {
                 </div>
               ))}
               {[...Array(1).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(11).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -559,7 +559,7 @@ const SeatMapPage = () => {
                 </div>
               ))}
               {[...Array(2).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(12).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -612,7 +612,7 @@ const SeatMapPage = () => {
                     </div>
                 </div>
                 {[...Array(1).keys()].map((row) => (
-                  <div key={row} className="flex gap-2">
+                  <div key={row} className="flex flex-row-reverse gap-2">
                     {[...Array(10).keys()].map((col) => {
                       let seatNumber = column + 1;
                       column = seatNumber;
@@ -642,7 +642,7 @@ const SeatMapPage = () => {
                   </div>
                 ))}
                 {[...Array(2).keys()].map((row) => (
-                  <div key={row} className="flex gap-2">
+                  <div key={row} className="flex flex-row-reverse gap-2">
                     {[...Array(11).keys()].map((col) => {
                       let seatNumber = column + 1;
                       column = seatNumber;
@@ -676,7 +676,7 @@ const SeatMapPage = () => {
                   </div>
                 ))}
                 {[...Array(2).keys()].map((row) => (
-                  <div key={row} className="flex gap-2">
+                  <div key={row} className="flex flex-row-reverse gap-2">
                     {[...Array(12).keys()].map((col) => {
                       let seatNumber = column + 1;
                       column = seatNumber;
@@ -710,7 +710,7 @@ const SeatMapPage = () => {
                   </div>
                 ))}
                 {[...Array(1).keys()].map((row) => (
-                  <div key={row} className="flex gap-2">
+                  <div key={row} className="flex flex-row-reverse gap-2">
                     {[...Array(13).keys()].map((col) => {
                       let seatNumber = column + 1;
                       column = seatNumber;
@@ -740,7 +740,7 @@ const SeatMapPage = () => {
                   </div>
                 ))}
                 {[...Array(2).keys()].map((row) => (
-                  <div key={row} className="flex gap-2">
+                  <div key={row} className="flex flex-row-reverse gap-2">
                     {[...Array(14).keys()].map((col) => {
                       let seatNumber = column + 1;
                       column = seatNumber;
@@ -774,7 +774,7 @@ const SeatMapPage = () => {
                   </div>
                 ))}
                 {[...Array(1).keys()].map((row) => (
-                  <div key={row} className="flex gap-2">
+                  <div key={row} className="flex flex-row-reverse gap-2">
                     {[...Array(15).keys()].map((col) => {
                       let seatNumber = column + 1;
                       column = seatNumber;
@@ -807,10 +807,10 @@ const SeatMapPage = () => {
             </div>
           </div>
           <div className="mb-8"></div> {/* Vertical spacing */}
-          <div className="flex justify-evenly gap-4 mb-4">
+          <div className="flex flex-row-reverse justify-evenly gap-4 mb-4">
             <div className="flex flex-col gap-2 items-center mt-16">
               {[...Array(11).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(15).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -868,10 +868,10 @@ const SeatMapPage = () => {
               <div className="flex justify-center mt-4 mb-4">
                 <span className="font-semibold text-lg">Entrance</span>
               </div>
-              <div className="flex gap-64">
+              <div className="flex flex-row-reverse gap-64">
                 <div className="flex flex-col gap-2">
                   {[...Array(7).keys()].map((row) => (
-                    <div key={row} className="flex gap-2">
+                    <div key={row} className="flex flex-row-reverse gap-2">
                       {[...Array(3).keys()].map((col) => {
                         let seatNumber = column + 1;
                         column = seatNumber;
@@ -919,7 +919,7 @@ const SeatMapPage = () => {
                 </div>
                 <div className="flex flex-col gap-2">
                   {[...Array(7).keys()].map((row) => (
-                    <div key={row} className="flex gap-2">
+                    <div key={row} className="flex flex-row-reverse gap-2">
                       {[...Array(3).keys()].map((col) => {
                         let seatNumber = column + 1;
                         column = seatNumber;
@@ -967,7 +967,7 @@ const SeatMapPage = () => {
                 </div>
               </div>
               {[...Array(1).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(13).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -997,7 +997,7 @@ const SeatMapPage = () => {
                 </div>
               ))}
               {[...Array(2).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(14).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -1031,7 +1031,7 @@ const SeatMapPage = () => {
                 </div>
               ))}
               {[...Array(1).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(15).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -1064,7 +1064,7 @@ const SeatMapPage = () => {
             <div className="w-4"></div>
             <div className="flex flex-col gap-2 items-center mt-16">
               {[...Array(7).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(15).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
@@ -1108,7 +1108,7 @@ const SeatMapPage = () => {
                 </div>
               ))}
               {[...Array(4).keys()].map((row) => (
-                <div key={row} className="flex gap-2">
+                <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(14).keys()].map((col) => {
                     let seatNumber = column + 1;
                     column = seatNumber;
