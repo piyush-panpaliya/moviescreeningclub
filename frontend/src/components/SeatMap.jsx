@@ -196,22 +196,16 @@ const SeatMapPage = () => {
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col items-start justify-center mb-8 w-full mt-4">
                   <div>
-                    <span
-                      className={`bg-white-50 border border-green-600 bg-green-600 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
-                    ></span>
-                    <span className="text-lg">Selected Seat</span>
+                    <span className="font-semibold mr-3">Movie:</span>
+                    <span>{movie}</span>
                   </div>
                   <div>
-                    <span
-                      className={`seat bg-white-50 border border-red-400 bg-red-400 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
-                    ></span>
-                    <span className="text-lg">Seat Already Booked</span>
+                    <span className="font-semibold mr-3">Date:</span>
+                    <span>{date1}</span>
                   </div>
                   <div>
-                    <span
-                      className={`seat bg-white-50 border border-gray-400 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
-                    ></span>
-                    <span className="text-lg">Seat Not Booked Yet</span>
+                    <span className="font-semibold mr-3">Time:</span>
+                    <span>{time1}</span>
                   </div>
                 </div>
               </div>
@@ -597,19 +591,25 @@ const SeatMapPage = () => {
             <div className="flex justify-between gap-4">
               {/* Container for the 5x5 block */}
               <div className="flex flex-col gap-2 items-center">
-                <div className="flex flex-col items-end mb-8 w-full mt-4 text-lg mr-4">
+                <div className="flex flex-col items-start mb-8 w-full mt-4 text-lg mr-4">
                   <div>
-                    <span className="font-semibold">Movie:</span>
-                    <span>{movie}</span>
+                    <span
+                      className={`bg-white-50 border border-green-600 bg-green-600 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
+                    ></span>
+                    <span className="text-lg">Selected Seat</span>
                   </div>
                   <div>
-                    <span className="font-semibold">Date:</span>
-                    <span>{date1}</span>
+                    <span
+                      className={`seat bg-white-50 border border-red-400 bg-red-400 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
+                    ></span>
+                    <span className="text-lg">Seat Already Booked</span>
                   </div>
                   <div>
-                    <span className="font-semibold">Time:</span>
-                    <span>{time1}</span> 
-                    </div>
+                    <span
+                      className={`seat bg-white-50 border border-gray-400 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
+                    ></span>
+                    <span className="text-lg">Seat Not Booked Yet</span>
+                  </div>
                 </div>
                 {[...Array(1).keys()].map((row) => (
                   <div key={row} className="flex flex-row-reverse gap-2">
