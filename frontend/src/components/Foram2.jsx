@@ -8,6 +8,18 @@ import { SERVERIP } from "../config";
 // import Swal from "sweetalert2";
 import Image from "../images/camera.svg";
 import { Button, user } from "@nextui-org/react";
+import Qr1 from "../images/QR1 (130).png";
+import Qr2 from "../images/QR2 (280).png";
+import Qr3 from "../images/QR3 (450).png";
+import Qr4 from "../images/QR4 (640).png";
+import Qr5 from "../images/QR5 (150).png";
+import Qr6 from "../images/QR6 (320).png";
+import Qr7 from "../images/QR7 (510).png";
+import Qr8 from "../images/QR8 (720).png";
+import Qr9 from "../images/QR9 (170).png";
+import Qr10 from "../images/QR10 (360).png";
+import Qr11 from "../images/QR11 (570).png";
+import Qr12 from "../images/QR12 (800).png";
 
 const Foram2 = () => {
   const { hasMembership, updateMembershipStatus } = useMembershipContext();
@@ -31,24 +43,28 @@ const Foram2 = () => {
     }
   }, [navigate]);
 
+  let qr1 = Qr1;
+  let qr2 = Qr2;
+  let qr3 = Qr3;
+  let qr4 = Qr4;
   const getDegreeFromEmail = (email) => {
     const emailDomain = email.substring(email.lastIndexOf("@") + 1);
     if (emailDomain === "students.iitmandi.ac.in") {
       if (email.charAt(0).toLowerCase() === "b") {
-        const qr1 = "../images/QR1 (130).png";
-        const qr2 = "../images/QR2 (280).png";
-        const qr3 = "../images/QR3 (450).png";
-        const qr4 = "../images/QR4 (640).png";
+        qr1 = Qr1;
+        qr2 = Qr2;
+        qr3 = Qr3;
+        qr4 = Qr4;
         const amount1 = "130";
         const amount2 = "280";
         const amount3 = "450";
         const amount4 = "640";
         return "B-Tech";
       } else {
-        const qr1 = "../images/QR5 (150).png";
-        const qr2 = "../images/QR6 (320).png";
-        const qr3 = "../images/QR7 (510).png";
-        const qr4 = "../images/QR8 (720).png";
+        qr1 = Qr5;
+        qr2 = Qr6;
+        qr3 = Qr7;
+        qr4 = Qr8;
         const amount1 = "150";
         const amount2 = "320";
         const amount3 = "510";
@@ -56,20 +72,20 @@ const Foram2 = () => {
         return "PHD/M-Tech";
       }
     } else if (emailDomain === "iitmandi.ac.in") {
-      const qr1 = "../images/QR9 (170).png";
-      const qr2 = "../images/QR10 (360).png";
-      const qr3 = "../images/QR11 (570).png";
-      const qr4 = "../images/QR12 (800).png";
+      qr1 = Qr9;
+      qr2 = Qr10;
+      qr3 = Qr11;
+      qr4 = Qr12;
       const amount1 = "170";
       const amount2 = "360";
       const amount3 = "570";
       const amount4 = "800";
       return "Faculty/Staff";
     } else {
-      const qr1 = "../images/QR9 (170).png";
-      const qr2 = "../images/QR10 (360).png";
-      const qr3 = "../images/QR11 (570).png";
-      const qr4 = "../images/QR12 (800).png";
+      qr1 = Qr9;
+      qr2 = Qr10;
+      qr3 = Qr11;
+      qr4 = Qr12;
       const amount1 = "170";
       const amount2 = "360";
       const amount3 = "570";
@@ -124,10 +140,13 @@ const Foram2 = () => {
           <div className="grid grid-cols-4 max-sm:grid-cols-1 max-lg:grid-cols-2 gap-4 w-full justify-items-center h-[85%] pt-10">
             <div className="bg-gradient-to-bl from-red-400 to-red-100 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
-                <img src={Image} alt="not found" className="w-[30%]" />
-                <div className="flex flex-col justify-between">
+                <img src={qr1} alt="not found" className="w-[40%]" />
+                <div className="flex flex-col justify-start w-1/2">
                   <span className="text-2xl mt-2 font-semibold">Base</span>
-                  <span className="text-lg mt-2 font-md">Subscription</span>
+                  <span className="text-lg font-md">Subscription</span>
+                  <span className="text-sm mt-4">
+                    *scan the QR code to get the subscription
+                  </span>
                 </div>
               </div>
               <div className="flex justify-center mt-6 mb-10">
@@ -196,10 +215,13 @@ const Foram2 = () => {
             </div>
             <div className="bg-gradient-to-bl from-gray-400 to-gray-50 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10 hover:scale-110 transition-transform duration-300 ">
               <div className="flex justify-evenly my-8">
-                <img src={Image} alt="not found" className="w-[30%]" />
-                <div className="flex flex-col justify-between">
+                <img src={qr2} alt="not found" className="w-[40%]" />
+                <div className="flex flex-col justify-between w-1/2">
                   <span className="text-2xl mt-2 font-semibold">Silver</span>
                   <span className="text-lg mt-2 font-md">Subscription</span>
+                  <span className="text-sm mt-4">
+                    *scan the QR code to get the subscription
+                  </span>
                 </div>
               </div>
               <div className="flex justify-center mt-6 mb-10">
@@ -268,10 +290,13 @@ const Foram2 = () => {
             </div>
             <div className="bg-gradient-to-bl from-amber-400 to-yellow-100 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 max-sm:mt-0 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
-                <img src={Image} alt="not found" className="w-[30%]" />
-                <div className="flex flex-col justify-between">
+                <img src={qr3} alt="not found" className="w-[40%]" />
+                <div className="flex flex-col justify-between w-1/2">
                   <span className="text-2xl mt-2 font-semibold">Gold</span>
                   <span className="text-lg mt-2 font-md">Subscription</span>
+                  <span className="text-sm mt-4">
+                    *scan the QR code to get the subscription
+                  </span>
                 </div>
               </div>
               <div className="flex justify-center mt-6 mb-10">
@@ -341,10 +366,13 @@ const Foram2 = () => {
 
             <div className="bg-gradient-to-bl from-blue-400 to-cyan-50 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
-                <img src={Image} alt="not found" className="w-[30%]" />
-                <div className="flex flex-col justify-between">
+                <img src={qr4} alt="not found" className="w-[40%]" />
+                <div className="flex flex-col justify-between w-1/2">
                   <span className="text-2xl mt-2 font-semibold">Diamond</span>
                   <span className="text-lg mt-2 font-md">Subscription</span>
+                  <span className="text-sm mt-4">
+                    *scan the QR code to get the subscription
+                  </span>
                 </div>
               </div>
               <div className="flex justify-center mt-6 mb-10">
