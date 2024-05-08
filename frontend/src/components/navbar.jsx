@@ -198,6 +198,9 @@ const Navbar = () => {
                           Buy a new Membership
                         </NavItem>
                       )}
+                      <NavItem to="/approveMembership" toggleMenu={toggleMenu}>
+                        Approve Membership
+                      </NavItem>
                       <NavItem to="/adddropvolunteer" toggleMenu={toggleMenu}>
                         Add/Drop Volunteer
                       </NavItem>
