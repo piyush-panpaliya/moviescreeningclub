@@ -9,7 +9,7 @@ const Temp = new mongoose.Schema({
     type:String,
     required:true,
   },
-  designation:{
+  degree:{
     type:String,
     required:true,
   },
@@ -26,6 +26,10 @@ const Temp = new mongoose.Schema({
     type:String,
     required:true,
   },
+  flag:{
+    type:String,
+    default:"No",
+  }
 });
 
 const TempSchema = mongoose.model('TempSchema',Temp);

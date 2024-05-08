@@ -48,8 +48,10 @@ const Login = () => {
         const userTypeData = userTypeResponse.data;
         const userType = userTypeData.userType;
         const userName = userTypeData.userName;
+        const userPhone = userTypeData.userPhone;
         localStorage.setItem("userType", userType);
         localStorage.setItem("userName", userName);
+        localStorage.setItem("userPhone", userPhone);
 
         // Check membership status after successful login
         const email = formData.email; // Get user's email

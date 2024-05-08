@@ -51,7 +51,7 @@ exports.fetchUsers = async (req, res) => {
         return res.status(404).json({ error: 'User not found' });
       }
       // Return the user's userType
-      res.status(200).json({ userType: user.usertype, userName: user.name });
+      res.status(200).json({ userType: user.usertype, userName: user.name, userPhone: user.phoneNumber });
     } catch (error) {
       console.error('Error fetching user type:', error);
       res.status(500).json({ error: 'Error fetching user type' });

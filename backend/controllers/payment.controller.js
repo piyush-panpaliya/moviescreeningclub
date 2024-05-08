@@ -69,7 +69,7 @@ exports.saveTempPayment = async (req, res) => {
     const temp = new TempSchema({
       name: req.body.name,
       phoneNumber: req.body.phoneNumber,
-      designation: req.body.designation,
+      degree: req.body.designation,
       email: req.body.email,
       usertype: req.body.usertype,
       transactionId: req.body.transactionId

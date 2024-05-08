@@ -15,6 +15,7 @@ const Foram2 = () => {
   const [email, setEmail] = useState("");
   const [transactionId, setTransactionId] = useState("");
   const name = localStorage.getItem("userName");
+  const phoneNumber = localStorage.getItem("userPhone");
 
   const token = getToken();
   const navigate = useNavigate();
@@ -83,13 +84,13 @@ const Foram2 = () => {
     const data = {
       name,
       phoneNumber,
-      designation,
+      degree,
       email,
       transactionId,
     };
 
     try {
-      const response = await fetch("http://localhost:3000/api/tempPayment", {
+      const response = await fetch("http://localhost:8000/payment/tempPayment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
