@@ -6,12 +6,14 @@ import Swal from "sweetalert2";
 import { SERVERIP } from "../config";
 import { getToken } from "../utils/getToken";
 import {
+  Chip,
   Table,
   TableBody,
   TableCell,
   TableColumn,
   TableHeader,
   TableRow,
+  chip,
 } from "@nextui-org/react";
 
 export default function ApproveMembership() {
@@ -242,7 +244,13 @@ export default function ApproveMembership() {
                 <TableCell>
                   {
                     member.flag === "Yes" ? (
-                      "Confirmed"
+                      <Chip
+                    // startContent={ size={18} />}
+                    variant="bordered"
+                    color="success"
+                  >
+                    Confirmed
+                  </Chip>
                     ) : (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -273,7 +281,13 @@ export default function ApproveMembership() {
                 </TableCell>
                 <TableCell>
                   {member.flag === "Yes" ? (
-                    "Disabled"
+                    <Chip
+                    // startContent={ size={18} />}
+                    variant="bordered"
+                    color="danger"
+                  >
+                    Disabled
+                  </Chip>
                   ) : (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
