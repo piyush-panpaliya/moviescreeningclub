@@ -1,4 +1,5 @@
 const Memdata = require ('../models/memdataModel.js');
+const tempdata = require ('../models/tempModel.js')
 const moment = require('moment');
 
 exports.fetchMembershipsByEmail = async (req, res) => {
@@ -28,29 +29,46 @@ exports.saveusermem =async (req, res) => {
 
   exports.checkMembership = async (req, res) => {
     
-    try {
-        const { email } = req.params;
-        const allMemberships = await Memdata.find({ email });
+    // try {
+    //     const { email } = req.params;
+    //     const allMemberships = await Memdata.find({ email });
         
-        if (allMemberships.length > 0) {
-            const currentDate = moment();
-            let hasMembership = false;
-            for (const membership of allMemberships) {
-                const validityDate = moment(membership.validitydate, 'DD-MM-YYYY');
-                if (validityDate.isAfter(currentDate, 'day')) {
-                    hasMembership = true;
-                    break; // Exit the loop if any membership is valid
-                }
-            }
+    //     if (allMemberships.length > 0) {
+    //         const currentDate = moment();
+    //         let hasMembership = false;
+    //         for (const membership of allMemberships) {
+    //             const validityDate = moment(membership.validitydate, 'DD-MM-YYYY');
+    //             if (validityDate.isAfter(currentDate, 'day')) {
+    //                 hasMembership = true;
+    //                 break; // Exit the loop if any membership is valid
+    //             }
+    //         }
             
-            return res.json({ hasMembership });
-        } else {
-            return res.json({ hasMembership: false });
+    //         return res.json({ hasMembership });
+    //     } else {
+    //         return res.json({ hasMembership: false });
+    //     }
+    // } catch (error) {
+    //     console.error("Error checking membership:", error);
+    //     return res.status(500).json({ message: "Internal server error" });
+    // }
+
+    try{const { email } = req.params;
+        const allMemberships = await tempdata.find({ email });
+        if (allMemberships.length > 0){
+          console.log("yes");
+          return res.json({ hasMembership:true });
         }
-    } catch (error) {
-        console.error("Error checking membership:", error);
-        return res.status(500).json({ message: "Internal server error" });
+        else {console.log("no");
+             return res.json({ hasMembership: false });
+             }
+             
     }
+    catch (error) {
+          console.error("Error checking membership:", error);
+          return res.status(500).json({ message: "Internal server error" });
+      }
+  
 };
 
 

@@ -74,7 +74,6 @@ exports.saveTempPayment = async (req, res) => {
       membership: req.body.membership,
       transactionId: req.body.transactionId
     });
-
     await temp.save();
 
     res.status(201).json({ message: 'Information saved successfully' });

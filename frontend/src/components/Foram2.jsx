@@ -107,6 +107,7 @@ const Foram2 = () => {
       // Parse the JSON response data
       const responseData = await response.json();
       console.log("Data saved successfully:", responseData);
+      updateMembershipStatus(true);
     } catch (error) {
       // Handle any errors that occur during the request
       console.error("There was a problem saving the data:", error);
@@ -412,35 +413,47 @@ const Foram2 = () => {
             </div>
           </div>
           <div className="mt-10 capitalize flex flex-col items-center gap-3">
-            <h2 className="font-semibold text-xl">
-              Fill out this form after payment
-            </h2>
-            <div>
-              <span className="mr-3">Membership choosen:</span>
-              <input
-                type="text"
-                placeholder="membership for which you paid us"
-                value={membership}
-                required
-                onChange={(e) => {
-                  setMembership(e.target.value);
-                }}
-              />
-              <span className="mr-3">transaction id:</span>
-              <input
-                type="text"
-                placeholder="your transaction id"
-                required
-                value={transactionId}
-                onChange={(e) => {
-                  setTransactionId(e.target.value);
-                }}
-              />
-            </div>
-            <Button color="success" type="submit" onClick={submitHandler}>
-              Submit
-            </Button>
-          </div>
+  <h2 className="font-semibold text-xl">
+    Fill out this form after payment
+  </h2>
+  <div>
+    <span className="mr-3">Membership chosen:</span>
+    <select
+      value={membership}
+      onChange={(e) => {
+        setMembership(e.target.value);
+      }}
+      required
+    >
+      <option value="">Select Membership</option>
+      <option value="Base">Base</option>
+      <option value="Silver">Silver</option>
+      <option value="Gold">Gold</option>
+      <option value="Diamond">Diamond</option>
+    </select>
+  </div>
+  <div>
+    <span className="mr-3">Transaction ID:</span>
+    <input
+      type="text"
+      placeholder="Your transaction ID"
+      value={transactionId}
+      required
+      onChange={(e) => {
+        setTransactionId(e.target.value);
+      }}
+    />
+  </div>
+  <Button
+    color="success"
+    type="submit"
+    onClick={submitHandler}
+    disabled={!membership || !transactionId}
+  >
+    Submit
+  </Button>
+</div>
+
         </div>
       </div>
     );
