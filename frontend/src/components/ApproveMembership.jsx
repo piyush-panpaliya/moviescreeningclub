@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import QRCode from "qrcode";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { SERVERIP } from "../config";
+import { getToken } from "../utils/getToken";
 import {
   Table,
   TableBody,
@@ -11,24 +16,165 @@ import {
 
 export default function ApproveMembership() {
   const [membershipData, setMembershipData] = useState([]);
+  const token = getToken();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userType = localStorage.getItem("userType");
+    if (
+      !userType ||
+      userType === "standard" ||
+      userType === "ticketvolunteer"||
+      userType === "movievolunteer"||
+      userType === "volunteer"
+    ) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     fetchMembershipData();
   }, []);
 
+  const generateAndSendEmail = (membership, paymentId, totalTickets, email) => {
+    let qrCodes = [];
+
+    for (let i = 1; i <= totalTickets; i++) {
+      QRCode.toDataURL(paymentId + i)
+        .then((qrCodeData) => {
+          qrCodes.push(qrCodeData);
+          if (qrCodes.length === totalTickets) {
+            sendEmail(membership, paymentId, qrCodes, email);
+          }
+        })
+        .catch((error) => {
+          console.error("Error generating QR code:", error);
+        });
+    }
+  };
+
+  const sendEmail = (membership, paymentId, qrCodes, email) => {
+    const emailContent = {
+      email,
+      membership,
+      paymentId,
+      qrCodes,
+    };
+    axios
+      .post(`${SERVERIP}/QR/send-email`, emailContent)
+      .then((response) => {
+        console.log(`Email sent for ${membership} membership.`);
+        // Swal.fire({
+        //   title: "Error",
+        //   text: `Email sent successfully for ${membership} membership.`,
+        //   icon: "error",
+        // });
+      })
+      .catch((error) => {
+        console.error("Error sending email:", error);
+        Swal.fire({
+          title: "Error",
+          text: "Error sending email. Please try again later.",
+          icon: "error",
+        });
+      });
+  };
+
+  const saveuserData = (email, memtype, validity) => {
+    const userData = { email, memtype, validity };
+    console.log("a");
+    axios
+      .post(`${SERVERIP}/memrouter/saveusermem`, userData)
+      .then((response) => {
+        console.log(`Usermem data saved successfully for ${(memtype, email)}`);
+        // Swal.fire({
+        //   title: "Error",
+        //   text: `Usermem data saved successfully for ${(memtype, email)}`,
+        //   icon: "error",
+        // });
+      })
+      .catch((error) => {
+        console.error("Error saving Usermemdata:", error);
+        Swal.fire({
+          title: "Error",
+          text: "Error saving Usermemdata. Please try again later.",
+          icon: "error",
+        });
+      });
+  };
+
+  const saveData = (basePaymentId, totalTickets, memtype, validity, name, email) => {
+    let ticketsGenerated = 0;
+
+    const saveTicket = (ticketNumber) => {
+      const paymentId = basePaymentId + ticketNumber; // Append ticket number to basePaymentId
+      const QRData = { name, email, paymentId, validity, memtype };
+      axios
+        .post(`${SERVERIP}/QR/saveQR`, QRData)
+        .then((response) => {
+          ticketsGenerated++;
+          if (ticketsGenerated === totalTickets) {
+            Swal.fire({
+              title: "Success",
+              text: `${memtype} membership purchase successful`,
+              icon: "success",
+              customClass: {
+                icon: "swal2-success-icon", // Class for the success icon
+              },
+            });
+          } else {
+            const nextTicketNumber = ticketNumber + 1;
+            saveTicket(nextTicketNumber); // Call the function recursively until all tickets are generated
+          }
+        })
+        .catch((error) => {
+          console.error("Error saving QR data:", error);
+          Swal.fire({
+            title: "Error",
+            text: "Error saving QR data. Please try again later.",
+            icon: "error",
+          });
+        });
+    };
+    saveTicket(1); // Start with ticket number 1
+  };
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  });
+
   const fetchMembershipData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/membershipData');
+      const response = await axios.get('http://localhost:8000/payment/membershipData');
       setMembershipData(response.data);
     } catch (error) {
       console.error('Error fetching membership data:', error);
     }
   };
 
-  const handleConfirm = async (id) => {
+  const handleConfirm = async (id,payment_id,email,membership,name) => {
     try {
-      await axios.put(`http://localhost:5000/api/confirmMembership/${id}`);
-      fetchMembershipData(); // Refresh data after confirmation
+      await axios.put(`http://localhost:8000/payment/confirmMembership/${id}`);
+      fetchMembershipData();
+      if (membership === "Base") {
+        saveuserData(email, "base", 7);
+        saveData(payment_id, 1, "base", 7, name, email);
+        generateAndSendEmail("base", payment_id, 1, email);
+      } else if (membership === "Silver") {
+        saveuserData(email, "silver", 15);
+        saveData(payment_id, 2, "silver", 15, name, email);
+        generateAndSendEmail("silver", payment_id, 2, email);
+      } else if (membership === "Gold") {
+        saveuserData(email, "gold", 30);
+        saveData(payment_id, 3, "gold", 30, name, email);
+        generateAndSendEmail("gold", payment_id, 3, email);
+      } else if (membership === "Diamond") {
+        saveuserData(email, "diamond", 30);
+        saveData(payment_id, 4, "diamond", 30, name, email);
+        generateAndSendEmail("diamond", payment_id, 4, email);
+      }
     } catch (error) {
       console.error('Error confirming membership:', error);
     }
@@ -36,7 +182,7 @@ export default function ApproveMembership() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/deleteMembership/${id}`);
+      await axios.delete(`http://localhost:8000/payment/deleteMembership/${id}`);
       fetchMembershipData(); // Refresh data after deletion
     } catch (error) {
       console.error('Error deleting membership:', error);
@@ -74,7 +220,7 @@ export default function ApproveMembership() {
                 <TableCell>{member.membership}</TableCell>
                 <TableCell>{member.transactionId}</TableCell>
                 <TableCell>
-                  {member.flag === 'Yes' ? 'Confirmed' : <button onClick={() => handleConfirm(member._id)}>Confirm</button>}
+                  {member.flag === 'Yes' ? 'Confirmed' : <button onClick={() => handleConfirm(member._id, member.transactionId, member.email, member.membership, member.name)}>Confirm</button>}
                 </TableCell>
                 <TableCell>
                   {member.flag === 'Yes' ? 'Disabled' : <button onClick={() => handleDelete(member._id)}>Delete</button>}

@@ -94,3 +94,27 @@ exports.getMembershipData = async (req, res) => {
     res.status(500).json({ message: 'An error occurred while fetching membership data' });
   }
 };
+
+
+
+exports.confirmMembership = async (req, res) => {
+  const memberId = req.params.id;
+  try {
+    await TempSchema.findByIdAndUpdate(memberId, { flag: 'Yes' });
+    res.status(200).json({ message: 'Membership confirmed successfully' });
+  } catch (error) {
+    console.error('Error confirming membership:', error);
+    res.status(500).json({ message: 'An error occurred while confirming membership' });
+  }
+};
+
+exports.deleteMembership = async (req, res) => {
+  const memberId = req.params.id;
+  try {
+    await TempSchema.findByIdAndDelete(memberId);
+    res.status(200).json({ message: 'Membership deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting membership:', error);
+    res.status(500).json({ message: 'An error occurred while deleting membership' });
+  }
+};
