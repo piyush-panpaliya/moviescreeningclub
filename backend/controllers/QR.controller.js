@@ -190,6 +190,22 @@ exports.sendEmail = async (req, res) => {
   const { email, seatNumber, movie, date, time, qr } = req.body;
 
   try {
+    // Convert date string to Date object
+    const dateTime = new Date(date + " " + time);
+
+    // Format date to "5 May"
+    const formattedDate = dateTime.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "short",
+    });
+
+    // Format time to "7:00 pm"
+    const formattedTime = dateTime.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+
     const qrDataURL = await QRCode.toDataURL(qr);
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -204,52 +220,104 @@ exports.sendEmail = async (req, res) => {
       to: email,
       subject: 'Seat Booking Confirmation',
       html: `
-        <body class="bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white">
-          <div class="max-w-lg mx-auto p-4">
-            <div class="bg-white dark:bg-zinc-900 shadow-lg rounded-lg p-5">
-              <div class="flex-container" style="display: flex; align-items: center; justify-content: space-between;">
-                <div class="mr-4 my-4" style="margin-right: 20px;">
-                  <img src="https://github.com/aryanjain2005/repo1/blob/main/logo2-DANloDCY.jpg?raw=true" alt="Logo" style="width: 100px; height: 100px;">
-                </div>
-                <div class="mx-5" style="margin-left: 20px;">
-                  <p class="text-sm mb-1">Your seat has been booked.</p>
-                  <div class="text-left">
-                    <p><strong>Movie Name:</strong> ${movie}</p>
-                    <p><strong>Date:</strong> ${date}</p>
-                    <p><strong>Time:</strong> ${time}</p>
-                    <p><strong>Seat Number:</strong> ${seatNumber}</p>
-                  </div>
-                </div>
-                <div>
-                  <img src="${qrDataURL}" alt="QR Code" style="width: 100px; height: 100px;">
-                </div>
-              </div>
-              <div class="mt-6">
-                <h2 class="font-bold text-xl mb-3">Rules and Regulation</h2>
-                <ol class="list-decimal pl-4">
-                  <li><strong>Respectful Behavior:</strong> All attendees must behave respectfully towards others, including fellow audience members, organizers, and staff.</li>
-                  <li><strong>No Outside Food or Drink:</strong> For cleanliness and safety reasons, attendees should not bring outside food or drink into the auditorium. Food items purchased in lobby are also not allowed inside auditorium.</li>
-                  <li><strong>Arrival Time:</strong> Attendees are encouraged to arrive 15 minutes before the screening time to minimize waiting times/disruptions once the movie starts.</li>
-                  <li><strong>No Talking During the Movie:</strong> Attendees are requested to refrain from talking during the movie to ensure everyone can enjoy the film without distractions.</li>
-                  <li><strong>Silence Mobile Devices:</strong> Attendees are asked to silence their mobile phones or set them to vibrate mode to avoid disruptions.</li>
-                  <li><strong>Respect the Seating Arrangement:</strong> Attendees should sit only in designated seats and not block aisles or exits. Strict action would be taken if attendees are found to be sitting on seats not assigned to them.</li>
-                  <li><strong>No Recording or Photography:</strong> The recording or photography of the movie screen during the screening is strictly prohibited. Legal action would be initiated against violators.</li>
-                  <li><strong>Follow Instructions from Staff:</strong> Attendees should comply with any instructions given by event staff or volunteers.</li>
-                  <li><strong>Children's Supervision:</strong> Parents are requested to supervise their children to ensure they do not disturb other attendees.</li>
-                  <li><strong>Cleanliness:</strong> Attendees to keep the auditorium clean by disposing of trash properly and respecting the facility.</li>
-                  <li><strong>Respect Intellectual Property:</strong> Movie being screened is for personal enjoyment only and not for any commercial purposes or distribution.</li>
-                  <li><strong>Ticket Validity:</strong> Once a ticket is scanned you are not allowed to exit the auditorium premises, once exited ticket will not be valid.</li>
-                </ol>
-              </div>
+      <body class="bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white">
+      <div class="max-w-lg mx-auto p-4" >
+        <div class="bg-white dark:bg-zinc-900 shadow-lg rounded-lg p-5 flex items-center justify-between" style="display: flex; justify-content: space-between;">
+          <div class="flex items-center">
+            <div class="mr-4">
+              <img
+                src="https://github.com/aryanjain2005/repo1/blob/main/logo2-DANloDCY.jpg?raw=true"
+                alt="Logo"
+                style="width: 100px; height: 100px;"
+              />
+            </div>
+            <div>
+              <p><strong>${movie}</strong></p>
+              <p><strong>${formattedDate}, ${formattedTime}</strong></p>
+              <p><strong>Seat Number:</strong> ${seatNumber}</p>
             </div>
           </div>
-        </body>
+          <img
+            src="cid:qr_code"
+            alt="QR Code"
+            style="width: 220px; height: 220px;"
+          />
+        </div>
+        <div class="mt-6">
+            <h2 class="font-bold text-xl mb-3">Rules and Regulation</h2>
+            <ol class="list-decimal pl-4">
+            <li>
+            <strong>Respectful Behavior:</strong> All attendees must behave
+            respectfully towards others, including fellow audience members,
+            organizers, and staff.
+          </li>
+          <li>
+            <strong>No Outside Food or Drink:</strong> For cleanliness and
+            safety reasons, attendees should not bring outside food or drink
+            into the auditorium. Food items purchased in lobby are also not
+            allowed inside auditorium.
+          </li>
+          <li>
+            <strong>Arrival Time:</strong> Attendees are encouraged to arrive
+            15 minutes before the screening time to minimize waiting
+            times/disruptions once the movie starts.
+          </li>
+          <li>
+            <strong>No Talking During the Movie:</strong> Attendees are
+            requested to refrain from talking during the movie to ensure
+            everyone can enjoy the film without distractions.
+          </li>
+          <li>
+            <strong>Silence Mobile Devices:</strong> Attendees are asked to
+            silence their mobile phones or set them to vibrate mode to avoid
+            disruptions.
+          </li>
+          <li>
+            <strong>Respect the Seating Arrangement:</strong> Attendees should
+            sit only in designated seats and not block aisles or exits. Strict
+            action would be taken if attendees are found to be sitting on
+            seats not assigned to them.
+          </li>
+          <li>
+            <strong>No Recording or Photography:</strong> The recording or
+            photography of the movie screen during the screening is strictly
+            prohibited. Legal action would be initiated against violators.
+          </li>
+          <li>
+            <strong>Follow Instructions from Staff:</strong> Attendees should
+            comply with any instructions given by event staff or volunteers.
+          </li>
+          <li>
+            <strong>Children's Supervision:</strong> Parents are requested to
+            supervise their children to ensure they do not disturb other
+            attendees.
+          </li>
+          <li>
+            <strong>Cleanliness:</strong> Attendees to keep the auditorium
+            clean by disposing of trash properly and respecting the facility.
+          </li>
+          <li>
+            <strong>Respect Intellectual Property:</strong> Movie being
+            screened is for personal enjoyment only and not for any commercial
+            purposes or distribution.
+          </li>
+          <li>
+            <strong>Ticket Validity:</strong> Once a ticket is scanned you are
+            not allowed to exit the auditorium premises, once exited ticket
+            will not be valid.
+          </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </body>
       `,
       attachments: [
         {
           filename: 'qr_code.png',
           content: qrDataURL.split(';base64,').pop(),
-          encoding: 'base64'
+          encoding: 'base64',
+          cid: 'qr_code' // Content ID for referencing in HTML
         }
       ]
     };
