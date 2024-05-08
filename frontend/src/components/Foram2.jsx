@@ -4,7 +4,6 @@ import { getToken } from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
 import { SERVERIP } from "../config";
 // import Swal from "sweetalert2";
-import Image from "../images/camera.svg";
 import { Button, user } from "@nextui-org/react";
 import Qr1 from "../images/QR1 (130).png";
 import Qr2 from "../images/QR2 (280).png";
