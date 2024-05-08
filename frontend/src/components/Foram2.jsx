@@ -6,6 +6,18 @@ import { SERVERIP } from "../config";
 // import Swal from "sweetalert2";
 import Image from "../images/camera.svg";
 import { Button, user } from "@nextui-org/react";
+import qra from "../images/QR1 (130).png";
+import qrb from "../images/QR2 (280).png";
+import qrc from "../images/QR3 (450).png";
+import qrd from "../images/QR4 (640).png";
+import qre from "../images/QR5 (150).png";
+import qrf from "../images/QR6 (320).png";
+import qrg from "../images/QR7 (510).png";
+import qrh from "../images/QR8 (720).png";
+import qri from "../images/QR9 (170).png";
+import qrj from "../images/QR10 (360).png";
+import qrk from "../images/QR11 (570).png";
+import qrl from "../images/QR12.png";
 
 const Foram2 = () => {
   const { hasMembership, updateMembershipStatus } = useMembershipContext();
@@ -37,20 +49,20 @@ const Foram2 = () => {
     const emailDomain = email.substring(email.lastIndexOf("@") + 1);
     if (emailDomain === "students.iitmandi.ac.in") {
       if (email.charAt(0).toLowerCase() === "b") {
-        const qr1 = "../images/QR1_(130).png";
-        const qr2 = "../images/QR2 (280).png";
-        const qr3 = "../images/QR3 (450).png";
-        const qr4 = "../images/QR4 (640).png";
+        qr1 = qra;
+        qr2 = qrb;
+        qr3 = qrc;
+        qr4 = qrd;
         const amount1 = "130";
         const amount2 = "280";
         const amount3 = "450";
         const amount4 = "640";
         return "B-Tech";
       } else {
-        const qr1 = "../images/QR5 (150).png";
-        const qr2 = "../images/QR6 (320).png";
-        const qr3 = "../images/QR7 (510).png";
-        const qr4 = "../images/QR8 (720).png";
+        qr1 = qre;
+        qr2 = qrf;
+        qr3 = qrg;
+        qr4 = qrh;
         console.log("qrs assigned");
         const amount1 = "150";
         const amount2 = "320";
@@ -59,20 +71,20 @@ const Foram2 = () => {
         return "PHD/M-Tech";
       }
     } else if (emailDomain === "iitmandi.ac.in") {
-      const qr1 = "../images/QR9 (170).png";
-      const qr2 = "../images/QR10 (360).png";
-      const qr3 = "../images/QR11 (570).png";
-      const qr4 = "../images/QR12 (800).png";
+      qr1 = qri;
+      qr2 = qrj;
+      qr3 = qrk;
+      qr4 = qrl;
       const amount1 = "170";
       const amount2 = "360";
       const amount3 = "570";
       const amount4 = "800";
       return "Faculty/Staff";
     } else {
-      const qr1 = "../images/QR9 (170).png";
-      const qr2 = "../images/QR10 (360).png";
-      const qr3 = "../images/QR11 (570).png";
-      const qr4 = "../images/QR12 (800).png";
+        qr1 = qri;
+        qr2 = qrj;
+        qr3 = qrk;
+        qr4 = qrl;
       const amount1 = "170";
       const amount2 = "360";
       const amount3 = "570";
@@ -127,7 +139,7 @@ const Foram2 = () => {
           <div className="grid grid-cols-4 max-sm:grid-cols-1 max-lg:grid-cols-2 gap-4 w-full justify-items-center h-[85%] pt-10">
             <div className="bg-gradient-to-bl from-red-400 to-red-100 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
-                <img src={qr1} alt="not found" className="w-[30%]" />
+                <img src={qra} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
                   <span className="text-2xl mt-2 font-semibold">Base</span>
                   <span className="text-lg mt-2 font-md">Subscription</span>
