@@ -29,5 +29,4 @@ const Temp = new mongoose.Schema({
 });
 
 const TempSchema = mongoose.model('TempSchema',Temp);
-
-export default TempSchema;
+module.exports = TempSchema;
