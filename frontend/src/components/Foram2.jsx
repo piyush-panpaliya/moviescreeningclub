@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useMembershipContext } from "./MembershipContext";
 import { getToken } from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
-// import { SERVERIP } from "../config";
+import { SERVERIP } from "../config";
 // import Swal from "sweetalert2";
 import Image from "../images/camera.svg";
 import { Button, user } from "@nextui-org/react";
@@ -14,6 +14,7 @@ const Foram2 = () => {
   const [degree, setDegree] = useState("");
   const [email, setEmail] = useState("");
   const [transactionId, setTransactionId] = useState("");
+  const [membership, setMembership] = useState("");
   const name = localStorage.getItem("userName");
   const phoneNumber = localStorage.getItem("userPhone");
 
@@ -86,11 +87,13 @@ const Foram2 = () => {
       phoneNumber,
       degree,
       email,
+      membership,
       transactionId,
     };
+    console.log(data);
 
     try {
-      const response = await fetch("http://localhost:8000/payment/tempPayment", {
+      const response = await fetch(`${SERVERIP}/payment/tempPayment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -413,10 +416,21 @@ const Foram2 = () => {
               Fill out this form after payment
             </h2>
             <div>
+              <span className="mr-3">Membership choosen:</span>
+              <input
+                type="text"
+                placeholder="membership for which you paid us"
+                value={membership}
+                required
+                onChange={(e) => {
+                  setMembership(e.target.value);
+                }}
+              />
               <span className="mr-3">transaction id:</span>
               <input
                 type="text"
                 placeholder="your transaction id"
+                required
                 value={transactionId}
                 onChange={(e) => {
                   setTransactionId(e.target.value);
