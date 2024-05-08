@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-// import QRCode from "qrcode";
-// import axios from "axios";
 import { useMembershipContext } from "./MembershipContext";
 import { getToken } from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +15,10 @@ const Foram2 = () => {
   const [membership, setMembership] = useState("");
   const name = localStorage.getItem("userName");
   const phoneNumber = localStorage.getItem("userPhone");
+  let qr1;
+  let qr2;
+  let qr3;
+  let qr4;
 
   const token = getToken();
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ const Foram2 = () => {
     const emailDomain = email.substring(email.lastIndexOf("@") + 1);
     if (emailDomain === "students.iitmandi.ac.in") {
       if (email.charAt(0).toLowerCase() === "b") {
-        const qr1 = "../images/QR1 (130).png";
+        const qr1 = "../images/QR1_(130).png";
         const qr2 = "../images/QR2 (280).png";
         const qr3 = "../images/QR3 (450).png";
         const qr4 = "../images/QR4 (640).png";
@@ -49,6 +51,7 @@ const Foram2 = () => {
         const qr2 = "../images/QR6 (320).png";
         const qr3 = "../images/QR7 (510).png";
         const qr4 = "../images/QR8 (720).png";
+        console.log("qrs assigned");
         const amount1 = "150";
         const amount2 = "320";
         const amount3 = "510";
