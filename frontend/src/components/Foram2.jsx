@@ -17,7 +17,7 @@ import Qr8 from "../images/QR8 (720).png";
 import Qr9 from "../images/QR9 (170).png";
 import Qr10 from "../images/QR10 (360).png";
 import Qr11 from "../images/QR11 (570).png";
-import Qr12 from "../images/QR12 (800).png";
+import Qr12 from "../images/QR12.png";
 
 const Foram2 = () => {
   const { hasMembership, updateMembershipStatus } = useMembershipContext();
