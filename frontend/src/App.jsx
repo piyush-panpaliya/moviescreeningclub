@@ -1,7 +1,7 @@
 // import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar";
-// import Foram from "./components/Foram";
+import Foram2 from "./components/Foram2";
 import Scanner from "./components/Scanner";
 import Myaccount from "./components/Myaccount";
 import Login from "./components/login";
@@ -34,6 +34,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/form" element={<Foram />} />
+          <Route path="/form2" element={<Foram2 />} />
           <Route path="/scanner" element={<Scanner />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
