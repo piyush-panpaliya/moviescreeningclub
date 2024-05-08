@@ -194,7 +194,7 @@ const Navbar = () => {
                         VotePage
                       </NavItem>
                       {!hasMembership && (
-                        <NavItem to="/form" toggleMenu={toggleMenu}>
+                        <NavItem to="/form2" toggleMenu={toggleMenu}>
                           Buy a new Membership
                         </NavItem>
                       )}
@@ -227,7 +227,7 @@ const Navbar = () => {
                         VotePage
                       </NavItem>
                       {!hasMembership && (
-                        <NavItem to="/form" toggleMenu={toggleMenu}>
+                        <NavItem to="/form2" toggleMenu={toggleMenu}>
                           Buy a new Membership
                         </NavItem>
                       )}
@@ -251,7 +251,7 @@ const Navbar = () => {
                         VotePage
                       </NavItem>
                       {!hasMembership && (
-                        <NavItem to="/form" toggleMenu={toggleMenu}>
+                        <NavItem to="/form2" toggleMenu={toggleMenu}>
                           Buy a new Membership
                         </NavItem>
                       )}
@@ -281,7 +281,7 @@ const Navbar = () => {
                         VotePage
                       </NavItem>
                       {!hasMembership && (
-                        <NavItem to="/form" toggleMenu={toggleMenu}>
+                        <NavItem to="/form2" toggleMenu={toggleMenu}>
                           Buy a new Membership
                         </NavItem>
                       )}
@@ -311,7 +311,7 @@ const Navbar = () => {
                         Booking Guidelines/Help
                       </NavItem>
                       {!hasMembership && (
-                        <NavItem to="/form" toggleMenu={toggleMenu}>
+                        <NavItem to="/form2" toggleMenu={toggleMenu}>
                           Buy a new Membership
                         </NavItem>
                       )}

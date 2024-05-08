@@ -1,4 +1,5 @@
 const QR = require("../models/qr.Model");
+const TempSchema=require('../models/tempModel');
 const moment = require("moment");
 
 exports.check = async (req, res) => {
@@ -60,5 +61,25 @@ exports.check = async (req, res) => {
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.saveTempPayment = async (req, res) => {
+  try {
+    const temp = new TempSchema({
+      name: req.body.name,
+      phoneNumber: req.body.phoneNumber,
+      designation: req.body.designation,
+      email: req.body.email,
+      usertype: req.body.usertype,
+      transactionId: req.body.transactionId
+    });
+
+    await temp.save();
+
+    res.status(201).json({ message: 'Information saved successfully' });
+  } catch (error) {
+    console.error('Error saving information:', error);
+    res.status(500).json({ message: 'An error occurred while saving information' });
   }
 };
