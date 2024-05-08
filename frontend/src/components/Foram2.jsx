@@ -124,7 +124,7 @@ const Foram2 = () => {
           <div className="grid grid-cols-4 max-sm:grid-cols-1 max-lg:grid-cols-2 gap-4 w-full justify-items-center h-[85%] pt-10">
             <div className="bg-gradient-to-bl from-red-400 to-red-100 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
-                <img src={Image} alt="not found" className="w-[30%]" />
+                <img src={qr1} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
                   <span className="text-2xl mt-2 font-semibold">Base</span>
                   <span className="text-lg mt-2 font-md">Subscription</span>
@@ -196,7 +196,7 @@ const Foram2 = () => {
             </div>
             <div className="bg-gradient-to-bl from-gray-400 to-gray-50 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10 hover:scale-110 transition-transform duration-300 ">
               <div className="flex justify-evenly my-8">
-                <img src={Image} alt="not found" className="w-[30%]" />
+              <img src={qr2} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
                   <span className="text-2xl mt-2 font-semibold">Silver</span>
                   <span className="text-lg mt-2 font-md">Subscription</span>
@@ -268,7 +268,7 @@ const Foram2 = () => {
             </div>
             <div className="bg-gradient-to-bl from-amber-400 to-yellow-100 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 max-sm:mt-0 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
-                <img src={Image} alt="not found" className="w-[30%]" />
+              <img src={qr3} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
                   <span className="text-2xl mt-2 font-semibold">Gold</span>
                   <span className="text-lg mt-2 font-md">Subscription</span>
@@ -341,7 +341,7 @@ const Foram2 = () => {
 
             <div className="bg-gradient-to-bl from-blue-400 to-cyan-50 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mb-10 hover:scale-110 transition-transform duration-300">
               <div className="flex justify-evenly my-8">
-                <img src={Image} alt="not found" className="w-[30%]" />
+              <img src={qr4} alt="not found" className="w-[30%]" />
                 <div className="flex flex-col justify-between">
                   <span className="text-2xl mt-2 font-semibold">Diamond</span>
                   <span className="text-lg mt-2 font-md">Subscription</span>
