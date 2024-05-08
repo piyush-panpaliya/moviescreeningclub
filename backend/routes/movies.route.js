@@ -12,8 +12,4 @@ router.post('/:movieId/showtimes',movieController.addmovieshowtimes);
 router.delete('/:movieId/showtimes/:showtimeId',movieController.deletemovieshowtimes);
 
 
-
-
-
-
 module.exports = router;
