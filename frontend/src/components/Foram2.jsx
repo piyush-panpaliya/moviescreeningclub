@@ -18,6 +18,10 @@ import qri from "../images/QR9 (170).png";
 import qrj from "../images/QR10 (360).png";
 import qrk from "../images/QR11 (570).png";
 import qrl from "../images/QR12.png";
+let qr1;
+let qr2;
+let qr3;
+let qr4;
 
 const Foram2 = () => {
   const { hasMembership, updateMembershipStatus } = useMembershipContext();
@@ -27,10 +31,7 @@ const Foram2 = () => {
   const [membership, setMembership] = useState("");
   const name = localStorage.getItem("userName");
   const phoneNumber = localStorage.getItem("userPhone");
-  let qr1;
-  let qr2;
-  let qr3;
-  let qr4;
+
 
   const token = getToken();
   const navigate = useNavigate();
