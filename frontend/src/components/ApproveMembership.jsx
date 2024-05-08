@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   Table,
   TableBody,
@@ -5,10 +7,44 @@ import {
   TableColumn,
   TableHeader,
   TableRow,
-} from "@nextui-org/react";
+} from '@nextui-org/react';
 
 export default function ApproveMembership() {
-  const columns = ["name", "email", "phone Number", "designation",'transaction id',"actions"];
+  const [membershipData, setMembershipData] = useState([]);
+
+  useEffect(() => {
+    fetchMembershipData();
+  }, []);
+
+  const fetchMembershipData = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/membershipData');
+      setMembershipData(response.data);
+    } catch (error) {
+      console.error('Error fetching membership data:', error);
+    }
+  };
+
+  const handleConfirm = async (id) => {
+    try {
+      await axios.put(`http://localhost:5000/api/confirmMembership/${id}`);
+      fetchMembershipData(); // Refresh data after confirmation
+    } catch (error) {
+      console.error('Error confirming membership:', error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/deleteMembership/${id}`);
+      fetchMembershipData(); // Refresh data after deletion
+    } catch (error) {
+      console.error('Error deleting membership:', error);
+    }
+  };
+
+  const columns = ["name", "email", "phone Number", "designation", "membership", "transaction id", "confirm", "delete"];
+
   return (
     <div>
       <h1>Approve Membership</h1>
@@ -16,7 +52,7 @@ export default function ApproveMembership() {
         <Table
           isStriped
           className="w-5/6 max-sm:w-[95%] my-5"
-          aria-label="Example static collection table"
+          aria-label="Membership Table"
         >
           <TableHeader
             className="capitalize"
@@ -29,14 +65,22 @@ export default function ApproveMembership() {
             )}
           </TableHeader>
           <TableBody>
-            <TableRow key="1">
-              <TableCell>Tony Reichert</TableCell>
-              <TableCell>CEO</TableCell>
-              <TableCell>Active</TableCell>
-              <TableCell>Active</TableCell>
-              <TableCell>Active</TableCell>
-              <TableCell>Active</TableCell>
-            </TableRow>
+            {membershipData.map((member, index) => (
+              <TableRow key={index}>
+                <TableCell>{member.name}</TableCell>
+                <TableCell>{member.email}</TableCell>
+                <TableCell>{member.phoneNumber}</TableCell>
+                <TableCell>{member.degree}</TableCell>
+                <TableCell>{member.membership}</TableCell>
+                <TableCell>{member.transactionId}</TableCell>
+                <TableCell>
+                  {member.flag === 'Yes' ? 'Confirmed' : <button onClick={() => handleConfirm(member._id)}>Confirm</button>}
+                </TableCell>
+                <TableCell>
+                  {member.flag === 'Yes' ? 'Disabled' : <button onClick={() => handleDelete(member._id)}>Delete</button>}
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>

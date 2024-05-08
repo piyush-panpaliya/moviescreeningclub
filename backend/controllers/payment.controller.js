@@ -82,3 +82,15 @@ exports.saveTempPayment = async (req, res) => {
     res.status(500).json({ message: 'An error occurred while saving information' });
   }
 };
+
+
+
+exports.getMembershipData = async (req, res) => {
+  try {
+    const membershipData = await TempSchema.find();
+    res.status(200).json(membershipData);
+  } catch (error) {
+    console.error('Error fetching membership data:', error);
+    res.status(500).json({ message: 'An error occurred while fetching membership data' });
+  }
+};
