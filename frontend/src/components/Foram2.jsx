@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-// import QRCode from "qrcode";
-// import axios from "axios";
 import { useMembershipContext } from "./MembershipContext";
 import { getToken } from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +27,7 @@ const Foram2 = () => {
   const [membership, setMembership] = useState("");
   const name = localStorage.getItem("userName");
   const phoneNumber = localStorage.getItem("userPhone");
+
 
   const token = getToken();
   const navigate = useNavigate();
