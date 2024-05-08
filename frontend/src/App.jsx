@@ -24,7 +24,6 @@ import MovieList from "./components/VotePage";
 // import { SERVERIP } from "./config";
 import Foram from "./components/Foram";
 import Guidelines from "./components/guidelines";
-import Foram2 from "./components/Foram2";
 import ApproveMembership from "./components/ApproveMembership";
 
 function App() {
@@ -54,7 +53,6 @@ function App() {
           <Route path="/QR" element={<QR />} />
           <Route path="/VotePage" element={<MovieList />} />
           <Route path="/guidelines" element={<Guidelines />} />
-          <Route path="/form2" element={<Foram2 />} />
           <Route path="/approveMembership" element={<ApproveMembership />} />
         </Routes>
         <Footer/>
