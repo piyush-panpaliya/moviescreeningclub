@@ -23,7 +23,7 @@ const UploadWidget = () => {
     );
   }, []);
   return(
-    <button onClick={() => widgetRef.current.open()}>Upload</button>
+    <button onClick={() => widgetRef.current.open()} className="bg-gray-400 border-2 rounded-lg w-1/2">Upload your image</button>
   );
 };
 
