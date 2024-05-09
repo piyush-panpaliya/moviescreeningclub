@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useMembershipContext } from "./MembershipContext";
 import axios from "axios";
 import { useLogin } from "./LoginContext"; // Import useLogin hook
 import { SERVERIP } from "../config";
 
 const Myaccount = () => {
   const { loggedIn } = useLogin(); // Use loggedIn state from context
+  const { hasMembership, updateMembershipStatus } = useMembershipContext();
   const navigate = useNavigate();
   // const [memberships, setMemberships] = useState([]);
   const [currentMemberships, setCurrentMemberships] = useState([]);
@@ -104,6 +106,16 @@ const Myaccount = () => {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
   };
+  if (hasMembership && currentMemberships.length === 0) {
+    return (
+      <div className="bg-gray-200 flex flex-col items-center min-h-screen font-monts">
+        <h2 className="text-xl lg:text-2xl font-semibold mt-4 mb-4">
+          Membership Verification Under Process
+        </h2>
+        <p>Your membership verification is under process at our end. Please check back later.</p>
+      </div>
+    );
+  }
 
   return (
     <div>
