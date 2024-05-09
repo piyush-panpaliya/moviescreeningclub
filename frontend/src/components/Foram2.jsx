@@ -107,6 +107,11 @@ const Foram2 = () => {
       // Parse the JSON response data
       const responseData = await response.json();
       console.log("Data saved successfully:", responseData);
+      Swal.fire({
+        title:'success',
+        text:'we will verify your transaction and inform you about confirmation',
+        timer: 3000,
+      })
       updateMembershipStatus(true);
     } catch (error) {
       // Handle any errors that occur during the request
@@ -570,6 +575,7 @@ const Foram2 = () => {
             </h2>
             <div>
               <span className="mr-3">Membership chosen:</span>
+              <UploadWidget />
               <select
                 value={membership}
                 onChange={(e) => {
@@ -596,7 +602,6 @@ const Foram2 = () => {
                 }}
               />
             </div>
-            <UploadWidget />
             <Button
               color="success"
               type="submit"
