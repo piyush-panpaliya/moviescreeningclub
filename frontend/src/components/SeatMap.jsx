@@ -190,7 +190,7 @@ const SeatMapPage = () => {
         </div>
       )}
       {!assignedSeat && (
-        <div>
+        <div className="flex flex-col flex-wrap mx-2">
           <div className="flex flex-row-reverse justify-evenly gap-4">
             <div className="flex flex-col gap-2 items-center">
               <div className="flex flex-row justify-between">
@@ -1062,7 +1062,7 @@ const SeatMapPage = () => {
               ))}
             </div>
             <div className="w-4"></div>
-            <div className="flex flex-col gap-2 items-center mt-16">
+            <div className="flex flex-col gap-2 items-center mt-16 ">
               {[...Array(7).keys()].map((row) => (
                 <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(15).keys()].map((col) => {
