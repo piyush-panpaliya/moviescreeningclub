@@ -209,6 +209,7 @@ export default function ApproveMembership() {
     "designation",
     "membership",
     "transaction id",
+    "imageurl",
     "confirm",
     "delete",
   ];
@@ -241,6 +242,7 @@ export default function ApproveMembership() {
                 <TableCell>{member.degree}</TableCell>
                 <TableCell>{member.membership}</TableCell>
                 <TableCell>{member.transactionId}</TableCell>
+                <TableCell><img src={member.imageUrl} alt="not uploaded" /></TableCell>
                 <TableCell>
                   {
                     member.flag === "Yes" ? (
