@@ -573,9 +573,10 @@ const Foram2 = () => {
             <h2 className="font-semibold text-xl">
               Fill out this form after payment
             </h2>
-            <UploadWidget />
+              <UploadWidget /> 
             <div>
               <span className="mr-3">Membership chosen:</span>
+              
               <select
                 value={membership}
                 onChange={(e) => {
