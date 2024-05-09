@@ -187,17 +187,18 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
+                      {hasMembership && (
                       <NavItem to="/QR" toggleMenu={toggleMenu}>
                         My QRs
-                      </NavItem>
-                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
-                        VotePage
-                      </NavItem>
+                      </NavItem>)}
                       {!hasMembership && (
                         <NavItem to="/form2" toggleMenu={toggleMenu}>
                           Buy a new Membership
                         </NavItem>
                       )}
+                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                        VotePage
+                      </NavItem>  
                       <NavItem to="/approveMembership" toggleMenu={toggleMenu}>
                         Approve Membership
                       </NavItem>
@@ -223,12 +224,10 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
+                      {hasMembership && (
                       <NavItem to="/QR" toggleMenu={toggleMenu}>
                         My QRs
-                      </NavItem>
-                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
-                        VotePage
-                      </NavItem>
+                      </NavItem>)}
                       {!hasMembership && (
                         <NavItem to="/form2" toggleMenu={toggleMenu}>
                           Buy a new Membership
@@ -236,6 +235,9 @@ const Navbar = () => {
                       )}
                       <NavItem to="/scanner" toggleMenu={toggleMenu}>
                         Scanner
+                      </NavItem>
+                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                        VotePage
                       </NavItem>
                       <NavItem to="/guidelines" toggleMenu={toggleMenu}>
                         Booking Guidelines/Help
@@ -247,17 +249,18 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
+                      {hasMembership && (
                       <NavItem to="/QR" toggleMenu={toggleMenu}>
                         My QRs
-                      </NavItem>
-                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
-                        VotePage
-                      </NavItem>
+                      </NavItem>)}
                       {!hasMembership && (
                         <NavItem to="/form2" toggleMenu={toggleMenu}>
                           Buy a new Membership
                         </NavItem>
                       )}
+                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                        VotePage
+                      </NavItem>
                       <NavItem to="/modifymovie" toggleMenu={toggleMenu}>
                         Modify Movie
                       </NavItem>
@@ -277,17 +280,18 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
+                      {hasMembership && (
                       <NavItem to="/QR" toggleMenu={toggleMenu}>
                         My QRs
-                      </NavItem>
-                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
-                        VotePage
-                      </NavItem>
+                      </NavItem>)}
                       {!hasMembership && (
                         <NavItem to="/form2" toggleMenu={toggleMenu}>
                           Buy a new Membership
                         </NavItem>
                       )}
+                      <NavItem to="/VotePage" toggleMenu={toggleMenu}>
+                        VotePage
+                      </NavItem> 
                       <NavItem to="/modifymovie" toggleMenu={toggleMenu}>
                         Modify Movie
                       </NavItem>
@@ -304,20 +308,21 @@ const Navbar = () => {
                       <NavItem to="/myaccount" toggleMenu={toggleMenu}>
                         My Profile
                       </NavItem>
+                      {hasMembership && (
                       <NavItem to="/QR" toggleMenu={toggleMenu}>
                         My QRs
-                      </NavItem>
+                      </NavItem>)}
+                      {!hasMembership && (
+                        <NavItem to="/form2" toggleMenu={toggleMenu}>
+                          Buy a new Membership
+                        </NavItem>
+                      )}
                       <NavItem to="/VotePage" toggleMenu={toggleMenu}>
                         VotePage
                       </NavItem>
                       <NavItem to="/guidelines" toggleMenu={toggleMenu}>
                         Booking Guidelines/Help
                       </NavItem>
-                      {!hasMembership && (
-                        <NavItem to="/form2" toggleMenu={toggleMenu}>
-                          Buy a new Membership
-                        </NavItem>
-                      )}
                     </>
                   )}
                 </>
@@ -325,10 +330,10 @@ const Navbar = () => {
                 <>
                   {" "}
                   <NavItem disabled>My Profile</NavItem>
-                  <NavItem disabled>VotePage</NavItem>
                   <NavItem disabled>My QRs</NavItem>
                   <NavItem disabled>Buy a new Membership</NavItem>
-                  <NavItem to="/guidelines">Booking Guidelines/Help</NavItem>
+                  <NavItem disabled>VotePage</NavItem>
+                  <NavItem disabled>Booking Guidelines/Help</NavItem>
                 </>
               )}
             </div>

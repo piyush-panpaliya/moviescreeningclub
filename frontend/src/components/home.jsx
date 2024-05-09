@@ -70,7 +70,7 @@ const Home = () => {
           <div className="grid gap-6 max-sm:gap-2 mb-8 max-sm:mb-4 max-sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-5 max-sm:mx-2">
             {ongoingMovies.map((movie) => (
               <Link
-                to={`/showtime/${movie._id}/${encodePosterUrl(movie.poster)}`}
+                to={`/showtime?movieId=${movie._id}&poster=${encodeURIComponent(movie.poster)}`}
                 key={movie._id}
                 onClick={() => console.log("Clicked movie ID:", movie._id)}
                 className="flex items-center justify-center"

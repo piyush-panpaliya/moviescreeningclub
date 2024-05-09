@@ -34,7 +34,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/form" element={<Foram />} />
+          {/* <Route path="/form" element={<Foram />} /> */}
           <Route path="/form2" element={<Foram2 />} />
           <Route path="/scanner" element={<Scanner />} />
           <Route path="/login" element={<Login />} />
@@ -46,7 +46,7 @@ function App() {
           <Route path="/adddropvolunteer" element={<AdddropVolunteer/>} />
           <Route path="/forgot" element={<ForgotPassword/>}/>
           <Route path="/update" element={<UpdatePassword/>}/>
-          <Route path="/showtime/:movieId/:poster" element={<Showtime/>}/>
+          <Route path="/showtime" element={<Showtime/>}/>
           <Route path = "/test" element={<Test/>}/>
           <Route path="/allshowtime/:paymentId" element={<Showtimepage/>}/>
           <Route path="/seatmap/:showtimeId" element={<SeatMapPage />} />

@@ -157,7 +157,7 @@ export default function ApproveMembership() {
   const fetchMembershipData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/payment/membershipData"
+        `${SERVERIP}/payment/membershipData`
       );
       setMembershipData(response.data);
     } catch (error) {
@@ -167,7 +167,7 @@ export default function ApproveMembership() {
 
   const handleConfirm = async (id, payment_id, email, membership, name) => {
     try {
-      await axios.put(`http://localhost:8000/payment/confirmMembership/${id}`);
+      await axios.put(`${SERVERIP}/payment/confirmMembership/${id}`);
       fetchMembershipData();
       if (membership === "Base") {
         saveuserData(email, "base", 7);
@@ -194,7 +194,7 @@ export default function ApproveMembership() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:8000/payment/deleteMembership/${id}`
+        `${SERVERIP}/payment/deleteMembership/${id}`
       );
       fetchMembershipData(); // Refresh data after deletion
     } catch (error) {

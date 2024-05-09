@@ -1,25 +1,55 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getToken } from "../utils/getToken";
 import moment from "moment"; // Import moment library for date and time formatting
 import { SERVERIP } from "../config";
 
 const Showtime = () => {
-  const { movieId, poster: encodedPosterUrl } = useParams();
+  const location = useLocation();
+  const [movieId, setMovieId] = useState("");
+  const [poster, setPoster] = useState("");
   const token = getToken();
   const navigate = useNavigate();
-  const poster = decodeURIComponent(encodedPosterUrl);
   const [showtimes, setShowtimes] = useState([]);
   const [trailer, setTrailer] = useState("");
   const [newShowtime, setNewShowtime] = useState({ date: "", time: "" });
-  const [showAddRow, setShowAddRow] = useState(false); // State variable to control the display of the blank row
+  const [showAddRow, setShowAddRow] = useState(false)
   const userType = localStorage.getItem("userType");
 
   useEffect(() => {
-    fetchShowtimes();
-    fetchTrailer();
-  }, [movieId]);
+    const fetchShowtimes = async () => {
+      try {
+        const response = await axios.get(
+          `${SERVERIP}/movie/${movieIdParam}/showtimes`
+        );
+        setShowtimes(response.data || []);
+      } catch (error) {
+        console.error("Error fetching showtimes:", error);
+      }
+    };
+  
+    const fetchTrailer = async () => {
+      try {
+        const response = await axios.get(`${SERVERIP}/movie/${movieIdParam}/trailer`);
+        setTrailer(response.data || "");
+      } catch (error) {
+        console.error("Error fetching trailer:", error);
+      }
+    };
+  
+    const params = new URLSearchParams(location.search);
+    const movieIdParam = params.get("movieId");
+    const posterParam = params.get("poster");
+    if (movieIdParam && posterParam) {
+      setMovieId(movieIdParam);
+      setPoster(posterParam);
+      fetchShowtimes();
+      fetchTrailer();
+    } else {
+      navigate("/"); // Redirect to home page if movieId or poster is not provided
+    }
+  }, [location.search, navigate]);
 
   useEffect(() => {
     if (!token) {

@@ -48,8 +48,6 @@ const QR = () => {
 
   const handleShowDialog = (index) => {
     setOpenedIndex(index === openedIndex ? null : index);
-    // setClicked(!isClicked);
-    // if(index!==openedIndex)setClicked(false);
     if(index===null)setClicked(true);
     else if(openedIndex!==index) setClicked(false);
     else setClicked(true);
@@ -188,43 +186,47 @@ const QR = () => {
     }
   };
 
-  
   return (
     <div>
       <div className={`bg-gray-200 flex flex-col items-center min-h-screen`}>
         <h2 className="text-2xl font-semibold mb-4 mt-7">Valid QR Codes</h2>
         <div className="flex flex-col bg-white h-1/2 w-4/5 max-sm:w-[95%] my-10 rounded-xl shadow-lg">
-          <div className="grid gap-6 my-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-5">
-            {validQRs.map((qr, index) => (
-              <div
-                key={index}
-                className={`even:bg-white odd:bg-slate-200 p-3 text-center flex flex-col items-center justify-center`}
-              >
-                <img
-                  className={`small ${isClicked?'blur-none':'blur-md'}`}
-                  src={qr.dataURL}
-                  onClick={()=>handleShowDialog(index)}
-                  alt={`QR Code ${index}`}
-                />
-                {openedIndex === index && (
-                  <dialog
-                    className={`absolute w-[30%] z-10 max-sm:w-[90%] ${isClicked?'blur-md':'blur-none'}`}
-                    open
-                    onClick={()=>handleShowDialog(null)}
-                  >
-                    <img
-                      className={`w-full h-full`}
-                      src={qr.dataURL}
-                      // onClick={()=>handleShowDialog(index)}
-                      alt={`QR Code ${index}`}
-                    />
-                  </dialog>
-                )}
-                
-                <p>{renderQRStatus(qr)}</p>
-              </div>
-            ))}
-          </div>
+          {validQRs.length === 0 ? (
+            <div className="flex items-center justify-center h-full">
+              <p className="text-lg">You don't have any valid QR codes left.</p>
+            </div>
+          ) : (
+            <div className="grid gap-6 my-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-5">
+              {validQRs.map((qr, index) => (
+                <div
+                  key={index}
+                  className={`even:bg-white odd:bg-slate-200 p-3 text-center flex flex-col items-center justify-center`}
+                >
+                  <img
+                    className={`small ${isClicked?'blur-none':'blur-md'}`}
+                    src={qr.dataURL}
+                    onClick={()=>handleShowDialog(index)}
+                    alt={`QR Code ${index}`}
+                  />
+                  {openedIndex === index && (
+                    <dialog
+                      className={`absolute w-[30%] z-10 max-sm:w-[90%] ${isClicked?'blur-md':'blur-none'}`}
+                      open
+                      onClick={()=>handleShowDialog(null)}
+                    >
+                      <img
+                        className={`w-full h-full`}
+                        src={qr.dataURL}
+                        // onClick={()=>handleShowDialog(index)}
+                        alt={`QR Code ${index}`}
+                      />
+                    </dialog>
+                  )}
+                  <p>{renderQRStatus(qr)}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
