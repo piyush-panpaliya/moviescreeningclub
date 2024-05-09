@@ -73,9 +73,9 @@ exports.saveusermem =async (req, res) => {
 
 
 exports.suspendMembership = async (req, res) => {
-  console.log("reached");
   const { email } = req.body;
   try {
+    await tempdata.findOneAndDelete({ email: email });
     const currentDate = moment().format("DD-MM-YYYY"); // Get the current date in "dd-mm-yyyy" format
     const formattedCurrentDate = moment(currentDate, "DD-MM-YYYY").toDate(); // Convert current date to JavaScript Date object
     const userMemberships = await Memdata.find({ email }); // Get all memberships associated with the user's email
