@@ -3,6 +3,7 @@ import { useMembershipContext } from "./MembershipContext";
 import { getToken } from "../utils/getToken";
 import { useNavigate } from "react-router-dom";
 import { SERVERIP } from "../config";
+import UploadWidget from "../utils/uploadWidget";
 import Swal from "sweetalert2";
 import { Button, user } from "@nextui-org/react";
 import Qr1 from "../images/QR1 (130).png";
@@ -27,10 +28,13 @@ const Foram2 = () => {
   const [qrImages, setQrImages] = useState([]);
   const [amounts, setAmounts] = useState([]);
   const mem = ["Base", "Silver", "Gold", "Diamond"];
-  const passes = ["1","2","3","4"];
-  const interval = ["7 Days","15 Days","1 Month","1 Month"]
+  const passes = ["1", "2", "3", "4"];
+  const interval = ["7 Days", "15 Days", "1 Month", "1 Month"];
   const name = localStorage.getItem("userName");
   const phoneNumber = localStorage.getItem("userPhone");
+  const imageUrl=localStorage.getItem('imgurl');
+  console.log(imageUrl);
+
 
   const token = getToken();
   const navigate = useNavigate();
@@ -48,10 +52,6 @@ const Foram2 = () => {
     }
   }, [navigate]);
 
-  let qr1 = Qr1;
-  let qr2 = Qr2;
-  let qr3 = Qr3;
-  let qr4 = Qr4;
   const getDegreeFromEmail = (email) => {
     let degree, qrImages, amounts;
     const emailDomain = email.substring(email.lastIndexOf("@") + 1);
@@ -88,6 +88,7 @@ const Foram2 = () => {
       email,
       membership,
       transactionId,
+      imageUrl,
     };
     console.log(data);
 
@@ -113,6 +114,7 @@ const Foram2 = () => {
     }
   };
 
+
   if (!hasMembership) {
     return (
       <div className="flex justify-center items-center bg-gray-200 min-h-screen font-monts pb-3">
@@ -123,7 +125,7 @@ const Foram2 = () => {
           {qrImages.map((qr, index) => (
             <div
               key={index}
-              className="grid grid-cols-4 max-sm:grid-cols-1 max-lg:grid-cols-2 gap-4 w-full justify-items-center h-[85%] pt-10"
+              className="flex flex-col gap-4 w-full items-center pt-10"
             >
               <div
                 className={`bg-gradient-to-bl from-${
@@ -142,17 +144,19 @@ const Foram2 = () => {
                     : index === 2
                     ? "yellow"
                     : "cyan"
-                }-100 w-full max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 ${
+                }-100 w-1/3 max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 ${
                   index !== 0 ? "mb-10" : ""
                 } hover:scale-110 transition-transform duration-300`}
               >
                 <div className="flex justify-evenly my-8">
                   <img src={qr} alt="not found" className="w-[40%]" />
                   <div className="flex flex-col justify-between w-1/2">
-                    <span className="text-2xl mt-2 font-semibold">{mem[index]}</span>
+                    <span className="text-2xl mt-2 font-semibold">
+                      {mem[index]}
+                    </span>
                     <span className="text-lg mt-2 font-md">Subscription</span>
                     <span className="text-sm mt-4">
-                      *scan the QR code to get the subscription
+                      *scan the QR code to get the subscription and then fill the form at the bottom of the page to verify the membership
                     </span>
                   </div>
                 </div>
@@ -195,7 +199,6 @@ const Foram2 = () => {
                         <p className="text-xl ml-2 font-semibold">
                           ₹{amounts[index]}
                         </p>
-                        
                       </span>
                     </li>
                     <li className="flex gap-5 items-center">
@@ -215,8 +218,9 @@ const Foram2 = () => {
                       </svg>
                       <span className="flex items-end">
                         <p>Validity: </p>
-                        <p className="text-lg ml-2 font-semibold">{interval[index]} </p>
-                        
+                        <p className="text-lg ml-2 font-semibold">
+                          {interval[index]}{" "}
+                        </p>
                       </span>
                     </li>
                   </ul>
@@ -592,6 +596,7 @@ const Foram2 = () => {
                 }}
               />
             </div>
+            <UploadWidget />
             <Button
               color="success"
               type="submit"

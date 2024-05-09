@@ -29,7 +29,11 @@ const Temp = new mongoose.Schema({
   flag:{
     type:String,
     default:"No",
-  }
+  },
+  imageUrl:{
+    type:String,
+    required:true,
+  },
 });
 
 const TempSchema = mongoose.model('TempSchema',Temp);
