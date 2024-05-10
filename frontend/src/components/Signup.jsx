@@ -280,7 +280,7 @@ export const Signup = () => {
                     type={showPassword ? "text" : "password"}
                     id="password"
                     name="password"
-                    placeholder="enter your password"
+                    placeholder="New Password"
                     required
                     value={password}
                     onChange={handleChange}
@@ -331,7 +331,7 @@ export const Signup = () => {
                     type={showOTP ? "password" : "text"}
                     id="otp"
                     name="otp"
-                    placeholder="enter OTP"
+                    placeholder="Enter OTP"
                     required
                     value={otp}
                     onChange={handleChange}

@@ -333,7 +333,9 @@ const Navbar = () => {
                   <NavItem disabled>My QRs</NavItem>
                   <NavItem disabled>Buy a new Membership</NavItem>
                   <NavItem disabled>VotePage</NavItem>
-                  <NavItem disabled>Booking Guidelines/Help</NavItem>
+                  <NavItem to="/guidelines" toggleMenu={toggleMenu}>
+                        Booking Guidelines/Help
+                      </NavItem>
                 </>
               )}
             </div>
