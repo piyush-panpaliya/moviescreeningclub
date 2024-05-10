@@ -303,7 +303,7 @@ export default function ApproveMembership() {
                   <Chip
                     // startContent={ size={18} />}
                     variant="bordered"
-                    color="danger"
+                    color="default"
                   >
                     Disabled
                   </Chip>
