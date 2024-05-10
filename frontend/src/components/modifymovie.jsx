@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { SERVERIP } from "../config";
+import { Chip } from "@nextui-org/react";
 
 const ModifyMovie = () => {
   const [movies, setMovies] = useState([]);
@@ -132,7 +133,7 @@ const ModifyMovie = () => {
                         key={movie._id}
                         className="odd:bg-white even:bg-[#f4f4f5] dark:odd:bg-neutral-900 dark:even:bg-neutral-800"
                       >
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">
+                        <td className="px-6 py-4 whitespace-nowrap text-lg font-bold text-gray-800 dark:text-neutral-200">
                           {editingMovie === movie ? (
                             <input
                               type="text"
@@ -221,7 +222,8 @@ const ModifyMovie = () => {
                               onChange={handleChange}
                             />
                           ) : movie.currentscreening ? (
-                            "Yes"
+                            <Chip variant="solid" color="success" className="text-white">Yes</Chip>
+                            // "Yes"
                           ) : (
                             "No"
                           )}

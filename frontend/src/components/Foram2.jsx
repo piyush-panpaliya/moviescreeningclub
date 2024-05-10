@@ -110,7 +110,6 @@ const Foram2 = () => {
       Swal.fire({
         title:'success',
         text:'we will verify your transaction and inform you about confirmation',
-        timer: 3000,
       })
       updateMembershipStatus(true);
     } catch (error) {

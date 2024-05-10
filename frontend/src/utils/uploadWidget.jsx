@@ -23,7 +23,16 @@ const UploadWidget = () => {
     );
   }, []);
   return(
-    <button onClick={() => widgetRef.current.open()} className="bg-gray-400 border-2 rounded-lg w-1/2">Upload your Payment Screenshot(Image) here</button>
+    <>
+    <div className="flex justify-center">
+      {imageurl===null?'':(
+        <img src={imageurl} alt="image not found" className="w-1/3" />
+      )}
+    </div>
+    <button onClick={() => widgetRef.current.open()} className="bg-gray-400 border-2 rounded-lg max-w-2/3 p-2 capitalize">{
+      imageurl===null?'Upload transaction proof image':`image uploaded`
+    }</button>
+    </>
   );
 };
 

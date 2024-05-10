@@ -89,7 +89,7 @@ export const Signup = () => {
   const { name, phoneNumber, password, otp } = formData;
 
   return (
-    <div className="flex justify-center items-center h-full bg-[#e5e8f0] font-monts">
+    <div className="flex justify-center items-center h-screen bg-[#e5e8f0] font-monts">
       <div className="flex items-center justify-center w-[80%] h-[90%] bg-white rounded-3xl max-sm:h-[80%] max-sm:w-[90%]">
         <div className="flex w-[99.5%] h-[99%] bg-gradient-to-r from-white to-gray-100 rounded-3xl">
           <div className="w-[50%] h-full flex justify-center items-center max-sm:hidden">
