@@ -165,7 +165,20 @@ export default function ApproveMembership() {
 
   const handleConfirm = async (id, payment_id, email, membership, name) => {
     try {
-      await axios.put(`${SERVERIP}/payment/confirmMembership/${id}`);
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, confirm it!",
+        cancelButtonText: "No, cancel!",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+        await axios.put(`${SERVERIP}/payment/confirmMembership/${id}`);
+        }
+      });
       fetchMembershipData();
       if (membership === "Base") {
         saveuserData(email, "base", 7);
@@ -191,7 +204,21 @@ export default function ApproveMembership() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${SERVERIP}/payment/deleteMembership/${id}`);
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await axios.delete(`${SERVERIP}/payment/deleteMembership/${id}`);
+          Swal.fire("Deleted!", "Membership has been deleted.", "success");
+        }
+      });
       fetchMembershipData(); // Refresh data after deletion
     } catch (error) {
       console.error("Error deleting membership:", error);
