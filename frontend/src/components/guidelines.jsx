@@ -72,11 +72,22 @@ export default function Guidelines() {
       </span>
       <span className="border-b-2">
         <p className="ml-4">
-          6. Various membership plans are available to suit your preferences,
+          {/* 6. Various membership plans are available to suit your preferences,
           each offering a specific number of tickets. Select the plan that fits
           your needs and click &quot;subscribe.&quot; You&lsquo;ll then be
           guided to a payment page to complete your transaction. Once payment is
-          confirmed, you&lsquo;ll be redirected to the homepage.
+          confirmed, you&lsquo;ll be redirected to the homepage. */}
+          6. Various membership plans are available to suit your preferences,
+          each offering a specific number of tickets. Select the plan that fits
+          your needs, then with any upi payments app scan the required 
+          membership's QR code and pay the said amount in it, further you need 
+          to enter the transaction ID of your payment and the screenshot as a 
+          proof of your payment there in the form given at the bottom of the page
+           and click submit. After this is done at your end we will verfiy your 
+           payemnt at our end and assign you the required membership or if there 
+           is any disperency in the payment or your membership is assigned to you,
+            we will contact you on your mail ID.
+
         </p>
         <div className="flex flex-col items-center gap-3 my-3">
           <img src={img5} alt="not found" />

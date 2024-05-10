@@ -6,17 +6,17 @@ import { SERVERIP } from "../config";
 import UploadWidget from "../utils/uploadWidget";
 import Swal from "sweetalert2";
 import { Button, user } from "@nextui-org/react";
-import Qr1 from "../images/QR1 (130).png";
-import Qr2 from "../images/QR2 (280).png";
-import Qr3 from "../images/QR3 (450).png";
-import Qr4 from "../images/QR4 (640).png";
-import Qr5 from "../images/QR5 (150).png";
-import Qr6 from "../images/QR6 (320).png";
-import Qr7 from "../images/QR7 (510).png";
-import Qr8 from "../images/QR8 (720).png";
-import Qr9 from "../images/QR9 (170).png";
-import Qr10 from "../images/QR10 (360).png";
-import Qr11 from "../images/QR11 (570).png";
+import Qr1 from "../images/QR1.png";
+import Qr2 from "../images/QR2.png";
+import Qr3 from "../images/QR3.png";
+import Qr4 from "../images/QR4.png";
+import Qr5 from "../images/QR5.png";
+import Qr6 from "../images/QR6.png";
+import Qr7 from "../images/QR7.png";
+import Qr8 from "../images/QR8.png";
+import Qr9 from "../images/QR9.png";
+import Qr10 from "../images/QR10.png";
+import Qr11 from "../images/QR11.png";
 import Qr12 from "../images/QR12.png";
 
 const Foram2 = () => {
@@ -58,20 +58,20 @@ const Foram2 = () => {
     if (emailDomain === "students.iitmandi.ac.in") {
       if (email.charAt(0).toLowerCase() === "b") {
         qrImages = [Qr1, Qr2, Qr3, Qr4];
-        amounts = [130, 280, 450, 640];
+        amounts = [160, 300, 420, 520];
         degree = "B-Tech";
       } else {
         qrImages = [Qr5, Qr6, Qr7, Qr8];
-        amounts = [150, 320, 510, 720];
+        amounts = [180, 340, 480, 600];
         degree = "PHD/M-Tech";
       }
     } else if (emailDomain === "iitmandi.ac.in") {
       qrImages = [Qr9, Qr10, Qr11, Qr12];
-      amounts = [170, 360, 570, 800];
+      amounts = [200, 380, 540, 680];
       degree = "Faculty/Staff";
     } else {
       qrImages = [Qr9, Qr10, Qr11, Qr12];
-      amounts = [170, 360, 570, 800];
+      amounts = [200, 380, 540, 680];
       degree = "Faculty/Staff";
     }
     return { degree, qrImages, amounts };
@@ -591,10 +591,10 @@ const Foram2 = () => {
               </select>
             </div>
             <div>
-              <span className="mr-3">Transaction ID:</span>
+              <span className="mr-3">Transaction ID (UPI TID):</span>
               <input
                 type="text"
-                placeholder="Your transaction ID"
+                placeholder="Your transaction ID (UTI)"
                 value={transactionId}
                 required
                 onChange={(e) => {
