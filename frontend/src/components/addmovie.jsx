@@ -45,7 +45,6 @@ const MovieForm = () => {
     axios
       .post(`${SERVERIP}/movie/add-movies`, formData)
       .then((res) => {
-        console.log("Movie added:", res.data);
         setFormData({
           title: "",
           poster: "",
