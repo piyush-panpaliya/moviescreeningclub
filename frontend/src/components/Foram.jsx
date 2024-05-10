@@ -86,7 +86,6 @@ export const Foram = () => {
           }
         },
       };
-      console.log("Options object:", options);
       const pay = new window.Razorpay(options);
       pay.open();
       setOpenRazorpay(false);
@@ -140,7 +139,6 @@ export const Foram = () => {
     axios
       .post(`${SERVERIP}/QR/send-email`, emailContent)
       .then((response) => {
-        console.log(`Email sent for ${membership} membership.`);
         // Swal.fire({
         //   title: "Error",
         //   text: `Email sent successfully for ${membership} membership.`,
@@ -159,11 +157,9 @@ export const Foram = () => {
 
   const saveuserData = (email, memtype, validity) => {
     const userData = { email, memtype, validity };
-    console.log("a");
     axios
       .post(`${SERVERIP}/memrouter/saveusermem`, userData)
       .then((response) => {
-        console.log(`Usermem data saved successfully for ${(memtype, email)}`);
         // Swal.fire({
         //   title: "Error",
         //   text: `Usermem data saved successfully for ${(memtype, email)}`,

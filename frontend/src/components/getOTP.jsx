@@ -38,8 +38,7 @@ export default function GetOTP() {
           const sendOtpRes = await axios.post(`${SERVERIP}/otp/send-otp`, {
             email,
           });
-          if (sendOtpRes.data.success) {
-            console.log("Email sent");
+          if (sendOtpRes.data.success){
             localStorage.setItem("getotpEmail", email); // Store email in local storage
             navigate("/signup");
           } else {

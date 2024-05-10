@@ -43,7 +43,6 @@ const QR = () => {
   const handleUseQR = (qr) => {
     localStorage.setItem("seatassignment", "true");
     navigate(`/allshowtime/${qr.paymentId}`);
-    console.log(`${qr.paymentId}`);
   };
 
   const handleShowDialog = (index) => {
@@ -51,10 +50,6 @@ const QR = () => {
     if(index===null)setClicked(true);
     else if(openedIndex!==index) setClicked(false);
     else setClicked(true);
-    console.log("clicked");
-    console.log(openedIndex);
-    console.log(index);
-    console.log(isClicked);
   };
 
   const renderQRStatus = (qr) => {

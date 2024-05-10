@@ -72,11 +72,6 @@ export default function Guidelines() {
       </span>
       <span className="border-b-2">
         <p className="ml-4">
-          {/* 6. Various membership plans are available to suit your preferences,
-          each offering a specific number of tickets. Select the plan that fits
-          your needs and click &quot;subscribe.&quot; You&lsquo;ll then be
-          guided to a payment page to complete your transaction. Once payment is
-          confirmed, you&lsquo;ll be redirected to the homepage. */}
           6. Various membership plans are available to suit your preferences,
           each offering a specific number of tickets. Select the plan that fits
           your needs, then with any upi payments app scan the required 

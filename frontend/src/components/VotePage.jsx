@@ -100,7 +100,6 @@ const MovieList = () => {
   };
 
   const handleDeleteMovie = async (movieId) => {
-    console.log("deleting");
     try {
       const response = await fetch(
         `${SERVERIP}/voterouter/deletevotemovie/${movieId}`,
@@ -123,7 +122,6 @@ const MovieList = () => {
       totalVotes === 0 ? 0 : (movie.yesCount / totalVotes) * 100;
     const noPercentage =
       totalVotes === 0 ? 0 : (movie.noCount / totalVotes) * 100;
-    console.log(movie._id);
     return (
       <div className="flex bg-white rounded-lg shadow-md w-full h-full">
         <div className="flex flex-col w-2/3 ml-2">

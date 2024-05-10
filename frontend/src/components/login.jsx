@@ -58,7 +58,6 @@ const Login = () => {
         const membershipResponse = await axios.get(
           `${SERVERIP}/memrouter/checkMembership/${email}`
         );
-
         if (membershipResponse.data.hasMembership) {
           updateMembershipStatus(true); // Update context with membership status
         } else {

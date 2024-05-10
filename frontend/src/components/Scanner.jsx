@@ -95,8 +95,6 @@ export const Scanner = () => {
       }
       const data = await response.json();
       setScanResultInfo(data);
-      console.log(data);
-      console.log(data.name);
 
       // After access is granted, generate printable HTML content
       if (

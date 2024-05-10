@@ -33,7 +33,6 @@ const Foram2 = () => {
   const name = localStorage.getItem("userName");
   const phoneNumber = localStorage.getItem("userPhone");
   const imageUrl=localStorage.getItem('imgurl');
-  console.log(imageUrl);
 
 
   const token = getToken();
@@ -90,7 +89,6 @@ const Foram2 = () => {
       transactionId,
       imageUrl,
     };
-    console.log(data);
 
     try {
       const response = await fetch(`${SERVERIP}/payment/tempPayment`, {
@@ -106,7 +104,6 @@ const Foram2 = () => {
 
       // Parse the JSON response data
       const responseData = await response.json();
-      console.log("Data saved successfully:", responseData);
       Swal.fire({
         title:'success',
         text:'we will verify your transaction and inform you about confirmation',

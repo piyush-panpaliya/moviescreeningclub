@@ -72,7 +72,6 @@ const Home = () => {
               <Link
                 to={`/showtime?movieId=${movie._id}&poster=${encodeURIComponent(movie.poster)}`}
                 key={movie._id}
-                onClick={() => console.log("Clicked movie ID:", movie._id)}
                 className="flex items-center justify-center"
               >
                 <div className="w-full h-full object-cover">
@@ -114,7 +113,6 @@ const Home = () => {
                 <Link
                   to={`/showtime/${movie._id}/${encodePosterUrl(movie.poster)}`}
                   key={movie._id}
-                  onClick={() => console.log("Clicked movie ID:", movie._id)}
                   className="flex items-center justify-center"
                 >
                   <div className="w-full h-full object-cover">

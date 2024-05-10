@@ -31,11 +31,10 @@ export default function ForgotPassword() {
           formData
         );
         if (res1.data.success) {
-          console.log("email sent");
+          
           localStorage.setItem("forgotpassEmail", formData.email); // Store email in local storage
           navigate("/update");
         } else {
-          console.log("failed to send");
         }
       }
     } catch (err) {

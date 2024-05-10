@@ -21,11 +21,9 @@ export default function UpdatePassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     try {
       const res = await axios.post(`${SERVERIP}/login/update`, formData);
       if (res.data.success) {
-        console.log("updated");
         localStorage.removeItem("forgotpassEmail");
         navigate("/login");
       } else {
@@ -33,7 +31,6 @@ export default function UpdatePassword() {
       }
     } catch (err) {
       Swal.fire({ title: "Error", text: "invalid otp", icon: "error" });
-      console.log("error: ", err);
     }
   };
 

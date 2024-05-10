@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
 
   
   useEffect(() => {
-    console.log(isAuthenticated); // This will log the updated value of isAuthenticated
   }, [isAuthenticated]); // This effect will run whenever isAuthenticated changes
 
   const signup = () => {
