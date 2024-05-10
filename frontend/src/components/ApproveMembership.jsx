@@ -277,7 +277,7 @@ export default function ApproveMembership() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="green"
-                      className="w-6 h-6"
+                      className="w-6 h-6 cursor-pointer"
                       onClick={() =>
                         handleConfirm(
                           member._id,
@@ -314,7 +314,7 @@ export default function ApproveMembership() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="red"
-                    className="w-6 h-6"
+                    className="w-6 h-6 cursor-pointer"
                     onClick={() => handleDelete(member._id)}
                   >
                     <path
