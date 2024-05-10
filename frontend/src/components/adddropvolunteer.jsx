@@ -65,7 +65,7 @@ const AddDropVolunteer = () => {
       });
 
       if (!response.ok) {
-        console.log(response.json());
+        
         throw new Error("Failed to fetch user data");
       }
       const data = await response.json();
@@ -114,7 +114,7 @@ const AddDropVolunteer = () => {
       setEmail("");
       setUserType("standard");
       fetchUserData();
-      console.log(localStorage.getItem("userType"));
+      
     } catch (error) {
       console.error("Error updating user type:", error);
     } finally {
