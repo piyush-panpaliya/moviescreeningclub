@@ -177,6 +177,9 @@ export default function ApproveMembership() {
       }).then(async (result) => {
         if (result.isConfirmed) {
         await axios.put(`${SERVERIP}/payment/confirmMembership/${id}`);
+        Swal.fire("Confirmed!", "Membership has been confirmed.", "success").then(
+          window.location.reload()
+        );
         }
       });
       fetchMembershipData();
@@ -216,7 +219,10 @@ export default function ApproveMembership() {
       }).then(async (result) => {
         if (result.isConfirmed) {
           await axios.delete(`${SERVERIP}/payment/deleteMembership/${id}`);
-          Swal.fire("Deleted!", "Membership has been deleted.", "success");
+          Swal.fire("Deleted!", "Membership has been deleted.", "success").then(
+            window.location.reload()
+          );
+
         }
       });
       fetchMembershipData(); // Refresh data after deletion
