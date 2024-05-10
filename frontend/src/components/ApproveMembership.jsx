@@ -220,7 +220,7 @@ export default function ApproveMembership() {
 
   return (
     // <div className="flex flex-col items-center">
-    <div className="flex justify-center h-1/2">
+    <div className="flex justify-center h-1/2 font-monts">
       <Table
         isStriped
         className="w-4/5 max-sm:w-[95%] my-5"
