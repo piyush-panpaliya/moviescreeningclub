@@ -176,34 +176,34 @@ export default function ApproveMembership() {
         cancelButtonColor: "#d33",
       }).then(async (result) => {
         if (result.isConfirmed) {
-        await axios.put(`${SERVERIP}/payment/confirmMembership/${id}`);
-        Swal.fire("Confirmed!", "Membership has been confirmed.", "success").then(
-          window.location.reload()
-        );
+          await axios.put(`${SERVERIP}/payment/confirmMembership/${id}`);
+          Swal.fire("Confirmed!", "Membership has been confirmed.", "success");
+          // Now, call the subsequent functions after membership confirmation
+          fetchMembershipData();
+          if (membership === "Base") {
+            saveuserData(email, "base", 7);
+            saveData(payment_id, 1, "base", 7, name, email);
+            generateAndSendEmail("base", payment_id, 1, email);
+          } else if (membership === "Silver") {
+            saveuserData(email, "silver", 15);
+            saveData(payment_id, 2, "silver", 15, name, email);
+            generateAndSendEmail("silver", payment_id, 2, email);
+          } else if (membership === "Gold") {
+            saveuserData(email, "gold", 30);
+            saveData(payment_id, 3, "gold", 30, name, email);
+            generateAndSendEmail("gold", payment_id, 3, email);
+          } else if (membership === "Diamond") {
+            saveuserData(email, "diamond", 30);
+            saveData(payment_id, 4, "diamond", 30, name, email);
+            generateAndSendEmail("diamond", payment_id, 4, email);
+          }
         }
       });
-      fetchMembershipData();
-      if (membership === "Base") {
-        saveuserData(email, "base", 7);
-        saveData(payment_id, 1, "base", 7, name, email);
-        generateAndSendEmail("base", payment_id, 1, email);
-      } else if (membership === "Silver") {
-        saveuserData(email, "silver", 15);
-        saveData(payment_id, 2, "silver", 15, name, email);
-        generateAndSendEmail("silver", payment_id, 2, email);
-      } else if (membership === "Gold") {
-        saveuserData(email, "gold", 30);
-        saveData(payment_id, 3, "gold", 30, name, email);
-        generateAndSendEmail("gold", payment_id, 3, email);
-      } else if (membership === "Diamond") {
-        saveuserData(email, "diamond", 30);
-        saveData(payment_id, 4, "diamond", 30, name, email);
-        generateAndSendEmail("diamond", payment_id, 4, email);
-      }
     } catch (error) {
       console.error("Error confirming membership:", error);
     }
   };
+  
 
   const handleDelete = async (id) => {
     try {
@@ -220,7 +220,7 @@ export default function ApproveMembership() {
         if (result.isConfirmed) {
           await axios.delete(`${SERVERIP}/payment/deleteMembership/${id}`);
           Swal.fire("Deleted!", "Membership has been deleted.", "success").then(
-            window.location.reload()
+            fetchMembershipData()
           );
 
         }
