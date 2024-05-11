@@ -247,7 +247,6 @@ const Showtime = () => {
             )}
           </div>
         </div>
-        <div className="text-xl"> The Saturday morning showtime is arranged exclusively for Faculty/Staff, students are requested not to book seat in that slot.</div>
       </div>
     </div>
   );
