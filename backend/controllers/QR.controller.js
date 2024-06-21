@@ -1,225 +1,225 @@
-const QR = require('../models/qr.Model');
-const nodemailer= require( "nodemailer");
-const QRCode=require("qrcode");
+const QR = require('@/models/qr.model')
+const nodemailer = require('nodemailer')
+const QRCode = require('qrcode')
 // import QRCode from "qrcode";
-const moment = require('moment');
+const moment = require('moment')
 
-exports.addQR= (req, res) => {
-  const { name, email, paymentId, validity, memtype } = req.body;
-  const newQR = new QR({ name, email, paymentId, validity, memtype });
-  newQR.save()
-    .then((savedQR) => {
-      console.log("QR details saved:", savedQR);
-      res.status(200).json(savedQR);
-    })
-    .catch((error) => {
-      console.error("Error saving QR:", error);
-      res.status(500).json({ error: "Error saving QR" });
-    });
-};
+const addQR = (req, res) => {
+	const { name, email, paymentId, validity, memtype } = req.body
+	const newQR = new QR({ name, email, paymentId, validity, memtype })
+	newQR
+		.save()
+		.then((savedQR) => {
+			console.log('QR details saved:', savedQR)
+			res.status(200).json(savedQR)
+		})
+		.catch((error) => {
+			console.error('Error saving QR:', error)
+			res.status(500).json({ error: 'Error saving QR' })
+		})
+}
 
-exports.sendQR= (req, res) => {
-  const { email, membership, paymentId, qrCodes } = req.body;
+const sendQR = (req, res) => {
+	const { email, membership, paymentId, qrCodes } = req.body
 
-  // Create a transporter using nodemailer
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL, // Using environment variables for email and password
-      pass: process.env.PASSWORD,
-    },
-  });
+	// Create a transporter using nodemailer
+	const transporter = nodemailer.createTransport({
+		service: 'gmail',
+		auth: {
+			user: process.env.EMAIL, // Using environment variables for email and password
+			pass: process.env.PASSWORD
+		}
+	})
 
-  const mailOptions = {
-    from: process.env.EMAIL,
-    to: email,
-    subject: "Payment Successful",
-    text: `Your payment was successful for ${membership} membership`,
-  };
+	const mailOptions = {
+		from: process.env.EMAIL,
+		to: email,
+		subject: 'Payment Successful',
+		text: `Your payment was successful for ${membership} membership`
+	}
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error("Error sending email:", error);
-      res.status(500).send("Error sending email");
-    } else {
-      console.log("Email sent:", info.response);
-      res.status(200).send("Email sent successfully");
-    }
-  });
-};
+	transporter.sendMail(mailOptions, (error, info) => {
+		if (error) {
+			console.error('Error sending email:', error)
+			res.status(500).send('Error sending email')
+		} else {
+			console.log('Email sent:', info.response)
+			res.status(200).send('Email sent successfully')
+		}
+	})
+}
 
-exports.getValidQRs = async (req, res) => {
-  const { email } = req.params;
-  try {
-    const today = new Date();
-    const validQRs = [];
-    const allQRs = await QR.find({ email: email });
+const getValidQRs = async (req, res) => {
+	const { email } = req.params
+	try {
+		const today = new Date()
+		const validQRs = []
+		const allQRs = await QR.find({ email: email })
 
-    allQRs.forEach((qr) => {
-      // Extract date components from validitydate string
-      const parts = qr.validitydate.split('-');
-      const day = parseInt(parts[0], 10);
-      const month = parseInt(parts[1], 10) - 1; // Months are 0-indexed
-      const year = parseInt(parts[2], 10);
-      
-      // Construct Date object
-      const validityDate = new Date(year, month, day);
+		allQRs.forEach((qr) => {
+			// Extract date components from validitydate string
+			const parts = qr.validitydate.split('-')
+			const day = parseInt(parts[0], 10)
+			const month = parseInt(parts[1], 10) - 1 // Months are 0-indexed
+			const year = parseInt(parts[2], 10)
 
-      // Check if validity date is after current date
-      if (validityDate > today) {
-        validQRs.push(qr);
-      }
-    });
-    res.status(200).json({ qrCodes: validQRs });
-  } catch (error) {
-    console.error('Error fetching valid QR codes:', error);
-    res.status(500).json({ error: 'Error fetching valid QR codes' });
-  }
-};
+			// Construct Date object
+			const validityDate = new Date(year, month, day)
 
-exports.markQRUsed = async (req, res) => {
-  try {
-    const { paymentId, seat } = req.params; // Access seat number as 'seat'
-    const { date, showtime } = req.body; 
+			// Check if validity date is after current date
+			if (validityDate > today) {
+				validQRs.push(qr)
+			}
+		})
+		res.status(200).json({ qrCodes: validQRs })
+	} catch (error) {
+		console.error('Error fetching valid QR codes:', error)
+		res.status(500).json({ error: 'Error fetching valid QR codes' })
+	}
+}
 
-    // Find the QR object based on the paymentId
-    const qr = await QR.findOne({ paymentId });
+const markQRUsed = async (req, res) => {
+	try {
+		const { paymentId, seat } = req.params // Access seat number as 'seat'
+		const { date, showtime } = req.body
 
-    // If QR object not found, return 404 Not Found error
-    if (!qr) {
-      return res.status(404).json({ error:'QR not found' });
-    }
+		// Find the QR object based on the paymentId
+		const qr = await QR.findOne({ paymentId })
 
-    // Parse date and showtime to construct expiration time
-    const expirationTime = moment(`${date} ${showtime}`, 'DD-MM-YYYY hh:mm A').add({ hours: 8, minutes: 30 });
+		// If QR object not found, return 404 Not Found error
+		if (!qr) {
+			return res.status(404).json({ error: 'QR not found' })
+		}
 
-    // Update the 'used' field of the QR object
-    qr.used = true;
+		// Parse date and showtime to construct expiration time
+		const expirationTime = moment(
+			`${date} ${showtime}`,
+			'DD-MM-YYYY hh:mm A'
+		).add({ hours: 8, minutes: 30 })
 
-    // Set the seat number for the QR
-    qr.seatnumber = seat;
+		// Update the 'used' field of the QR object
+		qr.used = true
 
-    // Set the expiration date for the QR
-    qr.expirationDate = expirationTime;
+		// Set the seat number for the QR
+		qr.seatnumber = seat
 
-    // Save the updated QR object back to the database
-    await qr.save();
+		// Set the expiration date for the QR
+		qr.expirationDate = expirationTime
 
-    // Respond with success message and showtime & date
-    res.status(200).json({ 
-      message: 'QR marked as used successfully', 
-      showtime: showtime, 
-      date: date 
-    });
-  } catch (error) {
-    console.error('Error marking QR as used:', error);
-    res.status(500).json({ error: 'Error marking QR as used' });
-  }
-};
+		// Save the updated QR object back to the database
+		await qr.save()
 
+		// Respond with success message and showtime & date
+		res.status(200).json({
+			message: 'QR marked as used successfully',
+			showtime: showtime,
+			date: date
+		})
+	} catch (error) {
+		console.error('Error marking QR as used:', error)
+		res.status(500).json({ error: 'Error marking QR as used' })
+	}
+}
 
+const isQRUsed = async (req, res) => {
+	const { paymentId, seat } = req.params
 
-exports.isQRUsed = async (req, res) => {
-  const {paymentId,seat} = req.params;
+	try {
+		// Find the QR data based on paymentId
+		const qrData = await QR.findOne({ paymentId })
 
-  try {
-    // Find the QR data based on paymentId
-    const qrData = await QR.findOne({ paymentId });
+		if (!qrData) {
+			// If QR data does not exist for the given paymentId, send 404 Not Found
+			return res.status(404).json({ error: 'QR data not found' })
+		}
 
-    if (!qrData) {
-      // If QR data does not exist for the given paymentId, send 404 Not Found
-      return res.status(404).json({ error: 'QR data not found' });
-    }
+		// Check if the QR data is used
+		if (qrData.used) {
+			// If QR data is already used, send a message indicating that it's used
+			return res.status(400).json({ message: 'QR data already used' })
+		}
 
-    // Check if the QR data is used
-    if (qrData.used) {
-      // If QR data is already used, send a message indicating that it's used
-      return res.status(400).json({ message: 'QR data already used' });
-    }
+		// If QR data exists, is valid, and not used, send the QR data
+		res.json(200)
+	} catch (error) {
+		// If there's an error, send 500 Internal Server Error
+		console.error('Error fetching QR data:', error)
+		res.status(500).json({ error: 'Internal Server Error' })
+	}
+}
 
-    // If QR data exists, is valid, and not used, send the QR data
-    res.json(200);
-  } catch (error) {
-    // If there's an error, send 500 Internal Server Error
-    console.error('Error fetching QR data:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-};
+const areallQRUsed = async (req, res) => {
+	const { email } = req.params
+	try {
+		const today = new Date()
+		const validQRs = []
+		const allQRs = await QR.find({ email: email })
 
-exports.areallQRUsed = async (req, res) => {
-  const { email } = req.params;
-  try {
-    const today = new Date();
-    const validQRs = [];
-    const allQRs = await QR.find({ email: email });
+		allQRs.forEach((qr) => {
+			// Extract date components from validitydate string
+			const parts = qr.validitydate.split('-')
+			const day = parseInt(parts[0], 10)
+			const month = parseInt(parts[1], 10) - 1 // Months are 0-indexed
+			const year = parseInt(parts[2], 10)
 
-    allQRs.forEach((qr) => {
-      // Extract date components from validitydate string
-      const parts = qr.validitydate.split('-');
-      const day = parseInt(parts[0], 10);
-      const month = parseInt(parts[1], 10) - 1; // Months are 0-indexed
-      const year = parseInt(parts[2], 10);
-      
-      // Construct Date object
-      const validityDate = new Date(year, month, day);
+			// Construct Date object
+			const validityDate = new Date(year, month, day)
 
-      // Check if validity date is after current date
-      if (validityDate > today) {
-        validQRs.push(qr);
-      }
-    });
-    const allUsed = validQRs.every(qr => qr.used);
-    if (allUsed) {
-      // If all valid QRs are used, return success response
-      console.log('All valid QRs are already used');
-      res.status(200).json({ message: 'All valid QRs are already used' });
-    } else {
-      // If any valid QRs are not used, return 200 status with a custom message
-      console.log('All valid QRs are not already used');
-      res.status(200).json({ message: 'Some valid QRs are not used yet' });
-    }
-  } catch (error) {
-    console.error('Error fetching valid QR codes:', error);
-    res.status(500).json({ error: 'Error fetching valid QR codes' });
-  }
-};
+			// Check if validity date is after current date
+			if (validityDate > today) {
+				validQRs.push(qr)
+			}
+		})
+		const allUsed = validQRs.every((qr) => qr.used)
+		if (allUsed) {
+			// If all valid QRs are used, return success response
+			console.log('All valid QRs are already used')
+			res.status(200).json({ message: 'All valid QRs are already used' })
+		} else {
+			// If any valid QRs are not used, return 200 status with a custom message
+			console.log('All valid QRs are not already used')
+			res.status(200).json({ message: 'Some valid QRs are not used yet' })
+		}
+	} catch (error) {
+		console.error('Error fetching valid QR codes:', error)
+		res.status(500).json({ error: 'Error fetching valid QR codes' })
+	}
+}
 
+const sendEmail = async (req, res) => {
+	const { email, seatNumber, movie, date, time, qr } = req.body
 
+	try {
+		// Convert date string to Date object
+		const dateTime = new Date(date + ' ' + time)
 
-exports.sendEmail = async (req, res) => {
-  const { email, seatNumber, movie, date, time, qr } = req.body;
+		// Format date to "5 May"
+		const formattedDate = dateTime.toLocaleDateString('en-US', {
+			day: 'numeric',
+			month: 'short'
+		})
 
-  try {
-    // Convert date string to Date object
-    const dateTime = new Date(date + " " + time);
+		// Format time to "7:00 pm"
+		const formattedTime = dateTime.toLocaleTimeString('en-US', {
+			hour: 'numeric',
+			minute: 'numeric',
+			hour12: true
+		})
 
-    // Format date to "5 May"
-    const formattedDate = dateTime.toLocaleDateString("en-US", {
-      day: "numeric",
-      month: "short",
-    });
+		const qrDataURL = await QRCode.toDataURL(qr)
+		const transporter = nodemailer.createTransport({
+			service: 'gmail',
+			auth: {
+				user: process.env.EMAIL,
+				pass: process.env.PASSWORD
+			}
+		})
 
-    // Format time to "7:00 pm"
-    const formattedTime = dateTime.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    });
-
-    const qrDataURL = await QRCode.toDataURL(qr);
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD
-      }
-    });
-
-    const mailOptions = {
-      from: process.env.EMAIL,
-      to: email,
-      subject: 'Seat Booking Confirmation',
-      html: `
+		const mailOptions = {
+			from: process.env.EMAIL,
+			to: email,
+			subject: 'Seat Booking Confirmation',
+			html: `
       <body class="bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white">
       <div class="max-w-lg mx-auto p-4" >
         <div class="bg-white dark:bg-zinc-900 shadow-lg rounded-lg p-5 flex items-center justify-between" style="display: flex; justify-content: space-between;">
@@ -312,20 +312,30 @@ exports.sendEmail = async (req, res) => {
       </div>
     </body>
       `,
-      attachments: [
-        {
-          filename: 'qr_code.png',
-          content: qrDataURL.split(';base64,').pop(),
-          encoding: 'base64',
-          cid: 'qr_code' // Content ID for referencing in HTML
-        }
-      ]
-    };
+			attachments: [
+				{
+					filename: 'qr_code.png',
+					content: qrDataURL.split(';base64,').pop(),
+					encoding: 'base64',
+					cid: 'qr_code' // Content ID for referencing in HTML
+				}
+			]
+		}
 
-    await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: 'Email sent successfully' });
-  } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-};
+		await transporter.sendMail(mailOptions)
+		res.status(200).json({ message: 'Email sent successfully' })
+	} catch (error) {
+		console.error('Error sending email:', error)
+		res.status(500).json({ error: 'Internal Server Error' })
+	}
+}
+
+module.exports = {
+	addQR,
+	sendQR,
+	getValidQRs,
+	markQRUsed,
+	isQRUsed,
+	areallQRUsed,
+	sendEmail
+}
