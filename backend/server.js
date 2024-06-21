@@ -1,41 +1,63 @@
-const express =require('express');
-const mongoose = require('mongoose');
-const bodyParser= require( "body-parser");
-const cors= require( "cors");
-const { config }= require( "dotenv");
-config({ path: "./.env" });
-const app = express();
-const { createServer }= require( "http");
-const https = createServer(app);
-app.use(cors());
+require('module-alias/register')
 
-mongoose.connect(`${process.env.MongoDB}`,)
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((error) => console.error("MongoDB connection error:", error));
+const express = require('express')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const { config } = require('dotenv')
+const { createServer } = require('http')
+const path = require('path')
 
-const PORT = 8000;
-app.use(bodyParser.json());
+const loginRouter = require('@/routes/user/login.route.js')
+const votepagerouter = require('@/routes/voteroute.js')
+const membershipsRouter = require('@/routes/user/membershipsRoutes.js')
+const userRouter = require('@/routes/user/userRoutes.js')
+const authRouter = require('@/routes/user/authRoutes.js')
+const otpRouter = require('@/routes/user/otpRoutes.js')
+const SeatMapRouter = require('@/routes/seatmapRoutes.js')
+const paymentRouter = require('@/routes/payment.route.js')
+const movieRouter = require('@/routes/movies.route.js')
+const qrRouter = require('@/routes/qr.route.js')
 
-const loginRouter = require('./routes/login.route.js');
-app.use('/login', loginRouter);
-const qrRouter = require('./routes/qr.route.js');
-app.use('/QR', qrRouter); 
-const movieRouter = require('./routes/movies.route.js');
-app.use('/movie', movieRouter);
-const paymentRouter = require('./routes/payment.route.js');
-app.use('/payment', paymentRouter); 
-const otpRouter = require('./routes/otpRoutes.js');
-app.use('/otp', otpRouter);
-const authRouter = require('./routes/authRoutes.js');
-app.use('/auth', authRouter); 
-const userRouter = require('./routes/userRoutes.js');
-app.use('/user', userRouter);
-const SeatMapRouter = require('./routes/seatmapRoutes.js');
-app.use('/seatmaprouter', SeatMapRouter);
-const membershipsRouter = require('./routes/membershipsRoutes.js');
-app.use('/memrouter', membershipsRouter);
-const votepagerouter = require('./routes/voteroute.js');
-app.use('/voterouter', votepagerouter);
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+config({ path: './.env' })
+const PORT = 8000
+
+const app = express()
+const https = createServer(app)
+
+mongoose
+	.connect(`${process.env.MongoDB}`)
+	.then(() => console.log('Connected to MongoDB'))
+	.catch((error) => console.error('MongoDB connection error:', error))
+
+app.use(cors())
+app.use(bodyParser.json())
+
+app.use(express.static(path.join(__dirname, '../frontend/dist')))
+
+app.use((req, _, next) => {
+	if (req.url.match(/(assets|images|index.html|.*.svg)$/)) return
+	console.log(`${req.method} ${req.url}`)
+	next()
+})
+
+app.use('/login', loginRouter)
+app.use('/user', userRouter)
+app.use('/auth', authRouter)
+app.use('/otp', otpRouter)
+
+app.use('/QR', qrRouter)
+app.use('/movie', movieRouter)
+app.use('/seatmaprouter', SeatMapRouter)
+app.use('/memrouter', membershipsRouter)
+app.use('/voterouter', votepagerouter)
+
+app.use('/payment', paymentRouter)
+
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'))
+})
+
+https.listen(PORT, () => {
+	console.log(`Server running on port ${PORT}`)
+})
