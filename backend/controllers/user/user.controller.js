@@ -1,6 +1,6 @@
 const User = require('@/models/user/user.model')
 
-exports.fetchUsers = async (req, res) => {
+const fetchUsers = async (req, res) => {
 	try {
 		let query = {}
 
@@ -20,7 +20,7 @@ exports.fetchUsers = async (req, res) => {
 	}
 }
 
-exports.updateUserType = async (req, res) => {
+const updateUserType = async (req, res) => {
 	try {
 		const { email, userType } = req.body
 		const user = await User.findOne({ email })
@@ -39,7 +39,7 @@ exports.updateUserType = async (req, res) => {
 	}
 }
 
-exports.userType = async (req, res) => {
+const userType = async (req, res) => {
 	try {
 		const { email } = req.params
 		// Find the user by email
@@ -52,10 +52,12 @@ exports.userType = async (req, res) => {
 		res.status(200).json({
 			userType: user.usertype,
 			userName: user.name,
-			userPhone: user.phoneNumber,
+			userPhone: user.phoneNumber
 		})
 	} catch (error) {
 		console.error('Error fetching user type:', error)
 		res.status(500).json({ error: 'Error fetching user type' })
 	}
 }
+
+module.exports = { fetchUsers, updateUserType, userType }

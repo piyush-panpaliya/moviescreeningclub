@@ -1,10 +1,11 @@
 require('module-alias/register')
+const { config } = require('dotenv')
+config({ path: './.env' })
 
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const { config } = require('dotenv')
 const { createServer } = require('http')
 const path = require('path')
 
@@ -19,7 +20,6 @@ const paymentRouter = require('@/routes/payment.route.js')
 const movieRouter = require('@/routes/movies.route.js')
 const qrRouter = require('@/routes/qr.route.js')
 
-config({ path: './.env' })
 const PORT = 8000
 
 const app = express()

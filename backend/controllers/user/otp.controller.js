@@ -3,7 +3,7 @@ const otpGenerator = require('otp-generator')
 const OTP = require('@/models/user/otp.model')
 const User = require('@/models/user/user.model')
 
-exports.userOTP = async (req, res) => {
+const userOTP = async (req, res) => {
 	const { email } = req.body
 	try {
 		const user = await User.findOne({ email })
@@ -17,7 +17,7 @@ exports.userOTP = async (req, res) => {
 	}
 }
 
-exports.userOTP1 = async (req, res) => {
+const userOTP1 = async (req, res) => {
 	const { email } = req.body
 	try {
 		const user = await User.findOne({ email })
@@ -31,7 +31,7 @@ exports.userOTP1 = async (req, res) => {
 	}
 }
 
-exports.sendOTP = async (req, res) => {
+const sendOTP = async (req, res) => {
 	try {
 		const { email } = req.body
 
@@ -39,7 +39,7 @@ exports.sendOTP = async (req, res) => {
 		const otp = otpGenerator.generate(6, {
 			upperCaseAlphabets: false,
 			lowerCaseAlphabets: false,
-			specialChars: false,
+			specialChars: false
 		})
 
 		// Save OTP in the database
@@ -50,8 +50,8 @@ exports.sendOTP = async (req, res) => {
 			service: 'gmail', // e.g., 'Gmail'
 			auth: {
 				user: process.env.EMAIL,
-				pass: process.env.PASSWORD,
-			},
+				pass: process.env.PASSWORD
+			}
 		})
 
 		const mailOptions = {
@@ -59,25 +59,25 @@ exports.sendOTP = async (req, res) => {
 			to: email,
 			subject: 'Verify your Chalchitra Email Address',
 			html: `<h1>Please confirm your OTP</h1>
-      <p>Here is your OTP code: ${otp}</p>`,
+      <p>Here is your OTP code: ${otp}</p>`
 		}
 
 		await transporter.sendMail(mailOptions)
 
 		res.status(200).json({
 			success: true,
-			message: 'OTP sent successfully',
+			message: 'OTP sent successfully'
 		})
 	} catch (error) {
 		console.error('Error sending OTP:', error)
 		return res.status(500).json({
 			success: false,
-			message: 'Failed to send OTP. Please try again later.',
+			message: 'Failed to send OTP. Please try again later.'
 		})
 	}
 }
 
-exports.sendOTPforgot = async (req, res) => {
+const sendOTPforgot = async (req, res) => {
 	try {
 		const { email } = req.body
 
@@ -85,7 +85,7 @@ exports.sendOTPforgot = async (req, res) => {
 		const otp = otpGenerator.generate(6, {
 			upperCaseAlphabets: false,
 			lowerCaseAlphabets: false,
-			specialChars: false,
+			specialChars: false
 		})
 
 		// Save OTP in the database
@@ -96,8 +96,8 @@ exports.sendOTPforgot = async (req, res) => {
 			service: 'gmail', // e.g., 'Gmail'
 			auth: {
 				user: process.env.EMAIL,
-				pass: process.env.PASSWORD,
-			},
+				pass: process.env.PASSWORD
+			}
 		})
 
 		const mailOptions = {
@@ -105,20 +105,22 @@ exports.sendOTPforgot = async (req, res) => {
 			to: email,
 			subject: 'Password Reset',
 			html: `<h1>Please confirm your OTP</h1>
-      <p>Here is your OTP code: ${otp}</p>`,
+      <p>Here is your OTP code: ${otp}</p>`
 		}
 
 		await transporter.sendMail(mailOptions)
 
 		res.status(200).json({
 			success: true,
-			message: 'OTP sent successfully',
+			message: 'OTP sent successfully'
 		})
 	} catch (error) {
 		console.error('Error sending OTP:', error)
 		return res.status(500).json({
 			success: false,
-			message: 'Failed to send OTP. Please try again later.',
+			message: 'Failed to send OTP. Please try again later.'
 		})
 	}
 }
+
+module.exports = { userOTP, userOTP1, sendOTP, sendOTPforgot }

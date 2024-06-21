@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const ShowtimeSchema = new mongoose.Schema({
 	_id: { type: mongoose.Schema.Types.ObjectId, auto: true }, // Unique identifier for the showtime
 	date: { type: Date },
-	time: { type: String },
+	time: { type: String }
 })
 
 const MovieSchema = new mongoose.Schema({
@@ -14,10 +14,11 @@ const MovieSchema = new mongoose.Schema({
 	genre: { type: String, required: true },
 	currentscreening: { type: Boolean },
 	showtimes: {
-		type: [ShowtimeSchema],
+		type: [ShowtimeSchema]
 	},
-	trailer: { type: String }, // New field for movie trailer
+	trailer: { type: String } // New field for movie trailer
 })
 
 const Movie = mongoose.model('Movie', MovieSchema)
+
 module.exports = Movie

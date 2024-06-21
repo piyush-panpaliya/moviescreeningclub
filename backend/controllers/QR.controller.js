@@ -4,7 +4,7 @@ const QRCode = require('qrcode')
 // import QRCode from "qrcode";
 const moment = require('moment')
 
-exports.addQR = (req, res) => {
+const addQR = (req, res) => {
 	const { name, email, paymentId, validity, memtype } = req.body
 	const newQR = new QR({ name, email, paymentId, validity, memtype })
 	newQR
@@ -19,7 +19,7 @@ exports.addQR = (req, res) => {
 		})
 }
 
-exports.sendQR = (req, res) => {
+const sendQR = (req, res) => {
 	const { email, membership, paymentId, qrCodes } = req.body
 
 	// Create a transporter using nodemailer
@@ -27,15 +27,15 @@ exports.sendQR = (req, res) => {
 		service: 'gmail',
 		auth: {
 			user: process.env.EMAIL, // Using environment variables for email and password
-			pass: process.env.PASSWORD,
-		},
+			pass: process.env.PASSWORD
+		}
 	})
 
 	const mailOptions = {
 		from: process.env.EMAIL,
 		to: email,
 		subject: 'Payment Successful',
-		text: `Your payment was successful for ${membership} membership`,
+		text: `Your payment was successful for ${membership} membership`
 	}
 
 	transporter.sendMail(mailOptions, (error, info) => {
@@ -49,7 +49,7 @@ exports.sendQR = (req, res) => {
 	})
 }
 
-exports.getValidQRs = async (req, res) => {
+const getValidQRs = async (req, res) => {
 	const { email } = req.params
 	try {
 		const today = new Date()
@@ -78,7 +78,7 @@ exports.getValidQRs = async (req, res) => {
 	}
 }
 
-exports.markQRUsed = async (req, res) => {
+const markQRUsed = async (req, res) => {
 	try {
 		const { paymentId, seat } = req.params // Access seat number as 'seat'
 		const { date, showtime } = req.body
@@ -113,7 +113,7 @@ exports.markQRUsed = async (req, res) => {
 		res.status(200).json({
 			message: 'QR marked as used successfully',
 			showtime: showtime,
-			date: date,
+			date: date
 		})
 	} catch (error) {
 		console.error('Error marking QR as used:', error)
@@ -121,7 +121,7 @@ exports.markQRUsed = async (req, res) => {
 	}
 }
 
-exports.isQRUsed = async (req, res) => {
+const isQRUsed = async (req, res) => {
 	const { paymentId, seat } = req.params
 
 	try {
@@ -148,7 +148,7 @@ exports.isQRUsed = async (req, res) => {
 	}
 }
 
-exports.areallQRUsed = async (req, res) => {
+const areallQRUsed = async (req, res) => {
 	const { email } = req.params
 	try {
 		const today = new Date()
@@ -186,7 +186,7 @@ exports.areallQRUsed = async (req, res) => {
 	}
 }
 
-exports.sendEmail = async (req, res) => {
+const sendEmail = async (req, res) => {
 	const { email, seatNumber, movie, date, time, qr } = req.body
 
 	try {
@@ -196,14 +196,14 @@ exports.sendEmail = async (req, res) => {
 		// Format date to "5 May"
 		const formattedDate = dateTime.toLocaleDateString('en-US', {
 			day: 'numeric',
-			month: 'short',
+			month: 'short'
 		})
 
 		// Format time to "7:00 pm"
 		const formattedTime = dateTime.toLocaleTimeString('en-US', {
 			hour: 'numeric',
 			minute: 'numeric',
-			hour12: true,
+			hour12: true
 		})
 
 		const qrDataURL = await QRCode.toDataURL(qr)
@@ -211,8 +211,8 @@ exports.sendEmail = async (req, res) => {
 			service: 'gmail',
 			auth: {
 				user: process.env.EMAIL,
-				pass: process.env.PASSWORD,
-			},
+				pass: process.env.PASSWORD
+			}
 		})
 
 		const mailOptions = {
@@ -317,9 +317,9 @@ exports.sendEmail = async (req, res) => {
 					filename: 'qr_code.png',
 					content: qrDataURL.split(';base64,').pop(),
 					encoding: 'base64',
-					cid: 'qr_code', // Content ID for referencing in HTML
-				},
-			],
+					cid: 'qr_code' // Content ID for referencing in HTML
+				}
+			]
 		}
 
 		await transporter.sendMail(mailOptions)
@@ -328,4 +328,14 @@ exports.sendEmail = async (req, res) => {
 		console.error('Error sending email:', error)
 		res.status(500).json({ error: 'Internal Server Error' })
 	}
+}
+
+module.exports = {
+	addQR,
+	sendQR,
+	getValidQRs,
+	markQRUsed,
+	isQRUsed,
+	areallQRUsed,
+	sendEmail
 }

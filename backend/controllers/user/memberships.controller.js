@@ -2,7 +2,7 @@ const Memdata = require('@/models/memdata.model.js')
 const tempdata = require('@/models/temp.model.js')
 const moment = require('moment')
 
-exports.fetchMembershipsByEmail = async (req, res) => {
+const fetchMembershipsByEmail = async (req, res) => {
 	const { email } = req.params
 	try {
 		const memberships = await Memdata.find({ email })
@@ -13,7 +13,7 @@ exports.fetchMembershipsByEmail = async (req, res) => {
 	}
 }
 
-exports.saveusermem = async (req, res) => {
+const saveusermem = async (req, res) => {
 	const { email, memtype, validity } = req.body
 	const newusermem = new Memdata({ email, memtype, validity })
 	newusermem
@@ -28,7 +28,7 @@ exports.saveusermem = async (req, res) => {
 		})
 }
 
-exports.checkMembership = async (req, res) => {
+const checkMembership = async (req, res) => {
 	// try {
 	//     const { email } = req.params;
 	//     const allMemberships = await Memdata.find({ email });
@@ -69,7 +69,7 @@ exports.checkMembership = async (req, res) => {
 	}
 }
 
-exports.suspendMembership = async (req, res) => {
+const suspendMembership = async (req, res) => {
 	const { email } = req.body
 	try {
 		await tempdata.findOneAndDelete({ email: email })
@@ -108,4 +108,11 @@ exports.suspendMembership = async (req, res) => {
 		console.error('Error suspending memberships:', error)
 		res.status(500).send('Internal server error')
 	}
+}
+
+module.exports = {
+	fetchMembershipsByEmail,
+	saveusermem,
+	checkMembership,
+	suspendMembership
 }

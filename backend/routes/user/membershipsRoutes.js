@@ -1,9 +1,14 @@
 const express = require('express')
 const router = express.Router()
-const MembershipController = require('@/controllers/user/memberships.controller')
+const {
+	fetchMembershipsByEmail,
+	saveusermem,
+	checkMembership,
+	suspendMembership
+} = require('@/controllers/user/memberships.controller')
 
-router.get('/:email', MembershipController.fetchMembershipsByEmail)
-router.post('/saveusermem', MembershipController.saveusermem)
-router.get('/checkMembership/:email', MembershipController.checkMembership)
-router.put('/suspend', MembershipController.suspendMembership)
+router.get('/:email', fetchMembershipsByEmail)
+router.post('/saveusermem', saveusermem)
+router.get('/checkMembership/:email', checkMembership)
+router.put('/suspend', suspendMembership)
 module.exports = router

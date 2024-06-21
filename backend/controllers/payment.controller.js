@@ -2,7 +2,7 @@ const QR = require('@/models/qr.model')
 const TempSchema = require('@/models/temp.model')
 const moment = require('moment')
 
-exports.check = async (req, res) => {
+const check = async (req, res) => {
 	try {
 		const paymentId = req.body.paymentId
 		const payment = await QR.findOne({ paymentId })
@@ -18,21 +18,21 @@ exports.check = async (req, res) => {
 					exists: true,
 					validityPassed: true,
 					seatbooked: true,
-					verified: false,
+					verified: false
 				})
 			} else if (!payment.used) {
 				res.json({
 					exists: true,
 					validityPassed: false,
 					seatbooked: false,
-					verified: false,
+					verified: false
 				})
 			} else if (payment.verified) {
 				res.json({
 					exists: true,
 					validityPassed: false,
 					seatbooked: true,
-					verified: true,
+					verified: true
 				})
 			} else {
 				payment.verified = true
@@ -58,7 +58,7 @@ exports.check = async (req, res) => {
 					seat: payment.seatnumber,
 					name: payment.name,
 					showdate: formattedDate,
-					showtime: formattedTime,
+					showtime: formattedTime
 				})
 			}
 		}
@@ -68,7 +68,7 @@ exports.check = async (req, res) => {
 	}
 }
 
-exports.saveTempPayment = async (req, res) => {
+const saveTempPayment = async (req, res) => {
 	console.log(req.body)
 	try {
 		const temp = new TempSchema({
@@ -78,7 +78,7 @@ exports.saveTempPayment = async (req, res) => {
 			email: req.body.email,
 			membership: req.body.membership,
 			transactionId: req.body.transactionId,
-			imageUrl: req.body.imageUrl,
+			imageUrl: req.body.imageUrl
 		})
 		await temp.save()
 
@@ -91,7 +91,7 @@ exports.saveTempPayment = async (req, res) => {
 	}
 }
 
-exports.getMembershipData = async (req, res) => {
+const getMembershipData = async (req, res) => {
 	try {
 		const membershipData = await TempSchema.find()
 		res.status(200).json(membershipData)
@@ -103,7 +103,7 @@ exports.getMembershipData = async (req, res) => {
 	}
 }
 
-exports.confirmMembership = async (req, res) => {
+const confirmMembership = async (req, res) => {
 	const memberId = req.params.id
 	try {
 		await TempSchema.findByIdAndUpdate(memberId, { flag: 'Yes' })
@@ -116,7 +116,7 @@ exports.confirmMembership = async (req, res) => {
 	}
 }
 
-exports.deleteMembership = async (req, res) => {
+const deleteMembership = async (req, res) => {
 	const memberId = req.params.id
 	try {
 		await TempSchema.findByIdAndDelete(memberId)
@@ -127,4 +127,12 @@ exports.deleteMembership = async (req, res) => {
 			.status(500)
 			.json({ message: 'An error occurred while deleting membership' })
 	}
+}
+
+module.exports = {
+	check,
+	saveTempPayment,
+	getMembershipData,
+	confirmMembership,
+	deleteMembership
 }

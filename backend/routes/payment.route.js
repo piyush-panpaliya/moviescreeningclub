@@ -1,10 +1,16 @@
 const express = require('express')
-const paymentController = require('@/controllers/payment.controller')
+const {
+	check,
+	saveTempPayment,
+	getMembershipData,
+	confirmMembership,
+	deleteMembership
+} = require('@/controllers/payment.controller')
 const router = express.Router()
 
-router.post('/checkPayment', paymentController.check)
-router.post('/tempPayment', paymentController.saveTempPayment)
-router.get('/membershipData', paymentController.getMembershipData)
-router.put('/confirmMembership/:id', paymentController.confirmMembership)
-router.delete('/deleteMembership/:id', paymentController.deleteMembership)
+router.post('/checkPayment', check)
+router.post('/tempPayment', saveTempPayment)
+router.get('/membershipData', getMembershipData)
+router.put('/confirmMembership/:id', confirmMembership)
+router.delete('/deleteMembership/:id', deleteMembership)
 module.exports = router

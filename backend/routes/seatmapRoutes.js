@@ -1,7 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const SeatMapController = require('@/controllers/seatmap.controller')
+const {
+	seatOccupancy,
+	seatassign
+} = require('@/controllers/seatmap.controller')
 
-router.get('/seatmap/:showtimeId/seats', SeatMapController.seatOccupancy)
-router.put('/seatmap/:showtimeId/:seat', SeatMapController.seatassign)
+router.get('/seatmap/:showtimeId/seats', seatOccupancy)
+router.put('/seatmap/:showtimeId/:seat', seatassign)
 module.exports = router

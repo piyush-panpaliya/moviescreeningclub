@@ -1,13 +1,18 @@
 const express = require('express')
 const router = express.Router()
-const movieController = require('@/controllers/vote.controller')
+const {
+	getAllMovies,
+	voteMovie,
+	addvotemovie,
+	deletevotemovie
+} = require('@/controllers/vote.controller')
 
 // Route to get all movies
-router.get('/movies', movieController.getAllMovies)
+router.get('/movies', getAllMovies)
 
 // Route to vote for a movie
-router.post('/vote', movieController.voteMovie)
-router.post('/addvotemovie', movieController.addvotemovie)
-router.delete('/deletevotemovie/:id', movieController.deletevotemovie)
+router.post('/vote', voteMovie)
+router.post('/addvotemovie', addvotemovie)
+router.delete('/deletevotemovie/:id', deletevotemovie)
 
 module.exports = router

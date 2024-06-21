@@ -1,7 +1,7 @@
 const Movie = require('@/models/movie.model')
 const SeatMap = require('@/models/seatmap.model')
 
-exports.addMovie = (req, res) => {
+const addMovie = (req, res) => {
 	const {
 		title,
 		poster,
@@ -9,7 +9,7 @@ exports.addMovie = (req, res) => {
 		releaseDate,
 		genre,
 		trailer,
-		currentscreening,
+		currentscreening
 	} = req.body
 	console.log(req.body)
 	const newMovie = new Movie({
@@ -19,7 +19,7 @@ exports.addMovie = (req, res) => {
 		releaseDate,
 		genre,
 		trailer,
-		currentscreening,
+		currentscreening
 	})
 	console.log(newMovie)
 	newMovie
@@ -28,7 +28,7 @@ exports.addMovie = (req, res) => {
 		.catch((err) => res.status(400).json({ error: err.message }))
 }
 
-exports.getMovie = async (req, res) => {
+const getMovie = async (req, res) => {
 	try {
 		const movies = await Movie.find()
 		res.json(movies)
@@ -37,11 +37,11 @@ exports.getMovie = async (req, res) => {
 	}
 }
 
-exports.updatemovie = async (req, res) => {
+const updatemovie = async (req, res) => {
 	const { id } = req.params
 	try {
 		const updatedMovie = await Movie.findByIdAndUpdate(id, req.body, {
-			new: true,
+			new: true
 		})
 		res.json(updatedMovie)
 	} catch (error) {
@@ -50,7 +50,7 @@ exports.updatemovie = async (req, res) => {
 	}
 }
 
-exports.deletemovie = async (req, res) => {
+const deletemovie = async (req, res) => {
 	try {
 		const movieId = req.params.id
 		// Find the movie by ID and delete it
@@ -62,7 +62,7 @@ exports.deletemovie = async (req, res) => {
 	}
 }
 
-exports.movieshowtimes = async (req, res) => {
+const movieshowtimes = async (req, res) => {
 	try {
 		const { movieId } = req.params
 		const movie = await Movie.findById(movieId)
@@ -76,7 +76,7 @@ exports.movieshowtimes = async (req, res) => {
 	}
 }
 
-exports.movietrailer = async (req, res) => {
+const movietrailer = async (req, res) => {
 	try {
 		const { movieId } = req.params
 		const movie = await Movie.findById(movieId)
@@ -90,7 +90,7 @@ exports.movietrailer = async (req, res) => {
 	}
 }
 
-exports.addmovieshowtimes = async (req, res) => {
+const addmovieshowtimes = async (req, res) => {
 	try {
 		const { movieId } = req.params
 
@@ -122,7 +122,7 @@ exports.addmovieshowtimes = async (req, res) => {
 	}
 }
 
-exports.deletemovieshowtimes = async (req, res) => {
+const deletemovieshowtimes = async (req, res) => {
 	try {
 		const { movieId, showtimeId } = req.params
 		// Find the movie by ID
@@ -138,4 +138,15 @@ exports.deletemovieshowtimes = async (req, res) => {
 		console.error('Error deleting showtime:', error)
 		res.status(500).json({ error: 'Internal server error' })
 	}
+}
+
+module.exports = {
+	addMovie,
+	getMovie,
+	updatemovie,
+	deletemovie,
+	movieshowtimes,
+	movietrailer,
+	addmovieshowtimes,
+	deletemovieshowtimes
 }

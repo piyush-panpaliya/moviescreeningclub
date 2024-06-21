@@ -1,8 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const UserController = require('@/controllers/user/user.controller')
+const {
+	fetchUsers,
+	updateUserType,
+	userType
+} = require('@/controllers/user/user.controller')
 
-router.get('/fetchusers', UserController.fetchUsers)
-router.post('/updateUserType', UserController.updateUserType)
-router.get('/:email', UserController.userType)
+router.get('/fetchusers', fetchUsers)
+router.post('/updateUserType', updateUserType)
+router.get('/:email', userType)
 module.exports = router

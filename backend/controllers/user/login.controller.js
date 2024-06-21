@@ -3,7 +3,7 @@ const OTP = require('@/models/user/otp.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
-exports.login = async (req, res) => {
+const login = async (req, res) => {
 	const { email, password } = req.body
 	try {
 		const user = await User.findOne({ email })
@@ -15,7 +15,7 @@ exports.login = async (req, res) => {
 			return res.status(401).json({ error: 'Invalid email or password' })
 		}
 		const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
-			expiresIn: '1h',
+			expiresIn: '1h'
 		})
 		res.status(200).json({ token })
 	} catch (error) {
@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
 	}
 }
 
-exports.update = async (req, res) => {
+const update = async (req, res) => {
 	try {
 		const { email, password, otp } = req.body
 		console.log(req.body)
@@ -33,7 +33,7 @@ exports.update = async (req, res) => {
 			console.log('input error')
 			return res.status(403).json({
 				success: false,
-				message: 'All fields are required',
+				message: 'All fields are required'
 			})
 		}
 		const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1)
@@ -42,7 +42,7 @@ exports.update = async (req, res) => {
 			console.log('otp error')
 			return res.status(400).json({
 				success: false,
-				message: 'The OTP is not valid',
+				message: 'The OTP is not valid'
 			})
 		}
 		let hashedPassword
@@ -52,7 +52,7 @@ exports.update = async (req, res) => {
 			console.log('password error')
 			return res.status(500).json({
 				success: false,
-				message: `Hashing password error for ${password}: ` + error.message,
+				message: `Hashing password error for ${password}: ` + error.message
 			})
 		}
 
@@ -67,10 +67,12 @@ exports.update = async (req, res) => {
 
 		res.status(200).json({
 			success: true,
-			message: 'Password updated successfully',
+			message: 'Password updated successfully'
 		})
 	} catch (error) {
 		console.error('Error updating password:', error)
 		res.status(500).json({ error: 'Internal server error' })
 	}
 }
+
+module.exports = { login, update }

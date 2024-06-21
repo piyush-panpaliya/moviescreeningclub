@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const SeatMapSchema = new mongoose.Schema({
 	showtimeid: {
 		type: String,
-		required: true,
+		required: true
 	},
 	seats: {
 		type: Map,
@@ -31,7 +31,7 @@ const SeatMapSchema = new mongoose.Schema({
 				'Q',
 				'R',
 				'S',
-				'T',
+				'T'
 			]
 			for (let row of rows) {
 				let rowCount
@@ -84,8 +84,8 @@ const SeatMapSchema = new mongoose.Schema({
 				}
 			}
 			return defaultSeats
-		},
-	},
+		}
+	}
 })
 
 const SeatMap = mongoose.model('SeatMap', SeatMapSchema)

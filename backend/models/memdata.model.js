@@ -9,7 +9,7 @@ const MemdataSchema = new mongoose.Schema({
 		type: String, // Change type to String
 		default: function () {
 			return moment().format('DD-MM-YYYY') // Format date as dd-mm-yyyy
-		},
+		}
 	},
 	validitydate: {
 		type: String, // Change type to String
@@ -19,8 +19,8 @@ const MemdataSchema = new mongoose.Schema({
 				'days'
 			)
 			return validityDate.format('DD-MM-YYYY') // Format date as dd-mm-yyyy
-		},
-	},
+		}
+	}
 })
 
 const Memdata = mongoose.model('Memdata', MemdataSchema)

@@ -1,7 +1,7 @@
 const Movie = require('@/models/vote.model')
 
 // Controller to fetch all movies
-exports.getAllMovies = async (req, res) => {
+const getAllMovies = async (req, res) => {
 	try {
 		const movies = await Movie.find()
 		res.status(200).json({ movies })
@@ -11,7 +11,7 @@ exports.getAllMovies = async (req, res) => {
 	}
 }
 
-exports.voteMovie = async (req, res) => {
+const voteMovie = async (req, res) => {
 	const { movieId, voteType, userEmail } = req.body
 
 	try {
@@ -45,7 +45,7 @@ exports.voteMovie = async (req, res) => {
 	}
 }
 
-exports.addvotemovie = async (req, res) => {
+const addvotemovie = async (req, res) => {
 	try {
 		const { title, poster, genre } = req.body
 		// Create a new movie document
@@ -60,7 +60,7 @@ exports.addvotemovie = async (req, res) => {
 }
 
 // Route to delete a movie by ID
-exports.deletevotemovie = async (req, res) => {
+const deletevotemovie = async (req, res) => {
 	try {
 		const movieId = req.params.id
 		await Movie.findByIdAndDelete(movieId)
@@ -70,3 +70,5 @@ exports.deletevotemovie = async (req, res) => {
 		res.status(500).json({ error: 'Failed to delete movie' })
 	}
 }
+
+module.exports = { getAllMovies, voteMovie, addvotemovie, deletevotemovie }

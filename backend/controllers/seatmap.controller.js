@@ -1,7 +1,7 @@
 const SeatMap = require('@/models/seatmap.model')
 const nodemailer = require('nodemailer')
 
-exports.seatOccupancy = async (req, res) => {
+const seatOccupancy = async (req, res) => {
 	try {
 		const { showtimeId } = req.params
 
@@ -24,7 +24,7 @@ exports.seatOccupancy = async (req, res) => {
 	}
 }
 
-exports.seatassign = async (req, res) => {
+const seatassign = async (req, res) => {
 	try {
 		const { showtimeId, seat } = req.params
 
@@ -48,10 +48,12 @@ exports.seatassign = async (req, res) => {
 
 		// Return a success message
 		res.json({
-			message: `Seat ${seat} assigned to you for showtime ${showtimeId}`,
+			message: `Seat ${seat} assigned to you for showtime ${showtimeId}`
 		})
 	} catch (error) {
 		console.error('Error assigning seat:', error)
 		res.status(500).json({ error: 'Internal server error' })
 	}
 }
+
+module.exports = { seatOccupancy, seatassign }
