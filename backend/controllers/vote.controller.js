@@ -45,6 +45,7 @@ const voteMovie = async (req, res) => {
 	}
 }
 
+// admin,movievlun,volun
 const addvotemovie = async (req, res) => {
 	try {
 		const { title, poster, genre } = req.body
@@ -60,6 +61,7 @@ const addvotemovie = async (req, res) => {
 }
 
 // Route to delete a movie by ID
+// admin,movievlun,volun
 const deletevotemovie = async (req, res) => {
 	try {
 		const movieId = req.params.id

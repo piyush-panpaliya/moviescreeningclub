@@ -84,7 +84,7 @@ const Foram2 = () => {
     console.log(data);
 
     try {
-      const response = await fetch(`${SERVERIP}/payment/tempPayment`, {
+      const response = await fetch(`/payment/tempPayment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

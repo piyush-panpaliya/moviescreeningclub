@@ -1,6 +1,6 @@
 const Movie = require('@/models/movie.model')
 const SeatMap = require('@/models/seatmap.model')
-
+// admin,movievlun,volun
 const addMovie = (req, res) => {
 	const {
 		title,
@@ -31,12 +31,13 @@ const addMovie = (req, res) => {
 const getMovie = async (req, res) => {
 	try {
 		const movies = await Movie.find()
+		res.set('Cache-Control', 'public, max-age=60, s-maxage=0')
 		res.json(movies)
 	} catch (err) {
 		res.status(500).json({ error: err.message })
 	}
 }
-
+// admin,movievlun,volun
 const updatemovie = async (req, res) => {
 	const { id } = req.params
 	try {
@@ -49,7 +50,7 @@ const updatemovie = async (req, res) => {
 		res.status(500).json({ error: 'Error updating movie' })
 	}
 }
-
+// admin,movievlun,volun
 const deletemovie = async (req, res) => {
 	try {
 		const movieId = req.params.id
@@ -62,34 +63,21 @@ const deletemovie = async (req, res) => {
 	}
 }
 
-const movieshowtimes = async (req, res) => {
+const getMovieById = async (req, res) => {
 	try {
 		const { movieId } = req.params
 		const movie = await Movie.findById(movieId)
 		if (!movie) {
 			return res.status(404).json({ error: 'Movie not found' })
 		}
-		res.json(movie.showtimes)
-	} catch (error) {
-		console.error('Error fetching showtimes:', error)
-		res.status(500).json({ error: 'Internal server error' })
-	}
-}
-
-const movietrailer = async (req, res) => {
-	try {
-		const { movieId } = req.params
-		const movie = await Movie.findById(movieId)
-		if (!movie) {
-			return res.status(404).json({ error: 'Movie not found' })
-		}
-		res.json(movie.trailer)
+		res.json(movie)
 	} catch (error) {
 		console.error('Error fetching trailer:', error)
 		res.status(500).json({ error: 'Internal server error' })
 	}
 }
 
+// admin,movievlun,volun
 const addmovieshowtimes = async (req, res) => {
 	try {
 		const { movieId } = req.params
@@ -122,6 +110,7 @@ const addmovieshowtimes = async (req, res) => {
 	}
 }
 
+// admin,movievlun,volun
 const deletemovieshowtimes = async (req, res) => {
 	try {
 		const { movieId, showtimeId } = req.params
@@ -145,8 +134,7 @@ module.exports = {
 	getMovie,
 	updatemovie,
 	deletemovie,
-	movieshowtimes,
-	movietrailer,
+	getMovieById,
 	addmovieshowtimes,
 	deletemovieshowtimes
 }

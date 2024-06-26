@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer')
 const QRCode = require('qrcode')
 // import QRCode from "qrcode";
 const moment = require('moment')
-
+// webhook
 const addQR = (req, res) => {
 	const { name, email, paymentId, validity, memtype } = req.body
 	const newQR = new QR({ name, email, paymentId, validity, memtype })
@@ -49,6 +49,7 @@ const sendQR = (req, res) => {
 	})
 }
 
+// authenticated
 const getValidQRs = async (req, res) => {
 	const { email } = req.params
 	try {

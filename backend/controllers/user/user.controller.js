@@ -19,7 +19,7 @@ const fetchUsers = async (req, res) => {
 		res.status(500).json({ error: 'Failed to fetch users' })
 	}
 }
-
+// admin only
 const updateUserType = async (req, res) => {
 	try {
 		const { email, userType } = req.body

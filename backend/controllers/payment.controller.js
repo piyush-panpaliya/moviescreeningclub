@@ -71,6 +71,7 @@ const check = async (req, res) => {
 const saveTempPayment = async (req, res) => {
 	console.log(req.body)
 	try {
+		console.log(req.body)
 		const temp = new TempSchema({
 			name: req.body.name,
 			phoneNumber: req.body.phoneNumber,

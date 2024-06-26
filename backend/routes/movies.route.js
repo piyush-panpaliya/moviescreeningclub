@@ -4,8 +4,7 @@ const {
 	getMovie,
 	updatemovie,
 	deletemovie,
-	movieshowtimes,
-	movietrailer,
+	getMovieById,
 	addmovieshowtimes,
 	deletemovieshowtimes
 } = require('@/controllers/movies.controller')
@@ -15,8 +14,7 @@ router.post('/add-movies', addMovie)
 router.get('/movies', getMovie)
 router.put('/movies/:id', updatemovie)
 router.delete('/movies/:id', deletemovie)
-router.get('/:movieId/showtimes', movieshowtimes)
-router.get('/:movieId/trailer', movietrailer)
+router.get('/:movieId', getMovieById)
 router.post('/:movieId/showtimes', addmovieshowtimes)
 router.delete('/:movieId/showtimes/:showtimeId', deletemovieshowtimes)
 

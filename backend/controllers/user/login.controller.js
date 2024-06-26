@@ -14,9 +14,19 @@ const login = async (req, res) => {
 		if (!passwordMatch) {
 			return res.status(401).json({ error: 'Invalid email or password' })
 		}
-		const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
-			expiresIn: '1h'
-		})
+		const token = jwt.sign(
+			{
+				userId: user._id,
+				email: user.email,
+				usertype: user.usertype || 'standard',
+				name: user.name || 'user',
+				phone: user.phoneNumber || ''
+			},
+			`${process.env.JWT_SECRET || 'secret'}`,
+			{
+				expiresIn: '1h'
+			}
+		)
 		res.status(200).json({ token })
 	} catch (error) {
 		console.error('Error during login:', error)
