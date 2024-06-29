@@ -40,7 +40,9 @@ const Showtime = () => {
 			return
 		}
 		try {
-			await api.post(`/movie/${movieId}/showtimes`, newShowtime)
+			await api.post(`/movie/${movieId}/showtimes`, {
+				date: new Date(newShowtime.date + 'T' + newShowtime.time).toISOString(),
+			})
 			await fetchMovie()
 			setNewShowtime({ date: '', time: '' })
 			setShowAddRow(false)

@@ -117,6 +117,27 @@ const Foram2 = () => {
 						className='flex flex-col gap-4 w-full items-center pt-10'
 					>
 						<div
+							onClick={async () => {
+								const res = await api.post('/membership/request', {
+									memtype: 'base',
+								})
+								if (res.status !== 200) {
+									console.error('Error requesting membership:', res.data.error)
+									return
+								}
+								const options = {
+									atomTokenId: res.data.atomTokenId,
+									merchId: res.data.merchId,
+									custEmail: 'testuser@ndps.in',
+									custMobile: '8888888888',
+									returnUrl:
+										(import.meta.env.VITE_environment === 'development'
+											? 'http://localhost:8000'
+											: '/api') + '/membership/redirect',
+								}
+								console.log(options)
+								let atom = new AtomPaynetz(options, 'uat')
+							}}
 							className={`bg-gradient-to-bl from-${
 								index === 0
 									? 'red'

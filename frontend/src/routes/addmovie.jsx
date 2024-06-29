@@ -27,7 +27,7 @@ const MovieForm = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		api
-			.post(`/movie/add-movies`, formData)
+			.post(`/movie/add`, formData)
 			.then((res) => {
 				setFormData({
 					title: '',

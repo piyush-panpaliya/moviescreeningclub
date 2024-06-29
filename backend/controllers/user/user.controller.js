@@ -41,7 +41,7 @@ const updateUserType = async (req, res) => {
 
 const userType = async (req, res) => {
 	try {
-		const { email } = req.params
+		const { email } = req.user
 		// Find the user by email
 		const user = await User.findOne({ email })
 		// If user not found, return 404

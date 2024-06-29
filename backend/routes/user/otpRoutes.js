@@ -1,9 +1,9 @@
 const express = require('express')
 const {
-	userOTP,
-	userOTP1,
-	sendOTP,
-	sendOTPforgot
+  userOTP,
+  userOTP1,
+  sendOTP,
+  sendOTPforgot
 } = require('@/controllers/user/otp.controller')
 const router = express.Router()
 router.post('/user-otp', userOTP)

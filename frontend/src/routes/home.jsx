@@ -16,7 +16,7 @@ const Home = () => {
 		: 4
 	useEffect(() => {
 		api
-			.get(`/movie/movies`)
+			.get(`/movie`)
 			.then((response) => {
 				setMovies(response.data)
 			})
