@@ -1,17 +1,17 @@
-import img1 from "../images/guideimg1.png";
-import img2 from "../images/guideimg2.png";
-import img3 from "../images/guideimg3.png";
-import img4 from "../images/guideimg4.png";
-import img5 from "../images/guideimg5.png";
-import img6 from "../images/guideimg6.png";
-import img7 from "../images/guideimg7.png";
-import img8 from "../images/guideimg8.png";
-import img9 from "../images/guideimg9.png";
-import img10 from "../images/guideimg10.png";
-import img11 from "../images/guideimg11.png";
-import img12 from "../images/guideimg12.png";
-import img13 from "../images/guideimg13.png";
-import img14 from "../images/guideimg14.png";
+import img1 from '../images/guideimg1.png'
+import img2 from '../images/guideimg2.png'
+import img3 from '../images/guideimg3.png'
+import img4 from '../images/guideimg4.png'
+import img5 from '../images/guideimg5.png'
+import img6 from '../images/guideimg6.png'
+import img7 from '../images/guideimg7.png'
+import img8 from '../images/guideimg8.png'
+import img9 from '../images/guideimg9.png'
+import img10 from '../images/guideimg10.png'
+import img11 from '../images/guideimg11.png'
+import img12 from '../images/guideimg12.png'
+import img13 from '../images/guideimg13.png'
+import img14 from '../images/guideimg14.png'
 
 export default function Guidelines() {
   return (
@@ -23,7 +23,7 @@ export default function Guidelines() {
         <p className="ml-4">
           1. Begin by visiting
           <a href="chalchitra.iitmandi.ac.in" className="text-blue-500">
-            {" "}
+            {' '}
             chalchitra.iitmandi.ac.in
           </a>
           . Once there, proceed by clicking on the &quot;Signup&quot; button,
@@ -74,15 +74,14 @@ export default function Guidelines() {
         <p className="ml-4">
           6. Various membership plans are available to suit your preferences,
           each offering a specific number of tickets. Select the plan that fits
-          your needs, then with any upi payments app scan the required 
-          membership's QR code and pay the said amount in it, further you need 
-          to enter the transaction ID of your payment and the screenshot as a 
-          proof of your payment there in the form given at the bottom of the page
-           and click submit. After this is done at your end we will verfiy your 
-           payemnt at our end and assign you the required membership or if there 
-           is any disperency in the payment or your membership is assigned to you,
-            we will contact you on your mail ID.
-
+          your needs, then with any upi payments app scan the required
+          membership's QR code and pay the said amount in it, further you need
+          to enter the transaction ID of your payment and the screenshot as a
+          proof of your payment there in the form given at the bottom of the
+          page and click submit. After this is done at your end we will verfiy
+          your payemnt at our end and assign you the required membership or if
+          there is any disperency in the payment or your membership is assigned
+          to you, we will contact you on your mail ID.
         </p>
         <div className="flex flex-col items-center gap-3 my-3">
           <img src={img5} alt="not found" />
@@ -136,5 +135,5 @@ export default function Guidelines() {
         </p>
       </span>
     </div>
-  );
+  )
 }

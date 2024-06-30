@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const {
-	fetchUsers,
-	updateUserType,
-	userType
+  fetchUsers,
+  updateUserType,
+  userType
 } = require('@/controllers/user/user.controller')
 const verifyJWTWithRole = require('@/middleware')
 

@@ -1,5 +1,6 @@
 const Membership = require('@/models/membership.model')
 const User = require('@/models/user/user.model')
+const { memData } = require('@/constants/memberships')
 const crypto = require('crypto')
 const { membershipMail } = require('@/utils/mail')
 const axios = require('axios')
@@ -27,7 +28,6 @@ const saveMembership = async (req, res) => {
     const decrypted_data = decrypt(req.body.encData)
     const jsonData = JSON.parse(decrypted_data)
     const signature = generateSignature(jsonData.payInstrument)
-    const respArray = jsonData.payInstrument.payDetails.signature
     if (signature !== jsonData.payInstrument.payDetails.signature) {
       console.log('signature mismatched!!')
       return res.redirect('http://localhost:5173/home?err=signature_mismatched')
@@ -53,22 +53,8 @@ const saveMembership = async (req, res) => {
         return res.redirect('http://localhost:5173/home')
       }
     }
-    const validity =
-      memtype === 'base'
-        ? 10 * 24 * 60 * 60
-        : memtype === 'silver'
-          ? 30 * 24 * 60 * 60
-          : memtype === 'gold'
-            ? 90 * 24 * 60 * 60
-            : 365 * 24 * 60 * 60
-    const availQR =
-      memtype === 'base'
-        ? 1
-        : memtype === 'silver'
-          ? 2
-          : memtype === 'gold'
-            ? 3
-            : 4
+    const memDetails = memData.find((m) => m.name === memtype)
+    const { validity, availQR } = memDetails
     const newusermem = new Membership({
       user: userId,
       memtype,
@@ -79,7 +65,7 @@ const saveMembership = async (req, res) => {
     })
     const savedusermem = await newusermem.save()
     console.log('Usermem details saved:', savedusermem)
-    membershipMail(memtype, email)
+    await membershipMail(memtype, email)
     return res.redirect('http://localhost:5173/home')
   } catch (error) {
     console.error('Error saving Usermem:', error)
@@ -91,10 +77,7 @@ const requestMembership = async (req, res) => {
   try {
     const { userId } = req.user
     const { memtype } = req.body
-    if (
-      !memtype ||
-      ['base', 'silver', 'gold', 'platinum'].indexOf(memtype) === -1
-    ) {
+    if (!memtype || memData.map((m) => m.name).indexOf(memtype) === -1) {
       return res.status(400).json({ message: 'Membership type is required' })
     }
     const membership = await Membership.findOne({ user: userId, isValid: true })
@@ -122,14 +105,7 @@ const requestMembership = async (req, res) => {
       .toISOString()
       .replace(/T/, ' ')
       .replace(/\..+/, '')
-    const amount =
-      memtype === 'base'
-        ? 100
-        : memtype === 'silver'
-          ? 200
-          : memtype === 'gold'
-            ? 300
-            : 400
+    const amount = memData.find((m) => m.name === memtype).price
     const userEmailId = user.email
     const userContactNo = user.phone
 

@@ -9,16 +9,14 @@ const cors = require('cors')
 const { createServer } = require('http')
 const path = require('path')
 
-const loginRouter = require('@/routes/user/login.route.js')
-const votepagerouter = require('@/routes/voteroute.js')
-const membershipRouter = require('@/routes/user/membershipsRoutes.js')
-const userRouter = require('@/routes/user/userRoutes.js')
-const authRouter = require('@/routes/user/authRoutes.js')
-const otpRouter = require('@/routes/user/otpRoutes.js')
-const SeatMapRouter = require('@/routes/seatmap.route.js')
-// const paymentRouter = require('@/routes/payment.route.js')
-const movieRouter = require('@/routes/movies.route.js')
-const qrRouter = require('@/routes/qr.route.js')
+const votepagerouter = require('@/routes/voteroute')
+const membershipRouter = require('@/routes/user/memberships.route')
+const userRouter = require('@/routes/user/user.route')
+const authRouter = require('@/routes/user/auth.route')
+const otpRouter = require('@/routes/user/otp.route')
+const SeatMapRouter = require('@/routes/seatmap.route')
+const movieRouter = require('@/routes/movies.route')
+const qrRouter = require('@/routes/qr.route')
 
 const PORT = 8000
 
@@ -44,7 +42,6 @@ app.use((req, _, next) => {
   next()
 })
 
-app.use('/login', loginRouter)
 app.use('/user', userRouter)
 app.use('/auth', authRouter)
 app.use('/otp', otpRouter)
@@ -54,8 +51,6 @@ app.use('/movie', movieRouter)
 app.use('/seatmap', SeatMapRouter)
 app.use('/membership', membershipRouter)
 app.use('/vot', votepagerouter)
-
-// app.use('/payment', paymentRouter)
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'))

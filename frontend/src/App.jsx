@@ -30,129 +30,129 @@ import AuthenticatedRoute from '@/components/protectedRoute'
 import { LoginProvider } from '@/components/LoginContext'
 
 function App() {
-	return (
-		<BrowserRouter>
-			<LoginProvider>
-				<Navbar />
-				<Routes>
-					<Route index element={<Home />} />
-					<Route path='/home' element={<Home />} />
-					<Route path='/login' element={<Login />} />
-					<Route path='/signup' element={<Signup />} />
-					<Route path='/getOTP' element={<GetOTP />} />
-					<Route path='/forgot' element={<ForgotPassword />} />
-					<Route path='/update' element={<UpdatePassword />} />
-					{/* <Route path="/form" element={<Foram />} /> */}
-					<Route
-						path='/form2'
-						element={
-							<AuthenticatedRoute>
-								<Foram2 />
-							</AuthenticatedRoute>
-						}
-					/>
-					<Route
-						path='/scanner'
-						element={
-							<AuthenticatedRoute minLevel='ticketvolunteer'>
-								<Scanner />
-							</AuthenticatedRoute>
-						}
-					/>
-					<Route
-						path='/addmovie'
-						element={
-							<AuthenticatedRoute minLevel='movievolunteer'>
-								<MovieForm />
-							</AuthenticatedRoute>
-						}
-					/>
-					<Route
-						path='/modifymovie'
-						element={
-							<AuthenticatedRoute minLevel='movievolunteer'>
-								<ModifyMovie />
-							</AuthenticatedRoute>
-						}
-					/>
-					<Route
-						path='/myaccount'
-						element={
-							<AuthenticatedRoute>
-								<Myaccount />
-							</AuthenticatedRoute>
-						}
-					/>
-					<Route
-						path='/adddropvolunteer'
-						element={
-							<AuthenticatedRoute minLevel='admin'>
-								<AdddropVolunteer />
-							</AuthenticatedRoute>
-						}
-					/>
-					<Route
-						path='/showtime'
-						element={
-							<AuthenticatedRoute>
-								<Showtime />
-							</AuthenticatedRoute>
-						}
-					/>
-					<Route
-						path='/test'
-						element={
-							<AuthenticatedRoute>
-								<Test />
-							</AuthenticatedRoute>
-						}
-					/>
-					<Route
-						path='/allshowtime/:paymentId'
-						element={
-							<AuthenticatedRoute>
-								<Showtimepage />
-							</AuthenticatedRoute>
-						}
-					/>
-					<Route
-						path='/seatmap/:showtimeId'
-						element={
-							<AuthenticatedRoute>
-								<SeatMapPage />
-							</AuthenticatedRoute>
-						}
-					/>
-					<Route
-						path='/QR'
-						element={
-							<AuthenticatedRoute>
-								<QR />
-							</AuthenticatedRoute>
-						}
-					/>
-					<Route
-						path='/VotePage'
-						element={
-							<AuthenticatedRoute>
-								<MovieList />
-							</AuthenticatedRoute>
-						}
-					/>
-					<Route path='/guidelines' element={<Guidelines />} />
-					<Route
-						path='/approveMembership'
-						element={
-							<AuthenticatedRoute minLevel='admin'>
-								<ApproveMembership />
-							</AuthenticatedRoute>
-						}
-					/>
-				</Routes>
-				<Footer />
-			</LoginProvider>
-		</BrowserRouter>
-	)
+  return (
+    <BrowserRouter>
+      <LoginProvider>
+        <Navbar />
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/getOTP" element={<GetOTP />} />
+          <Route path="/forgot" element={<ForgotPassword />} />
+          <Route path="/update" element={<UpdatePassword />} />
+          {/* <Route path="/form" element={<Foram />} /> */}
+          <Route
+            path="/form2"
+            element={
+              <AuthenticatedRoute>
+                <Foram2 />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/scanner"
+            element={
+              <AuthenticatedRoute minLevel="ticketvolunteer">
+                <Scanner />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/addmovie"
+            element={
+              <AuthenticatedRoute minLevel="movievolunteer">
+                <MovieForm />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/modifymovie"
+            element={
+              <AuthenticatedRoute minLevel="movievolunteer">
+                <ModifyMovie />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/myaccount"
+            element={
+              <AuthenticatedRoute>
+                <Myaccount />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/adddropvolunteer"
+            element={
+              <AuthenticatedRoute minLevel="admin">
+                <AdddropVolunteer />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/showtime"
+            element={
+              <AuthenticatedRoute>
+                <Showtime />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/test"
+            element={
+              <AuthenticatedRoute>
+                <Test />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/allshowtime/:paymentId"
+            element={
+              <AuthenticatedRoute>
+                <Showtimepage />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/seatmap/:showtimeId"
+            element={
+              <AuthenticatedRoute>
+                <SeatMapPage />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/QR"
+            element={
+              <AuthenticatedRoute>
+                <QR />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/VotePage"
+            element={
+              <AuthenticatedRoute>
+                <MovieList />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route path="/guidelines" element={<Guidelines />} />
+          <Route
+            path="/approveMembership"
+            element={
+              <AuthenticatedRoute minLevel="admin">
+                <ApproveMembership />
+              </AuthenticatedRoute>
+            }
+          />
+        </Routes>
+        <Footer />
+      </LoginProvider>
+    </BrowserRouter>
+  )
 }
 
 export default App

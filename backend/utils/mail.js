@@ -156,7 +156,7 @@ const mailQRs = async (seats, user, movie, showtime) => {
   }
 }
 
-const membershipMail = (membership, user) => {
+const membershipMail = async (membership, user) => {
   const mailOptions = {
     from: process.env.EMAIL,
     to: user.email,
@@ -164,16 +164,23 @@ const membershipMail = (membership, user) => {
     text: `Your payment was successful for ${membership} membership`
   }
   const transporter = transporterSingleton.getTransporter()
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error('Error sending email:', error)
-    } else {
-      console.log('Email sent:', info.response)
-    }
-  })
+  await transporter.sendMail(mailOptions)
 }
+
+const mailOtp = async (otp, email, subject = 'OTP') => {
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: subject,
+    text: `Your OTP is ${otp}`
+  }
+  const transporter = transporterSingleton.getTransporter()
+  await transporter.sendMail(mailOptions)
+}
+
 module.exports = {
   mailer: transporterSingleton.getTransporter(),
   mailQRs,
-  membershipMail
+  membershipMail,
+  mailOtp
 }
