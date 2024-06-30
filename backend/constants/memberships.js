@@ -1,26 +1,26 @@
 const memData = [
   {
     name: 'base',
-    price: 0,
-    validity: 10,
+    price: 100,
+    validity: 10 * 24 * 3600,
     availQR: 1
   },
   {
     name: 'silver',
-    price: 10,
-    validity: 30,
+    price: 200,
+    validity: 30 * 24 * 3600,
     availQR: 2
   },
   {
     name: 'gold',
-    price: 20,
-    validity: 90,
+    price: 300,
+    validity: 90 * 24 * 3600,
     availQR: 3
   },
   {
     name: 'diamond',
-    price: 30,
-    validity: 365,
+    price: 400,
+    validity: 365 * 24 * 3600,
     availQR: 4
   }
 ]
