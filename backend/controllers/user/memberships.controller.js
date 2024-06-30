@@ -30,10 +30,14 @@ const saveMembership = async (req, res) => {
     const signature = generateSignature(jsonData.payInstrument)
     if (signature !== jsonData.payInstrument.payDetails.signature) {
       console.log('signature mismatched!!')
-      return res.redirect('http://localhost:5173/home?err=signature_mismatched')
+      return res.redirect(
+        `${process.env.FRONTEND_URL}/home?err=signature_mismatched`
+      )
     }
     if (jsonData.payInstrument.responseDetails.statusCode !== 'OTS0000') {
-      return res.redirect('http://localhost:5173/home?err=transaction_failed')
+      return res.redirect(
+        `${process.env.FRONTEND_URL}/home?err=transaction_failed`
+      )
     }
 
     const memtype = jsonData.payInstrument.extras.udf1
@@ -50,7 +54,7 @@ const saveMembership = async (req, res) => {
         anyMem.availQR = 0
         await anyMem.save()
       } else {
-        return res.redirect('http://localhost:5173/home')
+        return res.redirect(`${process.env.FRONTEND_URL}/home`)
       }
     }
     const memDetails = memData.find((m) => m.name === memtype)
@@ -66,10 +70,12 @@ const saveMembership = async (req, res) => {
     const savedusermem = await newusermem.save()
     console.log('Usermem details saved:', savedusermem)
     await membershipMail(memtype, email)
-    return res.redirect('http://localhost:5173/home')
+    return res.redirect(`${process.env.FRONTEND_URL}/home`)
   } catch (error) {
     console.error('Error saving Usermem:', error)
-    return res.redirect('http://localhost:5173/home?err=internal_server_error')
+    return res.redirect(
+      `${process.env.FRONTEND_URL}/home?err=internal_server_error`
+    )
   }
 }
 
