@@ -24,6 +24,7 @@ import Tickets from '@/routes/Tickets'
 import AuthenticatedRoute from '@/components/ProtectedRoute'
 import { LoginProvider } from '@/components/LoginContext'
 import { MembershipProvider } from '@/components/MembershipContext'
+import DesignationCounts from "@/components/MemberShipsSold"
 
 function App() {
   return (
@@ -122,6 +123,7 @@ function App() {
                 }
               />
               <Route path="/guidelines" element={<Guidelines />} />
+              <Route path="/designationCount" element={<DesignationCounts />} />
             </Routes>
             <Footer />
           </div>

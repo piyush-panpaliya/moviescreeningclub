@@ -20,9 +20,40 @@ export const Signup = () => {
   const navigate = useNavigate()
 
   const handleChange = (e) => {
+<<<<<<< HEAD:frontend/src/routes/auth/Signup.jsx
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
   }
+=======
+    const { name, value } = e.target;
+    setFormData({ 
+      ...formData, 
+      [name]: value 
+    });
+    if (name === "email") {
+      parseEmail(value);
+    }
+  };
+
+  const parseEmail = (email) => {
+    email = email.trim();
+    console.log(email);
+    if (email.endsWith("@students.iitmandi.ac.in")) {
+      setIsValidEmail(true);
+      if (email.toLowerCase().startsWith("b")) {
+        setFormData({ ...formData, designation: "B-Tech" });
+      } else {
+        setFormData({ ...formData, designation: "PHD/M-Tech" });
+      }
+    } else if ((email.endsWith("@iitmandi.ac.in"))|| (email.endsWith("@projects.iitmandi.ac.in"))) {
+      setIsValidEmail(true);
+      setFormData({ ...formData, designation: "Faculty/Staff" });
+    } else {
+      setIsValidEmail(false);
+      setFormData({ ...formData, designation: "Faculty/Staff" });
+    }
+  };
+>>>>>>> 428fd73 (budget page added):frontend/src/components/Signup.jsx
 
   const handleSubmit = async (e) => {
     e.preventDefault()

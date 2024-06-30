@@ -27,10 +27,18 @@ export default function ForgotPassword() {
         setIsSubmitting(true)
         const res1 = await api.post(`/otp/send-otp-forgot`, formData)
         if (res1.data.success) {
+<<<<<<< HEAD:frontend/src/routes/auth/ForgotPassword.jsx
           localStorage.setItem('forgotpassEmail', formData.email) // Store email in local storage
           navigate('/update')
         } else {
         }
+=======
+          
+          localStorage.setItem("forgotpassEmail", formData.email); // Store email in local storage
+          navigate("/update");
+        } 
+        // else{}
+>>>>>>> 428fd73 (budget page added):frontend/src/components/forgotPassword.jsx
       }
     } catch (err) {
       if (err.response.status === 401) {
