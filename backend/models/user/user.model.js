@@ -21,6 +21,11 @@ const UserSchema = new mongoose.Schema({
   usertype: {
     type: String,
     default: 'standard'
+  },
+  designation: {
+    type: String,
+    enum: ['btech', 'mtech/phd', 'faculty/staff', 'other'],
+    default: 'other'
   }
 })
 

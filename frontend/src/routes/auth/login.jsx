@@ -4,7 +4,6 @@ import { api } from '@/utils/api'
 import { useMembershipContext } from '@/components/MembershipContext'
 import imageOne from '@/images/home_cinema.svg'
 import { useLogin } from '@/components/LoginContext'
-import { SERVERIP } from '@/config'
 import Swal from 'sweetalert2'
 
 const Login = () => {
