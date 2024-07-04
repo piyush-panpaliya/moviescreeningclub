@@ -104,14 +104,6 @@ function App() {
               }
             />
             <Route path="/guidelines" element={<Guidelines />} />
-            <Route
-              path="/approveMembership"
-              element={
-                <AuthenticatedRoute minLevel="admin">
-                  <ApproveMembership />
-                </AuthenticatedRoute>
-              }
-            />
           </Routes>
           <Footer />
         </MembershipProvider>
