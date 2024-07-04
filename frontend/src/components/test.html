@@ -9,12 +9,12 @@ import Qr6 from "../images/QR6 (320).png"; import Qr7 from "../images/QR7
 (510).png"; import Qr8 from "../images/QR8 (720).png"; import Qr9 from
 "../images/QR9 (170).png"; import Qr10 from "../images/QR10 (360).png"; import
 Qr11 from "../images/QR11 (570).png"; import Qr12 from "../images/QR12.png";
-const Foram2 = () => { const { hasMembership, updateMembershipStatus } =
+const Foram2 = () => { const { hasMembership, checkMembershipStatus } =
 useMembershipContext(); const [degree, setDegree] = useState(""); const [email,
 setEmail] = useState(""); const [transactionId, setTransactionId] =
 useState(""); const [membership, setMembership] = useState(""); const [qrImages,
 setQrImages] = useState([]); const [amounts, setAmounts] = useState([]); const
-name = localStorage.getItem("userName"); const phoneNumber =
+name = localStorage.getItem("userName"); const phone =
 localStorage.getItem("userPhone"); const token = getToken(); const navigate =
 useNavigate(); let qr1 ; let qr2 ; let qr3 ; let qr4 ; let amount1; let amount2;
 let amount3; let amount4; useEffect(() => { const storedEmail =
@@ -30,14 +30,14 @@ amounts accordingly... } else if (emailDomain === "iitmandi.ac.in") { // Set
 degree, qrImages, and amounts accordingly... } else { // Set degree, qrImages,
 and amounts accordingly... } return { degree, qrImages, amounts }; }; const
 submitHandler = async (e) => { e.preventDefault(); // Define the data to be sent
-to the backend const data = { name, phoneNumber, degree, email, membership,
+to the backend const data = { name, phone, degree, email, membership,
 transactionId, }; console.log(data); try { const response = await
 fetch(`/payment/tempPayment`, { method: "POST", headers: { "Content-Type":
 "application/json", }, body: JSON.stringify(data), }); if (!response.ok) { throw
 new Error("Network response was not ok"); } // Parse the JSON response data
 const responseData = await response.json(); console.log("Data saved
-successfully:", responseData); updateMembershipStatus(true); } catch (error) {
-// Handle any errors that occur during the request console.error("There was a
+successfully:", responseData); checkMembershipStatus(true); } catch (error) { //
+Handle any errors that occur during the request console.error("There was a
 problem saving the data:", error); } }; if (!hasMembership) { return (
 <div
   className="flex justify-center items-center bg-gray-200 min-h-screen font-monts pb-3"

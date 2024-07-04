@@ -1,4 +1,4 @@
-const memData = [
+export const memData = [
   {
     name: 'base',
     price: [
@@ -92,5 +92,3 @@ const memData = [
     availQR: 4
   }
 ]
-
-module.exports = { memData }

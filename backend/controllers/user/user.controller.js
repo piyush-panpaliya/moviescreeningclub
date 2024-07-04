@@ -49,7 +49,7 @@ const userType = async (req, res) => {
     res.status(200).json({
       userType: user.usertype,
       userName: user.name,
-      userPhone: user.phoneNumber
+      userPhone: user.phone
     })
   } catch (error) {
     console.error('Error fetching user type:', error)

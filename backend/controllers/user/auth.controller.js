@@ -6,9 +6,9 @@ const jwt = require('jsonwebtoken')
 
 const signup = async (req, res) => {
   try {
-    const { name, phoneNumber, designation, password, otp, email } = req.body
+    const { name, phone, designation, password, otp, email } = req.body
     // Check if all details are provided
-    if (!name || !email || !password || !otp || !phoneNumber) {
+    if (!name || !email || !password || !otp || !phone) {
       return res.status(403).json({
         success: false,
         message: 'All fields are required'
@@ -43,9 +43,8 @@ const signup = async (req, res) => {
     const newUser = await User.create({
       name,
       email,
-      phoneNumber,
-      password: hashedPassword,
-      designation
+      phone,
+      password: hashedPassword
     })
     return res.status(201).json({
       success: true,
@@ -75,7 +74,7 @@ const login = async (req, res) => {
         email: user.email,
         usertype: user.usertype || 'standard',
         name: user.name || 'user',
-        phone: user.phoneNumber || ''
+        phone: user.phone || ''
       },
       `${process.env.JWT_SECRET || 'secret'}`,
       {
@@ -93,7 +92,6 @@ const update = async (req, res) => {
   try {
     const { email, password, otp } = req.body
     console.log(req.body)
-    // Check if all details are provided
     if (!email || !password || !otp) {
       console.log('input error')
       return res.status(403).json({

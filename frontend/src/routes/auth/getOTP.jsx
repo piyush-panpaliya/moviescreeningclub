@@ -6,63 +6,49 @@ import { SERVERIP } from '@/config'
 import Swal from 'sweetalert2'
 
 export default function GetOTP() {
-  const [formData, setFormData] = useState({
-    email: ''
-  })
-
-  const [isSubmitting, setIsSubmitting] = useState(false) // State to track if form is submitting
-  const { email } = formData
+  const [email, setEmail] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate()
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    if (!email.endsWith('iitmandi.ac.in')) {
-      setFormData({ ...formData, email: '' })
+    if (
+      !/^[a-zA-Z0-9._%+-]+@(iitmandi.ac.in|.*\.iitmandi.ac.in)$/.test(email)
+    ) {
+      setEmail('')
       Swal.fire({
         title: 'Error',
         text: 'Invalid email id. Use institute mail id.',
         icon: 'error'
       })
-    } else {
-      try {
-        const res = await api.post(`/otp/user-otp`, {
-          email
-        })
-        if (res.status === 200) {
-          setIsSubmitting(true)
-          const sendOtpRes = await api.post(`/otp/send-otp`, {
-            email
-          })
-          if (sendOtpRes.data.success) {
-            localStorage.setItem('getotpEmail', email) // Store email in local storage
-            navigate('/signup')
-          } else {
-            console.error('Failed to send')
-          }
-        }
-      } catch (err) {
-        if (err.response.status === 401) {
-          Swal.fire({
-            title: 'Error',
-            text: 'User already exists please login',
-            icon: 'error'
-          })
-        } else if (err.response.status === 500) {
-          Swal.fire({
-            title: 'Error',
-            text: 'Internal server error',
-            icon: 'error'
-          })
-        }
-      } finally {
+      return setIsSubmitting(false)
+    }
+    setIsSubmitting(true)
+    try {
+      const res = await api.post(`/otp/user`, {
+        email
+      })
+      if (res.status === 200) {
         setIsSubmitting(false)
+        navigate('/signup', { state: { email } })
+      }
+    } catch (err) {
+      if (err.response.status === 401) {
+        Swal.fire({
+          title: 'Error',
+          text: 'User already exists please login',
+          icon: 'error'
+        })
+        return setIsSubmitting(false)
+      } else {
+        Swal.fire({
+          title: 'Error',
+          text: 'Internal server error',
+          icon: 'error'
+        })
       }
     }
+    setIsSubmitting(false)
   }
 
   return (
@@ -112,7 +98,7 @@ export default function GetOTP() {
                     placeholder="enter your email"
                     required
                     value={email}
-                    onChange={handleChange}
+                    onChange={(e) => setEmail(e.target.value)}
                     disabled={isSubmitting}
                   />
                 </div>

@@ -156,10 +156,10 @@ const mailQRs = async (seats, user, movie, showtime) => {
   }
 }
 
-const membershipMail = async (membership, user) => {
+const membershipMail = async (membership, email) => {
   const mailOptions = {
     from: process.env.EMAIL,
-    to: user.email,
+    to: email,
     subject: 'Payment Successful',
     text: `Your payment was successful for ${membership} membership`
   }

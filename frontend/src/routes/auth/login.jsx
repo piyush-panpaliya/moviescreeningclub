@@ -8,26 +8,25 @@ import { SERVERIP } from '@/config'
 import Swal from 'sweetalert2'
 
 const Login = () => {
-  const { login } = useLogin()
+  const { login, user } = useLogin()
   const location = useLocation()
   const navigate = useNavigate()
+  const from = location.state?.from ?? { pathname: '/home', search: '' }
 
-  const [formData, setFormData] = useState({
-    email: localStorage.getItem('signupEmail') || '',
-    password: ''
-  })
-
-  const { hasMembership, updateMembershipStatus } = useMembershipContext()
-  const [showPassword, setShowPassword] = useState(false)
   const signupEmail = location.state?.email
 
+  const [formData, setFormData] = useState({
+    email: signupEmail ?? '',
+    password: ''
+  })
+  const { hasMembership, checkMembershipStatus } = useMembershipContext()
+  const [showPassword, setShowPassword] = useState(false)
+
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      login(token)
-      navigate('/home')
+    if (user) {
+      navigate(from.pathname + from.search)
     }
-  }, [login, navigate])
+  }, [user])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -36,20 +35,21 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await api.post(`/login/login`, formData)
+      const res = await api.post(`/auth/login`, formData)
       if (res.status === 200) {
-        const email = formData.email
-        const membershipResponse = await api.get(
-          `/memrouter/checkMembership/${email}`
-        )
-        updateMembershipStatus(membershipResponse.data.hasMembership)
+        const membershipResponse = await api.get('/membership/check', {
+          headers: {
+            Authorization: `Bearer ${res.data.token}`
+          }
+        })
+        checkMembershipStatus(membershipResponse.data)
+        console.log('membershipResponse', membershipResponse.data)
         login(res.data.token)
-        navigate('/home')
       }
     } catch (err) {
-      if (err.response.status === 404) {
+      if (err.res.status === 404) {
         Swal.fire({ title: 'Error', text: 'User not found', icon: 'error' })
-      } else if (err.response.status === 401) {
+      } else if (err.res.status === 401) {
         Swal.fire({
           title: 'Error',
           text: 'Email or password is wrong',

@@ -19,7 +19,6 @@ const userOTP = async (req, res) => {
     await OTP.create({ email, otp })
 
     await mailOtp(otp, email)
-
     res.status(200).json({
       success: true,
       message: 'OTP sent successfully'

@@ -5,9 +5,8 @@ import { isAllowedLvl } from '@/utils/levelCheck'
 const AuthenticatedRoute = ({ children, minLevel = 'standard' }) => {
   const { loggedIn, user } = useLogin()
   const location = useLocation()
-
   if (!loggedIn) {
-    return <Navigate to="/login" state={{ from: location }} replace />
+    return <Navigate to="/login" state={{ from: location }} />
   }
 
   if (!isAllowedLvl(minLevel, user?.usertype)) {

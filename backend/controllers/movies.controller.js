@@ -75,17 +75,12 @@ const getMovieById = async (req, res) => {
       movie.showtimes = movie.showtimes.filter(
         (showtime) => showtime.date >= new Date()
       )
-      // delete all other showtimes and seatmaps
-      const seatmaps = await SeatMap.find({
+      await SeatMap.deleteMany({
         showtimeId: { $in: showsToRemove.map((showtime) => showtime._id) }
       })
-      await Promise.all(
-        seatmaps.map(async (seatmap) => {
-          await seatmap.remove()
-        })
-      )
       await movie.save()
     }
+    res.header('Cache-Control', 'public, max-age=10, s-maxage=0')
     res.json(movie)
   } catch (error) {
     console.error('Error fetching trailer:', error)

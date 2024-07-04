@@ -1,66 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import { api } from '@/utils/api'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useLocation } from 'react-router-dom'
 import imageOne from '@/images/signupImg.svg'
 import { SERVERIP } from '@/config'
 import Swal from 'sweetalert2'
 
 export const Signup = () => {
+  const location = useLocation()
+  const otpEmail = location.state?.email ?? ''
   const [formData, setFormData] = useState({
     name: '',
-    phoneNumber: '',
+    phone: '',
     designation: '',
     password: '',
-    otp: ''
+    otp: '',
+    email: otpEmail
   })
-
-  const [email, setEmail] = useState('')
-  const [isValidEmail, setIsValidEmail] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showOTP, setShowOTP] = useState(false)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const storedEmail = localStorage.getItem('getotpEmail')
-    if (storedEmail) {
-      setEmail(storedEmail)
-      parseEmail(storedEmail)
-    }
-  }, [])
-
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
-    if (name === 'email') {
-      parseEmail(value)
-    }
-  }
-
-  const parseEmail = (email) => {
-    email = email.trim()
-    console.log(email)
-    if (email.endsWith('@students.iitmandi.ac.in')) {
-      setIsValidEmail(true)
-      if (email.toLowerCase().startsWith('b')) {
-        setFormData({ ...formData, designation: 'B-Tech' })
-      } else {
-        setFormData({ ...formData, designation: 'PHD/M-Tech' })
-      }
-    } else if (
-      email.endsWith('@iitmandi.ac.in') ||
-      email.endsWith('@projects.iitmandi.ac.in')
-    ) {
-      setIsValidEmail(true)
-      setFormData({ ...formData, designation: 'Faculty/Staff' })
-    } else {
-      setIsValidEmail(false)
-      setFormData({ ...formData, designation: 'Faculty/Staff' })
-    }
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!isValidEmail) {
+    if (
+      !/^[a-zA-Z0-9._%+-]+@(iitmandi.ac.in|.*\.iitmandi.ac.in)$/.test(email)
+    ) {
       Swal.fire({
         title: 'Error',
         text: 'Please enter a valid college email ID.',
@@ -70,13 +39,10 @@ export const Signup = () => {
     }
 
     try {
-      const res = await api.post(`/auth/signup`, {
-        ...formData,
-        email
-      })
-      localStorage.setItem('signupEmail', email)
-      localStorage.removeItem('getotpEmail')
-      navigate('/login')
+      const res = await api.post(`/auth/signup`, formData)
+      if (res.status === 201) {
+        return navigate('/login', { state: { email: formData.email } })
+      }
     } catch (err) {
       Swal.fire({
         title: 'Error',
@@ -87,18 +53,10 @@ export const Signup = () => {
     }
   }
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword)
-  }
   const toggleOTPVisibility = () => {
     setShowOTP(!showOTP)
   }
-
-  if (!localStorage.getItem('getotpEmail')) {
-    navigate('/getOTP')
-  }
-
-  const { name, phoneNumber, password, otp } = formData
+  const { name, phone, password, otp, email } = formData
 
   return (
     <div className="flex justify-center items-center h-screen bg-[#e5e8f0] font-monts">
@@ -174,44 +132,46 @@ export const Signup = () => {
                   </div>
                   <input
                     type="text"
-                    id="phoneNumber"
-                    name="phoneNumber"
+                    id="phone"
+                    name="phone"
                     placeholder="Enter your phone number"
-                    value={phoneNumber}
+                    value={phone}
                     onChange={handleChange}
                     className="border w-full rounded-2xl text-center max-sm:text-sm"
                   />
                 </div>
 
-                <div className="flex justify-center text-lg h-[15%] w-[82%] border rounded-2xl">
-                  <div className="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      strokeOpacity={0.5}
-                      className="w-8 h-8 mx-2 max-sm:w-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"
-                      />
-                    </svg>
-                  </div>
-                  <input
-                    type="text"
-                    id="designation"
-                    name="designation"
-                    placeholder="Enter your Degree"
-                    required
-                    value={formData.designation}
-                    readOnly
-                    className="border w-full rounded-2xl text-center max-sm:text-sm"
-                  />
-                </div>
+                {
+                  // <div className="flex justify-center text-lg h-[15%] w-[82%] border rounded-2xl">
+                  //   <div className="flex items-center">
+                  //     <svg
+                  //       xmlns="http://www.w3.org/2000/svg"
+                  //       fill="none"
+                  //       viewBox="0 0 24 24"
+                  //       strokeWidth={1.5}
+                  //       stroke="currentColor"
+                  //       strokeOpacity={0.5}
+                  //       className="w-8 h-8 mx-2 max-sm:w-4"
+                  //     >
+                  //       <path
+                  //         strokeLinecap="round"
+                  //         strokeLinejoin="round"
+                  //         d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"
+                  //       />
+                  //     </svg>
+                  //   </div>
+                  //   <input
+                  //     type="text"
+                  //     id="designation"
+                  //     name="designation"
+                  //     placeholder="Enter your Degree"
+                  //     required
+                  //     value={formData.designation}
+                  //     readOnly
+                  //     className="border w-full rounded-2xl text-center max-sm:text-sm"
+                  //   />
+                  // </div>
+                }
 
                 <div className="flex justify-center text-lg h-[15%] w-[82%] border rounded-2xl">
                   <div className="flex items-center">
@@ -239,7 +199,6 @@ export const Signup = () => {
                     required
                     value={email}
                     onChange={handleChange}
-                    readOnly
                     className="border w-full rounded-2xl text-center max-sm:text-sm"
                   />
                 </div>
@@ -247,7 +206,7 @@ export const Signup = () => {
                 <div className="flex justify-center text-lg h-[15%] w-[82%] border rounded-2xl">
                   <div
                     className="flex items-center"
-                    onClick={togglePasswordVisibility}
+                    onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? (
                       <svg
@@ -353,7 +312,6 @@ export const Signup = () => {
 
                 <button
                   onClick={handleSubmit}
-                  disabled={!isValidEmail}
                   className="flex justify-center items-center bg-[#fe6b68] w-4/5 h-[15%] p-2 text-white rounded-xl"
                 >
                   Submit

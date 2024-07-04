@@ -7,24 +7,9 @@ import { useMembershipContext } from './MembershipContext'
 import { isAllowedLvl } from '@/utils/levelCheck'
 const Navbar = () => {
   const { loggedIn, logout, user } = useLogin()
-  const { hasMembership, updateMembershipStatus } = useMembershipContext()
+  const { hasMembership } = useMembershipContext()
   const [showMenu, setShowMenu] = useState(false)
   const dropdownRef = useRef(null)
-
-  useEffect(() => {
-    ;(async () => {
-      if (user?.email && loggedIn) {
-        try {
-          const response = await api.get(
-            `/memrouter/checkMembership/${user.email}`
-          )
-          updateMembershipStatus(response.data.hasMembership || false)
-        } catch (error) {
-          console.error('Error checking membership:', error)
-        }
-      }
-    })()
-  }, [updateMembershipStatus, user?.email])
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -41,11 +26,6 @@ const Navbar = () => {
       document.removeEventListener('click', handleOutsideClick)
     }
   }, [showMenu])
-
-  const handleLogout = () => {
-    logout()
-  }
-
   const toggleMenu = (event) => {
     if (event) {
       event.stopPropagation()
@@ -84,7 +64,7 @@ const Navbar = () => {
                     strokeWidth={1.5}
                     stroke="white"
                     className="w-7 h-7 cursor-pointer"
-                    onClick={handleLogout}
+                    onClick={() => logout()}
                   >
                     <path
                       strokeLinecap="round"
@@ -164,14 +144,10 @@ const Navbar = () => {
             <div className="px-2 pt-2 pb-3 z-30">
               {loggedIn ? (
                 <>
-                  <NavItem to="/myaccount" toggleMenu={toggleMenu}>
+                  <NavItem to="/profile" toggleMenu={toggleMenu}>
                     My Profile
                   </NavItem>
-                  {hasMembership ? (
-                    <NavItem to="/QR" toggleMenu={toggleMenu}>
-                      My QRs
-                    </NavItem>
-                  ) : (
+                  {!hasMembership && (
                     <NavItem to="/form2" toggleMenu={toggleMenu}>
                       Buy a new Membership
                     </NavItem>
@@ -180,14 +156,9 @@ const Navbar = () => {
                     Vote Page
                   </NavItem>
                   {isAllowedLvl('admin', user?.usertype) && (
-                    <>
-                      <NavItem to="/approveMembership" toggleMenu={toggleMenu}>
-                        Approve Membership
-                      </NavItem>
-                      <NavItem to="/adddropvolunteer" toggleMenu={toggleMenu}>
-                        Add/Drop Volunteer
-                      </NavItem>
-                    </>
+                    <NavItem to="/adddropvolunteer" toggleMenu={toggleMenu}>
+                      Add/Drop Volunteer
+                    </NavItem>
                   )}
                   {isAllowedLvl('ticketvolunteer', user?.usertype) && (
                     <NavItem to="/scanner" toggleMenu={toggleMenu}>

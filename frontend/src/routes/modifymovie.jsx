@@ -13,7 +13,7 @@ const ModifyMovie = () => {
 
   const getMovies = async () => {
     try {
-      const response = await api.get(`/movie/movies`)
+      const response = await api.get(`/movie`)
       setMovies(response.data)
     } catch (error) {
       console.error('Error fetching movies:', error)
@@ -35,7 +35,7 @@ const ModifyMovie = () => {
 
   const handleSave = async () => {
     try {
-      await api.put(`/movie/movies/${editingMovie._id}`, editedData)
+      await api.put(`/movie/${editingMovie._id}`, editedData)
 
       setMovies((prevMovies) =>
         prevMovies.map((movie) =>
@@ -61,7 +61,7 @@ const ModifyMovie = () => {
 
   const handleDelete = async (id) => {
     try {
-      await api.delete(`/movie/movies/${id}`)
+      await api.delete(`/movie/${id}`)
       setMovies((prevMovies) => prevMovies.filter((movie) => movie._id !== id))
     } catch (error) {
       console.error('Error deleting movie:', error)

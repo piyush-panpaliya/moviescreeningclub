@@ -22,7 +22,7 @@ export default function UpdatePassword() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await api.post(`/login/update`, formData)
+      const res = await api.post(`/auth/update`, formData)
       if (res.data.success) {
         localStorage.removeItem('forgotpassEmail')
         navigate('/login')
@@ -32,11 +32,6 @@ export default function UpdatePassword() {
     } catch (err) {
       Swal.fire({ title: 'Error', text: 'invalid otp', icon: 'error' })
     }
-  }
-
-  // Check if forgotpassEmail exists in localStorage, if not, redirect to /forgot
-  if (!localStorage.getItem('forgotpassEmail')) {
-    navigate('/forgot')
   }
 
   return (

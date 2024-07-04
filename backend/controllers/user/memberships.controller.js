@@ -3,6 +3,7 @@ const User = require('@/models/user/user.model')
 const { memData } = require('@/constants/memberships')
 const crypto = require('crypto')
 const { membershipMail } = require('@/utils/mail')
+const { getAmount } = require('@/utils/membership')
 const axios = require('axios')
 const qs = require('qs')
 require('dotenv').config()
@@ -13,16 +14,6 @@ const merchId = `${process.env.MERCH_ID}`
 const merchPass = `${process.env.MERCH_PASS}`
 const authUrl = `${process.env.PAY_AUTH_URL}`
 
-const fetchMembership = async (req, res) => {
-  const { email } = req.user
-  try {
-    const memberships = await Membership.find({ email })
-    res.status(200).json({ memberships })
-  } catch (error) {
-    console.error('Error fetching memberships:', error)
-    res.status(500).json({ error: 'Error fetching memberships' })
-  }
-}
 const saveMembership = async (req, res) => {
   try {
     const decrypted_data = decrypt(req.body.encData)
@@ -70,7 +61,7 @@ const saveMembership = async (req, res) => {
     const savedusermem = await newusermem.save()
     console.log('Usermem details saved:', savedusermem)
     await membershipMail(memtype, email)
-    return res.redirect(`${process.env.FRONTEND_URL}/home`)
+    return res.redirect(`${process.env.FRONTEND_URL}/home?success_payment=true`)
   } catch (error) {
     console.error('Error saving Usermem:', error)
     return res.redirect(
@@ -86,32 +77,33 @@ const requestMembership = async (req, res) => {
     if (!memtype || memData.map((m) => m.name).indexOf(memtype) === -1) {
       return res.status(400).json({ message: 'Membership type is required' })
     }
-    const membership = await Membership.findOne({ user: userId, isValid: true })
-    const userMemberships = await Membership.find({
-      user: userId,
-      isValid: true
-    })
-    for (membership of userMemberships) {
-      if (membership.validitydate > Date.now() && membership.availQR > 0) {
-        return res
-          .status(400)
-          .json({ message: 'User already has a valid membership' })
-      }
-      membership.isValid = false
-      membership.availQR = 0
-      await membership.save()
-    }
     const user = await User.findById(userId)
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' })
     }
+
+    const userMemberships = await Membership.find({
+      user: user._id,
+      isValid: true
+    })
+    for (mem of userMemberships) {
+      if (mem.validitydate > Date.now() && mem.availQR > 0) {
+        return res
+          .status(400)
+          .json({ message: 'User already has a valid membership' })
+      }
+      mem.isValid = false
+      mem.availQR = 0
+      await mem.save()
+    }
+
     const txnId = crypto.randomBytes(16).toString('hex')
     const txnDate = new Date()
       .toISOString()
       .replace(/T/, ' ')
       .replace(/\..+/, '')
-    const amount = memData.find((m) => m.name === memtype).price
+    const amount = getAmount(memtype, user.email)
     const userEmailId = user.email
     const userContactNo = user.phone
 
@@ -205,7 +197,15 @@ const checkMembership = async (req, res) => {
     }
 
     return res.json({
-      hasMembership: allMemberships.some((m) => m.isValid)
+      hasMembership: allMemberships.some((m) => m.isValid),
+      memberships: allMemberships.map((m) => ({
+        _id: m._id,
+        memtype: m.memtype,
+        validitydate: m.validitydate,
+        availQR: m.availQR,
+        isValid: m.isValid,
+        purchasedate: m.purchasedate
+      }))
     })
   } catch (error) {
     return res.status(500).json({ message: 'Internal server error' })
@@ -244,7 +244,6 @@ const suspendMembership = async (req, res) => {
 }
 
 module.exports = {
-  fetchMembership,
   saveMembership,
   checkMembership,
   suspendMembership,

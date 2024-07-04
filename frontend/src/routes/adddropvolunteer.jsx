@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { SERVERIP } from '../config'
 import { api } from '@/utils/api'
 import {
   Table,
@@ -17,6 +16,7 @@ import {
   Chip,
   Input
 } from '@nextui-org/react'
+
 const AddDropVolunteer = () => {
   const [users, setUsers] = useState([])
   const [roleFilter, setRoleFilter] = useState([
@@ -94,32 +94,17 @@ const AddDropVolunteer = () => {
 
   const handleSubmit = async (email, userType) => {
     try {
-      const response = await fetch(`/user/updateUserType`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, userType })
+      const response = await api.post(`/user/updateUserType`, {
+        email,
+        userType
       })
 
-      if (!response.ok) {
+      if (!response.status !== 200) {
         throw new Error('Failed to update user type')
       }
       fetchUserData()
     } catch (error) {
       console.error('Error updating user type:', error)
-    } finally {
-      const userTypeResponse = await api.get(
-        `/user/${localStorage.getItem('loggedInUserEmail')}`
-      )
-      const userTypeData = userTypeResponse.data
-      const userTypeown = userTypeData.userType
-      localStorage.setItem('userType', userTypeown)
-      const storedUserType = localStorage.getItem('userType')
-      if (!storedUserType || storedUserType !== 'admin') {
-        // If userType is not found or not "admin", redirect to the home page
-        navigate('/')
-      }
     }
   }
 

@@ -7,7 +7,7 @@ const LoginContext = createContext()
 export const useLogin = () => useContext(LoginContext)
 
 export const LoginProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(true)
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
   useEffect(() => {
@@ -38,10 +38,6 @@ export const LoginProvider = ({ children }) => {
   }
   const logout = () => {
     localStorage.removeItem('token')
-    localStorage.removeItem('loggedInUserEmail')
-    localStorage.removeItem('signupEmail')
-    localStorage.removeItem('userType')
-    localStorage.removeItem('getotpEmail')
     setLoggedIn(false)
     setUser(null)
     navigate('/login')

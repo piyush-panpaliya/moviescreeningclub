@@ -22,7 +22,7 @@ const MovieList = () => {
 
   const fetchMovies = async () => {
     try {
-      const response = await api.get(`/voterouter/movies`)
+      const response = await api.get(`/vote/movies`)
       if (response.status !== 200) {
         throw new Error('Failed to fetch movies')
       }
@@ -39,7 +39,7 @@ const MovieList = () => {
 
   const handleVoteClick = async (movieId, voteType) => {
     try {
-      const response = await api.post(`/voterouter/vote`, {
+      const response = await api.post(`/vote`, {
         movieId,
         voteType,
         userEmail: user?.email
@@ -55,8 +55,8 @@ const MovieList = () => {
 
   const handleAddMovie = async () => {
     try {
-      const response = await api.post(`/voterouter/addvotemovie`, newMovieData)
-      if (response.status !== 200) {
+      const response = await api.post(`/vote/add`, newMovieData)
+      if (response.status !== 201) {
         throw new Error('Failed to add movie')
       }
       setNewMovieData({
@@ -72,9 +72,7 @@ const MovieList = () => {
 
   const handleDeleteMovie = async (movieId) => {
     try {
-      const response = await api.delete(
-        `/voterouter/deletevotemovie/${movieId}`
-      )
+      const response = await api.delete(`/vote/delete/${movieId}`)
       if (response.status !== 200) {
         throw new Error('Failed to delete movie')
       }

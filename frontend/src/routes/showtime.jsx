@@ -119,7 +119,7 @@ const Showtime = () => {
                   >
                     <td>{moment(showtime.date).format('DD-MM-YYYY')}</td>
                     <td className="pr-7">
-                      {moment(showtime.time, 'HH:mm').format('hh:mm A')}
+                      {moment(showtime.date).format('hh:mm A')}
                     </td>
                     {isLocalAdmin && (
                       <td>
