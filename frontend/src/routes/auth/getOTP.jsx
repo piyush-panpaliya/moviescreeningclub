@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { api } from '@/utils/api'
 import imgone from '@/images/otpimg.svg'
-import { SERVERIP } from '@/config'
 import Swal from 'sweetalert2'
 
 export default function GetOTP() {

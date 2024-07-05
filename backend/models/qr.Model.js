@@ -4,14 +4,17 @@ const moment = require('moment')
 const QRSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   },
   membership: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Membership'
+    ref: 'Membership',
+    required: true
   },
   showtime: {
-    type: mongoose.Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
   },
   txnId: {
     type: String,

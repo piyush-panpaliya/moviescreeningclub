@@ -16,58 +16,57 @@ import {
   Chip,
   Input
 } from '@nextui-org/react'
+const allRoles = [
+  {
+    type: 'admin',
+    name: 'Admin'
+  },
+  {
+    type: 'volunteer',
+    name: 'Volunteer'
+  },
+  {
+    type: 'movievolunteer',
+    name: 'Movie Volunteer'
+  },
+  {
+    type: 'ticketvolunteer',
+    name: 'Ticket Volunteer'
+  },
+  {
+    type: 'standard',
+    name: 'Standard'
+  }
+]
 
 const AddDropVolunteer = () => {
   const [users, setUsers] = useState([])
-  const [roleFilter, setRoleFilter] = useState([
-    'admin',
-    'volunteer',
-    'movievolunteer',
-    'ticketvolunteer',
-    'standard'
-  ])
+  const [roleFilter, setRoleFilter] = useState(allRoles.map((r) => r.type))
   const [filterValue, setFilterValue] = useState('')
   const navigate = useNavigate()
-  // const onSearchChange = React.useCallback((value) => {
-  // 	if (value) {
-  // 		setFilterValue(value)
-  // 	} else {
-  // 		setFilterValue('')
-  // 	}
-  // }, [])
 
-  useEffect(() => {
-    const storedUserType = localStorage.getItem('userType')
-    if (!storedUserType || storedUserType !== 'admin') {
-      navigate('/')
-    } else {
-      ;(async () => {
-        try {
-          let url = new URL(`/user/fetchusers`)
-          if (filterValue) {
-            url.searchParams.append('search', filterValue)
-          }
-          if (roleFilter.length > 0) {
-            roleFilter.forEach((role) => {
-              url.searchParams.append('role', role)
-            })
-          }
-          console.log(url.toString())
-          const response = await api.get(url.toString())
-          if (response.status !== 200) {
-            throw new Error('Failed to fetch user data')
-          }
-          const data = response.data
-          setUsers(data.users)
-        } catch (error) {
-          console.error('Error fetching user data:', error)
-        }
-      })()
-      sortUsers()
+  const fetchUsers = async () => {
+    try {
+      const baseUrl =
+        import.meta.env.VITE_environment === 'development'
+          ? 'http://localhost:8000'
+          : '/api'
+      const url = new URL(baseUrl + `/user/fetchusers`)
+      const response = await api.get(url.toString())
+      if (response.status !== 200) {
+        throw new Error('Failed to fetch user data')
+      }
+      const data = response.data
+      setUsers(sortUsers(data.users))
+    } catch (error) {
+      console.error('Error fetching user data:', error)
     }
-  }, [navigate])
+  }
+  useEffect(() => {
+    fetchUsers()
+  }, [])
 
-  const sortUsers = async () => {
+  const sortUsers = (users) => {
     const sortedUsers = users.sort((a, b) => {
       const userTypeOrder = {
         admin: 0,
@@ -89,7 +88,7 @@ const AddDropVolunteer = () => {
       if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
       return 0
     })
-    setUsers(sortedUsers)
+    return sortedUsers
   }
 
   const handleSubmit = async (email, userType) => {
@@ -99,10 +98,10 @@ const AddDropVolunteer = () => {
         userType
       })
 
-      if (!response.status !== 200) {
+      if (response.status !== 200) {
         throw new Error('Failed to update user type')
       }
-      fetchUserData()
+      fetchUsers()
     } catch (error) {
       console.error('Error updating user type:', error)
     }
@@ -158,41 +157,16 @@ const AddDropVolunteer = () => {
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
-                <DropdownItem
-                  onClick={() => {
-                    handleSubmit(item.email, 'admin')
-                  }}
-                >
-                  Admin
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    handleSubmit(item.email, 'volunteer')
-                  }}
-                >
-                  Volunteer
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    handleSubmit(item.email, 'movievolunteer')
-                  }}
-                >
-                  Movie Volunteer
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    handleSubmit(item.email, 'ticketvolunteer')
-                  }}
-                >
-                  Ticket Volunteer
-                </DropdownItem>
-                <DropdownItem
-                  onClick={() => {
-                    handleSubmit(item.email, 'standard')
-                  }}
-                >
-                  Standard
-                </DropdownItem>
+                {allRoles.map((r, i) => (
+                  <DropdownItem
+                    key={i}
+                    onClick={() => {
+                      handleSubmit(item.email, r.type)
+                    }}
+                  >
+                    {r.name}
+                  </DropdownItem>
+                ))}
               </DropdownMenu>
             </Dropdown>
           </div>
@@ -203,14 +177,6 @@ const AddDropVolunteer = () => {
   }
 
   const columns = ['name', 'email', 'designation', 'Role', 'actions']
-
-  const RoleOptions = [
-    { uid: 1, name: 'Admin' },
-    { uid: 2, name: 'ticket volunteer' },
-    { uid: 3, name: 'movie volunteer' },
-    { uid: 4, name: 'standard' },
-    { uid: 5, name: 'volunteer' }
-  ]
 
   const topContent = React.useMemo(() => {
     return (
@@ -277,11 +243,13 @@ const AddDropVolunteer = () => {
                 closeOnSelect={false}
                 selectedKeys={roleFilter}
                 selectionMode="multiple"
-                onSelectionChange={setRoleFilter}
+                onSelectionChange={(roles) =>
+                  setRoleFilter(new Array(...roles))
+                }
               >
-                {RoleOptions.map((Role) => (
-                  <DropdownItem key={Role.uid} className="capitalize">
-                    {Role.name}
+                {allRoles.map((r) => (
+                  <DropdownItem key={r.type} className="capitalize">
+                    {r.name}
                   </DropdownItem>
                 ))}
               </DropdownMenu>
@@ -294,7 +262,7 @@ const AddDropVolunteer = () => {
   const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(filterValue.toLowerCase()) &&
-      user.usertype in roleFilter
+      roleFilter.indexOf(user.usertype) !== -1
   )
 
   return (

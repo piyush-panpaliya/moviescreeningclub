@@ -68,7 +68,6 @@ const getMovieById = async (req, res) => {
       return res.status(404).json({ error: 'Movie not found' })
     }
     if (movie.showtimes.some((showtime) => showtime.date < new Date())) {
-      // remove past showtimes that are before 3hours from now
       const showsToRemove = movie.showtimes.filter(
         (showtime) => showtime.date < new Date() - 3 * 60 * 60 * 1000
       )
@@ -128,6 +127,7 @@ const deleteMovieShowtimes = async (req, res) => {
     }
     movie.showtimes.pull({ _id: showtimeId })
     await movie.save()
+    await SeatMap.deleteOne({ showtimeId })
     res.json({ message: 'Showtime deleted successfully' })
   } catch (error) {
     console.error('Error deleting showtime:', error)

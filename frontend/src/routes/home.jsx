@@ -71,7 +71,7 @@ const Home = () => {
         <div className="grid gap-6 max-sm:gap-2 mb-8 max-sm:mb-4 grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-5 max-sm:mx-2 max-h-[fit-content] ">
           {ongoingMovies.map((movie) => (
             <Link
-              to={`/showtime?movieId=${movie._id}`}
+              to={`/movie?movieId=${movie._id}`}
               key={movie._id}
               className="flex items-center justify-center"
             >
@@ -122,7 +122,7 @@ const Home = () => {
           <div className="grid gap-6 max-sm:gap-2 mb-8 max-sm:mb-4 max-sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mx-5 max-sm:mx-2">
             {upcomingMovies.map((movie) => (
               <Link
-                to={`/showtime?movieId=${movie._id}`}
+                to={`/movie?movieId=${movie._id}`}
                 key={movie._id}
                 className="flex items-center justify-center"
               >

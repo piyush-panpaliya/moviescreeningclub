@@ -40,13 +40,17 @@ const SeatMapSchema = new mongoose.Schema({
         let rowCount
         switch (row) {
           case 'A':
-          case 'B':
             rowCount = 27
             break
+          case 'B':
           case 'C':
-          case 'D':
-          case 'E':
             rowCount = 30
+            break
+          case 'D':
+            rowCount = 33
+            break
+          case 'E':
+            rowCount = 34
             break
           case 'F':
             rowCount = 36

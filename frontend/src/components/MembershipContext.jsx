@@ -9,11 +9,13 @@ export const MembershipProvider = ({ children }) => {
   const { user } = useLogin()
   const [hasMembership, setHasMembership] = useState(false)
   const [memberships, setMemberships] = useState(null)
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     checkMembershipStatus()
   }, [user])
 
   const checkMembershipStatus = async (resp) => {
+    setLoading(true)
     if (!user) {
       setHasMembership(false)
       return
@@ -35,8 +37,11 @@ export const MembershipProvider = ({ children }) => {
     } catch {
       setHasMembership(false)
     }
+    setLoading(false)
   }
-
+  if (loading && user) {
+    return <div>Loading mem...</div>
+  }
   return (
     <MembershipContext.Provider
       value={{ hasMembership, checkMembershipStatus, memberships }}

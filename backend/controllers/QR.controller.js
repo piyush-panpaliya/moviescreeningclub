@@ -1,4 +1,6 @@
 const QR = require('@/models/qr.model')
+const QRCode = require('qrcode')
+const Movie = require('@/models/movie.model')
 
 const getQRs = async (req, res) => {
   const { userId } = req.user
@@ -13,16 +15,46 @@ const getQRs = async (req, res) => {
     for (qr of allQRs) {
       if (qr.expirationDate > new Date()) {
         if (qr.used) {
-          resQr.used.push(qr)
+          resQr.used.push({
+            expirationDate: qr.expirationDate,
+            isValid: qr.isValid,
+            registrationDate: qr.registrationDate,
+            seat: qr.seat,
+            used: qr.used
+          })
         } else {
-          resQr.unused.push(qr)
+          const movie = await Movie.findOne({ 'showtimes._id': qr.showtime })
+          resQr.unused.push({
+            qrData: await QRCode.toDataURL(
+              Buffer.from(`${userId},${qr._id},${qr.seat},${qr.code}`).toString(
+                'base64'
+              )
+            ),
+            expirationDate: qr.expirationDate,
+            isValid: qr.isValid,
+            registrationDate: qr.registrationDate,
+            seat: qr.seat,
+            used: qr.used,
+            movie: {
+              title: movie.title,
+              genre: movie.genre,
+              showtime: movie.showtimes.id(qr.showtime)
+            }
+          })
         }
       } else {
         qr.isValid = false
-        resQr.expired.push(qr)
+        resQr.expired.push({
+          expirationDate: qr.expirationDate,
+          isValid: qr.isValid,
+          registrationDate: qr.registrationDate,
+          seat: qr.seat,
+          used: qr.used
+        })
         qr.save()
       }
     }
+
     res.status(200).json({ qrCodes: resQr })
   } catch (error) {
     console.error('Error fetching valid QR codes:', error)
