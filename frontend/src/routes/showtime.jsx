@@ -53,7 +53,7 @@ const Showtime = () => {
 
   const handleDeleteShowtime = (showtimeId) => {
     api
-      .delete(`/movie/${movieId}/showtimes/${showtimeId}`)
+      .delete(`/movie/${movieId}/${showtimeId}`)
       .then(() => {
         fetchMovie()
       })

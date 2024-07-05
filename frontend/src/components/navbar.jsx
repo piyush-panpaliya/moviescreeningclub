@@ -55,7 +55,7 @@ const Navbar = () => {
               {loggedIn ? (
                 <>
                   <div className="rounded-md bg-[#EADBC8] text-black h-9 px-2 py-1 mt-1 mr-2 font-normal">
-                    Welcome {getDisplayName(user?.email || 'user')}
+                    Welcome {getDisplayName(user?.name || 'user')}
                   </div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -147,9 +147,13 @@ const Navbar = () => {
                   <NavItem to="/profile" toggleMenu={toggleMenu}>
                     My Profile
                   </NavItem>
-                  {!hasMembership && (
-                    <NavItem to="/form2" toggleMenu={toggleMenu}>
+                  {!hasMembership ? (
+                    <NavItem to="/buy" toggleMenu={toggleMenu}>
                       Buy a new Membership
+                    </NavItem>
+                  ) : (
+                    <NavItem to="/tickets" toggleMenu={toggleMenu}>
+                      My Tickets
                     </NavItem>
                   )}
                   <NavItem to="/VotePage" toggleMenu={toggleMenu}>

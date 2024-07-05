@@ -4,6 +4,7 @@ const Movie = require('@/models/movie.model')
 const Membership = require('@/models/membership.model')
 const { mailQRs } = require('@/utils/mail')
 const crypto = require('crypto')
+const { rows } = require('@/constants/seats')
 const seatOccupancy = async (req, res) => {
   try {
     const { showtimeId } = req.params
@@ -13,7 +14,29 @@ const seatOccupancy = async (req, res) => {
     if (!seatMap) {
       seatMap = new SeatMap({ showtimeId: showtimeId })
     }
-    return res.json(seatMap.seats)
+    const resSeats = []
+    for ([seat, qr] of Object(seatMap.seats).entries()) {
+      const row = rows.find((row) => seat.includes(row.prefix))
+      const adder =
+        ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'].indexOf(row.prefix) === -1
+          ? 3
+          : 0
+
+      resSeats.push({
+        occupied: !!qr,
+        name: seat,
+        sec:
+          (parseInt(seat.slice(1)) > row.center + row.right
+            ? 1
+            : parseInt(seat.slice(1)) > row.right
+              ? 2
+              : 3) + adder
+      })
+    }
+    resSeats.sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { numeric: true })
+    )
+    return res.json(resSeats)
   } catch (error) {
     console.error('Error fetching seat occupancy:', error)
     res.status(500).json({ error: 'Internal server error' })
@@ -89,7 +112,7 @@ const seatAssign = async (req, res) => {
         continue
       }
       const qr = new QR({
-        user: req.user._id,
+        user: req.user.userId,
         membership: currentMembership._id,
         txnId: currentMembership.txnId,
         seat: seat,

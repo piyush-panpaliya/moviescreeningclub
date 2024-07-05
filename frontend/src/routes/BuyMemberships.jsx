@@ -14,7 +14,7 @@ const BuyMemberships = () => {
   const [loading, setLoading] = useState(false)
   const userDesignation = getUserType(user.email)
   if (hasMembership) {
-    return <Navigate to="/QR" />
+    return <Navigate to="/tickets" />
   }
 
   const memberships = memData.map((mem) => {
