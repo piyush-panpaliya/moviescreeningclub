@@ -147,13 +147,12 @@ const Navbar = () => {
                   <NavItem to="/profile" toggleMenu={toggleMenu}>
                     My Profile
                   </NavItem>
-                  {!hasMembership ? (
+                  <NavItem to="/tickets" toggleMenu={toggleMenu}>
+                    My Tickets
+                  </NavItem>
+                  {!hasMembership && (
                     <NavItem to="/buy" toggleMenu={toggleMenu}>
                       Buy a new Membership
-                    </NavItem>
-                  ) : (
-                    <NavItem to="/tickets" toggleMenu={toggleMenu}>
-                      My Tickets
                     </NavItem>
                   )}
                   <NavItem to="/VotePage" toggleMenu={toggleMenu}>

@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 
 const Tickets = () => {
   const { user } = useLogin()
+  const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const [tickets, setTickets] = useState({
     used: [],
@@ -14,6 +15,7 @@ const Tickets = () => {
   })
 
   const fetchTickets = async () => {
+    setLoading(true)
     try {
       const res = await api.get('/qr')
       console.log(res.data)
@@ -22,10 +24,16 @@ const Tickets = () => {
       console.log('error')
       navigate('/')
     }
+    setLoading(false)
   }
   useEffect(() => {
     fetchTickets()
   }, [user])
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
+
   return (
     <div className="flex flex-col gap-6 p-8 ">
       <p className="text-xl sm:text-5xl font-bold w-full text-center">

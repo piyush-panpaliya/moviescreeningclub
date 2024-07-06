@@ -1,27 +1,27 @@
 // import React from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
-import Home from '@/routes/home'
+import Home from '@/routes/Home'
 import BuyMemberships from '@/routes/BuyMemberships'
 import Scanner from '@/routes/Scanner'
-import Myaccount from '@/routes/Myaccount'
-import MovieForm from '@/routes/addmovie'
-import ModifyMovie from '@/routes/modifymovie'
+import MyAccount from '@/routes/MyAccount'
+import MovieForm from '@/routes/AddMovie'
+import ModifyMovie from '@/routes/ModifyMovie'
 import Login from '@/routes/auth/Login'
-import GetOTP from '@/routes/auth/getOTP'
+import GetOTP from '@/routes/auth/GetOTP'
 import Signup from '@/routes/auth/Signup'
-import AddDropVolunteer from '@/routes/adddropvolunteer'
-import ForgotPassword from '@/routes/auth/forgotPassword'
-import UpdatePassword from '@/routes/auth/updatePassowrd'
-import Showtime from '@/routes/showtime'
+import AddDropVolunteer from '@/routes/AddDropVolunteer'
+import ForgotPassword from '@/routes/auth/ForgotPassword'
+import UpdatePassword from '@/routes/auth/UpdatePassoword'
+import Showtime from '@/routes/Showtime'
 import MovieList from '@/routes/VotePage'
-import Guidelines from '@/routes/guidelines'
+import Guidelines from '@/routes/Guidelines'
 import Movie from '@/routes/Movie'
 import Tickets from '@/routes/Tickets'
-import AuthenticatedRoute from '@/components/protectedRoute'
+import AuthenticatedRoute from '@/components/ProtectedRoute'
 import { LoginProvider } from '@/components/LoginContext'
 import { MembershipProvider } from '@/components/MembershipContext'
 
@@ -77,7 +77,7 @@ function App() {
                 path="/profile"
                 element={
                   <AuthenticatedRoute>
-                    <Myaccount />
+                    <MyAccount />
                   </AuthenticatedRoute>
                 }
               />
