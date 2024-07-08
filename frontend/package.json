@@ -19,6 +19,7 @@
     "@zxing/library": "^0.20.0",
     "autoprefixer": "^10.4.19",
     "axios": "^1.6.8",
+    "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
     "framer-motion": "^11.1.7",
     "html-webpack-plugin": "^5.6.0",
@@ -33,7 +34,8 @@
     "react-router-dom": "^6.23.0",
     "request": "^2.88.2",
     "request-promise": "^0.0.1",
-    "sweetalert2": "^11.6.13"
+    "sweetalert2": "^11.6.13",
+    "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

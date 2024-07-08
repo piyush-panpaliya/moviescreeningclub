@@ -17,74 +17,76 @@ const BuyMemberships = () => {
     return <Navigate to="/tickets" />
   }
 
-  const memberships = memData.map((mem) => {
-    return {
-      name: mem.name,
-      validitydate: Date.now() + mem.validity * 1000,
-      availQR: mem.availQR,
-      price: mem.price.find((p) => p.type === userDesignation).price
-    }
-  })
+  const memberships = memData.map((mem) => ({
+    name: mem.name,
+    validitydate: Date.now() + mem.validity * 1000,
+    availQR: mem.availQR,
+    price: mem.price.find((p) => p.type === userDesignation).price
+  }))
+  const colors = ['red', 'gray', 'amber', 'blue']
   return (
     <div className="flex justify-center items-center bg-gray-200 min-h-screen font-monts pb-3">
       <div className="flex flex-col  items-center lg:w-[90%] h-[95%] border rounded-md">
         <h2 className="text-3xl text-center font-bold mt-4">
           {loading ? 'Choosing...' : 'Choose Your Plan'}
         </h2>
+
+        <div className="hidden bg-gradient-to-bl from-red-400 to-red-100"></div>
+        <div className="hidden bg-gradient-to-bl from-gray-400 to-gray-100"></div>
+        <div className="hidden bg-gradient-to-bl from-amber-400 to-amber-100"></div>
+        <div className="hidden bg-gradient-to-bl from-blue-400 to-blue-100"></div>
+
         <div className="flex flex-wrap gap-4  items-center pt-10">
           {memberships.map((mem, index) => (
             <div
               key={index}
+              disabled={loading}
               onClick={async () => {
-                setLoading(true)
-                const res = await api.post('/membership/request', {
-                  memtype: mem.name
-                })
-                setLoading(false)
-                if (res.status !== 200) {
-                  console.error('Error requesting membership:', res.data.error)
-                  return
+                try {
+                  if (loading) return
+                  setLoading(true)
+                  const res = await api.post('/membership/request', {
+                    memtype: mem.name
+                  })
+                  setLoading(false)
+                  if (res.status !== 200) {
+                    console.error(
+                      'Error requesting membership:',
+                      res.data.error
+                    )
+                    return
+                  }
+                  const options = {
+                    atomTokenId: res.data.atomTokenId,
+                    merchId: res.data.merchId,
+                    custEmail: user.email,
+                    custMobile: user.phone,
+                    returnUrl:
+                      (import.meta.env.VITE_environment === 'development'
+                        ? 'http://localhost:8000'
+                        : '/api') + '/membership/redirect'
+                  }
+                  let atom = new AtomPaynetz(options, 'uat')
+                } catch (err) {
+                  Swal.fire({
+                    title: 'Error!',
+                    text: err.response.data.error,
+                    icon: 'error'
+                  })
+                  setLoading(false)
                 }
-                const options = {
-                  atomTokenId: res.data.atomTokenId,
-                  merchId: res.data.merchId,
-                  custEmail: 'testuser@ndps.in',
-                  custMobile: '8888888888',
-                  returnUrl:
-                    (import.meta.env.VITE_environment === 'development'
-                      ? 'http://localhost:8000'
-                      : '/api') + '/membership/redirect'
-                }
-                console.log(options)
-                let atom = new AtomPaynetz(options, 'uat')
               }}
-              className={`bg-gradient-to-bl from-${
-                index === 0
-                  ? 'red'
-                  : index === 1
-                    ? 'gray'
-                    : index === 2
-                      ? 'amber'
-                      : 'blue'
-              }-400 to-${
-                index === 0
-                  ? 'red'
-                  : index === 1
-                    ? 'gray'
-                    : index === 2
-                      ? 'yellow'
-                      : 'cyan'
-              }-100 w-fit max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 p-4  hover:scale-110 transition-transform duration-300`}
+              className={`bg-gradient-to-bl from-${colors[index]}-400 to-${colors[index]}-100 w-fit max-sm:w-[90%] border-2 border-gray-200 hover:border-2 hover:border-[#332941] rounded-lg flex flex-col justify-around gap-5 mt-10 px-4 py-10  hover:scale-110 transition-transform duration-300`}
             >
-              <div className="flex justify-evenly my-8">
-                <div className="flex flex-col justify-between w-1/2">
-                  <span className="text-2xl mt-2 font-semibold">
-                    {mem[index]}
+              <div className="flex justify-evenly ">
+                <div className="flex flex-col justify-between items-center ">
+                  <span className="text-2xl mt-2 font-semibold uppercase ">
+                    {mem.name}
                   </span>
                   <span className="text-lg mt-2 font-md">Subscription</span>
                 </div>
               </div>
-              <div className="flex justify-center mt-6 mb-10">
+              <div className="flex justify-center mt-6 ">
                 <ul className="flex flex-col gap-2 w-[90%]">
                   <li className="flex gap-5 items-center">
                     <svg

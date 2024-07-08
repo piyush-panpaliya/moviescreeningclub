@@ -155,8 +155,10 @@ const requestMembership = async (req, res) => {
         }
       }
     )
-    if (resFromGateway.status !== 200) {
-      return res.status(500).json({ error: 'Internal server error' })
+    if (resFromGateway.status !== 200 || resFromGateway.data.includes('503')) {
+      return res
+        .status(500)
+        .json({ error: 'Internal server error or Payment Gateway down' })
     }
     const parsedRespFromGateway = qs.parse(resFromGateway.data)
     if (!parsedRespFromGateway.encData) {

@@ -29,14 +29,13 @@ const Movie = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { user } = useLogin()
-  const { memberships, checkMembershipStatus } = useMembershipContext()
+  const { hasMembership, memberships, checkMembershipStatus } =
+    useMembershipContext()
   const [seats, setSeats] = useState(null)
   const [movie, setMovie] = useState(null)
   const [loading, setLoading] = useState(false)
   const [selectedSeats, setSelectedSeats] = useState([])
   const [showtime, setShowtime] = useState(null)
-  const maxAllowed =
-    memberships.filter((membership) => membership.isValid)[0].availQR ?? 0
   const movieId = new URLSearchParams(location.search).get('movieId')
 
   const fetchSeats = async (showtimeId) => {
@@ -44,7 +43,7 @@ const Movie = () => {
     setSeats(res.data)
   }
   useEffect(() => {
-    if (memberships.filter((membership) => membership.isValid).length === 0) {
+    if (!hasMembership) {
       navigate('/buy')
     }
   }, [memberships])
@@ -61,7 +60,8 @@ const Movie = () => {
       }
     })()
   }, [])
-
+  const maxAllowed =
+    memberships.filter((membership) => membership.isValid)[0]?.availQR ?? 0
   const bookSeats = async () => {
     console.log(selectedSeats)
     try {
