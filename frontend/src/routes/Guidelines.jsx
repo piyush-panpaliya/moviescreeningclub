@@ -1,22 +1,7 @@
-import img1 from '../images/guideimg1.png'
-import img2 from '../images/guideimg2.png'
-import img3 from '../images/guideimg3.png'
-import img4 from '../images/guideimg4.png'
-import img5 from '../images/guideimg5.png'
-import img6 from '../images/guideimg6.png'
-import img7 from '../images/guideimg7.png'
-import img8 from '../images/guideimg8.png'
-import img9 from '../images/guideimg9.png'
-import img10 from '../images/guideimg10.png'
-import img11 from '../images/guideimg11.png'
-import img12 from '../images/guideimg12.png'
-import img13 from '../images/guideimg13.png'
-import img14 from '../images/guideimg14.png'
-
 export default function Guidelines() {
   return (
-    <div className="font-monts flex flex-col gap-6">
-      <h2 className="flex justify-center text-2xl font-bold my-4">
+    <div className="flex flex-col gap-6 font-monts">
+      <h2 className="my-4 flex justify-center text-2xl font-bold">
         How to watch a movie at IIT Mandi: A Quick Guide
       </h2>
       <span className="border-b-2">
@@ -29,8 +14,8 @@ export default function Guidelines() {
           . Once there, proceed by clicking on the &quot;Signup&quot; button,
           and use your institute email id for registration.
         </p>
-        <div className="flex justify-center my-3">
-          <img src={img1} alt="not found" />
+        <div className="my-3 flex justify-center">
+          <img src="/images/guideimg1.png" alt="not found" />
         </div>
       </span>
       <span className="border-b-2">
@@ -39,8 +24,8 @@ export default function Guidelines() {
           name, phone number, chosen password, and the received OTP for email
           verification. Upon completion, click &quot;Submit&quot;.
         </p>
-        <div className="flex justify-center my-3">
-          <img src={img2} alt="not found" />
+        <div className="my-3 flex justify-center">
+          <img src="/images/guideimg2.png" alt="not found" />
         </div>
       </span>
       <span>
@@ -55,8 +40,8 @@ export default function Guidelines() {
           movies scheduled for the screening. Click on any movie poster to view
           details about its scheduled dates and showtimes.
         </p>
-        <div className="flex justify-center my-3">
-          <img src={img3} alt="not found" />
+        <div className="my-3 flex justify-center">
+          <img src="/images/guideimg3.png" alt="not found" />
         </div>
       </span>
       <span className="border-b-2">
@@ -66,8 +51,8 @@ export default function Guidelines() {
           top right corner, then select &quot;Buy a new membership&quot; to
           proceed with your purchase.
         </p>
-        <div className="flex justify-center my-3">
-          <img src={img4} alt="not found" />
+        <div className="my-3 flex justify-center">
+          <img src="/images/guideimg4.png" alt="not found" />
         </div>
       </span>
       <span className="border-b-2">
@@ -83,10 +68,10 @@ export default function Guidelines() {
           there is any disperency in the payment or your membership is assigned
           to you, we will contact you on your mail ID.
         </p>
-        <div className="flex flex-col items-center gap-3 my-3">
-          <img src={img5} alt="not found" />
-          <img src={img6} alt="not found" />
-          <img src={img7} alt="not found" />
+        <div className="my-3 flex flex-col items-center gap-3">
+          <img src="/images/guideimg5.png" alt="not found" />
+          <img src="/images/guideimg6.png" alt="not found" />
+          <img src="/images/guideimg7.png" alt="not found" />
         </div>
       </span>
       <span className="border-b-2">
@@ -97,9 +82,9 @@ export default function Guidelines() {
           purchased membership tag to view the allocated number of tickets
           available for booking within your chosen plan.
         </p>
-        <div className="flex flex-col items-center gap-3 my-3">
-          <img src={img8} alt="not found" />
-          <img src={img9} alt="not found" />
+        <div className="my-3 flex flex-col items-center gap-3">
+          <img src="/images/guideimg8.png" alt="not found" />
+          <img src="/images/guideimg9.png" alt="not found" />
         </div>
       </span>
       <span className="border-b-2">
@@ -111,12 +96,12 @@ export default function Guidelines() {
           clicking the proceed button. A confirmation email containing a QR code
           will be dispatched to your registered email address.
         </p>
-        <div className="flex flex-col items-center gap-3 my-3">
-          <img src={img10} alt="not found" />
-          <img src={img11} alt="not found" />
-          <img src={img12} alt="not found" />
-          <img src={img13} alt="not found" />
-          <img src={img14} alt="not found" />
+        <div className="my-3 flex flex-col items-center gap-3">
+          <img src="/images/guideimg1.png" alt="not found" />
+          <img src="/images/guideimg1.png" alt="not found" />
+          <img src="/images/guideimg1.png" alt="not found" />
+          <img src="/images/guideimg1.png" alt="not found" />
+          <img src="/images/guideimg1.png" alt="not found" />
         </div>
       </span>
       <span>

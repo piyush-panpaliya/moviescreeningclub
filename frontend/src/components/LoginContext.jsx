@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import { jwtDecode } from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
-
+import { Loading } from '@/components/icons/Loading'
 const LoginContext = createContext()
 
 export const useLogin = () => useContext(LoginContext)
@@ -43,7 +43,11 @@ export const LoginProvider = ({ children }) => {
     navigate('/login')
   }
   if (loggedIn && !user) {
-    return <div>Loading...</div>
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Loading />
+      </div>
+    )
   }
 
   return (

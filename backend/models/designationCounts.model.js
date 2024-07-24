@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const designationCountSchema = new mongoose.Schema({
   designation: { type: String, required: true },
@@ -12,10 +12,16 @@ const designationCountSchema = new mongoose.Schema({
   },
   month: { type: Number, required: true },
   year: { type: Number, required: true }
-});
+})
 
-designationCountSchema.index({ designation: 1, month: 1, year: 1 }, { unique: true }); // Unique index for combination
+designationCountSchema.index(
+  { designation: 1, month: 1, year: 1 },
+  { unique: true }
+) // Unique index for combination
 
-const DesignationCount = mongoose.model('DesignationCount', designationCountSchema);
+const DesignationCount = mongoose.model(
+  'DesignationCount',
+  designationCountSchema
+)
 
-module.exports = DesignationCount;
+module.exports = DesignationCount

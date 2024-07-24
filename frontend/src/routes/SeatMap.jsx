@@ -116,10 +116,10 @@ const SeatMapPage = () => {
   }
 
   return (
-    <div className="seat-booking font-monts overflow-auto mb-3">
+    <div className="seat-booking mb-3 overflow-auto font-monts">
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       {assignedSeat && (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex h-screen items-center justify-center">
           <h6 className="text-3xl">Assigning seat....</h6>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -174,21 +174,21 @@ const SeatMapPage = () => {
         </div>
       )}
       {!assignedSeat && (
-        <div className="flex flex-col flex-wrap mx-2">
+        <div className="mx-2 flex flex-col flex-wrap">
           <div className="flex flex-row-reverse justify-evenly gap-4">
-            <div className="flex flex-col gap-2 items-center">
+            <div className="flex flex-col items-center gap-2">
               <div className="flex flex-row justify-between">
-                <div className="flex flex-col items-start justify-center mb-8 w-full mt-4">
+                <div className="mb-8 mt-4 flex w-full flex-col items-start justify-center">
                   <div>
-                    <span className="font-semibold mr-3">Movie:</span>
+                    <span className="mr-3 font-semibold">Movie:</span>
                     <span>{movie}</span>
                   </div>
                   <div>
-                    <span className="font-semibold mr-3">Date:</span>
+                    <span className="mr-3 font-semibold">Date:</span>
                     <span>{date1}</span>
                   </div>
                   <div>
-                    <span className="font-semibold mr-3">Time:</span>
+                    <span className="mr-3 font-semibold">Time:</span>
                     <span>{time1}</span>
                   </div>
                 </div>
@@ -203,7 +203,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -216,7 +216,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -237,7 +237,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -250,7 +250,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -271,7 +271,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -284,7 +284,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -305,7 +305,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -318,7 +318,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -339,7 +339,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -352,7 +352,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -362,10 +362,10 @@ const SeatMapPage = () => {
               ))}
             </div>
             <div className="w-4"></div> {/* Entrance space */}
-            <div className="flex flex-col gap-2 items-center">
-              <div className="flex flex-col items-center justify-center mb-4 w-full mt-7">
+            <div className="flex flex-col items-center gap-2">
+              <div className="mb-4 mt-7 flex w-full flex-col items-center justify-center">
                 <svg
-                  className="w-full mx-auto mb-4"
+                  className="mx-auto mb-4 w-full"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 100 10"
                 >
@@ -376,7 +376,7 @@ const SeatMapPage = () => {
                     strokeWidth="1"
                   />
                 </svg>
-                <span className="font-semibold text-lg">Screen</span>
+                <span className="text-lg font-semibold">Screen</span>
               </div>
               {[...Array(1).keys()].map((row) => (
                 <div key={row} className="flex flex-row-reverse gap-2">
@@ -387,7 +387,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -400,7 +400,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -421,7 +421,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -434,7 +434,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -451,7 +451,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -464,7 +464,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -485,7 +485,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -498,7 +498,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -515,7 +515,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -528,7 +528,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -549,7 +549,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -562,7 +562,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -574,23 +574,23 @@ const SeatMapPage = () => {
             <div className="w-4"></div> {/* Entrance space */}
             <div className="flex justify-between gap-4">
               {/* Container for the 5x5 block */}
-              <div className="flex flex-col gap-2 items-center">
-                <div className="flex flex-col items-start mb-8 w-full mt-4 text-lg mr-4">
+              <div className="flex flex-col items-center gap-2">
+                <div className="mb-8 mr-4 mt-4 flex w-full flex-col items-start text-lg">
                   <div>
                     <span
-                      className={`bg-white-50 border border-green-600 bg-green-600 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
+                      className={`bg-white-50 font-roboto text-10 mr-2 cursor-pointer border border-green-600 bg-green-600 px-2 text-center`}
                     ></span>
                     <span className="text-lg">Selected Seat</span>
                   </div>
                   <div>
                     <span
-                      className={`seat bg-white-50 border border-red-400 bg-red-400 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
+                      className={`seat bg-white-50 font-roboto text-10 mr-2 cursor-pointer border border-red-400 bg-red-400 px-2 text-center`}
                     ></span>
                     <span className="text-lg">Seat Already Booked</span>
                   </div>
                   <div>
                     <span
-                      className={`seat bg-white-50 border border-gray-400 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
+                      className={`seat bg-white-50 font-roboto text-10 mr-2 cursor-pointer border border-gray-400 px-2 text-center`}
                     ></span>
                     <span className="text-lg">Seat Not Booked Yet</span>
                   </div>
@@ -604,7 +604,7 @@ const SeatMapPage = () => {
                       return (
                         <div
                           key={col}
-                          className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                          className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                             selectedSeat === seatNumber
                               ? 'bg-green-600 text-white'
                               : seatOccupancy[seatNumber]
@@ -617,7 +617,7 @@ const SeatMapPage = () => {
                             color: seatOccupancy[seatNumber] ? 'red' : 'black'
                           }}
                         >
-                          <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                          <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                             {seatNumber}
                           </span>
                         </div>
@@ -638,7 +638,7 @@ const SeatMapPage = () => {
                       return (
                         <div
                           key={col}
-                          className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                          className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                             selectedSeat === seatNumber
                               ? 'bg-green-600 text-white'
                               : seatOccupancy[seatNumber]
@@ -651,7 +651,7 @@ const SeatMapPage = () => {
                             color: seatOccupancy[seatNumber] ? 'red' : 'black'
                           }}
                         >
-                          <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                          <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                             {seatNumber}
                           </span>
                         </div>
@@ -672,7 +672,7 @@ const SeatMapPage = () => {
                       return (
                         <div
                           key={col}
-                          className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                          className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                             selectedSeat === seatNumber
                               ? 'bg-green-600 text-white'
                               : seatOccupancy[seatNumber]
@@ -685,7 +685,7 @@ const SeatMapPage = () => {
                             color: seatOccupancy[seatNumber] ? 'red' : 'black'
                           }}
                         >
-                          <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                          <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                             {seatNumber}
                           </span>
                         </div>
@@ -702,7 +702,7 @@ const SeatMapPage = () => {
                       return (
                         <div
                           key={col}
-                          className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                          className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                             selectedSeat === seatNumber
                               ? 'bg-green-600 text-white'
                               : seatOccupancy[seatNumber]
@@ -715,7 +715,7 @@ const SeatMapPage = () => {
                             color: seatOccupancy[seatNumber] ? 'red' : 'black'
                           }}
                         >
-                          <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                          <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                             {seatNumber}
                           </span>
                         </div>
@@ -736,7 +736,7 @@ const SeatMapPage = () => {
                       return (
                         <div
                           key={col}
-                          className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                          className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                             selectedSeat === seatNumber
                               ? 'bg-green-600 text-white'
                               : seatOccupancy[seatNumber]
@@ -749,7 +749,7 @@ const SeatMapPage = () => {
                             color: seatOccupancy[seatNumber] ? 'red' : 'black'
                           }}
                         >
-                          <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                          <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                             {seatNumber}
                           </span>
                         </div>
@@ -766,7 +766,7 @@ const SeatMapPage = () => {
                       return (
                         <div
                           key={col}
-                          className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                          className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                             selectedSeat === seatNumber
                               ? 'bg-green-600 text-white'
                               : seatOccupancy[seatNumber]
@@ -779,7 +779,7 @@ const SeatMapPage = () => {
                             color: seatOccupancy[seatNumber] ? 'red' : 'black'
                           }}
                         >
-                          <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                          <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                             {seatNumber}
                           </span>
                         </div>
@@ -791,8 +791,8 @@ const SeatMapPage = () => {
             </div>
           </div>
           <div className="mb-8"></div> {/* Vertical spacing */}
-          <div className="flex flex-row-reverse justify-evenly gap-4 mb-4">
-            <div className="flex flex-col gap-2 items-center mt-16">
+          <div className="mb-4 flex flex-row-reverse justify-evenly gap-4">
+            <div className="mt-16 flex flex-col items-center gap-2">
               {[...Array(11).keys()].map((row) => (
                 <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(15).keys()].map((col) => {
@@ -824,7 +824,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -837,7 +837,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {/* {seatNumber < 10 ? "A" : seatNumber < 20 ? "B" : seatNumber < 70 ? "C" : null} */}
                           {seatNumber}
                         </span>
@@ -848,9 +848,9 @@ const SeatMapPage = () => {
               ))}
             </div>
             <div className="w-4"></div> {/* Entrance space */}
-            <div className="flex flex-col gap-2 items-center">
-              <div className="flex justify-center mt-4 mb-4">
-                <span className="font-semibold text-lg">Entrance</span>
+            <div className="flex flex-col items-center gap-2">
+              <div className="mb-4 mt-4 flex justify-center">
+                <span className="text-lg font-semibold">Entrance</span>
               </div>
               <div className="flex flex-row-reverse gap-64">
                 <div className="flex flex-col gap-2">
@@ -877,7 +877,7 @@ const SeatMapPage = () => {
                         return (
                           <div
                             key={col}
-                            className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                            className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                               selectedSeat === seatNumber
                                 ? 'bg-green-600 text-white'
                                 : seatOccupancy[seatNumber]
@@ -890,7 +890,7 @@ const SeatMapPage = () => {
                               color: seatOccupancy[seatNumber] ? 'red' : 'black'
                             }}
                           >
-                            <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                            <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                               {seatNumber}
                             </span>
                           </div>
@@ -923,7 +923,7 @@ const SeatMapPage = () => {
                         return (
                           <div
                             key={col}
-                            className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                            className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                               selectedSeat === seatNumber
                                 ? 'bg-green-600 text-white'
                                 : seatOccupancy[seatNumber]
@@ -936,7 +936,7 @@ const SeatMapPage = () => {
                               color: seatOccupancy[seatNumber] ? 'red' : 'black'
                             }}
                           >
-                            <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                            <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                               {seatNumber}
                             </span>
                           </div>
@@ -955,7 +955,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -968,7 +968,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -989,7 +989,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -1002,7 +1002,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -1019,7 +1019,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -1032,7 +1032,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -1042,7 +1042,7 @@ const SeatMapPage = () => {
               ))}
             </div>
             <div className="w-4"></div>
-            <div className="flex flex-col gap-2 items-center mt-16 ">
+            <div className="mt-16 flex flex-col items-center gap-2">
               {[...Array(7).keys()].map((row) => (
                 <div key={row} className="flex flex-row-reverse gap-2">
                   {[...Array(15).keys()].map((col) => {
@@ -1066,7 +1066,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -1079,7 +1079,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                         </span>
                       </div>
@@ -1104,7 +1104,7 @@ const SeatMapPage = () => {
                     return (
                       <div
                         key={col}
-                        className={`seat bg-white-50 border border-gray-400 p-2 text-center cursor-pointer font-roboto text-10 ${
+                        className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
                             ? 'bg-green-600 text-white'
                             : seatOccupancy[seatNumber]
@@ -1117,7 +1117,7 @@ const SeatMapPage = () => {
                           color: seatOccupancy[seatNumber] ? 'red' : 'black'
                         }}
                       >
-                        <span className="flex justify-center items-center w-3 h-3 text-sm max-sm:size-0 max-sm:text-xs ">
+                        <span className="flex h-3 w-3 items-center justify-center text-sm max-sm:size-0 max-sm:text-xs">
                           {seatNumber}
                           {/* {seatNumber < 692
                             ? `Q${seatNumber - 649}`
@@ -1135,13 +1135,13 @@ const SeatMapPage = () => {
             </div>
           </div>
           {selectedSeat && (
-            <div className="flex justify-center items-center py-2 text-green-600">
+            <div className="flex items-center justify-center py-2 text-green-600">
               <p className="text-center text-2xl capitalize">
                 You have selected Selected Seat {selectedSeat} --
               </p>
               <button
                 onClick={handleConfirmSeat}
-                className="flex justify-center mx-2 p-2 bg-green-400 text-white rounded-lg font-bold text-lg"
+                className="mx-2 flex justify-center rounded-lg bg-green-400 p-2 text-lg font-bold text-white"
               >
                 Proceed
                 <svg
@@ -1150,7 +1150,7 @@ const SeatMapPage = () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6"
+                  className="h-6 w-6"
                 >
                   <path
                     strokeLinecap="round"

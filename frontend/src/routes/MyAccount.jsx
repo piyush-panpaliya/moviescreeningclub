@@ -20,19 +20,19 @@ const Myaccount = () => {
       setPreviousMemberships(
         memberships.filter((membership) => !membership.isValid)
       )
-      console.log('memberships:', memberships)
+      console.log('memberships:', memberships, previousMemberships)
     }
   }, [memberships])
   const getColor = (memType) => {
     switch (memType.toLowerCase()) {
       case 'gold':
-        return 'bg-gradient-to-t from-yellow-100 to-yellow-200'
+        return 'bg-gradient-to-t from-amber-400 to-amber-900'
       case 'silver':
-        return 'bg-gradient-to-t from-gray-300 to-gray-400'
+        return 'bg-gradient-to-t from-gray-400 to-gray-900'
       case 'base':
-        return 'bg-gradient-to-t from-orange-100 to-orange-300'
+        return 'bg-gradient-to-t  from-red-400 to-red-900'
       default:
-        return 'bg-gradient-to-t from-blue-200 to-blue-300'
+        return 'bg-gradient-to-t from-blue-400 to-blue-900'
     }
   }
 
@@ -50,6 +50,7 @@ const Myaccount = () => {
   }
 
   const toTitleCase = (str) => {
+    console.log(str)
     return str.replace(/\b\w+/g, function (txt) {
       return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
     })
@@ -60,90 +61,84 @@ const Myaccount = () => {
     )
   }
   return (
-    <div>
-      <div className="bg-gray-200 flex flex-col items-center min-h-screen font-monts">
-        <h2 className="text-2xl lg:text-3xl font-semibold mb-4 mt-7">
-          Your Memberships
-        </h2>
-        <div className="flex flex-col items-start w-4/5 max-sm:w-[90%] my-10 max-sm:my-4">
-          <div className="flex flex-col w-full justify-start my-3 mx-5 max-sm:mx-2 ">
-            <h3 className="text-xl lg:text-2xl font-semibold mb-2">
-              Active Memberships
-            </h3>
-            <div className="flex gap-6 my-4 flex-wrap">
-              {currentMembership && (
-                <Link className="object-cover">
-                  <div className="flex flex-col py-3 px-3 justify-center bg-white rounded-lg">
-                    <div
-                      className={`rounded-md ${getColor(
-                        currentMembership.memtype
-                      )} text-center w-[230px] lg:w-[250px] h-[280px] max-sm:h-[200px] mb-5`}
-                      // style={getCardStyle(230, 180)}
-                    >
-                      <p>
-                        <strong className="lg:text-lg">Purchase Date -</strong>{' '}
-                        {new Date(
-                          currentMembership.purchasedate
-                        ).toLocaleDateString('en-IN')}
-                      </p>
-                    </div>
-                    <h3 className="text-xl lg:text-2xl font-semibold mb-2">
-                      {toTitleCase(currentMembership.memtype)}
-                    </h3>
-                    <p className="flex capitalize">
-                      Validity till :{' '}
-                      {new Date(
-                        currentMembership.validitydate
-                      ).toLocaleDateString('en-IN')}
-                    </p>
-                    <p className="flex capitalize">
-                      Passes Left : {currentMembership.availQR}
-                    </p>
-                  </div>
-                </Link>
-              )}
-            </div>
-            {currentMembership && (
-              <button
-                onClick={suspendMembership}
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 w-48 mt-8 ml-9 rounded"
-              >
-                Suspend Current Membership
-              </button>
-            )}
-          </div>
-        </div>
-
-        <div className="flex flex-col items-start w-4/5 max-sm:w-[90%] my-10 max-sm:my-4 font-monts">
-          <div className="flex flex-col w-full justify-start my-3 mx-5 max-sm:mx-2 ">
-            <h3 className="text-xl lg:text-2xl font-semibold mb-2">
-              Previous Memberships
-            </h3>
-            <div className="flex gap-6 my-4 flex-wrap">
-              {previousMemberships.map((membership, index) => (
+    <div className="flex flex-col items-center gap-12 p-4 sm:p-8">
+      <p className="mb-4 text-2xl font-semibold lg:text-3xl">
+        Your Memberships
+      </p>
+      <div className="flex w-full flex-col gap-4 max-sm:items-center sm:w-3/4">
+        <p className="mb-2 text-xl font-semibold lg:text-2xl">
+          Active Memberships
+        </p>
+        <div className="flex flex-wrap gap-6">
+          {currentMembership && (
+            <Link className="object-cover">
+              <div className="flex flex-col justify-center rounded-lg bg-[#212121] px-3 py-3">
                 <div
-                  key={index}
-                  className="flex flex-col py-3 px-3 justify-center bg-white rounded-lg"
+                  className={`flex items-center justify-center rounded-md ${getColor(
+                    currentMembership.memtype
+                  )} mb-4 h-[280px] w-[230px] text-center max-sm:h-[200px] lg:w-[250px]`}
+                  // style={getCardStyle(230, 180)}
                 >
-                  <div
-                    className={`rounded-md ${getColor(
-                      membership.memtype
-                    )} text-center w-[230px] lg:w-[250px] h-[280px] max-sm:h-[200px] mb-5`}
-                    // style={getCardStyle(150, 180)}
-                  ></div>
-                  <h3 className="text-xl lg:text-2xl font-semibold mb-2">
-                    {toTitleCase(membership.memtype)}
-                  </h3>
-                  <p>
-                    <strong className="lg:text-lg">Purchase Date -</strong>{' '}
-                    {new Date(membership.purchasedate).toLocaleDateString(
-                      'en-IN'
-                    )}
+                  <p className="text-xl font-semibold lg:text-4xl">
+                    {toTitleCase(currentMembership.memtype)}
                   </p>
                 </div>
-              ))}
+                <p>
+                  <strong>Purchase Date : </strong>{' '}
+                  {new Date(currentMembership.purchasedate).toLocaleDateString(
+                    'en-IN'
+                  )}
+                </p>
+                <p className="flex capitalize">
+                  <strong> Validity till : </strong>{' '}
+                  {new Date(currentMembership.validitydate).toLocaleDateString(
+                    'en-IN'
+                  )}
+                </p>
+                <p className="flex capitalize">
+                  <strong>Passes Left : </strong> {currentMembership.availQR}
+                </p>
+              </div>
+            </Link>
+          )}
+        </div>
+        {currentMembership && (
+          <button
+            onClick={suspendMembership}
+            className="mt-8 w-fit rounded bg-red-500 px-4 py-2 font-bold hover:bg-red-700"
+          >
+            Suspend Current Membership
+          </button>
+        )}
+      </div>
+
+      <div className="flex w-full flex-col items-center gap-2 sm:w-3/4 sm:items-start">
+        <p className="mb-2 text-xl font-semibold lg:text-2xl">
+          Previous Memberships
+        </p>
+        <div className="flex flex-wrap gap-6 max-sm:flex-col">
+          {previousMemberships.map((membership, index) => (
+            <div
+              key={index}
+              className="flex flex-col justify-center rounded-lg bg-[#212121] p-3"
+            >
+              <div
+                className={`rounded-md ${getColor(
+                  membership.memtype
+                )} mb-5 flex h-[280px] w-[230px] items-center justify-center text-center max-sm:h-[200px] lg:w-[250px]`}
+                // style={getCardStyle(150, 180)}
+              >
+                {' '}
+                <p className="text-xl font-semibold lg:text-4xl">
+                  {toTitleCase(membership.memtype)}
+                </p>
+              </div>
+              <p>
+                <strong>Purchase Date -</strong>{' '}
+                {new Date(membership.purchasedate).toLocaleDateString('en-IN')}
+              </p>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

@@ -86,39 +86,39 @@ const Movie = () => {
     return <div>Loading...</div>
   }
   return (
-    <div className="p-4 max-w-full flex flex-col items-center ">
-      <p className="text-xl sm:text-3xl font-bold block sm:hidden mb-2">
+    <div className="flex max-w-full flex-col items-center p-4">
+      <p className="mb-2 block text-xl font-bold sm:hidden sm:text-3xl">
         {movie?.title}
       </p>
-      <div className="flex justify-between flex-col sm:flex-row w-full gap-4">
+      <div className="flex w-full flex-col justify-between gap-4 sm:flex-row">
         <div className={`flex flex-col ${seats ? 'block' : 'hidden'}`}>
           <div>
             <span
-              className={`bg-white-50 border border-green-600 bg-green-600 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
+              className={`bg-white-50 font-roboto text-10 mr-2 cursor-pointer border border-green-600 bg-green-600 px-2 text-center`}
             ></span>
             <span className="text-md">Selected Seat</span>
           </div>
           <div>
             <span
-              className={`seat bg-white-50 border border-red-400 bg-gray-300 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
+              className={`seat bg-white-50 font-roboto text-10 mr-2 cursor-pointer border border-red-400 bg-gray-300 px-2 text-center`}
             ></span>
             <span className="text-md">Seat Already Booked</span>
           </div>
           <div>
             <span
-              className={`seat bg-white-50 border border-gray-400 px-2 text-center cursor-pointer font-roboto text-10 mr-2`}
+              className={`seat bg-white-50 font-roboto text-10 mr-2 cursor-pointer border border-gray-400 px-2 text-center`}
             ></span>
             <span className="text-md">Seat Not Booked Yet</span>
           </div>
-          <p className="text-sm mt-2 ">
+          <p className="mt-2 text-sm">
             <span className="font-bold">Available Seats: </span> {maxAllowed}
           </p>
         </div>
-        <p className="text-xl sm:text-3xl font-bold hidden sm:block">
+        <p className="hidden text-xl font-bold sm:block sm:text-3xl">
           {movie?.title}
         </p>
         <div className="flex flex-col">
-          <p className="font-bold mb-1">Showtimes available</p>
+          <p className="mb-1 font-bold">Showtimes available</p>
           {movie?.showtimes.map((showtime) => (
             <button
               key={showtime._id}
@@ -127,7 +127,7 @@ const Movie = () => {
                 setShowtime(showtime._id)
                 setSelectedSeats([])
               }}
-              className=" hover:underline rounded-md"
+              className="rounded-md hover:underline"
             >
               {new Date(showtime.date).toLocaleString('en-IN')}
             </button>
@@ -137,7 +137,7 @@ const Movie = () => {
               onClick={() => {
                 navigate('/showtime?movieId=' + movieId)
               }}
-              className="bg-red-500 text-white p-2 rounded-md"
+              className="rounded-md bg-red-500 p-2 text-white"
             >
               Edit
             </button>
@@ -145,25 +145,25 @@ const Movie = () => {
         </div>
       </div>
       {selectedSeats.length > 0 && (
-        <div className="flex flex-col sm:flex-row gap-2  justify-between w-full z-10 drop-shadow-2xl fixed bottom-0 bg-white p-2 items-center sm:pr-8">
+        <div className="fixed bottom-0 z-10 flex w-full flex-col items-center justify-between gap-2 bg-white p-2 drop-shadow-2xl sm:flex-row sm:pr-8">
           {!!selectedSeats.length && (
             <p className="text-xl font-bold">
               Total: {selectedSeats.length || 0}
             </p>
           )}
-          <p className="text-xl ">
+          <p className="text-xl">
             <span className="font-bold">Seats: </span>{' '}
             {selectedSeats.join(', ')}
           </p>
           <button
             onClick={bookSeats}
-            className="bg-green-600 text-xl text-white p-2 rounded-md"
+            className="rounded-md bg-green-600 p-2 text-xl text-white"
           >
             {loading ? 'Booking...' : 'Book'}
           </button>
         </div>
       )}
-      <div className="scrollbar p-4 max-w-full h-screen overflow-auto flex  ">
+      <div className="scrollbar flex h-screen max-w-full overflow-auto p-4">
         {seats && (
           <Seats
             seats={seats}

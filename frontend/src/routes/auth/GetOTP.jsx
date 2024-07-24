@@ -51,27 +51,27 @@ export default function GetOTP() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen bg-[#e5e8f0] font-monts">
-      <div className="flex items-center justify-center w-[80%] h-[90%] bg-white rounded-3xl max-sm:h-[60%] max-sm:w-[90%]">
-        <div className="flex w-[99.5%] h-[99%] bg-gradient-to-r from-white to-gray-100 rounded-3xl">
-          <div className="w-[50%] h-full flex justify-center items-center max-sm:hidden">
-            <div className="w-[98%] h-[98%] rounded-2xl flex justify-center items-center bg-[#da9afe]">
+    <div className="flex h-screen items-center justify-center bg-[#e5e8f0] font-monts">
+      <div className="flex h-[90%] w-[80%] items-center justify-center rounded-3xl bg-white max-sm:h-[60%] max-sm:w-[90%]">
+        <div className="flex h-[99%] w-[99.5%] rounded-3xl bg-gradient-to-r from-white to-gray-100">
+          <div className="flex h-full w-[50%] items-center justify-center max-sm:hidden">
+            <div className="flex h-[98%] w-[98%] items-center justify-center rounded-2xl bg-[#da9afe]">
               <img src={imgone} className="rounded-2xl" alt="Login" />
             </div>
           </div>
-          <div className="flex justify-center items-center mt-4 w-1/2 max-sm:w-full ">
-            <div className="flex flex-col justify-center gap-6 h-full w-[90%] max-sm:text-sm">
+          <div className="mt-4 flex w-1/2 items-center justify-center max-sm:w-full">
+            <div className="flex h-full w-[90%] flex-col justify-center gap-6 max-sm:text-sm">
               <div className="h-[20%]">
-                <p className="text-center font-bold text-3xl max-sm:text-lg">
+                <p className="text-center text-3xl font-bold max-sm:text-lg">
                   Email Verification!
                 </p>
-                <p className="text-center font-normal text-2xl mt-4 max-sm:text-medium">
+                <p className="mt-4 text-center text-2xl font-normal max-sm:text-medium">
                   Please verify Email to continue
                 </p>
               </div>
 
-              <div className="flex flex-col items-center gap-3 h-[60%]">
-                <div className="flex justify-center text-lg h-[15%] w-[82%] border rounded-2xl">
+              <div className="flex h-[60%] flex-col items-center gap-3">
+                <div className="flex h-[15%] w-[82%] justify-center rounded-2xl border text-lg">
                   <div className="flex items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ export default function GetOTP() {
                       strokeWidth={1.5}
                       stroke="currentColor"
                       strokeOpacity={0.5}
-                      className="w-8 h-8 mx-2 max-sm:w-4"
+                      className="mx-2 h-8 w-8 max-sm:w-4"
                     >
                       <path
                         strokeLinecap="round"
@@ -92,7 +92,7 @@ export default function GetOTP() {
                   <input
                     type="email"
                     id="email"
-                    className="border w-full rounded-2xl text-center max-sm:text-sm"
+                    className="w-full rounded-2xl border text-center max-sm:text-sm"
                     name="email"
                     placeholder="enter your email"
                     required
@@ -102,7 +102,7 @@ export default function GetOTP() {
                   />
                 </div>
                 <Link
-                  className="flex justify-end text-blue-600 w-4/5 mb-3"
+                  className="mb-3 flex w-4/5 justify-end text-blue-600"
                   to="/forgot"
                 >
                   resend otp
@@ -110,12 +110,12 @@ export default function GetOTP() {
                 <button
                   onClick={handleSubmit}
                   disabled={isSubmitting}
-                  className="flex justify-center items-center bg-[#fe6b68] w-4/5 h-[15%] p-2 text-white rounded-xl"
+                  className="flex h-[15%] w-4/5 items-center justify-center rounded-xl bg-[#fe6b68] p-2 text-white"
                   type="button"
                 >
                   {isSubmitting ? 'Submitting ...' : 'Submit'}
                 </button>
-                <span className="form-text border-t-2 w-4/5 text-center mt-2 pt-2">
+                <span className="form-text mt-2 w-4/5 border-t-2 pt-2 text-center">
                   Already have an account --{' '}
                   <Link className="text-blue-600" to="/login">
                     Login

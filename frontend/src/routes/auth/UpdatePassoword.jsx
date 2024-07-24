@@ -35,11 +35,11 @@ export default function UpdatePassword() {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen bg-[#e5e8f0] capitalize font-monts">
-        <div className="flex items-center justify-center w-[80%] h-[90%] bg-white rounded-3xl max-sm:h-[70%] max-sm:w-[90%]">
-          <div className="flex w-[99.5%] h-[99%] bg-gradient-to-r from-white to-gray-100 rounded-3xl">
-            <div className="w-[50%] h-full flex justify-center items-center max-sm:hidden">
-              <div className="w-[98%] h-[98%] rounded-2xl flex justify-center items-center bg-[#da9afe]">
+      <div className="flex h-screen items-center justify-center bg-[#e5e8f0] font-monts capitalize">
+        <div className="flex h-[90%] w-[80%] items-center justify-center rounded-3xl bg-white max-sm:h-[70%] max-sm:w-[90%]">
+          <div className="flex h-[99%] w-[99.5%] rounded-3xl bg-gradient-to-r from-white to-gray-100">
+            <div className="flex h-full w-[50%] items-center justify-center max-sm:hidden">
+              <div className="flex h-[98%] w-[98%] items-center justify-center rounded-2xl bg-[#da9afe]">
                 <img
                   src={imageOne}
                   className="h-2/3 w-2/3 rounded-2xl"
@@ -47,17 +47,17 @@ export default function UpdatePassword() {
                 />
               </div>
             </div>
-            <div className="flex justify-center items-center w-1/2 max-sm:w-full">
-              <div className="flex flex-col justify-center gap-6 h-full w-[90%] max-sm:text-sm">
+            <div className="flex w-1/2 items-center justify-center max-sm:w-full">
+              <div className="flex h-full w-[90%] flex-col justify-center gap-6 max-sm:text-sm">
                 <div className="h-[20%] max-sm:h-[30%]">
-                  <p className="text-center font-bold text-3xl max-sm:text-lg">
+                  <p className="text-center text-3xl font-bold max-sm:text-lg">
                     Enter the new details here
                   </p>
                 </div>
-                <div className="flex flex-col items-center gap-3 h-[60%]">
-                  <div className="flex-col justify-center text-lg h-[50%] w-[90%] border rounded-2xl">
-                    <div className="flex-col justify-start w-[90%]">
-                      <div className="flex items-center py-1 w-[100%]">
+                <div className="flex h-[60%] flex-col items-center gap-3">
+                  <div className="h-[50%] w-[90%] flex-col justify-center rounded-2xl border text-lg">
+                    <div className="w-[90%] flex-col justify-start">
+                      <div className="flex w-[100%] items-center py-1">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -65,7 +65,7 @@ export default function UpdatePassword() {
                           strokeWidth={1.5}
                           stroke="currentColor"
                           strokeOpacity={0.5}
-                          className="w-8 h-8 mx-2 max-sm:w-4"
+                          className="mx-2 h-8 w-8 max-sm:w-4"
                         >
                           <path
                             strokeLinecap="round"
@@ -77,7 +77,7 @@ export default function UpdatePassword() {
                           type="email"
                           id="email"
                           name="email"
-                          className="border w-full rounded-2xl text-center max-sm:text-sm"
+                          className="w-full rounded-2xl border text-center max-sm:text-sm"
                           required
                           value={email}
                           onChange={handleChange}
@@ -85,7 +85,7 @@ export default function UpdatePassword() {
                         />
                       </div>
                     </div>
-                    <div className="flex-col justify-start w-[90%]">
+                    <div className="w-[90%] flex-col justify-start">
                       <div className="flex items-center py-1">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +94,7 @@ export default function UpdatePassword() {
                           stroke-width="1.5"
                           stroke="currentColor"
                           strokeOpacity={0.5}
-                          class="w-8 h-8 mx-2 max-sm:w-4"
+                          class="mx-2 h-8 w-8 max-sm:w-4"
                         >
                           <path
                             stroke-linecap="round"
@@ -106,7 +106,7 @@ export default function UpdatePassword() {
                           type="password"
                           id="otp"
                           name="otp"
-                          className="border w-full rounded-2xl text-center max-sm:text-sm"
+                          className="w-full rounded-2xl border text-center max-sm:text-sm"
                           required
                           value={otp}
                           placeholder="OTP"
@@ -114,8 +114,8 @@ export default function UpdatePassword() {
                         />
                       </div>
                     </div>
-                    <div className="flex-col justify-start w-[90%]">
-                      <div className="flex items-centre py-1">
+                    <div className="w-[90%] flex-col justify-start">
+                      <div className="items-centre flex py-1">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -123,7 +123,7 @@ export default function UpdatePassword() {
                           stroke-width="1.5"
                           stroke="currentColor"
                           strokeOpacity={0.5}
-                          class="w-8 h-8 mx-2 max-sm:w-4"
+                          class="mx-2 h-8 w-8 max-sm:w-4"
                         >
                           <path
                             stroke-linecap="round"
@@ -135,7 +135,7 @@ export default function UpdatePassword() {
                           type="password"
                           id="password"
                           name="password"
-                          className="border w-full rounded-2xl text-center max-sm:text-sm"
+                          className="w-full rounded-2xl border text-center max-sm:text-sm"
                           required
                           value={password}
                           placeholder="New Password"
@@ -146,12 +146,12 @@ export default function UpdatePassword() {
                   </div>
                   <button
                     onClick={handleSubmit}
-                    className="flex justify-center items-center bg-[#fe6b68] w-4/5 h-[15%] p-2 text-white rounded-xl "
+                    className="flex h-[15%] w-4/5 items-center justify-center rounded-xl bg-[#fe6b68] p-2 text-white"
                     type="button"
                   >
                     Submit
                   </button>
-                  <span className="form-text border-t-2 w-4/5 text-center mt-2 py-2">
+                  <span className="form-text mt-2 w-4/5 border-t-2 py-2 text-center">
                     Already have an account --{' '}
                     <Link className="text-blue-600" to="/login">
                       Login

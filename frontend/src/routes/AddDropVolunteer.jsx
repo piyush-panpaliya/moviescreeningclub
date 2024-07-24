@@ -136,7 +136,7 @@ const AddDropVolunteer = () => {
         )
       case 'actions':
         return (
-          <div className="relative flex justify-start items-center ">
+          <div className="relative flex items-center justify-start">
             <Dropdown>
               <DropdownTrigger>
                 <Button isIconOnly size="sm" variant="light">
@@ -146,7 +146,7 @@ const AddDropVolunteer = () => {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6"
+                    className="h-6 w-6"
                   >
                     <path
                       strokeLinecap="round"
@@ -180,8 +180,8 @@ const AddDropVolunteer = () => {
 
   const topContent = React.useMemo(() => {
     return (
-      <div className="flex flex-col gap-4 font-monts">
-        <div className="flex justify-start gap-3 items-end">
+      <div className="flex flex-col gap-4 dark">
+        <div className="flex items-end justify-start gap-3">
           <Input
             isClearable
             classNames={{
@@ -197,7 +197,7 @@ const AddDropVolunteer = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="h-6 w-6"
               >
                 <path
                   strokeLinecap="round"
@@ -222,7 +222,7 @@ const AddDropVolunteer = () => {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6"
+                      className="h-6 w-6"
                     >
                       <path
                         strokeLinecap="round"
@@ -266,10 +266,10 @@ const AddDropVolunteer = () => {
   )
 
   return (
-    <div className="flex justify-center min-h-lvh">
+    <div className="flex min-h-lvh justify-center">
       <Table
         isStriped
-        className="w-4/5 max-sm:w-[95%] my-5"
+        className="my-5 w-4/5 max-sm:w-[95%]"
         aria-label="Controlled table example with dynamic content"
         topContent={topContent}
         topContentPlacement="outside"

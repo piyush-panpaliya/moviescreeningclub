@@ -1,0 +1,153 @@
+import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import Logo from '../images/logo2.jpg'
+import { useLogin } from './LoginContext'
+import { api } from '@/utils/api'
+import { useMembershipContext } from './MembershipContext'
+import { isAllowedLvl } from '@/utils/levelCheck'
+import { LogoutIcon, LoginIcon, MenuIcon } from '@/components/icons/nav'
+const Navbar = () => {
+  const { loggedIn, logout, user } = useLogin()
+  const { hasMembership } = useMembershipContext()
+  const [showMenu, setShowMenu] = useState(false)
+  const dropdownRef = useRef(null)
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowMenu(false)
+      }
+    }
+    if (showMenu) {
+      document.addEventListener('click', handleOutsideClick)
+    } else {
+      document.removeEventListener('click', handleOutsideClick)
+    }
+    return () => {
+      document.removeEventListener('click', handleOutsideClick)
+    }
+  }, [showMenu])
+
+  const toggleMenu = (event) => {
+    if (event) {
+      event.stopPropagation()
+    }
+    setShowMenu((prevState) => !prevState)
+  }
+  const getDisplayName = (fullName) => {
+    if (!fullName) return ''
+    const parts = fullName.split(' ')
+    return parts[0]
+  }
+  return (
+    <nav className="relative top-0 z-20 flex w-full items-center justify-between bg-[#141414] px-4 py-3 md:sticky">
+      <Link to="/" className="flex items-center gap-2">
+        <img className="h-12 w-auto" src={Logo} alt="Movies" />
+        <p className="font-bn text-[30px] font-bold text-red-600">CHALCHITRA</p>
+      </Link>
+      <div className="flex items-center gap-2">
+        {loggedIn ? (
+          <>
+            <p className="hidden rounded-md bg-red-600 px-4 py-1.5 font-semibold text-white sm:block">
+              Welcome {getDisplayName(user.name)}
+            </p>
+            <LogoutIcon />
+          </>
+        ) : (
+          <Link to="/login">
+            <LoginIcon />
+          </Link>
+        )}
+
+        <div className="flex items-center">
+          <button
+            onClick={toggleMenu}
+            className="flex items-center justify-center rounded-md p-1 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none"
+          >
+            <MenuIcon />
+          </button>
+        </div>
+      </div>
+      <div
+        ref={dropdownRef}
+        className={`${
+          showMenu
+            ? 'absolute right-2 top-20 z-20 block w-[70vw] rounded-md bg-[#141414] p-2 sm:w-[20%] sm:p-4'
+            : 'hidden'
+        }`}
+      >
+        {loggedIn ? (
+          <>
+            <NavItem to="/profile" toggleMenu={toggleMenu}>
+              My Profile
+            </NavItem>
+            <NavItem to="/tickets" toggleMenu={toggleMenu}>
+              My Tickets
+            </NavItem>
+            {!hasMembership && (
+              <NavItem to="/buy" toggleMenu={toggleMenu}>
+                Buy a new Membership
+              </NavItem>
+            )}
+            <NavItem to="/vote" toggleMenu={toggleMenu}>
+              Vote Page
+            </NavItem>
+            {isAllowedLvl('admin', user?.usertype) && (
+              <NavItem to="/adddropvolunteer" toggleMenu={toggleMenu}>
+                Add/Drop Volunteer
+              </NavItem>
+            )}
+            {isAllowedLvl('ticketvolunteer', user?.usertype) && (
+              <NavItem to="/scanner" toggleMenu={toggleMenu}>
+                Scanner
+              </NavItem>
+            )}
+            {isAllowedLvl('movievolunteer', user?.usertype) && (
+              <>
+                <NavItem to="/modifymovie" toggleMenu={toggleMenu}>
+                  Modify Movie
+                </NavItem>
+                <NavItem to="/addmovie" toggleMenu={toggleMenu}>
+                  Add Movie
+                </NavItem>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <NavItem disabled>My Profile</NavItem>
+            <NavItem disabled>My QRs</NavItem>
+            <NavItem disabled>Buy a new Membership</NavItem>
+            <NavItem disabled>VotePage</NavItem>
+          </>
+        )}
+        <NavItem to="/guidelines" toggleMenu={toggleMenu}>
+          Booking Guidelines/Help
+        </NavItem>
+      </div>
+    </nav>
+  )
+}
+
+const NavItem = ({ to, children, toggleMenu, disabled }) => {
+  const handleClick = () => {
+    if (!disabled) {
+      toggleMenu()
+    }
+  }
+
+  return (
+    <Link
+      to={to}
+      onClick={disabled ? null : handleClick}
+      className={`block rounded-md px-3 py-2 text-base font-medium text-white transition duration-150 ease-in-out hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none ${
+        disabled ? 'cursor-not-allowed opacity-50' : ''
+      }`}
+      aria-disabled={disabled}
+    >
+      {children}
+    </Link>
+  )
+}
+
+export default Navbar

@@ -31,7 +31,8 @@
     "qrcode": "^1.5.3"
   },
   "_moduleAliases": {
-    "@": "./"
+    "@": "./",
+    "@constants": "../constants"
   },
   "devDependencies": {
     "prettier": "3.3.2"

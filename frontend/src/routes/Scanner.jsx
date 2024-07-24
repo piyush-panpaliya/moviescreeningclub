@@ -255,7 +255,7 @@ export const Scanner = () => {
   }
 
   return (
-    <div className="flex justify-center w-full h-full mt-6 font-monts">
+    <div className="mt-6 flex h-full w-full justify-center font-monts">
       <div style={{ maxWidth: '100%', height: 'auto' }}>
         {scanResult ? (
           <div>

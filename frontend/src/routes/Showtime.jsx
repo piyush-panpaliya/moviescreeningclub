@@ -69,19 +69,19 @@ const Showtime = () => {
     return <div>Loading...</div>
   }
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#e5e8f0] font-monts">
-      <div className="sm:w-[80%] max-sm:w-[90%] flex flex-col bg-white h-[90%] my-4 rounded-xl shadow-lg">
-        <div className="sm:flex max-sm:flex-col justify-between">
-          <div className="sm:w-[30%] max-sm:w-[95%] flex justify-center mt-2 ml-2">
+    <div className="flex min-h-screen items-center justify-center bg-[#e5e8f0] font-monts">
+      <div className="my-4 flex h-[90%] flex-col rounded-xl bg-white shadow-lg max-sm:w-[90%] sm:w-[80%]">
+        <div className="justify-between max-sm:flex-col sm:flex">
+          <div className="ml-2 mt-2 flex justify-center max-sm:w-[95%] sm:w-[30%]">
             <img
               src={movie?.poster || ''}
-              className="rounded-md w-full h-[90%]"
+              className="h-[90%] w-full rounded-md"
               alt={movie?.poster || ''}
             />
           </div>
-          <div className="flex flex-col sm:w-[60%] max-sm:w-full gap-3 sm:mr-4 mt-4">
-            <div className="flex justify-between mb-2 mr-2">
-              <h2 className="text-2xl text-center font-bold w-full">
+          <div className="mt-4 flex flex-col gap-3 max-sm:w-full sm:mr-4 sm:w-[60%]">
+            <div className="mb-2 mr-2 flex justify-between">
+              <h2 className="w-full text-center text-2xl font-bold">
                 Showtimes{' '}
               </h2>
               {isLocalAdmin && (
@@ -91,7 +91,7 @@ const Showtime = () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="blue"
-                  className="w-8 h-8"
+                  className="h-8 w-8"
                   onClick={() => setShowAddRow(true)}
                 >
                   <path
@@ -102,20 +102,20 @@ const Showtime = () => {
                 </svg>
               )}
             </div>
-            <table className="flex flex-col items-center mb-3">
-              <thead className="flex justify-between sm:w-2/3 max-sm:w-[90%]">
-                <tr className="flex justify-evenly gap-11 w-full text-lg">
+            <table className="mb-3 flex flex-col items-center">
+              <thead className="flex justify-between max-sm:w-[90%] sm:w-2/3">
+                <tr className="flex w-full justify-evenly gap-11 text-lg">
                   <th>Date</th>
                   <th>Time</th>
                   {isLocalAdmin && <th>Action</th>}
                 </tr>
               </thead>
 
-              <tbody className="flex flex-col justify-center sm:w-2/3 max-sm:w-[90%] gap-3 mt-3">
+              <tbody className="mt-3 flex flex-col justify-center gap-3 max-sm:w-[90%] sm:w-2/3">
                 {movie.showtimes.map((showtime, index) => (
                   <tr
                     key={index}
-                    className="flex justify-evenly w-full text-medium mr-6"
+                    className="mr-6 flex w-full justify-evenly text-medium"
                   >
                     <td>{moment(showtime.date).format('DD-MM-YYYY')}</td>
                     <td className="pr-7">
@@ -129,7 +129,7 @@ const Showtime = () => {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="red"
-                          className="w-6 h-6 cursor-pointer"
+                          className="h-6 w-6 cursor-pointer"
                           onClick={() => handleDeleteShowtime(showtime._id)}
                         >
                           <path
@@ -143,7 +143,7 @@ const Showtime = () => {
                   </tr>
                 ))}
                 {showAddRow && isLocalAdmin && (
-                  <tr className="flex justify-evenly w-full text-medium mr-6">
+                  <tr className="mr-6 flex w-full justify-evenly text-medium">
                     <td>
                       <input
                         type="date"
@@ -165,7 +165,7 @@ const Showtime = () => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="green"
-                        className="w-6 h-6"
+                        className="h-6 w-6"
                         onClick={handleSaveShowtime}
                       >
                         <path
@@ -181,8 +181,8 @@ const Showtime = () => {
             </table>
           </div>
         </div>
-        <div className="flex justify-center mb-3 w-full">
-          <div className="flex sm:w-[90%] max-sm:w-[80%] max-sm:h-[40%]">
+        <div className="mb-3 flex w-full justify-center">
+          <div className="flex max-sm:h-[40%] max-sm:w-[80%] sm:w-[90%]">
             {movie.trailer && (
               <iframe
                 title="movie-trailer"

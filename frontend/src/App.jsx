@@ -1,4 +1,4 @@
-// import React from "react";
+import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import Navbar from '@/components/Navbar'
@@ -21,114 +21,137 @@ import MovieList from '@/routes/VotePage'
 import Guidelines from '@/routes/Guidelines'
 import Movie from '@/routes/Movie'
 import Tickets from '@/routes/Tickets'
+import DesignationCounts from '@/routes/MemberShipsSold'
 import AuthenticatedRoute from '@/components/ProtectedRoute'
 import { LoginProvider } from '@/components/LoginContext'
 import { MembershipProvider } from '@/components/MembershipContext'
-import DesignationCounts from "@/components/MemberShipsSold"
 
 function App() {
+  const [popcorns, setPopcorns] = useState([])
+  useEffect(() => {
+    setPopcorns(
+      Array.from({ length: 7 }, (_, i) => (
+        <div
+          key={i}
+          style={{
+            backgroundImage: `url(
+              /images/popcorn${Math.floor(Math.random() * 4)}.png
+            )`,
+            top: `${Math.floor(Math.random() * 100)}%`,
+            left: `${Math.floor(Math.random() * 100)}%`
+          }}
+          className="absolute h-[50px] w-[50px] bg-cover"
+        />
+      ))
+    )
+  }, [])
   return (
     <BrowserRouter>
-      <LoginProvider>
-        <MembershipProvider>
-          <div className="bg-gray-100 w-full overflow-x-hidden ">
+      <div className="relative flex h-screen w-full flex-col overflow-x-hidden bg-[#0C0C0C] font-monts text-white">
+        <LoginProvider>
+          <MembershipProvider>
             <Navbar />
-            <Routes>
-              <Route index element={<Home />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/getOTP" element={<GetOTP />} />
-              <Route path="/forgot" element={<ForgotPassword />} />
-              <Route path="/update" element={<UpdatePassword />} />
-              // {/* <Route path="/form" element={<Foram />} /> */}
-              <Route
-                path="/buy"
-                element={
-                  <AuthenticatedRoute>
-                    <BuyMemberships />
-                  </AuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/scanner"
-                element={
-                  <AuthenticatedRoute minLevel="ticketvolunteer">
-                    <Scanner />
-                  </AuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/addmovie"
-                element={
-                  <AuthenticatedRoute minLevel="movievolunteer">
-                    <MovieForm />
-                  </AuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/modifymovie"
-                element={
-                  <AuthenticatedRoute minLevel="movievolunteer">
-                    <ModifyMovie />
-                  </AuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <AuthenticatedRoute>
-                    <MyAccount />
-                  </AuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/adddropvolunteer"
-                element={
-                  <AuthenticatedRoute minLevel="admin">
-                    <AddDropVolunteer />
-                  </AuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/movie"
-                element={
-                  <AuthenticatedRoute>
-                    <Movie />
-                  </AuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/showtime"
-                element={
-                  <AuthenticatedRoute minLevel="movievolunteer">
-                    <Showtime />
-                  </AuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/tickets"
-                element={
-                  <AuthenticatedRoute>
-                    <Tickets />
-                  </AuthenticatedRoute>
-                }
-              />
-              <Route
-                path="/VotePage"
-                element={
-                  <AuthenticatedRoute>
-                    <MovieList />
-                  </AuthenticatedRoute>
-                }
-              />
-              <Route path="/guidelines" element={<Guidelines />} />
-              <Route path="/designationCount" element={<DesignationCounts />} />
-            </Routes>
-            <Footer />
-          </div>
-        </MembershipProvider>
-      </LoginProvider>
+            {popcorns}
+            <div className="relative z-10 w-full grow py-10">
+              <Routes>
+                <Route index element={<Home />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/getOTP" element={<GetOTP />} />
+                <Route path="/forgot" element={<ForgotPassword />} />
+                <Route path="/update" element={<UpdatePassword />} />
+                <Route
+                  path="/buy"
+                  element={
+                    <AuthenticatedRoute>
+                      <BuyMemberships />
+                    </AuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/scanner"
+                  element={
+                    <AuthenticatedRoute minLevel="ticketvolunteer">
+                      <Scanner />
+                    </AuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/addmovie"
+                  element={
+                    <AuthenticatedRoute minLevel="movievolunteer">
+                      <MovieForm />
+                    </AuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/modifymovie"
+                  element={
+                    <AuthenticatedRoute minLevel="movievolunteer">
+                      <ModifyMovie />
+                    </AuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <AuthenticatedRoute>
+                      <MyAccount />
+                    </AuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/adddropvolunteer"
+                  element={
+                    <AuthenticatedRoute minLevel="admin">
+                      <AddDropVolunteer />
+                    </AuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/movie"
+                  element={
+                    <AuthenticatedRoute>
+                      <Movie />
+                    </AuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/showtime"
+                  element={
+                    <AuthenticatedRoute minLevel="movievolunteer">
+                      <Showtime />
+                    </AuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/tickets"
+                  element={
+                    <AuthenticatedRoute>
+                      <Tickets />
+                    </AuthenticatedRoute>
+                  }
+                />
+                <Route
+                  path="/vote"
+                  element={
+                    <AuthenticatedRoute>
+                      <MovieList />
+                    </AuthenticatedRoute>
+                  }
+                />
+                <Route path="/guidelines" element={<Guidelines />} />
+                <Route
+                  path="/designationCount"
+                  element={<DesignationCounts />}
+                />
+              </Routes>
+            </div>
+          </MembershipProvider>
+        </LoginProvider>
+        <Footer />
+      </div>
     </BrowserRouter>
   )
 }

@@ -80,20 +80,20 @@ const ModifyMovie = () => {
   ]
 
   return (
-    <div className="flex justify-center items-center h-screen bg-[#e5e8f0] font-monts overflow-y-auto">
-      <div className="w-[95%] flex flex-col bg-white min-h-[90%] my-4 rounded-xl shadow-lg items-center">
-        <h1 className="text-3xl font-bold my-4">Movie List</h1>
-        <div className="flex flex-col w-[90%]">
+    <div className="flex h-screen items-center justify-center overflow-y-auto bg-[#e5e8f0] font-monts">
+      <div className="my-4 flex min-h-[90%] w-[95%] flex-col items-center rounded-xl bg-white shadow-lg">
+        <h1 className="my-4 text-3xl font-bold">Movie List</h1>
+        <div className="flex w-[90%] flex-col">
           <div className="-m-1.5 overflow-x-auto">
-            <div className="p-1.5 min-w-full inline-block align-middle">
-              <div className="overflow-hidden flex justify-center">
-                <table className="w-[95%] divide-y divide-gray-200 dark:divide-neutral-700 mt-3 mb-6">
-                  <thead className="capitalize bg-[#f4f4f5]">
+            <div className="inline-block min-w-full p-1.5 align-middle">
+              <div className="flex justify-center overflow-hidden">
+                <table className="mb-6 mt-3 w-[95%] divide-y divide-gray-200 dark:divide-neutral-700">
+                  <thead className="bg-[#f4f4f5] capitalize">
                     <tr className="text-lg">
                       {columns.map((column) => (
                         <th
                           scope="col"
-                          className="px-6 py-3 text-start text-sm font-medium text-gray-500 uppercase dark:text-neutral-500"
+                          className="px-6 py-3 text-start text-sm font-medium uppercase text-gray-500 dark:text-neutral-500"
                           key={column}
                         >
                           {column}
@@ -107,7 +107,7 @@ const ModifyMovie = () => {
                         key={movie._id}
                         className="odd:bg-white even:bg-[#f4f4f5] dark:odd:bg-neutral-900 dark:even:bg-neutral-800"
                       >
-                        <td className="px-6 py-4 whitespace-nowrap text-lg font-bold text-gray-800 dark:text-neutral-200">
+                        <td className="whitespace-nowrap px-6 py-4 text-lg font-bold text-gray-800 dark:text-neutral-200">
                           {editingMovie === movie ? (
                             <input
                               type="text"
@@ -120,7 +120,7 @@ const ModifyMovie = () => {
                             movie.title
                           )}
                         </td>
-                        <td className=" px-4 py-2">
+                        <td className="px-4 py-2">
                           {editingMovie === movie ? (
                             <input
                               type="text"
@@ -137,7 +137,7 @@ const ModifyMovie = () => {
                             />
                           )}
                         </td>
-                        <td className="  px-4 py-2">
+                        <td className="px-4 py-2">
                           {editingMovie === movie ? (
                             <textarea
                               name="description"
@@ -149,7 +149,7 @@ const ModifyMovie = () => {
                             movie.description
                           )}
                         </td>
-                        <td className="  px-4 py-2">
+                        <td className="px-4 py-2">
                           {editingMovie === movie ? (
                             <input
                               type="date"
@@ -162,7 +162,7 @@ const ModifyMovie = () => {
                             new Date(movie.releaseDate).toLocaleDateString()
                           )}
                         </td>
-                        <td className="  px-4 py-2">
+                        <td className="px-4 py-2">
                           {editingMovie === movie ? (
                             <input
                               type="text"
@@ -175,7 +175,7 @@ const ModifyMovie = () => {
                             movie.genre
                           )}
                         </td>
-                        <td className="  px-4 py-2">
+                        <td className="px-4 py-2">
                           {editingMovie === movie ? (
                             <textarea
                               name="trailer"
@@ -187,7 +187,7 @@ const ModifyMovie = () => {
                             movie.trailer
                           )}
                         </td>
-                        <td className="  px-4 py-2">
+                        <td className="px-4 py-2">
                           {editingMovie === movie ? (
                             <input
                               type="checkbox"
@@ -208,7 +208,7 @@ const ModifyMovie = () => {
                             'No'
                           )}
                         </td>
-                        <td className="  px-4 py-2">
+                        <td className="px-4 py-2">
                           {editingMovie === movie ? (
                             <div className="flex gap-3">
                               <svg
@@ -217,7 +217,7 @@ const ModifyMovie = () => {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="green"
-                                className="w-8 h-8 cursor-pointer"
+                                className="h-8 w-8 cursor-pointer"
                                 onClick={handleSave}
                               >
                                 <path
@@ -233,7 +233,7 @@ const ModifyMovie = () => {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="red"
-                                className="w-8 h-8 cursor-pointer"
+                                className="h-8 w-8 cursor-pointer"
                                 onClick={() => setEditingMovie(null)}
                               >
                                 <path
@@ -251,7 +251,7 @@ const ModifyMovie = () => {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="green"
-                                className="w-8 h-8 cursor-pointer"
+                                className="h-8 w-8 cursor-pointer"
                                 onClick={() => handleEdit(movie)}
                               >
                                 <path
@@ -266,7 +266,7 @@ const ModifyMovie = () => {
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="red"
-                                className="w-8 h-8 cursor-pointer"
+                                className="h-8 w-8 cursor-pointer"
                                 onClick={() => handleDelete(movie._id)}
                               >
                                 <path

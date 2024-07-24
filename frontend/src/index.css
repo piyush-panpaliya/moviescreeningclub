@@ -10,88 +10,50 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: rgb(33, 33, 33);
+}
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgb(52, 52, 52);
+  border-radius: 4px;
+}
+
 .designation-counts {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-  }
-  .designation-counts h2 {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    text-align: center;
-  }
-  .designation-counts label {
-    margin-right: 20px;
-  }
-  .designation-counts select {
-    margin-left: 10px;
-  }
-  .designation-counts table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  .designation-counts th, .designation-counts td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  .designation-counts th {
-    background-color: #f2f2f2;
-  }
-  .designation-counts tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-
-/* popcorn CSS */
-.popcorn {
-  position: absolute;
-  width: 50px;
-  height: 50px;
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+.designation-counts h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.designation-counts label {
+  margin-right: 20px;
+}
+.designation-counts select {
+  margin-left: 10px;
+}
+.designation-counts table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.designation-counts th,
+.designation-counts td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.designation-counts th {
+  background-color: #f2f2f2;
+}
+.designation-counts tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.popcorn-1 {
-  top: 800px;
-  left: 1210px;
-  background-image: url('./images/popcorn1.png');
-  background-size: cover;
+input textarea {
+  outline: none !important;
 }
-
-.popcorn-2 {
-  top: 500px;
-  right: 100px;
-  background-image: url('./images/popcorn2.png');
-  background-size: cover;
-}
-
-.popcorn-3 {
-  bottom: 90px;
-  left: 100px;
-  background-image: url('./images/popcorn1.png');
-  background-size: cover;
-}
-.popcorn-4 {
-  top: 1100px;
-  left: 95px;
-  background-image: url('./images/popcorn3.png');
-  background-size: cover;
-}
-.popcorn-5 {
-  top: 850px;
-  left: 95px;
-  background-image: url('./images/popcorn4.png');
-  background-size: cover;
-}
-.popcorn-6 {
-  top: 1050px;
-  right: 95px;
-  background-image: url('./images/popcorn2.png');
-  background-size: cover;
-}
-.popcorn-7 {
-  top: 750px;
-  right: 700px;
-  background-image: url('./images/popcorn2.png');
-  background-size: cover;
-}
-  
-  

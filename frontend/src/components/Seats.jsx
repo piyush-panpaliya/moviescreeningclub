@@ -2,7 +2,7 @@ import { rows } from '@/utils/seats'
 const Seat = ({ seat, selected, onclick }) => {
   return (
     <button
-      className={`w-8 m-0.5 text-[8px]  bg-white-50 border border-gray-400 py-1 px-1 text-center cursor-pointer font-roboto ${
+      className={`bg-white-50 font-roboto m-0.5 w-8 cursor-pointer border border-gray-400 px-1 py-1 text-center text-[8px] ${
         selected
           ? 'bg-green-600 text-white'
           : seat.occupied
@@ -35,7 +35,7 @@ const Seats = ({ seats, selectedSeats, setSelectedSeats, maxAllowed }) => {
         rowDivs.push(
           <div
             key={c}
-            className="flex justify-between w-full px-12 flex-row-reverse"
+            className="flex w-full flex-row-reverse justify-between px-12"
           >
             <div className="flex flex-row-reverse">
               {seats
@@ -77,7 +77,7 @@ const Seats = ({ seats, selectedSeats, setSelectedSeats, maxAllowed }) => {
         )
       } else {
         rowDivs.push(
-          <div key={c} className="flex justify-center flex-row-reverse">
+          <div key={c} className="flex flex-row-reverse justify-center">
             {seats
               .filter((s) => s.name.includes(row.prefix) && s.sec == 5)
               .map((seat, i) => (
@@ -99,9 +99,9 @@ const Seats = ({ seats, selectedSeats, setSelectedSeats, maxAllowed }) => {
   }
   return (
     <div className="flex flex-col items-center gap-4">
-      <p className="font-bold text-xl">Screen</p>
-      <div className="flex gap-4  ">
-        <div className="flex flex-col items-center ">
+      <p className="text-xl font-bold">Screen</p>
+      <div className="flex gap-4">
+        <div className="flex flex-col items-center">
           {rows.map((row, i) => (
             <div key={i} className="flex flex-row-reverse">
               {seats
@@ -117,7 +117,7 @@ const Seats = ({ seats, selectedSeats, setSelectedSeats, maxAllowed }) => {
             </div>
           ))}
         </div>
-        <div className="flex flex-col items-center  ">
+        <div className="flex flex-col items-center">
           {rows.map((row, i) => (
             <div key={i} className="flex flex-row-reverse">
               {seats
@@ -133,7 +133,7 @@ const Seats = ({ seats, selectedSeats, setSelectedSeats, maxAllowed }) => {
             </div>
           ))}
         </div>
-        <div className="flex flex-col items-center ">
+        <div className="flex flex-col items-center">
           {rows.map((row, i) => (
             <div key={i} className="flex flex-row-reverse">
               {seats
@@ -150,9 +150,9 @@ const Seats = ({ seats, selectedSeats, setSelectedSeats, maxAllowed }) => {
           ))}
         </div>
       </div>
-      <p className="col-span-3 text-center font-bold text-lg  ">Entrance</p>
-      <div className="flex gap-4  ">
-        <div className="flex flex-col items-center ">
+      <p className="col-span-3 text-center text-lg font-bold">Entrance</p>
+      <div className="flex gap-4">
+        <div className="flex flex-col items-center">
           {rows.map((row, i) => (
             <div key={i} className="flex flex-row-reverse">
               {seats
@@ -169,7 +169,7 @@ const Seats = ({ seats, selectedSeats, setSelectedSeats, maxAllowed }) => {
           ))}
         </div>
         <TopCenter />
-        <div className="flex flex-col items-center ">
+        <div className="flex flex-col items-center">
           {rows.map((row, i) => (
             <div key={i} className="flex flex-row-reverse">
               {seats
