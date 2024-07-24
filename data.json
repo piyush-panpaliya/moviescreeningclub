@@ -1,122 +1,124 @@
 {
-  "name": "Salil Sharma",
-  "phone": "9799000999",
-  "designation": "PHD/M-Tech",
-  "email": "s23022@students.iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard"
-},
-{
-  "name": "Syed Bakhtawar Bilal",
-  "phone": "9799000999",
-  "designation": "PHD/M-tech",
-  "email": "d22174@students.iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-
-},{
-  "name": "D23212",
-  "phone": "9799000999",
-  "designation": "PHD/M-Tech",
-  "email": "D23212@students.iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-
-},{
-  "name": "Irshad Karim",
-  "phone": "9799000999",
-  "designation": "PHD/M-Tech",
-  "email": "d20047@students.iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-
-},{
-  "name": "Ashutosh",
-  "phone": "9799000999",
-  "designation": "Faculty/Staff",
-  "email": "ashutosh@iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-
-},{
-  "name": "Dean",
-  "phone": "9799000999",
-  "designation": "Faculty/Staff",
-  "email": "hitesh@iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-
-},{
-  "name": "Shailesh Kumar Jha",
-  "phone": "9799000999",
-  "designation": "PHD/M-Tech",
-  "email": "d23065@students.iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-
-},{
-  "name": "Yash Shukla",
-  "phone": "9799000999",
-  "designation": "PHD/M-Tech",
-  "email": "d23063@students.iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-
-},{
-  "name": "Mahesh",
-  "phone": "9799000999",
-  "designation": "Faculty/Staff",
-  "email": "maheshreddy@iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-
-},{
-  "name": "Shivam Mishra",
-  "phone": "9799000999",
-  "designation": "PHD/M-Tech",
-  "email": "d21021@students.iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-
-},{
-  "name": "Sumit Godara",
-  "phone": "9799000999",
-  "designation": "PHD/M-Tech",
-  "email": "d19024@students.iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-
-},{
-  "name": "Bhim Kumar",
-  "phone": "9799000999",
-  "designation": "PHD/M-Tech",
-  "email": "d20070@students.iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-
-},{
-
-  "name": "Neeraj Punia",
-  "phone": "9799000999",
-  "designation": "PHD/M-Tech",
-  "email": "d19023@students.iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-},{
-
-  "name": "Anurag Singh",
-  "phone": "9799000999",
-  "designation": "PHD/M-Tech",
-  "email": "d21093@students.iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
-
-},{
-
-  "name": "Shagun Saini",
-  "phone": "9799000999",
-  "designation": "PHD/M-Tech",
-  "email": "d19059@students.iitmandi.ac.in",
-  "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
-  "usertype": "standard",
+  "data": [
+    {
+      "name": "Salil Sharma",
+      "phone": "9799000999",
+      "designation": "mtech/phd",
+      "email": "s23022@students.iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Syed Bakhtawar Bilal",
+      "phone": "9799000999",
+      "designation": "mtech/phd",
+      "email": "d22174@students.iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "D23212",
+      "phone": "9799000999",
+      "designation": "mtech/phd",
+      "email": "D23212@students.iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Irshad Karim",
+      "phone": "9799000999",
+      "designation": "mtech/phd",
+      "email": "d20047@students.iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Ashutosh",
+      "phone": "9799000999",
+      "designation": "faculty/staff",
+      "email": "ashutosh@iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Dean",
+      "phone": "9799000999",
+      "designation": "faculty/staff",
+      "email": "hitesh@iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Shailesh Kumar Jha",
+      "phone": "9799000999",
+      "designation": "mtech/phd",
+      "email": "d23065@students.iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Yash Shukla",
+      "phone": "9799000999",
+      "designation": "mtech/phd",
+      "email": "d23063@students.iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Mahesh",
+      "phone": "9799000999",
+      "designation": "faculty/staff",
+      "email": "maheshreddy@iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Shivam Mishra",
+      "phone": "9799000999",
+      "designation": "mtech/phd",
+      "email": "d21021@students.iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Sumit Godara",
+      "phone": "9799000999",
+      "designation": "mtech/phd",
+      "email": "d19024@students.iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Bhim Kumar",
+      "phone": "9799000999",
+      "designation": "mtech/phd",
+      "email": "d20070@students.iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Neeraj Punia",
+      "phone": "9799000999",
+      "designation": "mtech/phd",
+      "email": "d19023@students.iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Anurag Singh",
+      "phone": "9799000999",
+      "designation": "mtech/phd",
+      "email": "d21093@students.iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    },
+    {
+      "name": "Shagun Saini",
+      "phone": "9799000999",
+      "designation": "mtech/phd",
+      "email": "d19059@students.iitmandi.ac.in",
+      "password": "$2b$10$OWWEzOlnNr2PcO8A8.38LuWuo47THRPnSj0y8bC5AdrUcldlKdmia",
+      "usertype": "standard"
+    }
+  ]
 }

@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+=======
+import Seats from '@/components/Seats'
+import { useMembershipContext } from '@/components/MembershipContext'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { rows } from '@/utils/seats'
+import { api } from '@/utils/api'
+>>>>>>> 6e6831a (jwt for ticket)
 import { useLogin } from '@/components/LoginContext'
 import { useMembershipContext } from '@/components/MembershipContext'
 import MovieCard from '@/components/MovieCard'
@@ -43,11 +52,11 @@ const Movie = () => {
     const res = await api.get(`/seatmap/${showtimeId}`)
     setSeats(res.data)
   }
-  useEffect(() => {
-    if (!hasMembership) {
-      navigate('/buy')
-    }
-  }, [memberships])
+  // useEffect(() => {
+  //   if (!hasMembership) {
+  //     navigate('/buy')
+  //   }
+  // }, [memberships])
   useEffect(() => {
     ;(async () => {
       const res = await api.get(`/movie/${movieId}`)
@@ -62,7 +71,7 @@ const Movie = () => {
     })()
   }, [])
   const maxAllowed =
-    memberships.filter((membership) => membership.isValid)[0]?.availQR ?? 0
+    memberships?.filter((membership) => membership.isValid)[0]?.availQR ?? 0
   const bookSeats = async () => {
     console.log(selectedSeats)
     try {

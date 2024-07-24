@@ -1,5 +1,6 @@
-const QR = require('@/models/qr.model')
 const QRCode = require('qrcode')
+const jwt = require('jsonwebtoken')
+const QR = require('@/models/qr.model')
 const Movie = require('@/models/movie.model')
 
 const getQRs = async (req, res) => {
@@ -67,8 +68,15 @@ const check = async (req, res) => {
     if (!qrData) {
       return res.status(400).json({ error: 'No QR data provided' })
     }
-    const decodedQR = Buffer.from(qrData, 'base64').toString('utf-8')
-    const [userId, qrId, seat, hash] = decodedQR.split(',')
+    let userId, qrId, seat, hash
+    try {
+      ;({ userId, qrId, seat, hash } = jwt.verify(
+        qrData,
+        process.env.JWT_SECRET_QR ?? 'lolbhai'
+      ))
+    } catch (err) {
+      return res.status(400).json({ error: 'Invalid QR data' })
+    }
     const qr = await QR.findOne({ _id: qrId, user: userId, seat, code: hash })
       .populate('user')
       .populate('membership')

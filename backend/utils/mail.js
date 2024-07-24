@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer')
 const QRCode = require('qrcode')
-// require('dotenv').config()
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 const transporterSingleton = (() => {
   let transporterInstance
@@ -33,8 +34,14 @@ const mailQRs = async (seats, user, movie, showtime) => {
   const attach = await Promise.all(
     seats.map(async (s) => {
       const qrDataURL = await QRCode.toDataURL(
-        Buffer.from(`${user.userId},${s.qrId},${s.seat},${s.hash}`).toString(
-          'base64'
+        jwt.sign(
+          {
+            userId: user.userId,
+            qrId: s.qrId,
+            seat: s.seat,
+            hash: s.hash
+          },
+          process.env.JWT_SECRET_QR
         )
       )
       return {
