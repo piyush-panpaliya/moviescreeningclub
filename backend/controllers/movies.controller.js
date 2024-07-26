@@ -1,6 +1,6 @@
 const Movie = require('@/models/movie.model')
 const SeatMap = require('@/models/seatmap.model')
-const {isAllowedLvl}= require('@/middleware')
+const { isAllowedLvl } = require('@/middleware')
 const addMovie = (req, res) => {
   const {
     title,
@@ -53,7 +53,7 @@ const deleteMovie = async (req, res) => {
   try {
     const movieId = req.params.id
     const result = await Movie.findByIdAndDelete(movieId)
-    
+
     res.json(result)
   } catch (error) {
     console.error('Error deleting movie:', error)
@@ -81,7 +81,7 @@ const getMovieById = async (req, res) => {
       })
       await movie.save()
     }
-    if(!isAllowedLvl('movievolunteer', user?.usertype || 'standard')) {
+    if (!isAllowedLvl('movievolunteer', user?.usertype || 'standard')) {
       res.header('Cache-Control', 'public, max-age=10, s-maxage=0')
     }
     res.json(movie)

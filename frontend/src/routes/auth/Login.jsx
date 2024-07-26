@@ -38,14 +38,7 @@ const Login = () => {
     try {
       const res = await api.post(`/auth/login`, formData)
       if (res.status === 200) {
-        const membershipResponse = await api.get('/membership/check', {
-          headers: {
-            Authorization: `Bearer ${res.data.token}`
-          }
-        })
-        checkMembershipStatus(membershipResponse.data)
-        console.log('membershipResponse', membershipResponse.data)
-        login(res.data.token)
+        login(res.data)
       }
     } catch (err) {
       if (err.res.status === 404) {
@@ -67,14 +60,14 @@ const Login = () => {
   }
 
   return (
-    <div className="-mt-10 flex w-full flex-col items-center bg-gradient-to-tr from-gray-400 dark:from-transparent dark:via-transparent to-red-900 p-4 sm:p-12">
-      <div className="flex gap-8 max-sm:w-full items-center justify-between rounded-lg bg-white/35 dark:bg-[#19141459]/35 p-4 sm:p-8">
+    <div className="-mt-10 flex w-full flex-col items-center bg-transparent dark:bg-gradient-to-tr dark:from-transparent dark:via-transparent dark:to-red-900 p-4 sm:p-12">
+      <div className="flex gap-8 max-sm:w-full items-center justify-between rounded-lg bg-[#FFFEF9] shadow-xl dark:bg-[#19141459]/35 p-4 sm:p-8">
         <div className="h-[40vh] lg:h-[60vh] max-md:hidden">
           <LoginIcon />
         </div>
         <div className="flex w-fit  flex-col items-center gap-3 max-sm:text-sm">
           <p className="text-2xl sm:text-4xl">Welcome Again!</p>
-          <p className="mb-4 text-lg text-[#FAFAFA] sm:text-xl">
+          <p className="mb-4 text-lg dark:text-[#FAFAFA] sm:text-xl">
             Please Login to continue
           </p>
           <form
@@ -87,7 +80,7 @@ const Login = () => {
                 type="email"
                 id="email"
                 name="email"
-                className="w-full rounded-xl bg-[#e5e8f0]/15 dark:bg-[#F60101]/15 py-2 px-4 sm:min-w-[300px]"
+                className="w-full rounded-xl bg-[#ADADAD]/15 dark:bg-[#F60101]/15 py-2 px-4 sm:min-w-[300px]"
                 placeholder="enter your email"
                 required
                 value={formData.email}
@@ -108,7 +101,7 @@ const Login = () => {
                 type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
-                className="w-full rounded-xl bg-[#e5e8f0]/15 dark:bg-[#F60101]/15 py-2 px-4"
+                className="w-full rounded-xl bg-[#ADADAD]/15 dark:bg-[#F60101]/15 py-2 px-4"
                 placeholder="Password"
                 required
                 value={formData.password}
@@ -119,7 +112,7 @@ const Login = () => {
               </Link>
             </label>
             <button
-              className="bg-gradient-to-r from-[#B01010] to-[#4A0707] text-white rounded-xl w-fi py-2 px-6 sm:px-8 sm:py-3 "
+              className="bg-gradient-to-r from-[#B01010] to-[#CB2727] dark:to-[#4A0707] text-white rounded-xl w-fi py-2 px-6 sm:px-8 sm:py-3 "
               type="submit"
             >
               Login

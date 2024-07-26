@@ -38,14 +38,14 @@ export default function UpdatePassword() {
   }
 
   return (
-    <div className="-mt-10 flex w-full flex-col items-center bg-gradient-to-tr from-transparent via-transparent to-red-900 p-4 sm:p-12 ">
-      <div className="flex gap-8  items-center justify-between rounded-lg bg-white/35 dark:bg-[#19141459]/35 p-4 w-full md:w-fit sm:p-6">
+    <div className="-mt-10 flex w-full flex-col items-center bg-transparent dark:bg-gradient-to-tr dark:from-transparent dark:via-transparent dark:to-red-900 p-4 sm:p-12 ">
+      <div className="flex gap-8  items-center justify-between rounded-lg bg-[#FFFEF9]  shadow-xl   dark:bg-[#19141459]/35 p-4 w-full md:w-fit sm:p-6">
         <div className="h-[50vh] lg:h-[70vh] max-md:hidden">
           <ForgotIcon />
         </div>
         <div className="flex grow flex-col items-center gap-3 max-sm:text-sm">
           <p className="text-2xl sm:text-4xl"> Reset password?</p>
-          <p className="mb-4 text-lg text-[#FAFAFA] sm:text-xl">
+          <p className="mb-4 text-lg dark:text-[#FAFAFA] sm:text-xl">
             Enter new password
           </p>
           <form
@@ -58,7 +58,7 @@ export default function UpdatePassword() {
                 type="email"
                 id="email"
                 name="email"
-                className="w-full rounded-xl bg-[#F60101]/15 py-2 px-4 sm:min-w-[300px]"
+                className="w-full rounded-xl bg-[#ADADAD]/15 py-2 px-4 sm:min-w-[300px]"
                 placeholder="enter your email"
                 required
                 value={email}
@@ -75,7 +75,7 @@ export default function UpdatePassword() {
                 value={otp}
                 placeholder="OTP"
                 onChange={handleChange}
-                className="w-full rounded-xl bg-[#F60101]/15 py-2 px-4"
+                className="w-full rounded-xl bg-[#ADADAD]/15 py-2 px-4"
               />
             </label>
             <label className="flex flex-col gap-1 rounded-2xl w-full items-end">
@@ -92,7 +92,7 @@ export default function UpdatePassword() {
                 type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
-                className="w-full rounded-xl bg-[#F60101]/15 py-2 px-4"
+                className="w-full rounded-xl bg-[#ADADAD]/15 py-2 px-4"
                 placeholder="Password"
                 required
                 value={formData.password}
@@ -100,7 +100,7 @@ export default function UpdatePassword() {
               />
             </label>
             <button
-              className="bg-gradient-to-r text-white  from-[#B01010] to-[#4A0707] rounded-xl w-fi py-2 px-6 sm:px-8 sm:py-3 "
+              className="bg-gradient-to-r text-white  from-[#B01010] to-[#CB2727] dark:to-[#4A0707]  rounded-xl w-fi py-2 px-6 sm:px-8 sm:py-3 "
               type="submit"
               disabled={isSubmitting}
             >

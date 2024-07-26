@@ -102,7 +102,7 @@ const MovieList = () => {
         <div className="mt-2 flex items-center justify-between gap-2">
           <button
             onClick={() => handleVoteClick(movie._id, 'yes')}
-            className={`flex grow justify-center rounded-md bg-green-600 px-2 py-2  ${
+            className={`flex grow justify-center rounded-md bg-green-600 px-2 py-2 text-white ${
               movie.voted ? 'cursor-not-allowed opacity-50' : ''
             }`}
           >
@@ -110,7 +110,7 @@ const MovieList = () => {
           </button>
           <button
             onClick={() => handleVoteClick(movie._id, 'no')}
-            className={`flex grow rotate-180 transform justify-center rounded-md bg-red-600 px-2 py-2  ${
+            className={`flex grow rotate-180 transform justify-center rounded-md bg-red-600 px-2 py-2 text-white ${
               movie.voted ? 'cursor-not-allowed opacity-50' : ''
             }`}
           >
@@ -120,7 +120,7 @@ const MovieList = () => {
         {isAllowedLvl('movievolunteer', user?.usertype || 'standard') && (
           <button
             onClick={() => handleDeleteMovie(movie._id)}
-            className="mt-2 rounded-md bg-red-600 px-4 py-2 text-sm font-semibold "
+            className="mt-2 rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white"
           >
             Delete
           </button>
@@ -152,7 +152,7 @@ const MovieList = () => {
               type="text"
               placeholder="Title"
               value={newMovieData.title}
-              className="mt-2 w-full rounded-md bg-[#212121] px-4 py-2"
+              className="mt-2 w-full rounded-md bg-[#ebeaea] dark:bg-[#212121] px-4 py-2"
               onChange={(e) =>
                 setNewMovieData({ ...newMovieData, title: e.target.value })
               }
@@ -161,7 +161,7 @@ const MovieList = () => {
               type="text"
               placeholder="Poster URL"
               value={newMovieData.poster}
-              className="w-full rounded-md bg-[#212121] px-4 py-2"
+              className="w-full rounded-md bg-[#ebeaea] dark:bg-[#212121] px-4 py-2"
               onChange={(e) =>
                 setNewMovieData({ ...newMovieData, poster: e.target.value })
               }
@@ -170,12 +170,12 @@ const MovieList = () => {
               type="text"
               placeholder="Genre"
               value={newMovieData.genre}
-              className="w-full rounded-md bg-[#212121] px-4 py-2"
+              className="w-full rounded-md bg-[#ebeaea] dark:bg-[#212121] px-4 py-2"
               onChange={(e) =>
                 setNewMovieData({ ...newMovieData, genre: e.target.value })
               }
             />
-            <button className="mt-2 flex w-full items-center justify-center gap-2 rounded-md bg-green-900 px-4 py-2 text-lg sm:text-xl">
+            <button className="mt-2 flex w-full items-center justify-center gap-2 rounded-md bg-green-500 text-white dark:bg-green-900 px-4 py-2 text-lg sm:text-xl">
               Add
             </button>
           </form>

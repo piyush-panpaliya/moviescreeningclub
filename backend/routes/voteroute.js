@@ -6,7 +6,7 @@ const {
   addVoteMovie,
   deleteVoteMovie
 } = require('@/controllers/vote.controller')
-const {verifyJWTWithRole}= require('@/middleware')
+const { verifyJWTWithRole } = require('@/middleware')
 
 router.get('/movies', getAllMovies)
 

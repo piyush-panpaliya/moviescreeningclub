@@ -45,14 +45,14 @@ export default function ForgotPassword() {
     }
   }
   return (
-    <div className="-mt-10 flex w-full flex-col items-center bg-gradient-to-tr from-gray-400 dark:from-transparent dark:via-transparent to-red-900 p-4 sm:p-12">
-      <div className="flex gap-8 max-sm:w-full items-center justify-between rounded-lg bg-white/35 dark:bg-[#19141459]/35 p-4 sm:p-8">
+    <div className="-mt-10 flex w-full flex-col items-center bg-transparent dark:bg-gradient-to-tr dark:from-transparent dark:via-transparent dark:to-red-900 p-4 sm:p-12">
+      <div className="flex gap-8 max-sm:w-full items-center justify-between rounded-lg bg-[#FFFEF9] shadow-xl  dark:bg-[#19141459]/35 p-4 sm:p-8">
         <div className="h-[50vh] lg:h-[70vh] max-md:hidden">
           <ForgotIcon />
         </div>
         <div className="flex grow flex-col items-center gap-3 max-sm:text-sm">
           <p className="text-2xl sm:text-4xl"> Forgot password?</p>
-          <p className="mb-4 text-lg text-[#FAFAFA] sm:text-xl">
+          <p className="mb-4 text-lg dark:text-[#FAFAFA] sm:text-xl">
             Enter email to receive OTP
           </p>
           <form
@@ -65,7 +65,7 @@ export default function ForgotPassword() {
                 type="email"
                 id="email"
                 name="email"
-                className="w-full rounded-xl bg-[#F60101]/15 py-2 px-4"
+                className="w-full rounded-xl bg-[#ADADAD]/15 py-2 px-4"
                 placeholder="enter your email"
                 required
                 value={email}
@@ -74,7 +74,7 @@ export default function ForgotPassword() {
               />
             </label>
             <button
-              className="bg-gradient-to-r text-white from-[#B01010] to-[#4A0707] rounded-xl w-fi py-2 px-6 sm:px-8 sm:py-3 "
+              className="bg-gradient-to-r text-white from-[#B01010] to-[#CB2727] dark:to-[#4A0707]  rounded-xl w-fi py-2 px-6 sm:px-8 sm:py-3 "
               type="submit"
               disabled={isSubmitting}
             >

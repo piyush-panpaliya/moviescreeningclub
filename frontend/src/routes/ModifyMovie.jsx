@@ -101,12 +101,12 @@ const ModifyMovie = () => {
             {movies.map((movie) => (
               <tr
                 key={movie._id}
-                className="odd:bg-neutral-900 even:bg-neutral-800"
+                className="odd:bg-neutral-200 dark:odd:bg-neutral-900 even:bg-neutral-100 dark:even:bg-neutral-800"
               >
-                <td className="whitespace-nowrap px-6 py-4 text-lg font-bold text-neutral-200">
+                <td className="whitespace-nowrap px-6 py-4 text-lg font-bold">
                   {editingMovie === movie ? (
                     <input
-                      className="w-full rounded-xl bg-neutral-500 py-2 px-4"
+                      className="w-full rounded-xl bg-neutral-300 dark:bg-neutral-500 py-2 px-4"
                       type="text"
                       name="title"
                       value={editedData.title}
@@ -119,7 +119,7 @@ const ModifyMovie = () => {
                 <td className="px-4 py-2">
                   {editingMovie === movie ? (
                     <input
-                      className="w-full rounded-xl bg-neutral-500 py-2 px-4"
+                      className="w-full rounded-xl bg-neutral-300 dark:bg-neutral-500 py-2 px-4"
                       type="text"
                       name="poster"
                       value={editedData.poster}
@@ -139,7 +139,7 @@ const ModifyMovie = () => {
                       name="description"
                       value={editedData.description}
                       onChange={handleChange}
-                      className="w-full rounded-xl bg-neutral-500 py-2 px-4"
+                      className="w-full rounded-xl bg-neutral-300 dark:bg-neutral-500 py-2 px-4"
                     />
                   ) : (
                     movie.description
@@ -148,7 +148,7 @@ const ModifyMovie = () => {
                 <td className="px-4 py-2">
                   {editingMovie === movie ? (
                     <input
-                      className="w-full rounded-xl bg-neutral-500 py-2 px-4"
+                      className="w-full rounded-xl bg-neutral-300 dark:bg-neutral-500 py-2 px-4"
                       type="date"
                       name="releaseDate"
                       value={editedData.releaseDate}
@@ -161,7 +161,7 @@ const ModifyMovie = () => {
                 <td className="px-4 py-2">
                   {editingMovie === movie ? (
                     <input
-                      className="w-full rounded-xl bg-neutral-500 py-2 px-4"
+                      className="w-full rounded-xl bg-neutral-300 dark:bg-neutral-500 py-2 px-4"
                       type="text"
                       name="genre"
                       value={editedData.genre}
@@ -177,7 +177,7 @@ const ModifyMovie = () => {
                       name="trailer"
                       value={editedData.trailer}
                       onChange={handleChange}
-                      className="w-full rounded-xl bg-neutral-500 py-2 px-4"
+                      className="w-full rounded-xl bg-neutral-300 dark:bg-neutral-500 py-2 px-4"
                     />
                   ) : (
                     movie.trailer
@@ -192,7 +192,11 @@ const ModifyMovie = () => {
                       onChange={handleChange}
                     />
                   ) : movie.currentscreening ? (
-                    <Chip variant="solid" color="success" className="">
+                    <Chip
+                      variant="solid"
+                      color="success"
+                      className="text-white"
+                    >
                       Yes
                     </Chip>
                   ) : (

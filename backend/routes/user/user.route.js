@@ -5,7 +5,7 @@ const {
   updateUserType,
   userType
 } = require('@/controllers/user/user.controller')
-const {verifyJWTWithRole}= require('@/middleware')
+const { verifyJWTWithRole } = require('@/middleware')
 
 router.get('/fetchusers', verifyJWTWithRole(), fetchUsers)
 router.post('/updateUserType', verifyJWTWithRole('admin'), updateUserType)

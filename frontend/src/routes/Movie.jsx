@@ -110,7 +110,7 @@ const Movie = () => {
               }
             })
           }}
-          className="rounded-md bg-green-600 p-2 text-xl "
+          className="rounded-md bg-green-600 p-2 text-xl text-white"
         >
           {loading ? 'Booking...' : 'Book'}
         </button>
@@ -178,7 +178,7 @@ const Movie = () => {
                   onClick={() => {
                     navigate('/showtime?movieId=' + movieId)
                   }}
-                  className="rounded-md bg-red-500 p-2 "
+                  className="rounded-md bg-red-500 p-2 text-white"
                 >
                   Edit
                 </button>

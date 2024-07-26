@@ -1,5 +1,4 @@
 import { Loading } from '@/components/icons/Loading'
-import { jwtDecode } from 'jwt-decode'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 const LoginContext = createContext()
@@ -11,17 +10,16 @@ export const LoginProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
   useEffect(() => {
-    const token = localStorage.getItem('token')
     try {
+      const token = JSON.parse(localStorage.getItem('token'))
       if (token) {
-        const decodedToken = jwtDecode(token)
         const currentTime = Date.now() / 1000
-        if (decodedToken.exp + 2 * 60 < currentTime) {
+        if (token.exp + 2 * 60 < currentTime) {
           localStorage.removeItem('token')
           setLoggedIn(false)
         } else {
           setLoggedIn(true)
-          setUser(decodedToken)
+          setUser(token)
         }
       } else {
         setLoggedIn(false)
@@ -33,8 +31,8 @@ export const LoginProvider = ({ children }) => {
   }, [loggedIn])
 
   const login = (token) => {
+    localStorage.setItem('token', JSON.stringify(token))
     setLoggedIn(true)
-    localStorage.setItem('token', token)
   }
   const logout = () => {
     localStorage.removeItem('token')

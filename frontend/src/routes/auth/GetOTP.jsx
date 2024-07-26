@@ -51,14 +51,14 @@ export default function GetOTP() {
   }
 
   return (
-    <div className="-mt-10 flex w-full flex-col items-center bg-gradient-to-tr from-gray-400 dark:from-transparent dark:via-transparent to-red-900 p-4 sm:p-12">
-      <div className="flex gap-8 max-sm:w-full items-center justify-between rounded-lg bg-white/35 dark:bg-[#19141459]/35 p-4 sm:p-8">
+    <div className="-mt-10 flex w-full flex-col items-center bg-transparent dark:bg-gradient-to-tr dark:from-transparent dark:via-transparent dark:to-red-900 p-4 sm:p-12">
+      <div className="flex gap-8 max-sm:w-full items-center justify-between rounded-lg bg-[#FFFEF9] shadow-xl  dark:bg-[#19141459]/35 p-4 sm:p-8">
         <div className="h-[50vh] lg:h-[70vh] max-md:hidden">
           <VerifyIcon />
         </div>
         <div className="flex grow flex-col items-center gap-3 max-sm:text-sm">
           <p className="text-2xl sm:text-4xl">Email Verification!</p>
-          <p className="mb-4 text-lg text-[#FAFAFA] sm:text-xl">
+          <p className="mb-4 text-lg dark:text-[#FAFAFA] sm:text-xl">
             Please verify Email to continue
           </p>
           <form
@@ -71,7 +71,7 @@ export default function GetOTP() {
                 type="email"
                 id="email"
                 name="email"
-                className="w-full sm:min-w-[300px] rounded-xl bg-[#F60101]/15 py-2 px-4"
+                className="w-full sm:min-w-[300px] rounded-xl bg-[#ADADAD]/15 py-2 px-4"
                 placeholder="enter your email"
                 required
                 value={email}
@@ -80,7 +80,7 @@ export default function GetOTP() {
               />
             </label>
             <button
-              className="bg-gradient-to-r text-white  from-[#B01010] to-[#4A0707] rounded-xl w-fi py-2 px-6 sm:px-8 sm:py-3 "
+              className="bg-gradient-to-r text-white  from-[#B01010] to-[#CB2727] dark:to-[#4A0707]  rounded-xl w-fi py-2 px-6 sm:px-8 sm:py-3 "
               type="submit"
               disabled={isSubmitting}
             >

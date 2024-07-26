@@ -164,7 +164,7 @@ const AddDropVolunteer = () => {
                       handleSubmit(item.email, r.type)
                     }}
                   >
-                    <p className="dark:"> {r.name}</p>
+                    <p className="dark:text-white"> {r.name}</p>
                   </DropdownItem>
                 ))}
               </DropdownMenu>
@@ -249,7 +249,7 @@ const AddDropVolunteer = () => {
               >
                 {allRoles.map((r) => (
                   <DropdownItem key={r.type} className="capitalize">
-                    <p className="dark:"> {r.name}</p>
+                    <p className="dark:text-white"> {r.name}</p>
                   </DropdownItem>
                 ))}
               </DropdownMenu>

@@ -62,8 +62,8 @@ export const Signup = () => {
   const { name, phone, password, otp, email } = formData
 
   return (
-    <div className="-mt-10 flex w-full flex-col items-center bg-gradient-to-tr from-gray-400 dark:from-transparent dark:via-transparent to-red-900 p-4 sm:p-12">
-      <div className="flex gap-8 max-sm:w-full items-center justify-between rounded-lg bg-white/35 dark:bg-[#19141459]/35 p-4 sm:p-8">
+    <div className="-mt-10 flex w-full flex-col items-center bg-transparent dark:bg-gradient-to-tr dark:from-transparent dark:via-transparent dark:to-red-900 p-4 sm:p-12">
+      <div className="flex gap-8 max-sm:w-full items-center justify-between rounded-lg bg-[#FFFEF9] shadow-xl  dark:bg-[#19141459]/35 p-4 sm:p-8">
         <div className="h-[50vh] lg:h-[70vh] max-md:hidden">
           <SignupIcon />
         </div>
@@ -84,7 +84,7 @@ export const Signup = () => {
                 value={name}
                 onChange={handleChange}
                 disabled={isSubmitting}
-                className="w-full rounded-xl bg-[#F60101]/15 py-2 px-4 sm:min-w-[300px]"
+                className="w-full rounded-xl bg-[#ADADAD]/15 py-2 px-4 sm:min-w-[300px]"
               />
             </label>
             <label className="flex flex-col gap-2 rounded-2xl w-full">
@@ -93,7 +93,7 @@ export const Signup = () => {
                 type="email"
                 id="email"
                 name="email"
-                className="w-full rounded-xl bg-[#F60101]/15 py-2 px-4 sm:min-w-[300px]"
+                className="w-full rounded-xl bg-[#ADADAD]/15 py-2 px-4 sm:min-w-[300px]"
                 placeholder="enter your email"
                 required
                 value={email}
@@ -104,7 +104,7 @@ export const Signup = () => {
             <label className="flex flex-col gap-2 rounded-2xl w-full">
               <span>Phone no</span>
               <input
-                className="w-full rounded-xl bg-[#F60101]/15 py-2 px-4 sm:min-w-[300px]"
+                className="w-full rounded-xl bg-[#ADADAD]/15 py-2 px-4 sm:min-w-[300px]"
                 type="text"
                 id="phone"
                 name="phone"
@@ -122,7 +122,7 @@ export const Signup = () => {
                 value={otp}
                 placeholder="OTP"
                 onChange={handleChange}
-                className="w-full rounded-xl bg-[#F60101]/15 py-2 px-4"
+                className="w-full rounded-xl bg-[#ADADAD]/15 py-2 px-4"
               />
             </label>
             <label className="flex flex-col gap-1 rounded-2xl w-full items-end">
@@ -139,7 +139,7 @@ export const Signup = () => {
                 type={showPassword ? 'text' : 'password'}
                 id="password"
                 name="password"
-                className="w-full rounded-xl bg-[#F60101]/15 py-2 px-4"
+                className="w-full rounded-xl bg-[#ADADAD]/15 py-2 px-4"
                 placeholder="Password"
                 required
                 value={formData.password}
@@ -147,7 +147,7 @@ export const Signup = () => {
               />
             </label>
             <button
-              className="bg-gradient-to-r text-white from-[#B01010] to-[#4A0707] rounded-xl w-fi py-2 px-6 sm:px-8 sm:py-3 "
+              className="bg-gradient-to-r text-white from-[#B01010] to-[#CB2727] dark:to-[#4A0707]  rounded-xl w-fi py-2 px-6 sm:px-8 sm:py-3 "
               type="submit"
               disabled={isSubmitting}
             >

@@ -105,7 +105,7 @@ const Myaccount = () => {
         {currentMembership && (
           <button
             onClick={suspendMembership}
-            className="mt-8 w-fit rounded bg-red-500 px-4 py-2 font-bold hover:bg-red-700"
+            className="mt-8 w-fit rounded bg-red-500 px-4 py-2 font-bold hover:bg-red-700 text-white"
           >
             Suspend Current Membership
           </button>

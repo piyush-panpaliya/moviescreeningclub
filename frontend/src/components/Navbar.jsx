@@ -50,7 +50,7 @@ const Navbar = () => {
         <img className="h-12 w-auto" src={Logo} alt="Movies" />
         <p className="font-bn text-[30px] font-bold text-red-600">CHALCHITRA</p>
       </Link>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         <button
           onClick={() => {
             document.body.classList.contains('dark')
@@ -61,7 +61,7 @@ const Navbar = () => {
           <div className="hidden dark:block p-2 rounded-lg hover:bg-zinc-800">
             <DarkIcon />
           </div>
-          <div className="block dark:hidden p-2 rounded-lg hover:bg-gray-200">
+          <div className="block dark:hidden p-2 -mb-0.5 rounded-lg hover:bg-gray-200">
             <LightIcon />
           </div>
         </button>
@@ -71,7 +71,7 @@ const Navbar = () => {
               Welcome {getDisplayName(user.name)}
             </p>
             <div
-              className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"
+              className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-zinc-800"
               onClick={logout}
             >
               <LogoutIcon />
@@ -79,7 +79,7 @@ const Navbar = () => {
           </>
         ) : (
           <Link
-            className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"
+            className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-zinc-800"
             to="/login"
           >
             <LoginIcon />
@@ -89,7 +89,7 @@ const Navbar = () => {
         <div className="flex items-center">
           <button
             onClick={toggleMenu}
-            className="flex items-center justify-center rounded-md p-1 dark:text-gray-400 transition duration-150 ease-in-out hover:bg-gray-200 dark:hover:bg-gray-700 focus:bg-gray-300 dark:focus:bg-gray-700 focus: focus:outline-none"
+            className="flex items-center justify-center rounded-md p-1  transition duration-150 ease-in-out hover:bg-gray-200 dark:hover:bg-zinc-800 focus:bg-gray-300 dark:focus:bg-gray-700 focus:outline-none"
           >
             <MenuIcon />
           </button>
