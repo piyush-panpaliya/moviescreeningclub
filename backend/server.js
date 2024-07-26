@@ -24,8 +24,6 @@ mongoose
 
 const corsOptions = {
   origin: (origin, callback) => {
-    console.log('origin', process.env.NODE_ENV)
-
     if (process.env.NODE_ENV === 'development') {
       callback(null, true)
     } else {
