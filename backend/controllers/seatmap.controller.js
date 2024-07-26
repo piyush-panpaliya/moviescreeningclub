@@ -4,7 +4,7 @@ const Movie = require('@/models/movie.model')
 const Membership = require('@/models/membership.model')
 const { mailQRs } = require('@/utils/mail')
 const crypto = require('crypto')
-const { rows } = require('@/constants/seats')
+const { rows } = require('@constants/seats')
 const seatOccupancy = async (req, res) => {
   try {
     const { showtimeId } = req.params

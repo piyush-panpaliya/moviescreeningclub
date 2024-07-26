@@ -12,7 +12,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        monts: ['"Montserrat"', 'sans-serif']
+        monts: ['Montserrat', 'sans-serif'],
+        bn: ['Bebas Neue', 'Montserrat', 'sans-serif']
       }
     }
   },

@@ -6,7 +6,8 @@ const baseUrl =
     : '/api'
 export const api = axios.create({
   baseURL: baseUrl,
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`
-  }
+  withCredentials: true
+  // headers: {
+  //   Authorization: `Bearer ${localStorage.getItem('token')}`
+  // }
 })

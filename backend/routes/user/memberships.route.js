@@ -6,7 +6,7 @@ const {
   suspendMembership,
   requestMembership
 } = require('@/controllers/user/memberships.controller')
-const verifyJWTWithRole = require('@/middleware')
+const { verifyJWTWithRole } = require('@/middleware')
 
 router.post('/redirect', saveMembership)
 router.post('/request', verifyJWTWithRole(), requestMembership)

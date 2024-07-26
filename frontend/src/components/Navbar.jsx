@@ -1,10 +1,16 @@
-import { useState, useEffect, useRef } from 'react'
+import {
+  DarkIcon,
+  LightIcon,
+  LoginIcon,
+  LogoutIcon,
+  MenuIcon
+} from '@/components/icons/nav'
+import { isAllowedLvl } from '@/utils/levelCheck'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../images/logo2.jpg'
 import { useLogin } from './LoginContext'
-import { api } from '@/utils/api'
 import { useMembershipContext } from './MembershipContext'
-import { isAllowedLvl } from '@/utils/levelCheck'
 const Navbar = () => {
   const { loggedIn, logout, user } = useLogin()
   const { hasMembership } = useMembershipContext()
@@ -26,207 +32,132 @@ const Navbar = () => {
       document.removeEventListener('click', handleOutsideClick)
     }
   }, [showMenu])
+
   const toggleMenu = (event) => {
     if (event) {
       event.stopPropagation()
     }
     setShowMenu((prevState) => !prevState)
   }
-
-  function getDisplayName(fullName) {
+  const getDisplayName = (fullName) => {
     if (!fullName) return ''
     const parts = fullName.split(' ')
     return parts[0]
   }
-
   return (
-    <>
-      <nav className="bg-[#414359] w-full md:sticky top-0 z-20">
-        <div className="w-full mx-auto">
-          <div className="flex justify-between h-16">
-            <div className="flex">
-              <div className="flex-shrink-0 flex items-center">
-                <Link to="/">
-                  <img className="h-14 w-auto ml-2" src={Logo} alt="Movies" />
-                </Link>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              {loggedIn ? (
-                <>
-                  <div className="rounded-md bg-[#EADBC8] text-black h-9 px-2 py-1 mt-1 mr-2 font-normal">
-                    Welcome {getDisplayName(user?.name || 'user')}
-                  </div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="white"
-                    className="w-7 h-7 cursor-pointer"
-                    onClick={() => logout()}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"
-                    />
-                  </svg>
-                </>
-              ) : (
-                <Link to="/login">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="white"
-                    className="w-7 h-7"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25"
-                    />
-                  </svg>
-                </Link>
-              )}
-
-              <div className="flex">
-                <div className=" flex items-center mx-2">
-                  <button
-                    onClick={toggleMenu}
-                    type="button"
-                    className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white transition duration-150 ease-in-out"
-                    aria-label="Main menu"
-                    aria-expanded="false"
-                  >
-                    <svg
-                      className="block h-6 w-6"
-                      stroke="white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M4 6h16M4 12h16M4 18h16"
-                      />
-                    </svg>
-                    {/* Heroicon name: menu */}
-                    <svg
-                      className="hidden h-6 w-6"
-                      stroke="currentColor"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
+    <nav className="relative top-0 z-20 flex w-full items-center justify-between bg-[#FFFEF9] dark:bg-[#141414] px-4 py-3   md:sticky">
+      <Link to="/" className="flex items-center gap-2">
+        <img className="h-12 w-auto" src={Logo} alt="Movies" />
+        <p className="font-bn text-[30px] font-bold text-red-600">CHALCHITRA</p>
+      </Link>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => {
+            document.body.classList.contains('dark')
+              ? document.body.classList.remove('dark')
+              : document.body.classList.add('dark')
+          }}
+        >
+          <div className="hidden dark:block p-2 rounded-lg hover:bg-zinc-800">
+            <DarkIcon />
           </div>
-          <div
-            ref={dropdownRef}
-            className={`${
-              showMenu
-                ? 'block absolute right-0 mt-2 w-1/4 bg-gray-800 mr-2 max-sm:w-1/2 z-20 rounded-md font-monts'
-                : 'hidden'
-            }`}
+          <div className="block dark:hidden p-2 -mb-0.5 rounded-lg hover:bg-gray-200">
+            <LightIcon />
+          </div>
+        </button>
+        {loggedIn ? (
+          <>
+            <p className="hidden rounded-md bg-red-600 px-4 py-1.5 font-semibold text-white sm:block">
+              Welcome {getDisplayName(user.name)}
+            </p>
+            <div
+              className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-zinc-800"
+              onClick={logout}
+            >
+              <LogoutIcon />
+            </div>
+          </>
+        ) : (
+          <Link
+            className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-zinc-800"
+            to="/login"
           >
-            <div className="px-2 pt-2 pb-3 z-30">
-              {loggedIn ? (
-                <>
-                  <NavItem to="/profile" toggleMenu={toggleMenu}>
-                    My Profile
-                  </NavItem>
-                  <NavItem to="/tickets" toggleMenu={toggleMenu}>
-                    My Tickets
-                  </NavItem>
-                  {!hasMembership && (
-                    <NavItem to="/buy" toggleMenu={toggleMenu}>
-                      Buy a new Membership
-                    </NavItem>
-                  )}
-                  <NavItem to="/VotePage" toggleMenu={toggleMenu}>
-                    Vote Page
-                  </NavItem>
-                  {isAllowedLvl('admin', user?.usertype) && (
-                    <NavItem to="/adddropvolunteer" toggleMenu={toggleMenu}>
-                      Add/Drop Volunteer
-                    </NavItem>
-                  )}
-                  {isAllowedLvl('ticketvolunteer', user?.usertype) && (
-                    <NavItem to="/scanner" toggleMenu={toggleMenu}>
-                      Scanner
-                    </NavItem>
-                  )}
-                  {isAllowedLvl('movievolunteer', user?.usertype) && (
-                    <>
-                      <NavItem to="/modifymovie" toggleMenu={toggleMenu}>
-                        Modify Movie
-                      </NavItem>
-                      <NavItem to="/addmovie" toggleMenu={toggleMenu}>
-                        Add Movie
-                      </NavItem>
-                    </>
-                  )}
-                </>
-              ) : (
-                <>
-                  {' '}
-                  <NavItem disabled>My Profile</NavItem>
-                  <NavItem disabled>My QRs</NavItem>
-                  <NavItem disabled>Buy a new Membership</NavItem>
-                  <NavItem disabled>VotePage</NavItem>
-                </>
-              )}
-              <NavItem to="/guidelines" toggleMenu={toggleMenu}>
-                Booking Guidelines/Help
-              </NavItem>
-            </div>
-          </div>
+            <LoginIcon />
+          </Link>
+        )}
+
+        <div className="flex items-center">
+          <button
+            onClick={toggleMenu}
+            className="flex items-center justify-center rounded-md p-1  transition duration-150 ease-in-out hover:bg-gray-200 dark:hover:bg-zinc-800 focus:bg-gray-300 dark:focus:bg-gray-700 focus:outline-none"
+          >
+            <MenuIcon />
+          </button>
         </div>
-      </nav>
-      <div className="bg-[#6c738f] py-1 text-lg max-sm:text-sm flex justify-center items-center capitalize text-white md:sticky top-[4rem] z-10">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-8 h-8 mr-2 max-sm:w-6 max-sm:h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
-          />
-        </svg>
-        welcome to Chalchitra IIT mandi
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-8 h-8 scale-x-[-1] ml-2 max-sm:w-6 max-sm:h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
-          />
-        </svg>
       </div>
-    </>
+      <div
+        ref={dropdownRef}
+        className={`${
+          showMenu
+            ? 'absolute right-2 top-20 z-20 block w-[70vw] rounded-md bg-white dark:bg-[#141414] p-2 sm:w-[20%] sm:p-4'
+            : 'hidden'
+        }`}
+      >
+        {loggedIn ? (
+          <>
+            <NavItem to="/profile" toggleMenu={toggleMenu}>
+              My Profile
+            </NavItem>
+            <NavItem to="/tickets" toggleMenu={toggleMenu}>
+              My Tickets
+            </NavItem>
+            {!hasMembership && (
+              <NavItem to="/buy" toggleMenu={toggleMenu}>
+                Buy a new Membership
+              </NavItem>
+            )}
+            <NavItem to="/vote" toggleMenu={toggleMenu}>
+              Vote Page
+            </NavItem>
+            {isAllowedLvl('admin', user?.usertype) && (
+              <>
+                <NavItem to="/adddropvolunteer" toggleMenu={toggleMenu}>
+                  Add/Drop Volunteer
+                </NavItem>
+                <NavItem to="/metrics" toggleMenu={toggleMenu}>
+                  Metrics
+                </NavItem>
+              </>
+            )}
+            {isAllowedLvl('ticketvolunteer', user?.usertype) && (
+              <NavItem to="/scanner" toggleMenu={toggleMenu}>
+                Scanner
+              </NavItem>
+            )}
+            {isAllowedLvl('movievolunteer', user?.usertype) && (
+              <>
+                <NavItem to="/modifymovie" toggleMenu={toggleMenu}>
+                  Modify Movie
+                </NavItem>
+                <NavItem to="/addmovie" toggleMenu={toggleMenu}>
+                  Add Movie
+                </NavItem>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <NavItem disabled>My Profile</NavItem>
+            <NavItem disabled>My QRs</NavItem>
+            <NavItem disabled>Buy a new Membership</NavItem>
+            <NavItem disabled>VotePage</NavItem>
+          </>
+        )}
+        <NavItem to="/guidelines" toggleMenu={toggleMenu}>
+          Booking Guidelines/Help
+        </NavItem>
+      </div>
+    </nav>
   )
 }
 
@@ -241,8 +172,8 @@ const NavItem = ({ to, children, toggleMenu, disabled }) => {
     <Link
       to={to}
       onClick={disabled ? null : handleClick}
-      className={`block px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out ${
-        disabled ? 'opacity-50 cursor-not-allowed' : ''
+      className={`block rounded-md px-3 py-2 text-base font-medium  transition duration-150 ease-in-out hover:bg-gray-300 dark:hover:bg-gray-700 hover: dark:focus:bg-gray-700  focus:bg-gray-400 focus:outline-none ${
+        disabled ? 'cursor-not-allowed opacity-50' : ''
       }`}
       aria-disabled={disabled}
     >

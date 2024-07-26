@@ -10,3 +10,67 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: rgb(233, 233, 233);
+}
+body.dark ::-webkit-scrollbar {
+  width: 10px;
+  background-color: rgb(33, 33, 33);
+}
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgb(204, 204, 204);
+  border-radius: 4px;
+}
+body.dark ::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgb(52, 52, 52);
+  border-radius: 4px;
+}
+
+.designation-counts {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+.designation-counts h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.designation-counts label {
+  margin-right: 20px;
+}
+.designation-counts select {
+  margin-left: 10px;
+}
+.designation-counts table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.designation-counts th,
+.designation-counts td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+.designation-counts th {
+  background-color: #f2f2f2;
+}
+.designation-counts tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+input textarea {
+  outline: none !important;
+}
+
+body {
+  user-select: none;
+}
+input,
+textarea {
+  user-select: auto;
+}

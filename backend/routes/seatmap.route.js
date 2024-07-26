@@ -4,7 +4,7 @@ const {
   seatOccupancy,
   seatAssign
 } = require('@/controllers/seatmap.controller')
-const verifyJWTWithRole = require('@/middleware')
+const { verifyJWTWithRole } = require('@/middleware')
 
 router.get('/:showtimeId', verifyJWTWithRole(), seatOccupancy)
 router.put('/:showtimeId', verifyJWTWithRole(), seatAssign)

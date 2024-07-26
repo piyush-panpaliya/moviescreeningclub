@@ -1,9 +1,9 @@
 import {
   Button,
   Dialog,
-  DialogHeader,
   DialogBody,
-  DialogFooter
+  DialogFooter,
+  DialogHeader
 } from '@material-tailwind/react'
 import { useState } from 'react'
 
@@ -14,28 +14,14 @@ export default function Footer() {
   const handleOpen = () => setOpen(!open)
 
   return (
-    <div className="flex justify-center bg-[#414359] text-white font-monts">
+    <div className="relative z-10 flex justify-center bg-[#FFFEF9] dark:bg-[#141414] p-4 font-monts ">
       <div className="w-4/5 max-sm:w-[90%]">
-        <p className="border-b-2 py-4 text-3xl font-bold flex items-center gap-1">
-          <span>CHALCHITRA </span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-8 h-8"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
+        <p className="flex items-center gap-1 border-b-2 py-4 font-bn text-3xl font-bold text-[#FB2A25] sm:text-4xl">
+          CHALCHITRA
         </p>
-        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-3 mb-12">
+        <div className="mb-12 grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <div className="my-4 flex flex-col gap-1">
-            <span className="text-xl font-semibold capitalize mb-2">
+            <span className="mb-2 text-lg font-semibold capitalize sm:text-2xl">
               contact us
             </span>
             <div className="flex gap-2">
@@ -45,7 +31,7 @@ export default function Footer() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="h-6 w-6"
               >
                 <path
                   strokeLinecap="round"
@@ -62,7 +48,7 @@ export default function Footer() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="h-6 w-6"
               >
                 <path
                   strokeLinecap="round"
@@ -75,24 +61,26 @@ export default function Footer() {
             </div>
           </div>
           <div className="my-4 flex flex-col gap-1">
-            <span className="text-xl font-semibold capitalize mb-2">Legal</span>
-            <div className="capitalize">
+            <span className="text-md mb-2 text-lg font-semibold capitalize sm:text-2xl">
+              Legal
+            </span>
+            <div className="text-md capitalize sm:text-xl">
               <button onClick={handleOpen}>Privacy Policy</button>
             </div>
-            <div className="capitalize">cookie settings</div>
-            <div className="capitalize">contracts</div>
+            <div className="text-md capitalize sm:text-xl">cookie settings</div>
+            <div className="text-md capitalize sm:text-xl">contracts</div>
           </div>
           <div className="my-4 flex flex-col gap-1">
-            <span className="text-xl font-semibold capitalize mb-2">
+            <span className="mb-2 text-lg font-semibold capitalize sm:text-2xl">
               connect with us
             </span>
             <div className="flex items-center gap-2">
               <a
                 href="https://facebook.com"
-                className="text-gray-500 hover:text-[#0866ff] dark:hover:text-white dark:text-gray-400"
+                className="text-gray-500 hover:text-[#0866ff] dark:text-gray-400 dark:hover:"
               >
                 <svg
-                  className="w-8 h-8"
+                  className="h-8 w-8"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -105,7 +93,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a href="https://facebook.com">
-                <span className="text-lg capitalize hover:text-[#0866ff]">
+                <span className="text-md capitalize hover:text-[#0866ff] sm:text-xl">
                   Facebook
                 </span>
               </a>
@@ -113,10 +101,10 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <a
                 href="https://instagram.com"
-                className="text-gray-500 hover:text-[#d62976] dark:hover:text-white dark:text-gray-400"
+                className="text-gray-500 hover:text-[#d62976] dark:text-gray-400 dark:hover:"
               >
                 <svg
-                  className="w-8 h-8"
+                  className="h-8 w-8"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                   aria-hidden="true"
@@ -129,7 +117,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a href="https://instagram.com">
-                <span className="text-lg capitalize hover:text-[#d62976]">
+                <span className="text-md capitalize hover:text-[#d62976] sm:text-xl">
                   instagram
                 </span>
               </a>
@@ -137,10 +125,10 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <a
                 href="https://twitter.com"
-                className="text-gray-500 hover:text-white dark:hover:text-white dark:text-gray-400"
+                className="text-gray-500 hover: dark:text-gray-400 dark:hover:"
               >
                 <svg
-                  className="w-7 h-7 ml-[2px]"
+                  className="ml-[2px] h-7 w-7"
                   viewBox="0 0 357 322"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
@@ -153,21 +141,21 @@ export default function Footer() {
                 </svg>
               </a>
               <a href="https://twitter.com">
-                <span className="text-lg capitalize">Twitter</span>
+                <span className="text-md capitalize sm:text-xl">Twitter</span>
               </a>
             </div>
           </div>
           {/* <div className="my-4 flex flex-col gap-1">
-            <span className="text-xl font-semibold capitalize mb-2">
-              meet the team
+            <span className="text-lg sm:text-xl font-semibold text-md sm:text-xl capitalize mb-2">
+            meet the team
             </span>
-            <div className="capitalize">aryan jain</div>
-            <div className="capitalize">tarun srivastava</div>
-            <div className="capitalize">siddharth shainesh</div>
-          </div> */}
+            <div className="text-md sm:text-xl capitalize">aryan jain</div>
+            <div className="text-md sm:text-xl capitalize">tarun srivastava</div>
+            <div className="text-md sm:text-xl capitalize">siddharth shainesh</div>
+            </div> */}
         </div>
 
-        <div className="flex max-sm:flex-col justify-between border-t-2 pt-2">
+        <div className="flex justify-between border-t-2 pt-2 max-sm:flex-col">
           <p>All rights reserved. </p>
           <p>{copyright} 2024 Chalchitra IIT Mandi</p>
         </div>
@@ -179,16 +167,16 @@ export default function Footer() {
       >
         <DialogHeader>Our Privacy Policy</DialogHeader>
         <DialogBody className="">
-          <p className="text-lg font-bold mb-3">Rules and Regulation</p>
+          <p className="mb-3 text-lg font-bold">Rules and Regulation</p>
           <div>
-            <span className="font-semibold mr-2">
+            <span className="mr-2 font-semibold">
               1. Resspanectful Behavior:
             </span>
             All attendees must behave respectfully towards others, including
             fellow audience members, organizers, and staff.
           </div>
           <div>
-            <span className="font-semibold mr-2">
+            <span className="mr-2 font-semibold">
               2. No Outside Food or Drink:
             </span>
             For cleanliness and safety reasons, attendees should not bring
@@ -196,26 +184,26 @@ export default function Footer() {
             lobby are also not allowed inside auditorium.
           </div>
           <div>
-            <span className="font-semibold mr-2">3. Arrival Time:</span>
+            <span className="mr-2 font-semibold">3. Arrival Time:</span>
             Attendees are encouraged to arrive 15 minutes before the screening
             time to minimize waiting times/disruptions once the movie starts.
           </div>
           <div>
-            <span className="font-semibold mr-2">
+            <span className="mr-2 font-semibold">
               4. No Talking During the Movie:
             </span>
             Attendees are requested to refrain from talking during the movie to
             ensure everyone can enjoy the film without distractions.
           </div>
           <div>
-            <span className="font-semibold mr-2">
+            <span className="mr-2 font-semibold">
               5. Silence Mobile Devices:
             </span>
             Attendees are asked to silence their mobile phones or set them to
             vibrate mode to avoid disruptions.
           </div>
           <div>
-            <span className="font-semibold mr-2">
+            <span className="mr-2 font-semibold">
               6. Respect the Seating Arrangement:
             </span>
             Attendees should sit only in designated seats and not block aisles
@@ -223,7 +211,7 @@ export default function Footer() {
             sitting on seats not assigned to them.
           </div>
           <div>
-            <span className="font-semibold mr-2">
+            <span className="mr-2 font-semibold">
               7. No Recording or Photography:
             </span>
             The recording or photography of the movie screen during the
@@ -231,33 +219,33 @@ export default function Footer() {
             against violators.
           </div>
           <div>
-            <span className="font-semibold mr-2">
+            <span className="mr-2 font-semibold">
               8. Follow Instructions from Staff:
             </span>
             Attendees should comply with any instructions given by event staff
             or volunteers.
           </div>
           <div>
-            <span className="font-semibold mr-2">
+            <span className="mr-2 font-semibold">
               9. Children&lsquo;s Supervision:
             </span>
             Parents are requested to supervise their children to ensure they do
             not disturb other attendees.
           </div>
           <div>
-            <span className="font-semibold mr-2">10. Cleanliness:</span>
+            <span className="mr-2 font-semibold">10. Cleanliness:</span>
             Attendees to keep the auditorium clean by disposing of trash
             properly and respecting the facility.
           </div>
           <div>
-            <span className="font-semibold mr-2">
+            <span className="mr-2 font-semibold">
               11. Respect Intellectual Property:
             </span>
             Movie being screened is for personal enjoyment only and not for any
             commercial purposes or distribution.
           </div>
           <div>
-            <span className="font-semibold mr-2">12. Ticket Validity:</span>
+            <span className="mr-2 font-semibold">12. Ticket Validity:</span>
             Once a ticket is scanned you are not allowed to exit the auditorium
             premises, once exited ticket will not be valid.
           </div>

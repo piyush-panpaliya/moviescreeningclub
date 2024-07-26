@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import { Loading } from '@/components/icons/Loading'
 import { useLogin } from '@/components/LoginContext'
 import { api } from '@/utils/api'
+import { createContext, useContext, useEffect, useState } from 'react'
 const MembershipContext = createContext()
 
 export const useMembershipContext = () => useContext(MembershipContext)
@@ -40,7 +41,11 @@ export const MembershipProvider = ({ children }) => {
     setLoading(false)
   }
   if (loading && user) {
-    return <div>Loading mem...</div>
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Loading />
+      </div>
+    )
   }
   return (
     <MembershipContext.Provider

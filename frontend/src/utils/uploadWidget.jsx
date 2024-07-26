@@ -33,7 +33,7 @@ const UploadWidget = () => {
       </div>
       <button
         onClick={() => widgetRef.current.open()}
-        className="bg-gray-400 border-2 rounded-lg max-w-2/3 p-2 capitalize"
+        className="max-w-2/3 rounded-lg border-2 bg-gray-400 p-2 capitalize"
       >
         {imageurl === null
           ? 'Upload transaction proof image'

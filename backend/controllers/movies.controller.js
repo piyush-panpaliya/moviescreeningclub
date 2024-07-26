@@ -1,6 +1,6 @@
 const Movie = require('@/models/movie.model')
 const SeatMap = require('@/models/seatmap.model')
-
+const { isAllowedLvl } = require('@/middleware')
 const addMovie = (req, res) => {
   const {
     title,
@@ -29,7 +29,7 @@ const addMovie = (req, res) => {
 const getMovies = async (req, res) => {
   try {
     const movies = await Movie.find()
-    res.set('Cache-Control', 'public, max-age=60, s-maxage=0')
+    res.set('Cache-Control', 'public, max-age=30, s-maxage=0')
     res.json(movies)
   } catch (err) {
     res.status(500).json({ error: err.message })
@@ -53,6 +53,7 @@ const deleteMovie = async (req, res) => {
   try {
     const movieId = req.params.id
     const result = await Movie.findByIdAndDelete(movieId)
+
     res.json(result)
   } catch (error) {
     console.error('Error deleting movie:', error)
@@ -61,6 +62,7 @@ const deleteMovie = async (req, res) => {
 }
 
 const getMovieById = async (req, res) => {
+  const user = req.user
   try {
     const { movieId } = req.params
     const movie = await Movie.findById(movieId)
@@ -79,7 +81,9 @@ const getMovieById = async (req, res) => {
       })
       await movie.save()
     }
-    res.header('Cache-Control', 'public, max-age=10, s-maxage=0')
+    if (!isAllowedLvl('movievolunteer', user?.usertype || 'standard')) {
+      res.header('Cache-Control', 'public, max-age=10, s-maxage=0')
+    }
     res.json(movie)
   } catch (error) {
     console.error('Error fetching trailer:', error)

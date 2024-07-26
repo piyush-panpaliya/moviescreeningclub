@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
 import { useLogin } from '@/components/LoginContext'
+import { Loading } from '@/components/icons/Loading'
 import { api } from '@/utils/api'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
@@ -31,25 +32,29 @@ const Tickets = () => {
   }, [user])
 
   if (loading) {
-    return <div>Loading...</div>
+    return (
+      <div className="h-full">
+        <Loading />
+      </div>
+    )
   }
 
   return (
-    <div className="flex flex-col gap-6 p-8 ">
-      <p className="text-xl sm:text-5xl font-bold w-full text-center">
+    <div className="flex h-full flex-col gap-6 p-8">
+      <p className="w-full text-center font-bn text-xl font-bold sm:text-5xl">
         Tickets
       </p>
       {tickets.unused.length === 0 &&
         tickets.used.length === 0 &&
         tickets.expired.length === 0 && (
-          <p className="text-xl w-full mb-10 text-center h-[50vh]">
+          <p className="mb-10 h-[50vh] w-full text-center text-xl">
             No tickets found
           </p>
         )}
       {tickets.unused.length > 0 && (
         <div className="flex flex-col gap-6">
-          <p className="text-xl sm:text-2xl font-bold">Upcoming Tickets</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <p className="text-xl font-bold sm:text-2xl">Upcoming Tickets</p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {tickets.unused.map((ticket) => (
               <div
                 key={ticket._id}
@@ -64,10 +69,10 @@ const Tickets = () => {
                     icon: 'info'
                   })
                 }}
-                className="bg-white shadow-md p-4 rounded-lg flex flex-col sm:flex-row items-center gap-3"
+                className="flex flex-col items-center gap-3 rounded-lg bg-white dark:bg-[#212121] p-4 shadow-md sm:flex-row"
               >
-                <img src={ticket.qrData} alt="qr code" className="w-36 h-36 " />
-                <div className=" flex flex-col gap-1">
+                <img src={ticket.qrData} alt="qr code" className="h-36 w-36" />
+                <div className="flex flex-col gap-1">
                   <p className="text-lg font-bold">{ticket.movie.title}</p>
                   <p>
                     {new Date(ticket.movie.showtime.date).toLocaleString(
@@ -118,12 +123,12 @@ const Tickets = () => {
       )}
       {tickets.used.length > 0 && (
         <div className="flex flex-col gap-6">
-          <p className="text-xl sm:text-2xl font-bold">Used Tickets</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <p className="text-xl font-bold sm:text-2xl">Used Tickets</p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {tickets.used.map((ticket) => (
               <div
                 key={ticket._id}
-                className="bg-gray-400 shadow-md p-4 rounded-lg flex flex-col gap-2"
+                className="flex flex-col gap-2 rounded-lg  bg-gray-400 dark:bg-gray-800 p-4 shadow-md"
               >
                 <p>
                   <span className="font-semibold">Seat: </span>
@@ -146,12 +151,12 @@ const Tickets = () => {
       )}
       {tickets.expired.length > 0 && (
         <div className="flex flex-col gap-6">
-          <p className="text-xl sm:text-2xl font-bold">Expired Tickets</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <p className="text-xl font-bold sm:text-2xl">Expired Tickets</p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {tickets.expired.map((ticket) => (
               <div
                 key={ticket._id}
-                className="bg-gray-400 shadow-md p-4 rounded-lg flex flex-col gap-2"
+                className="flex flex-col gap-2 rounded-lg bg-gray-400 dark:bg-gray-800 p-4 shadow-md"
               >
                 <p>
                   <span className="font-semibold">Seat: </span>

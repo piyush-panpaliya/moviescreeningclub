@@ -1,6 +1,6 @@
 const express = require('express')
 const { getQRs, check } = require('@/controllers/QR.controller')
-const verifyJWTWithRole = require('@/middleware')
+const { verifyJWTWithRole } = require('@/middleware')
 
 const router = express.Router()
 

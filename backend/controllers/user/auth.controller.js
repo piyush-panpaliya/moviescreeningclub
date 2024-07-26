@@ -82,7 +82,20 @@ const login = async (req, res) => {
         expiresIn: '24h'
       }
     )
-    res.status(200).json({ token })
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Lax',
+      maxAge: 24 * 60 * 60 * 1000
+    })
+    res.status(200).json({
+      userId: user._id,
+      email: user.email,
+      usertype: user.usertype || 'standard',
+      name: user.name || 'user',
+      phone: user.phone || '',
+      exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60
+    })
   } catch (error) {
     console.error('Error during login:', error)
     res.status(500).json({ error: 'Internal server error' })
