@@ -1,17 +1,18 @@
-FROM node:20-alpine as build
+FROM node:20-alpine as base
+
+FROM base as build
 WORKDIR /app
 COPY ./frontend/ .
 ENV VITE_environment production
 RUN npm install
 RUN npm run build
 
-FROM node:20-alpine
+FROM base as prod
 WORKDIR /app
-COPY ./backend .
-ENV PORT 8000
-ENV FRONTEND_URL "http://localhost:5173"
+COPY ./backend/ .
+
 RUN npm install
-COPY --from=build /app/dist /app/dist
+COPY --from=build /app/dist /app/frontend/dist
 
 EXPOSE 8000
 CMD ["npm","run", "start"]
