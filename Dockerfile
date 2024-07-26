@@ -1,17 +1,17 @@
-FROM node:20-alpine as base
+FROM node:20-alpine AS base
 
-FROM base as build
+FROM base AS build
 WORKDIR /app
 COPY ./frontend/ .
 ENV VITE_environment production
-RUN npm install
+RUN npm ci
 RUN npm run build
 
-FROM base as prod
+FROM base AS prod
 WORKDIR /app
 COPY ./backend/ .
 
-RUN npm install
+RUN npm ci
 COPY --from=build /app/dist /app/frontend/dist
 
 EXPOSE 8000
