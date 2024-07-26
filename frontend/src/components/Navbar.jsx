@@ -53,9 +53,13 @@ const Navbar = () => {
       <div className="flex items-center gap-2">
         <button
           onClick={() => {
-            document.body.classList.contains('dark')
-              ? document.body.classList.remove('dark')
-              : document.body.classList.add('dark')
+            if (document.body.classList.contains('dark')) {
+              document.body.classList.remove('dark')
+              localStorage.setItem('theme', 'light')
+            } else {
+              document.body.classList.add('dark')
+              localStorage.setItem('theme', 'dark')
+            }
           }}
         >
           <div className="hidden dark:block p-2 rounded-lg hover:bg-zinc-800">

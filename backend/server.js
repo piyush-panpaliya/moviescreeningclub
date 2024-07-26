@@ -10,17 +10,9 @@ const { createServer } = require('http')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 
-const votepagerouter = require('@/routes/voteroute')
-const membershipRouter = require('@/routes/user/memberships.route')
-const userRouter = require('@/routes/user/user.route')
-const authRouter = require('@/routes/user/auth.route')
-const otpRouter = require('@/routes/user/otp.route')
-const SeatMapRouter = require('@/routes/seatmap.route')
-const movieRouter = require('@/routes/movies.route')
-const qrRouter = require('@/routes/qr.route')
-const metricsRouter = require('@/routes/metrics.route')
+const apiRoute = require('@/routes')
 
-const PORT = 8000
+const PORT = process.env.PORT ?? 8000
 
 const app = express()
 const https = createServer(app)
@@ -32,8 +24,6 @@ mongoose
 
 const corsOptions = {
   origin: (origin, callback) => {
-    console.log('origin', process.env.NODE_ENV)
-
     if (process.env.NODE_ENV === 'development') {
       callback(null, true)
     } else {
@@ -57,22 +47,13 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '../frontend/dist')))
 
 app.use((req, _, next) => {
-  if (!req.url.match(/(assets|images|index.html|.*.svg)$/)) {
+  if (!req.url.match(/(assets|images|index\.html|.*\.(svg|png|jpg|jpeg))$/)) {
     console.log(`${req.method} ${req.url}`)
   }
   next()
 })
 
-app.use('/user', userRouter)
-app.use('/auth', authRouter)
-app.use('/otp', otpRouter)
-
-app.use('/QR', qrRouter)
-app.use('/movie', movieRouter)
-app.use('/seatmap', SeatMapRouter)
-app.use('/membership', membershipRouter)
-app.use('/vote', votepagerouter)
-app.use('/metrics', metricsRouter)
+app.use('/api', apiRoute)
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'))

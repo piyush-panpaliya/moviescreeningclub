@@ -1,3 +1,4 @@
+require('dotenv').config()
 const SeatMap = require('@/models/seatmap.model')
 const QR = require('@/models/qr.model')
 const Movie = require('@/models/movie.model')
@@ -5,6 +6,8 @@ const Membership = require('@/models/membership.model')
 const { mailQRs } = require('@/utils/mail')
 const crypto = require('crypto')
 const { rows } = require('@constants/seats')
+const jwt = require('jsonwebtoken')
+
 const seatOccupancy = async (req, res) => {
   try {
     const { showtimeId } = req.params
@@ -111,17 +114,28 @@ const seatAssign = async (req, res) => {
         })
         continue
       }
+
       const qr = new QR({
         user: req.user.userId,
         membership: currentMembership._id,
         txnId: currentMembership.txnId,
         seat: seat,
         showtime: showtimeId,
-        code: crypto.randomBytes(16).toString('hex'),
+        code: '',
         expirationDate: new Date(
           new Date(showtime.date).getTime() + 3 * 60 * 60 * 1000
         )
       })
+      const code = jwt.sign(
+        {
+          userId: req.user.userId,
+          qrId: qr._id,
+          seat: seat,
+          hash: crypto.randomBytes(16).toString('hex')
+        },
+        process.env.JWT_SECRET_QR || 'lolbhai'
+      )
+      qr.code = code
       seatMap.seats.set(seat, qr._id)
       try {
         await seatMap.save()
@@ -130,7 +144,7 @@ const seatAssign = async (req, res) => {
         seatRes.push({
           seat: seat,
           qrId: qr._id,
-          hash: qr.code,
+          code: qr.code,
           message: 'Seat assigned'
         })
       } catch (error) {

@@ -43,11 +43,11 @@ const Movie = () => {
     const res = await api.get(`/seatmap/${showtimeId}`)
     setSeats(res.data)
   }
-  useEffect(() => {
-    if (!hasMembership) {
-      navigate('/buy')
-    }
-  }, [memberships])
+  // useEffect(() => {
+  //   if (!hasMembership) {
+  //     navigate('/buy')
+  //   }
+  // }, [memberships])
   useEffect(() => {
     ;(async () => {
       const res = await api.get(`/movie/${movieId}`)
@@ -62,7 +62,7 @@ const Movie = () => {
     })()
   }, [])
   const maxAllowed =
-    memberships.filter((membership) => membership.isValid)[0]?.availQR ?? 0
+    memberships?.filter((membership) => membership.isValid)[0]?.availQR ?? 0
   const bookSeats = async () => {
     console.log(selectedSeats)
     try {
@@ -105,8 +105,8 @@ const Movie = () => {
               showCancelButton: true
             }).then((result) => {
               if (result.isConfirmed) {
-                // bookSeats()
-                alert('Booking seats')
+                bookSeats()
+                // alert('Booking seats')
               }
             })
           }}

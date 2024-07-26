@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer')
 const QRCode = require('qrcode')
-// require('dotenv').config()
+require('dotenv').config()
 
 const transporterSingleton = (() => {
   let transporterInstance
@@ -32,11 +32,7 @@ const mailQRs = async (seats, user, movie, showtime) => {
   })
   const attach = await Promise.all(
     seats.map(async (s) => {
-      const qrDataURL = await QRCode.toDataURL(
-        Buffer.from(`${user.userId},${s.qrId},${s.seat},${s.hash}`).toString(
-          'base64'
-        )
-      )
+      const qrDataURL = await QRCode.toDataURL(s.code)
       return {
         filename: `${movie.title}-${s.seat}.png`,
         content: qrDataURL.split(';base64,').pop(),
