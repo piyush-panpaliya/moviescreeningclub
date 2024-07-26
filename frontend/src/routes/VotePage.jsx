@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { api } from '@/utils/api'
-import { isAllowedLvl } from '@/utils/levelCheck'
 import { useLogin } from '@/components/LoginContext'
 import MovieCard from '@/components/MovieCard'
-import { Tick, Arrow } from '@/components/icons/Vote'
+import { Arrow } from '@/components/icons/Vote'
+import { api } from '@/utils/api'
+import { isAllowedLvl } from '@/utils/levelCheck'
+import { useEffect, useState } from 'react'
 
 const MovieList = () => {
   const { user } = useLogin()
@@ -102,7 +102,7 @@ const MovieList = () => {
         <div className="mt-2 flex items-center justify-between gap-2">
           <button
             onClick={() => handleVoteClick(movie._id, 'yes')}
-            className={`flex grow justify-center rounded-md bg-green-600 px-2 py-2 text-white ${
+            className={`flex grow justify-center rounded-md bg-green-600 px-2 py-2  ${
               movie.voted ? 'cursor-not-allowed opacity-50' : ''
             }`}
           >
@@ -110,7 +110,7 @@ const MovieList = () => {
           </button>
           <button
             onClick={() => handleVoteClick(movie._id, 'no')}
-            className={`flex grow rotate-180 transform justify-center rounded-md bg-red-600 px-2 py-2 text-white ${
+            className={`flex grow rotate-180 transform justify-center rounded-md bg-red-600 px-2 py-2  ${
               movie.voted ? 'cursor-not-allowed opacity-50' : ''
             }`}
           >
@@ -120,7 +120,7 @@ const MovieList = () => {
         {isAllowedLvl('movievolunteer', user?.usertype || 'standard') && (
           <button
             onClick={() => handleDeleteMovie(movie._id)}
-            className="mt-2 rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white"
+            className="mt-2 rounded-md bg-red-600 px-4 py-2 text-sm font-semibold "
           >
             Delete
           </button>
@@ -145,7 +145,7 @@ const MovieList = () => {
         {isAllowedLvl('movievolunteer', user?.usertype || 'standard') && (
           <form
             onSubmit={handleAddMovie}
-            className="flex h-fit w-full flex-col items-center gap-2 rounded-lg bg-[#141414] p-4 shadow-md sm:w-3/4 sm:p-6 lg:w-[30vw]"
+            className="flex h-fit w-full flex-col items-center gap-2 rounded-lg bg-white dark:bg-[#141414] p-4 shadow-md sm:w-3/4 sm:p-6 lg:w-[30vw]"
           >
             <p className="text-lg font-semibold">Add New Movie</p>
             <input

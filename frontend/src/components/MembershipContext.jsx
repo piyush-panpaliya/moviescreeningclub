@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
+import { Loading } from '@/components/icons/Loading'
 import { useLogin } from '@/components/LoginContext'
 import { api } from '@/utils/api'
-import { Loading } from '@/components/icons/Loading'
+import { createContext, useContext, useEffect, useState } from 'react'
 const MembershipContext = createContext()
 
 export const useMembershipContext = () => useContext(MembershipContext)

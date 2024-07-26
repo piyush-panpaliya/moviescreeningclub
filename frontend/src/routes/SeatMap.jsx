@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
 import { api } from '@/utils/api'
-import { useLocation, useNavigate } from 'react-router-dom'
 import moment from 'moment'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 const SeatMapPage = () => {
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
@@ -205,7 +205,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -239,7 +239,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -273,7 +273,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -307,7 +307,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -341,7 +341,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -389,7 +389,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -423,7 +423,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -453,7 +453,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -487,7 +487,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -517,7 +517,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -551,7 +551,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -606,7 +606,7 @@ const SeatMapPage = () => {
                           key={col}
                           className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                             selectedSeat === seatNumber
-                              ? 'bg-green-600 text-white'
+                              ? 'bg-green-600 '
                               : seatOccupancy[seatNumber]
                                 ? 'bg-gray-200'
                                 : ''
@@ -640,7 +640,7 @@ const SeatMapPage = () => {
                           key={col}
                           className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                             selectedSeat === seatNumber
-                              ? 'bg-green-600 text-white'
+                              ? 'bg-green-600 '
                               : seatOccupancy[seatNumber]
                                 ? 'bg-gray-200'
                                 : ''
@@ -674,7 +674,7 @@ const SeatMapPage = () => {
                           key={col}
                           className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                             selectedSeat === seatNumber
-                              ? 'bg-green-600 text-white'
+                              ? 'bg-green-600 '
                               : seatOccupancy[seatNumber]
                                 ? 'bg-gray-200'
                                 : ''
@@ -704,7 +704,7 @@ const SeatMapPage = () => {
                           key={col}
                           className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                             selectedSeat === seatNumber
-                              ? 'bg-green-600 text-white'
+                              ? 'bg-green-600 '
                               : seatOccupancy[seatNumber]
                                 ? 'bg-gray-200'
                                 : ''
@@ -738,7 +738,7 @@ const SeatMapPage = () => {
                           key={col}
                           className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                             selectedSeat === seatNumber
-                              ? 'bg-green-600 text-white'
+                              ? 'bg-green-600 '
                               : seatOccupancy[seatNumber]
                                 ? 'bg-gray-200'
                                 : ''
@@ -768,7 +768,7 @@ const SeatMapPage = () => {
                           key={col}
                           className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                             selectedSeat === seatNumber
-                              ? 'bg-green-600 text-white'
+                              ? 'bg-green-600 '
                               : seatOccupancy[seatNumber]
                                 ? 'bg-gray-200'
                                 : ''
@@ -826,7 +826,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -879,7 +879,7 @@ const SeatMapPage = () => {
                             key={col}
                             className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                               selectedSeat === seatNumber
-                                ? 'bg-green-600 text-white'
+                                ? 'bg-green-600 '
                                 : seatOccupancy[seatNumber]
                                   ? 'bg-gray-200'
                                   : ''
@@ -925,7 +925,7 @@ const SeatMapPage = () => {
                             key={col}
                             className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                               selectedSeat === seatNumber
-                                ? 'bg-green-600 text-white'
+                                ? 'bg-green-600 '
                                 : seatOccupancy[seatNumber]
                                   ? 'bg-gray-200'
                                   : ''
@@ -957,7 +957,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -991,7 +991,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -1021,7 +1021,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -1068,7 +1068,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -1106,7 +1106,7 @@ const SeatMapPage = () => {
                         key={col}
                         className={`seat bg-white-50 font-roboto text-10 cursor-pointer border border-gray-400 p-2 text-center ${
                           selectedSeat === seatNumber
-                            ? 'bg-green-600 text-white'
+                            ? 'bg-green-600 '
                             : seatOccupancy[seatNumber]
                               ? 'bg-gray-200'
                               : ''
@@ -1141,7 +1141,7 @@ const SeatMapPage = () => {
               </p>
               <button
                 onClick={handleConfirmSeat}
-                className="mx-2 flex justify-center rounded-lg bg-green-400 p-2 text-lg font-bold text-white"
+                className="mx-2 flex justify-center rounded-lg bg-green-400 p-2 text-lg font-bold "
               >
                 Proceed
                 <svg

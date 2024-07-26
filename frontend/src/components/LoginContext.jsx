@@ -1,7 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
-import { jwtDecode } from 'jwt-decode'
-import { useNavigate } from 'react-router-dom'
 import { Loading } from '@/components/icons/Loading'
+import { jwtDecode } from 'jwt-decode'
+import { createContext, useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 const LoginContext = createContext()
 
 export const useLogin = () => useContext(LoginContext)

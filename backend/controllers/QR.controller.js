@@ -94,7 +94,8 @@ const check = async (req, res) => {
     }
     qr.used = true
     await qr.save()
-    const movie = await Movie.findOne({ showtimes: qr.showtime })
+    console.log(qr.showtime)  
+    const movie = await Movie.findOne({ 'showtimes._id': qr.showtime })
     return res.json({
       exists: true,
       validityPassed: false,

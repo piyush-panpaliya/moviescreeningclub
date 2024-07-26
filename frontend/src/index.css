@@ -57,3 +57,11 @@
 input textarea {
   outline: none !important;
 }
+
+body {
+  user-select: none;
+}
+input,
+textarea {
+  user-select: auto;
+}

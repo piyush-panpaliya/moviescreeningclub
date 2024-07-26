@@ -51,7 +51,7 @@ const mailQRs = async (seats, user, movie, showtime) => {
     to: user.email,
     subject: 'Seat Booking Confirmation',
     html: `
-      <body class="bg-zinc-100 dark:bg-zinc-800 text-black dark:text-white">
+      <body class="bg-zinc-100 dark:bg-zinc-800 text-black dark:">
       <div class="max-w-lg mx-auto p-4" >
         <div class="bg-white dark:bg-zinc-900 shadow-lg rounded-lg p-5 flex items-center justify-between" style="display: flex; justify-content: space-between;">
           <div class="flex items-center" style="margin-right: 110px;">

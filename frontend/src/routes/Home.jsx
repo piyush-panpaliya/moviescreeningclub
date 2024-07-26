@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { api } from '@/utils/api'
-import useDeviceSize from '@/utils/useDeviceSize'
 import { useMembershipContext } from '@/components/MembershipContext'
 import MoieCard from '@/components/MovieCard'
+import { api } from '@/utils/api'
+import useDeviceSize from '@/utils/useDeviceSize'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const GrpCard = ({ type, movies }) => {
   const [showMore, setShowMore] = useState(false)
@@ -25,7 +25,7 @@ const GrpCard = ({ type, movies }) => {
   return (
     <div id={type} className="flex w-4/5 flex-col gap-2">
       <p className="font-bn text-2xl text-[#E40C2B]">{type}</p>
-      <div className="grid grid-cols-2 gap-4 rounded-xl bg-[#212121] p-4 sm:gap-6 sm:p-6 md:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 rounded-xl bg-white dark:bg-[#212121] p-4 sm:gap-6 sm:p-6 md:grid-cols-3 xl:grid-cols-4">
         {movies.slice(0, showMore ? movies.length : limit).map((movie, i) => (
           <MoieCard movie={movie} key={i} navigate />
         ))}

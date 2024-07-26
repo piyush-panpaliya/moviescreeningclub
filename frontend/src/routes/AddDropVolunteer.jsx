@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { api } from '@/utils/api'
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
   Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
   Chip,
-  Input
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Input,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow
 } from '@nextui-org/react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 const allRoles = [
   {
     type: 'admin',
@@ -164,7 +164,7 @@ const AddDropVolunteer = () => {
                       handleSubmit(item.email, r.type)
                     }}
                   >
-                    {r.name}
+                    <p className="dark:"> {r.name}</p>
                   </DropdownItem>
                 ))}
               </DropdownMenu>
@@ -249,7 +249,7 @@ const AddDropVolunteer = () => {
               >
                 {allRoles.map((r) => (
                   <DropdownItem key={r.type} className="capitalize">
-                    {r.name}
+                    <p className="dark:"> {r.name}</p>
                   </DropdownItem>
                 ))}
               </DropdownMenu>

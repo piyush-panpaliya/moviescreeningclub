@@ -1,11 +1,16 @@
-import { useState, useEffect, useRef } from 'react'
+import {
+  DarkIcon,
+  LightIcon,
+  LoginIcon,
+  LogoutIcon,
+  MenuIcon
+} from '@/components/icons/nav'
+import { isAllowedLvl } from '@/utils/levelCheck'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../images/logo2.jpg'
 import { useLogin } from './LoginContext'
-import { api } from '@/utils/api'
 import { useMembershipContext } from './MembershipContext'
-import { isAllowedLvl } from '@/utils/levelCheck'
-import { LogoutIcon, LoginIcon, MenuIcon } from '@/components/icons/nav'
 const Navbar = () => {
   const { loggedIn, logout, user } = useLogin()
   const { hasMembership } = useMembershipContext()
@@ -40,21 +45,43 @@ const Navbar = () => {
     return parts[0]
   }
   return (
-    <nav className="relative top-0 z-20 flex w-full items-center justify-between bg-[#141414] px-4 py-3 md:sticky">
+    <nav className="relative top-0 z-20 flex w-full items-center justify-between bg-[#FFFEF9] dark:bg-[#141414] px-4 py-3   md:sticky">
       <Link to="/" className="flex items-center gap-2">
         <img className="h-12 w-auto" src={Logo} alt="Movies" />
         <p className="font-bn text-[30px] font-bold text-red-600">CHALCHITRA</p>
       </Link>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3">
+        <button
+          onClick={() => {
+            document.body.classList.contains('dark')
+              ? document.body.classList.remove('dark')
+              : document.body.classList.add('dark')
+          }}
+        >
+          <div className="hidden dark:block p-2 rounded-lg hover:bg-zinc-800">
+            <DarkIcon />
+          </div>
+          <div className="block dark:hidden p-2 rounded-lg hover:bg-gray-200">
+            <LightIcon />
+          </div>
+        </button>
         {loggedIn ? (
           <>
             <p className="hidden rounded-md bg-red-600 px-4 py-1.5 font-semibold text-white sm:block">
               Welcome {getDisplayName(user.name)}
             </p>
-            <LogoutIcon />
+            <div
+              className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"
+              onClick={logout}
+            >
+              <LogoutIcon />
+            </div>
           </>
         ) : (
-          <Link to="/login">
+          <Link
+            className="p-1 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700"
+            to="/login"
+          >
             <LoginIcon />
           </Link>
         )}
@@ -62,7 +89,7 @@ const Navbar = () => {
         <div className="flex items-center">
           <button
             onClick={toggleMenu}
-            className="flex items-center justify-center rounded-md p-1 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none"
+            className="flex items-center justify-center rounded-md p-1 dark:text-gray-400 transition duration-150 ease-in-out hover:bg-gray-200 dark:hover:bg-gray-700 focus:bg-gray-300 dark:focus:bg-gray-700 focus: focus:outline-none"
           >
             <MenuIcon />
           </button>
@@ -72,7 +99,7 @@ const Navbar = () => {
         ref={dropdownRef}
         className={`${
           showMenu
-            ? 'absolute right-2 top-20 z-20 block w-[70vw] rounded-md bg-[#141414] p-2 sm:w-[20%] sm:p-4'
+            ? 'absolute right-2 top-20 z-20 block w-[70vw] rounded-md bg-white dark:bg-[#141414] p-2 sm:w-[20%] sm:p-4'
             : 'hidden'
         }`}
       >
@@ -140,7 +167,7 @@ const NavItem = ({ to, children, toggleMenu, disabled }) => {
     <Link
       to={to}
       onClick={disabled ? null : handleClick}
-      className={`block rounded-md px-3 py-2 text-base font-medium text-white transition duration-150 ease-in-out hover:bg-gray-700 hover:text-white focus:bg-gray-700 focus:text-white focus:outline-none ${
+      className={`block rounded-md px-3 py-2 text-base font-medium  transition duration-150 ease-in-out hover:bg-gray-300 dark:hover:bg-gray-700 hover: dark:focus:bg-gray-700  focus:bg-gray-400 focus:outline-none ${
         disabled ? 'cursor-not-allowed opacity-50' : ''
       }`}
       aria-disabled={disabled}

@@ -7,7 +7,7 @@ const MoieCard = ({ movie, small = true, navigate = false, children }) => {
   return (
     <Container
       {...containerProps}
-      className="flex h-full w-full flex-col justify-start gap-2 rounded-xl bg-[#0C0C0C] shadow-lg shadow-white/30"
+      className="flex h-full w-full flex-col justify-start gap-2 rounded-xl bg-white dark:bg-[#0C0C0C] shadow-lg dark:shadow-white/30"
     >
       <img
         className="w-full grow rounded-t-xl object-cover"

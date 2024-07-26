@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { VerifyIcon } from '@/components/icons/Auth'
 import { api } from '@/utils/api'
-import imgone from '@/images/otpimg.svg'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 export default function GetOTP() {
@@ -51,79 +51,48 @@ export default function GetOTP() {
   }
 
   return (
-    <div className="flex h-screen items-center justify-center bg-[#e5e8f0] font-monts">
-      <div className="flex h-[90%] w-[80%] items-center justify-center rounded-3xl bg-white max-sm:h-[60%] max-sm:w-[90%]">
-        <div className="flex h-[99%] w-[99.5%] rounded-3xl bg-gradient-to-r from-white to-gray-100">
-          <div className="flex h-full w-[50%] items-center justify-center max-sm:hidden">
-            <div className="flex h-[98%] w-[98%] items-center justify-center rounded-2xl bg-[#da9afe]">
-              <img src={imgone} className="rounded-2xl" alt="Login" />
-            </div>
-          </div>
-          <div className="mt-4 flex w-1/2 items-center justify-center max-sm:w-full">
-            <div className="flex h-full w-[90%] flex-col justify-center gap-6 max-sm:text-sm">
-              <div className="h-[20%]">
-                <p className="text-center text-3xl font-bold max-sm:text-lg">
-                  Email Verification!
-                </p>
-                <p className="mt-4 text-center text-2xl font-normal max-sm:text-medium">
-                  Please verify Email to continue
-                </p>
-              </div>
-
-              <div className="flex h-[60%] flex-col items-center gap-3">
-                <div className="flex h-[15%] w-[82%] justify-center rounded-2xl border text-lg">
-                  <div className="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      strokeOpacity={0.5}
-                      className="mx-2 h-8 w-8 max-sm:w-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25"
-                      />
-                    </svg>
-                  </div>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full rounded-2xl border text-center max-sm:text-sm"
-                    name="email"
-                    placeholder="enter your email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={isSubmitting}
-                  />
-                </div>
-                <Link
-                  className="mb-3 flex w-4/5 justify-end text-blue-600"
-                  to="/forgot"
-                >
-                  resend otp
-                </Link>
-                <button
-                  onClick={handleSubmit}
-                  disabled={isSubmitting}
-                  className="flex h-[15%] w-4/5 items-center justify-center rounded-xl bg-[#fe6b68] p-2 text-white"
-                  type="button"
-                >
-                  {isSubmitting ? 'Submitting ...' : 'Submit'}
-                </button>
-                <span className="form-text mt-2 w-4/5 border-t-2 pt-2 text-center">
-                  Already have an account --{' '}
-                  <Link className="text-blue-600" to="/login">
-                    Login
-                  </Link>
-                </span>
-              </div>
-            </div>
-          </div>
+    <div className="-mt-10 flex w-full flex-col items-center bg-gradient-to-tr from-gray-400 dark:from-transparent dark:via-transparent to-red-900 p-4 sm:p-12">
+      <div className="flex gap-8 max-sm:w-full items-center justify-between rounded-lg bg-white/35 dark:bg-[#19141459]/35 p-4 sm:p-8">
+        <div className="h-[50vh] lg:h-[70vh] max-md:hidden">
+          <VerifyIcon />
+        </div>
+        <div className="flex grow flex-col items-center gap-3 max-sm:text-sm">
+          <p className="text-2xl sm:text-4xl">Email Verification!</p>
+          <p className="mb-4 text-lg text-[#FAFAFA] sm:text-xl">
+            Please verify Email to continue
+          </p>
+          <form
+            onSubmit={handleSubmit}
+            className="flex w-full flex-col  gap-4 text-sm sm:text-lg items-center"
+          >
+            <label className="flex flex-col gap-2 rounded-2xl w-full">
+              <span>Email</span>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="w-full sm:min-w-[300px] rounded-xl bg-[#F60101]/15 py-2 px-4"
+                placeholder="enter your email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isSubmitting}
+              />
+            </label>
+            <button
+              className="bg-gradient-to-r text-white  from-[#B01010] to-[#4A0707] rounded-xl w-fi py-2 px-6 sm:px-8 sm:py-3 "
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Verifying ...' : 'Verify'}
+            </button>
+          </form>
+          <span className=" text-center ">
+            Already have an account?
+            <Link className="ml-1 text-[#BD0F0F]" to="/login">
+              Sign In
+            </Link>
+          </span>
         </div>
       </div>
     </div>

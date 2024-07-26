@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate, Link, useLocation } from 'react-router-dom'
-import { api } from '@/utils/api'
-import { useMembershipContext } from '@/components/MembershipContext'
-import imageOne from '@/images/home_cinema.svg'
-import { useLogin } from '@/components/LoginContext'
+import { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
+
+import { useMembershipContext } from '@/components/MembershipContext'
+import { HideEye, LoginIcon, ShowEye } from '@/components/icons/Auth'
+
+import { useLogin } from '@/components/LoginContext'
+import { api } from '@/utils/api'
 
 const Login = () => {
   const { login, user } = useLogin()
@@ -65,140 +67,70 @@ const Login = () => {
   }
 
   return (
-    <div className="flex h-screen items-center justify-center bg-[#e5e8f0] font-monts">
-      <div className="flex w-[80%] flex-wrap items-center justify-center rounded-3xl bg-white max-sm:h-[60%] max-sm:w-[90%] sm:h-[90%] md:h-[90%]">
-        <div className="flex h-[99%] w-[99.5%] rounded-3xl bg-gradient-to-r from-white to-gray-100">
-          <div className="flex h-full w-[50%] items-center justify-center max-sm:hidden">
-            <div className="flex h-[98%] w-[98%] items-center justify-center rounded-2xl bg-[#da9afe]">
-              <img
-                src={imageOne}
-                className="h-2/3 w-2/3 rounded-2xl"
-                alt="Login"
+    <div className="-mt-10 flex w-full flex-col items-center bg-gradient-to-tr from-gray-400 dark:from-transparent dark:via-transparent to-red-900 p-4 sm:p-12">
+      <div className="flex gap-8 max-sm:w-full items-center justify-between rounded-lg bg-white/35 dark:bg-[#19141459]/35 p-4 sm:p-8">
+        <div className="h-[40vh] lg:h-[60vh] max-md:hidden">
+          <LoginIcon />
+        </div>
+        <div className="flex w-fit  flex-col items-center gap-3 max-sm:text-sm">
+          <p className="text-2xl sm:text-4xl">Welcome Again!</p>
+          <p className="mb-4 text-lg text-[#FAFAFA] sm:text-xl">
+            Please Login to continue
+          </p>
+          <form
+            onSubmit={handleSubmit}
+            className="flex w-full flex-col  gap-4 text-sm sm:text-lg items-center"
+          >
+            <label className="flex flex-col gap-2 rounded-2xl w-full">
+              <span>Email</span>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="w-full rounded-xl bg-[#e5e8f0]/15 dark:bg-[#F60101]/15 py-2 px-4 sm:min-w-[300px]"
+                placeholder="enter your email"
+                required
+                value={formData.email}
+                onChange={handleChange}
               />
-            </div>
-          </div>
-          <div className="mt-4 flex w-1/2 items-center justify-center max-sm:w-full">
-            <div className="flex h-full w-[90%] flex-col justify-center gap-6">
-              <div className="h-[20%]">
-                <p className="text-center text-3xl font-bold max-sm:text-xl">
-                  Welcome Again!
-                </p>
-                <p className="mt-4 text-center text-2xl font-normal max-sm:text-medium">
-                  Please login to continue
-                </p>
-              </div>
-              <form
-                onSubmit={handleSubmit}
-                className="flex h-[60%] flex-col items-center gap-3 max-sm:text-sm"
-              >
-                <div className="flex h-[15%] w-[82%] justify-center rounded-2xl border text-lg">
-                  <div className="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      strokeOpacity={0.5}
-                      className="mx-2 h-8 w-8 max-sm:w-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25"
-                      />
-                    </svg>
-                  </div>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    className="w-full rounded-2xl border text-center max-sm:text-sm"
-                    placeholder="enter your email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
-                </div>
+            </label>
+            <label className="flex flex-col gap-1 rounded-2xl w-full items-end">
+              <p className="flex gap-2 w-full">
                 <span className="details">Password</span>
-                <div className="flex h-[15%] w-[82%] justify-center rounded-2xl border text-lg">
-                  <div
-                    className="flex items-center"
-                    onClick={() => setShowPassword((prevState) => !prevState)}
-                  >
-                    {showPassword ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        strokeOpacity={0.5}
-                        className="mx-2 h-8 w-8 max-sm:w-4"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.2}
-                        stroke="currentColor"
-                        strokeOpacity={0.5}
-                        className="mx-2 h-8 w-8 max-sm:w-4"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88"
-                        />
-                      </svg>
-                    )}
-                  </div>
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    id="password"
-                    name="password"
-                    className="w-full rounded-2xl border text-center max-sm:text-sm"
-                    placeholder="Password"
-                    required
-                    value={formData.password}
-                    onChange={handleChange}
-                  />
+                <div
+                  className="flex items-center w-8"
+                  onClick={() => setShowPassword((prevState) => !prevState)}
+                >
+                  {showPassword ? <ShowEye /> : <HideEye />}
                 </div>
-                <Link
-                  className="mb-3 flex w-4/5 justify-end text-blue-600"
-                  to="/forgot"
-                >
-                  forgot password
-                </Link>
-
-                <button
-                  className="flex h-[15%] w-4/5 items-center justify-center rounded-xl bg-[#fe6b68] p-2 text-white"
-                  type="submit"
-                >
-                  Submit
-                </button>
-
-                <span className="mt-2 w-4/5 border-t-2 pt-2 text-center max-sm:text-sm">
-                  Don't have an account
-                  <Link className="ml-3 text-blue-600" to="/getOTP">
-                    Signup
-                  </Link>
-                </span>
-              </form>
-            </div>
-          </div>
+              </p>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                name="password"
+                className="w-full rounded-xl bg-[#e5e8f0]/15 dark:bg-[#F60101]/15 py-2 px-4"
+                placeholder="Password"
+                required
+                value={formData.password}
+                onChange={handleChange}
+              />
+              <Link className="text-sm text-[#BD0F0F]" to="/forgot">
+                Forget Password
+              </Link>
+            </label>
+            <button
+              className="bg-gradient-to-r from-[#B01010] to-[#4A0707] text-white rounded-xl w-fi py-2 px-6 sm:px-8 sm:py-3 "
+              type="submit"
+            >
+              Login
+            </button>
+          </form>
+          <span className=" text-center ">
+            Don't have an account?
+            <Link className="ml-1 text-[#BD0F0F]" to="/getOTP">
+              Signup
+            </Link>
+          </span>
         </div>
       </div>
     </div>

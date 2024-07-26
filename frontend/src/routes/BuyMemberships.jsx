@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react'
-import { useMembershipContext } from '@/components/MembershipContext'
-import { useLogin } from '@/components/LoginContext'
-import { Navigate } from 'react-router-dom'
-import { api } from '@/utils/api'
-import Swal from 'sweetalert2'
-import { Button, user } from '@nextui-org/react'
-import { memData } from '@constants/memberships'
-import { getUserType } from '@/utils/user'
 import { Star } from '@/components/icons/Buy'
+import { useLogin } from '@/components/LoginContext'
+import { useMembershipContext } from '@/components/MembershipContext'
+import { api } from '@/utils/api'
+import { getUserType } from '@/utils/user'
+import { memData } from '@constants/memberships'
+import { user } from '@nextui-org/react'
+import { useState } from 'react'
+import Swal from 'sweetalert2'
 
 const MembershipCard = ({ mem, loading, setLoading }) => {
   const buyMembership = async () => {
@@ -46,7 +45,7 @@ const MembershipCard = ({ mem, loading, setLoading }) => {
     <div
       disabled={loading}
       onClick={buyMembership}
-      className={`w-full bg-gradient-to-bl from-${mem.color}-400 to-${mem.color}-900 flex items-center justify-between gap-4 rounded-lg border-2 border-gray-900 px-4 py-8 transition-transform duration-300 hover:scale-105 hover:cursor-pointer hover:border-2 hover:border-[#332941] lg:gap-8`}
+      className={`w-full bg-gradient-to-bl from-${mem.color}-400 to-${mem.color}-300 dark:to-${mem.color}-900 flex items-center justify-between gap-4 rounded-lg border-2 border-gray-900 px-4 py-8 transition-transform duration-300 hover:scale-105 hover:cursor-pointer hover:border-2 hover:border-[#332941] lg:gap-8`}
     >
       <div className="flex -rotate-90 transform flex-col items-center gap-1">
         <p className="text-2xl font-semibold uppercase">{mem.name}</p>

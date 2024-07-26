@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
 import { useLogin } from '@/components/LoginContext'
 import { Loading } from '@/components/icons/Loading'
 import { api } from '@/utils/api'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
@@ -69,7 +69,7 @@ const Tickets = () => {
                     icon: 'info'
                   })
                 }}
-                className="flex flex-col items-center gap-3 rounded-lg bg-[#212121] p-4 shadow-md sm:flex-row"
+                className="flex flex-col items-center gap-3 rounded-lg bg-white dark:bg-[#212121] p-4 shadow-md sm:flex-row"
               >
                 <img src={ticket.qrData} alt="qr code" className="h-36 w-36" />
                 <div className="flex flex-col gap-1">
@@ -128,7 +128,7 @@ const Tickets = () => {
             {tickets.used.map((ticket) => (
               <div
                 key={ticket._id}
-                className="flex flex-col gap-2 rounded-lg bg-gray-400 p-4 shadow-md"
+                className="flex flex-col gap-2 rounded-lg  bg-gray-400 dark:bg-gray-800 p-4 shadow-md"
               >
                 <p>
                   <span className="font-semibold">Seat: </span>
@@ -156,7 +156,7 @@ const Tickets = () => {
             {tickets.expired.map((ticket) => (
               <div
                 key={ticket._id}
-                className="flex flex-col gap-2 rounded-lg bg-gray-400 p-4 shadow-md"
+                className="flex flex-col gap-2 rounded-lg bg-gray-400 dark:bg-gray-800 p-4 shadow-md"
               >
                 <p>
                   <span className="font-semibold">Seat: </span>

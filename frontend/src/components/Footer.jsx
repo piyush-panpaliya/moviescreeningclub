@@ -1,9 +1,9 @@
 import {
   Button,
   Dialog,
-  DialogHeader,
   DialogBody,
-  DialogFooter
+  DialogFooter,
+  DialogHeader
 } from '@material-tailwind/react'
 import { useState } from 'react'
 
@@ -14,7 +14,7 @@ export default function Footer() {
   const handleOpen = () => setOpen(!open)
 
   return (
-    <div className="relative z-10 flex justify-center bg-[#141414] p-4 font-monts text-white">
+    <div className="relative z-10 flex justify-center bg-[#FFFEF9] dark:bg-[#141414] p-4 font-monts ">
       <div className="w-4/5 max-sm:w-[90%]">
         <p className="flex items-center gap-1 border-b-2 py-4 font-bn text-3xl font-bold text-[#FB2A25] sm:text-4xl">
           CHALCHITRA
@@ -77,7 +77,7 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <a
                 href="https://facebook.com"
-                className="text-gray-500 hover:text-[#0866ff] dark:text-gray-400 dark:hover:text-white"
+                className="text-gray-500 hover:text-[#0866ff] dark:text-gray-400 dark:hover:"
               >
                 <svg
                   className="h-8 w-8"
@@ -101,7 +101,7 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <a
                 href="https://instagram.com"
-                className="text-gray-500 hover:text-[#d62976] dark:text-gray-400 dark:hover:text-white"
+                className="text-gray-500 hover:text-[#d62976] dark:text-gray-400 dark:hover:"
               >
                 <svg
                   className="h-8 w-8"
@@ -125,7 +125,7 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <a
                 href="https://twitter.com"
-                className="text-gray-500 hover:text-white dark:text-gray-400 dark:hover:text-white"
+                className="text-gray-500 hover: dark:text-gray-400 dark:hover:"
               >
                 <svg
                   className="ml-[2px] h-7 w-7"

@@ -45,4 +45,4 @@ const verifyJWTWithRole = (minRole = 'standard') => {
   }
 }
 
-module.exports = verifyJWTWithRole
+module.exports = {verifyJWTWithRole,isAllowedLvl}

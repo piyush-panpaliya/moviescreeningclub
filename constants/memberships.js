@@ -92,6 +92,5 @@ const memData = [
 		availQR: 4,
 	},
 ]
-export { memData }
 
 module.exports = { memData }

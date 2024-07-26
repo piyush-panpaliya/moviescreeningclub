@@ -1,7 +1,6 @@
-import React from 'react'
-import { Navigate, useLocation } from 'react-router-dom'
 import { useLogin } from '@/components/LoginContext'
 import { isAllowedLvl } from '@/utils/levelCheck'
+import { Navigate, useLocation } from 'react-router-dom'
 const AuthenticatedRoute = ({ children, minLevel = 'standard' }) => {
   const { loggedIn, user } = useLogin()
   const location = useLocation()

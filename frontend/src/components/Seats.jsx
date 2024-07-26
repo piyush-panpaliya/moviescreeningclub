@@ -4,7 +4,7 @@ const Seat = ({ seat, selected, onclick }) => {
     <button
       className={`bg-white-50 font-roboto m-0.5 w-8 cursor-pointer border border-gray-400 px-1 py-1 text-center text-[8px] ${
         selected
-          ? 'bg-green-600 text-white'
+          ? 'bg-green-600 '
           : seat.occupied
             ? 'bg-gray-300 text-red-400'
             : ''
@@ -99,7 +99,22 @@ const Seats = ({ seats, selectedSeats, setSelectedSeats, maxAllowed }) => {
   }
   return (
     <div className="flex flex-col items-center gap-4">
-      <p className="text-xl font-bold">Screen</p>
+      <div className="flex flex-col items-center gap-2">
+        <svg
+          className="w-[400px]"
+          viewBox="0 0 490 43"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M244.37 -1.90735e-06C352.171 -1.90735e-06 445.182 14.928 488.233 36.4934C489.9 37.3283 490.402 39.4251 489.367 40.9755V40.9755C488.484 42.2981 486.783 42.7683 485.344 42.0913C441.116 21.2837 349.819 7 244.37 7C140.357 7 50.1128 20.8972 5.22839 41.2446C3.79169 41.8959 2.11259 41.4219 1.23033 40.1143V40.1143C0.16353 38.5332 0.695665 36.3828 2.415 35.557C46.2645 14.4971 138.135 -1.90735e-06 244.37 -1.90735e-06Z"
+            fill="#D9D9D9"
+          />
+        </svg>
+        <p className="text-xl font-bold -mt-6 pb-4">Screen</p>
+      </div>
       <div className="flex gap-4">
         <div className="flex flex-col items-center">
           {rows.map((row, i) => (

@@ -22,7 +22,7 @@ export const Arrow = () => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      stroke="white"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="3"
