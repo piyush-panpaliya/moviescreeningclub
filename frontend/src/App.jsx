@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
@@ -17,7 +17,7 @@ import UpdatePassword from '@/routes/auth/UpdatePassoword'
 import BuyMemberships from '@/routes/BuyMemberships'
 import Guidelines from '@/routes/Guidelines'
 import Home from '@/routes/Home'
-import DesignationCounts from '@/routes/MemberShipsSold'
+import Metrics from '@/routes/Metrics'
 import ModifyMovie from '@/routes/ModifyMovie'
 import Movie from '@/routes/Movie'
 import MyAccount from '@/routes/MyAccount'
@@ -142,10 +142,8 @@ function App() {
                   }
                 />
                 <Route path="/guidelines" element={<Guidelines />} />
-                <Route
-                  path="/designationCount"
-                  element={<DesignationCounts />}
-                />
+                <Route path="/metrics" element={<Metrics />} />
+                <Route path="*" element={<Navigate to="" />} />
               </Routes>
             </div>
           </MembershipProvider>

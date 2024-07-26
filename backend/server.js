@@ -18,7 +18,7 @@ const otpRouter = require('@/routes/user/otp.route')
 const SeatMapRouter = require('@/routes/seatmap.route')
 const movieRouter = require('@/routes/movies.route')
 const qrRouter = require('@/routes/qr.route')
-const designationCount = require('@/routes/designationCount.route')
+const metricsRouter = require('@/routes/metrics.route')
 
 const PORT = 8000
 
@@ -72,7 +72,7 @@ app.use('/movie', movieRouter)
 app.use('/seatmap', SeatMapRouter)
 app.use('/membership', membershipRouter)
 app.use('/vote', votepagerouter)
-app.use('/designation', designationCount)
+app.use('/metrics', metricsRouter)
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'))

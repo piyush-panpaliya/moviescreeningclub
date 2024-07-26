@@ -56,6 +56,7 @@ const saveMembership = async (req, res) => {
       txnId,
       validity,
       availQR,
+      amount: getAmount(memtype, email),
       validitydate: new Date(Date.now() + validity * 1000)
     })
     const savedusermem = await newusermem.save()

@@ -120,9 +120,14 @@ const Navbar = () => {
               Vote Page
             </NavItem>
             {isAllowedLvl('admin', user?.usertype) && (
-              <NavItem to="/adddropvolunteer" toggleMenu={toggleMenu}>
-                Add/Drop Volunteer
-              </NavItem>
+              <>
+                <NavItem to="/adddropvolunteer" toggleMenu={toggleMenu}>
+                  Add/Drop Volunteer
+                </NavItem>
+                <NavItem to="/metrics" toggleMenu={toggleMenu}>
+                  Metrics
+                </NavItem>
+              </>
             )}
             {isAllowedLvl('ticketvolunteer', user?.usertype) && (
               <NavItem to="/scanner" toggleMenu={toggleMenu}>
