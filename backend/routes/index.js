@@ -20,6 +20,6 @@ router.use('/movie', movieRouter)
 router.use('/seatmap', SeatMapRouter)
 router.use('/membership', membershipRouter)
 router.use('/vote', votepagerouter)
-app.use('/metrics', metricsRouter)
+router.use('/metrics', metricsRouter)
 
 module.exports = router

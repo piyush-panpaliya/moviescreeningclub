@@ -6,7 +6,9 @@ const Movie = require('@/models/movie.model')
 const getQRs = async (req, res) => {
   const { userId } = req.user
   try {
-    const allQRs = await QR.find({ user: userId })
+    const allQRs = await QR.find({ user: userId }).sort({
+      registrationDate: -1
+    })
 
     const resQr = {
       used: [],
@@ -26,11 +28,7 @@ const getQRs = async (req, res) => {
         } else {
           const movie = await Movie.findOne({ 'showtimes._id': qr.showtime })
           resQr.unused.push({
-            qrData: await QRCode.toDataURL(
-              Buffer.from(`${userId},${qr._id},${qr.seat},${qr.code}`).toString(
-                'base64'
-              )
-            ),
+            qrData: await QRCode.toDataURL(qr.code),
             expirationDate: qr.expirationDate,
             isValid: qr.isValid,
             registrationDate: qr.registrationDate,
@@ -77,7 +75,7 @@ const check = async (req, res) => {
     } catch (err) {
       return res.status(400).json({ error: 'Invalid QR data' })
     }
-    const qr = await QR.findOne({ _id: qrId, user: userId, seat, code: hash })
+    const qr = await QR.findOne({ _id: qrId, user: userId, seat, code: qrData })
       .populate('user')
       .populate('membership')
 

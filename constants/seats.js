@@ -1,144 +1,144 @@
 const rows = [
   {
-    prefix: 'A',
+    prefix: "A",
     count: 27,
     left: 10,
     right: 10,
-    center: 7
+    center: 7,
   },
   {
-    prefix: 'B',
+    prefix: "B",
     count: 30,
     left: 11,
     right: 11,
-    center: 8
+    center: 8,
   },
   {
-    prefix: 'C',
+    prefix: "C",
     count: 30,
     left: 11,
     right: 11,
-    center: 8
+    center: 8,
   },
   {
-    prefix: 'D',
+    prefix: "D",
     count: 33,
     left: 12,
     right: 12,
-    center: 9
+    center: 9,
   },
   {
-    prefix: 'E',
+    prefix: "E",
     count: 34,
     left: 12,
     right: 12,
-    center: 10
+    center: 10,
   },
   {
-    prefix: 'F',
+    prefix: "F",
     count: 36,
     left: 13,
     right: 13,
-    center: 10
+    center: 10,
   },
   {
-    prefix: 'G',
+    prefix: "G",
     count: 38,
     left: 14,
     right: 13,
-    center: 11
+    center: 11,
   },
   {
-    prefix: 'H',
+    prefix: "H",
     count: 40,
     left: 14,
     right: 14,
-    center: 12
+    center: 12,
   },
   {
-    prefix: 'I',
+    prefix: "I",
     count: 41,
     left: 15,
     right: 14,
-    center: 12
+    center: 12,
   },
   {
-    prefix: 'J',
+    prefix: "J",
     count: 36,
     left: 15,
     right: 15,
-    center: 6
+    center: 6,
   },
   {
-    prefix: 'K',
+    prefix: "K",
     count: 36,
     left: 15,
     right: 15,
-    center: 6
+    center: 6,
   },
   {
-    prefix: 'L',
+    prefix: "L",
     count: 36,
     left: 15,
     right: 15,
-    center: 6
+    center: 6,
   },
   {
-    prefix: 'M',
+    prefix: "M",
     count: 36,
     left: 15,
     right: 15,
-    center: 6
+    center: 6,
   },
   {
-    prefix: 'N',
+    prefix: "N",
     count: 36,
     left: 15,
     right: 15,
-    center: 6
+    center: 6,
   },
   {
-    prefix: 'O',
+    prefix: "O",
     count: 36,
     left: 15,
     right: 15,
-    center: 6
+    center: 6,
   },
   {
-    prefix: 'P',
+    prefix: "P",
     count: 36,
     left: 15,
     right: 15,
-    center: 6
+    center: 6,
   },
   {
-    prefix: 'Q',
+    prefix: "Q",
     count: 42,
     left: 14,
     right: 15,
-    center: 13
+    center: 13,
   },
   {
-    prefix: 'R',
+    prefix: "R",
     count: 43,
     left: 14,
     right: 15,
-    center: 14
+    center: 14,
   },
   {
-    prefix: 'S',
+    prefix: "S",
     count: 43,
     left: 14,
     right: 15,
-    center: 14
+    center: 14,
   },
   {
-    prefix: 'T',
+    prefix: "T",
     count: 44,
     left: 14,
     right: 15,
-    center: 15
-  }
-]
+    center: 15,
+  },
+];
 
-module.exports = { rows }
+module.exports = { rows };

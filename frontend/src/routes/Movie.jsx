@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-=======
-import Seats from '@/components/Seats'
-import { useMembershipContext } from '@/components/MembershipContext'
-import { useNavigate, useLocation, Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { rows } from '@/utils/seats'
-import { api } from '@/utils/api'
->>>>>>> 6e6831a (jwt for ticket)
 import { useLogin } from '@/components/LoginContext'
 import { useMembershipContext } from '@/components/MembershipContext'
 import MovieCard from '@/components/MovieCard'
@@ -114,8 +105,8 @@ const Movie = () => {
               showCancelButton: true
             }).then((result) => {
               if (result.isConfirmed) {
-                // bookSeats()
-                alert('Booking seats')
+                bookSeats()
+                // alert('Booking seats')
               }
             })
           }}
