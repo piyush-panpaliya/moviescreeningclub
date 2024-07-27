@@ -176,7 +176,7 @@ const NavItem = ({ to, children, toggleMenu, disabled }) => {
     <Link
       to={to}
       onClick={disabled ? null : handleClick}
-      className={`block rounded-md px-3 py-2 text-base font-medium  transition duration-150 ease-in-out hover:bg-gray-300 dark:hover:bg-gray-700 hover: dark:focus:bg-gray-700  focus:bg-gray-400 focus:outline-none ${
+      className={`block rounded-md px-3 py-2 text-base font-medium  transition duration-150 ease-in-out hover:bg-gray-300 dark:hover:bg-gray-700 outline-none ${
         disabled ? 'cursor-not-allowed opacity-50' : ''
       }`}
       aria-disabled={disabled}

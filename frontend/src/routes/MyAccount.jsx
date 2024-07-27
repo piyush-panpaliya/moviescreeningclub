@@ -2,7 +2,7 @@ import { useLogin } from '@/components/LoginContext'
 import { useMembershipContext } from '@/components/MembershipContext'
 import { api } from '@/utils/api'
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const Myaccount = () => {
   const { loggedIn } = useLogin()
@@ -65,52 +65,50 @@ const Myaccount = () => {
       <p className="mb-4 text-2xl font-semibold lg:text-3xl">
         Your Memberships
       </p>
-      <div className="flex w-full flex-col gap-4 max-sm:items-center sm:w-3/4">
-        <p className="mb-2 text-xl font-semibold lg:text-2xl">
-          Active Memberships
-        </p>
-        <div className="flex flex-wrap gap-6">
-          {currentMembership && (
-            <Link className="object-cover">
-              <div className="flex flex-col justify-center rounded-lg bg-white shadow-lg dark:shadow-white/10 dark:bg-[#212121] px-3 py-3">
-                <div
-                  className={`flex items-center justify-center rounded-md ${getColor(
-                    currentMembership.memtype
-                  )} mb-4 h-[280px] w-[230px] text-center max-sm:h-[200px] lg:w-[250px]`}
-                  // style={getCardStyle(230, 180)}
-                >
-                  <p className="text-xl font-semibold lg:text-4xl">
-                    {toTitleCase(currentMembership.memtype)}
-                  </p>
-                </div>
-                <p>
-                  <strong>Purchase Date : </strong>{' '}
-                  {new Date(currentMembership.purchasedate).toLocaleDateString(
-                    'en-IN'
-                  )}
-                </p>
-                <p className="flex capitalize">
-                  <strong> Validity till : </strong>{' '}
-                  {new Date(currentMembership.validitydate).toLocaleDateString(
-                    'en-IN'
-                  )}
-                </p>
-                <p className="flex capitalize">
-                  <strong>Passes Left : </strong> {currentMembership.availQR}
+      {currentMembership && (
+        <div className="flex w-full flex-col gap-4 max-sm:items-center sm:w-3/4">
+          <p className="mb-2 text-xl font-semibold lg:text-2xl">
+            Active Memberships
+          </p>
+          <div className="flex flex-wrap gap-6">
+            <div className="flex flex-col justify-center rounded-lg bg-white shadow-lg dark:shadow-white/10 dark:bg-[#212121] px-3 py-3">
+              <div
+                className={`flex items-center justify-center rounded-md ${getColor(
+                  currentMembership.memtype
+                )} mb-4 h-[280px] w-[230px] text-center max-sm:h-[200px] lg:w-[250px]`}
+                // style={getCardStyle(230, 180)}
+              >
+                <p className="text-xl font-semibold lg:text-4xl">
+                  {toTitleCase(currentMembership.memtype)}
                 </p>
               </div>
-            </Link>
+              <p>
+                <strong>Purchase Date : </strong>{' '}
+                {new Date(currentMembership.purchasedate).toLocaleDateString(
+                  'en-IN'
+                )}
+              </p>
+              <p className="flex capitalize">
+                <strong> Validity till : </strong>{' '}
+                {new Date(currentMembership.validitydate).toLocaleDateString(
+                  'en-IN'
+                )}
+              </p>
+              <p className="flex capitalize">
+                <strong>Passes Left : </strong> {currentMembership.availQR}
+              </p>
+            </div>
+          </div>
+          {currentMembership && (
+            <button
+              onClick={suspendMembership}
+              className="mt-8 w-fit rounded bg-red-500 px-4 py-2 font-bold hover:bg-red-700 text-white"
+            >
+              Suspend Current Membership
+            </button>
           )}
         </div>
-        {currentMembership && (
-          <button
-            onClick={suspendMembership}
-            className="mt-8 w-fit rounded bg-red-500 px-4 py-2 font-bold hover:bg-red-700 text-white"
-          >
-            Suspend Current Membership
-          </button>
-        )}
-      </div>
+      )}
       {previousMemberships.length > 0 && (
         <div className="flex w-full flex-col items-center gap-2 sm:w-3/4 sm:items-start">
           <p className="mb-2 text-xl font-semibold lg:text-2xl">
@@ -120,7 +118,7 @@ const Myaccount = () => {
             {previousMemberships.map((membership, index) => (
               <div
                 key={index}
-                className="flex flex-col justify-center rounded-lg bg-white shadow-lg dark:shadow-white/10 bg-[#212121] p-3"
+                className="flex flex-col justify-center rounded-lg bg-white dark:bg-[#212121] shadow-lg dark:shadow-white/10  p-3"
               >
                 <div
                   className={`rounded-md ${getColor(
@@ -143,6 +141,9 @@ const Myaccount = () => {
             ))}
           </div>
         </div>
+      )}
+      {previousMemberships.length === 0 && !currentMembership && (
+        <p className="text-xl sm:text-4xl">No memberships</p>
       )}
     </div>
   )

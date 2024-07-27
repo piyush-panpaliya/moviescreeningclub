@@ -224,7 +224,7 @@ export default function Footer() {
                   ></path>
                 </svg>
               </a>
-              <a href="https://instagram.com">
+              <a href="https://www.instagram.com/chalchitra.iitmandi/">
                 <span className="text-md capitalize hover:text-[#d62976] sm:text-xl">
                   instagram
                 </span>

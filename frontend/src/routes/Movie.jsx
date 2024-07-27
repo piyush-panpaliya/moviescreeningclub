@@ -5,7 +5,7 @@ import Seats from '@/components/Seats'
 import { api } from '@/utils/api'
 import { isAllowedLvl } from '@/utils/levelCheck'
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 // const contructSeats = () => {
 //   let seats = []
@@ -85,7 +85,8 @@ const Movie = () => {
   }
 
   const BottomBar = () =>
-    selectedSeats.length > 0 && (
+    selectedSeats.length > 0 &&
+    hasMembership && (
       <div className="sticky bottom-0 z-[1200] flex w-full flex-col items-center justify-between gap-2 bg-white dark:bg-[#141414] p-2 drop-shadow-2xl sm:flex-row sm:pr-8">
         {!!selectedSeats.length && (
           <p className="text-xl font-bold">
@@ -198,6 +199,19 @@ const Movie = () => {
         </div>
       </div>
       <BottomBar />
+      {!hasMembership && (
+        <div className="sticky bottom-0 z-[1200] flex w-full flex-col items-center justify-between gap-2 bg-white dark:bg-[#141414] p-2 drop-shadow-2xl sm:flex-row sm:pr-8">
+          <p className="text-xl">
+            No membership found. Please buy a membership to book tickets
+          </p>
+          <Link
+            to="/buy"
+            className="rounded-md bg-green-600 p-2 text-xl text-white"
+          >
+            'Buy'
+          </Link>
+        </div>
+      )}
     </div>
   )
 }

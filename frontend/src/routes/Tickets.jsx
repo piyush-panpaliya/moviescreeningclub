@@ -55,69 +55,82 @@ const Tickets = () => {
         <div className="flex flex-col gap-6">
           <p className="text-xl font-bold sm:text-2xl">Upcoming Tickets</p>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {tickets.unused.map((ticket) => (
-              <div
-                key={ticket._id}
-                onClick={() => {
-                  Swal.fire({
-                    html: `<div className="flex flex-col items-center" style="flex-direction: column;display:flex;align-items: center" ><p><span style="font-weight: 600;">${ticket.movie.title}</span> - ${new Date(
-                      ticket.movie.showtime.date
-                    ).toLocaleString(
-                      'en-IN'
-                    )} - ${ticket.seat}</p><img src=${ticket.qrData} alt="qr code" style="height:40vh;width:40vh" />`,
+            {tickets.unused.map(
+              (ticket) =>
+                ticket.movie && (
+                  <div
+                    key={ticket._id}
+                    onClick={() => {
+                      Swal.fire({
+                        html: `<div className="flex flex-col items-center" style="flex-direction: column;display:flex;align-items: center" ><p><span style="font-weight: 600;">${ticket.movie.title}</span> - ${new Date(
+                          ticket.movie.showtime.date
+                        ).toLocaleString(
+                          'en-IN'
+                        )} - ${ticket.seat}</p><img src=${ticket.qrData} alt="qr code" style="height:40vh;width:40vh" />`,
 
-                    icon: 'info'
-                  })
-                }}
-                className="flex flex-col items-center gap-3 rounded-lg bg-white dark:bg-[#212121] p-4 shadow-md sm:flex-row"
-              >
-                <img src={ticket.qrData} alt="qr code" className="h-36 w-36" />
-                <div className="flex flex-col gap-1">
-                  <p className="text-lg font-bold">{ticket.movie.title}</p>
-                  <p>
-                    {new Date(ticket.movie.showtime.date).toLocaleString(
-                      'en-IN',
-                      {
-                        year: 'numeric',
-                        month: 'numeric',
-                        day: 'numeric',
-                        hour: 'numeric',
-                        minute: 'numeric',
-                        hour12: true
-                      }
-                    )}
-                  </p>
-                  <p>
-                    <span className="font-semibold">Seat: </span>
-                    {ticket.seat}
-                  </p>
-                  <p className="text-xs">
-                    {' '}
-                    <span className="font-semibold">Purchase Date: </span>
-                    {new Date(ticket.registrationDate).toLocaleString('en-IN', {
-                      year: 'numeric',
-                      month: 'numeric',
-                      day: 'numeric',
-                      hour: 'numeric',
-                      minute: 'numeric',
-                      hour12: true
-                    })}
-                  </p>
-                  <p className="text-xs">
-                    {' '}
-                    <span className="font-semibold">Expiration Date: </span>
-                    {new Date(ticket.expirationDate).toLocaleString('en-IN', {
-                      year: 'numeric',
-                      month: 'numeric',
-                      day: 'numeric',
-                      hour: 'numeric',
-                      minute: 'numeric',
-                      hour12: true
-                    })}
-                  </p>
-                </div>
-              </div>
-            ))}
+                        icon: 'info'
+                      })
+                    }}
+                    className="flex flex-col items-center gap-3 rounded-lg bg-white dark:bg-[#212121] p-4 shadow-md sm:flex-row"
+                  >
+                    <img
+                      src={ticket.qrData}
+                      alt="qr code"
+                      className="h-36 w-36"
+                    />
+                    <div className="flex flex-col gap-1">
+                      <p className="text-lg font-bold">{ticket.movie.title}</p>
+                      <p>
+                        {new Date(ticket.movie.showtime.date).toLocaleString(
+                          'en-IN',
+                          {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: true
+                          }
+                        )}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Seat: </span>
+                        {ticket.seat}
+                      </p>
+                      <p className="text-xs">
+                        {' '}
+                        <span className="font-semibold">Purchase Date: </span>
+                        {new Date(ticket.registrationDate).toLocaleString(
+                          'en-IN',
+                          {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: true
+                          }
+                        )}
+                      </p>
+                      <p className="text-xs">
+                        {' '}
+                        <span className="font-semibold">Expiration Date: </span>
+                        {new Date(ticket.expirationDate).toLocaleString(
+                          'en-IN',
+                          {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: true
+                          }
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                )
+            )}
           </div>
         </div>
       )}

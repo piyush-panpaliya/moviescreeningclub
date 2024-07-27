@@ -41,9 +41,9 @@ const Login = () => {
         login(res.data)
       }
     } catch (err) {
-      if (err.res.status === 404) {
+      if (err.response.status === 404) {
         Swal.fire({ title: 'Error', text: 'User not found', icon: 'error' })
-      } else if (err.res.status === 401) {
+      } else if (err.response.status === 401) {
         Swal.fire({
           title: 'Error',
           text: 'Email or password is wrong',
@@ -108,7 +108,7 @@ const Login = () => {
                 onChange={handleChange}
               />
               <Link className="text-sm text-[#BD0F0F]" to="/forgot">
-                Forget Password
+                Forgot Password?
               </Link>
             </label>
             <button

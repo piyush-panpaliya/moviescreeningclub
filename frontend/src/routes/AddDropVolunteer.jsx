@@ -48,9 +48,9 @@ const AddDropVolunteer = () => {
   const fetchUsers = async () => {
     try {
       const baseUrl =
-        import.meta.env.VITE_environment === 'development'
+        (import.meta.env.VITE_environment === 'development'
           ? 'http://localhost:8000'
-          : document.location.origin + '/api'
+          : document.location.origin) + '/api'
       const url = new URL(baseUrl + `/user/fetchusers`)
       const response = await api.get(url.toString())
       if (response.status !== 200) {

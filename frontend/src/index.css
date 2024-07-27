@@ -2,13 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-.scrollbar::-webkit-scrollbar {
-  display: none;
-}
+@media screen and (max-width: 640px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
-.scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  html {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 ::-webkit-scrollbar {
