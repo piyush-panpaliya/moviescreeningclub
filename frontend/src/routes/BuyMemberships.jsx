@@ -5,6 +5,7 @@ import { api } from '@/utils/api'
 import { getUserType } from '@/utils/user'
 import { memData } from '@constants/memberships'
 import { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 const MembershipCard = ({ mem, loading, setLoading }) => {
