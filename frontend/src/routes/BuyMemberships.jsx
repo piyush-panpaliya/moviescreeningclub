@@ -4,11 +4,11 @@ import { useMembershipContext } from '@/components/MembershipContext'
 import { api } from '@/utils/api'
 import { getUserType } from '@/utils/user'
 import { memData } from '@constants/memberships'
-import { user } from '@nextui-org/react'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
 const MembershipCard = ({ mem, loading, setLoading }) => {
+  const { user } = useLogin()
   const buyMembership = async () => {
     try {
       if (loading) return

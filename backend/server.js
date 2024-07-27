@@ -24,7 +24,7 @@ mongoose
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' || true) {
       callback(null, true)
     } else {
       const allowedOrigins = ['https://chalchitra.iitmandi.ac.in']

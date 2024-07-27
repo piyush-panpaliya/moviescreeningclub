@@ -65,7 +65,7 @@ const Login = () => {
         <div className="h-[40vh] lg:h-[60vh] max-md:hidden">
           <LoginIcon />
         </div>
-        <div className="flex w-fit  flex-col items-center gap-3 max-sm:text-sm">
+        <div className="flex max-sm:w-full  w-fit  flex-col items-center gap-3 max-sm:text-sm">
           <p className="text-2xl sm:text-4xl">Welcome Again!</p>
           <p className="mb-4 text-lg dark:text-[#FAFAFA] sm:text-xl">
             Please Login to continue
