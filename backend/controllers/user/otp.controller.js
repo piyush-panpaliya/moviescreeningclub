@@ -6,7 +6,7 @@ const { mailOtp } = require('@/utils/mail')
 const userOTP = async (req, res) => {
   try {
     const { email } = req.body
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email: email.toLowerCase() })
     if (user) {
       return res.status(401).json({ error: 'User already exists please login' })
     }
@@ -16,9 +16,9 @@ const userOTP = async (req, res) => {
       specialChars: false
     })
 
-    await OTP.create({ email, otp })
+    await OTP.create({ email: email.toLowerCase(), otp })
 
-    await mailOtp(otp, email)
+    await mailOtp(otp, email.toLowerCase())
     res.status(200).json({
       success: true,
       message: 'OTP sent successfully'
@@ -42,9 +42,9 @@ const sendOTPforgot = async (req, res) => {
       specialChars: false
     })
 
-    await OTP.create({ email, otp })
+    await OTP.create({ email: email.toLowerCase(), otp })
 
-    await mailOtp(otp, email, 'Password Reset')
+    await mailOtp(otp, email.toLowerCase(), 'Password Reset')
     res.status(200).json({
       success: true,
       message: 'OTP sent successfully'

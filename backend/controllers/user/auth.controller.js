@@ -15,7 +15,7 @@ const signup = async (req, res) => {
       })
     }
 
-    const existingUser = await User.findOne({ email })
+    const existingUser = await User.findOne({ email: email.toLowerCase() })
     if (existingUser) {
       return res.status(400).json({
         success: false,
@@ -23,7 +23,9 @@ const signup = async (req, res) => {
       })
     }
 
-    const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1)
+    const response = await OTP.find({ email: email.toLowerCase() })
+      .sort({ createdAt: -1 })
+      .limit(1)
     if (response.length === 0 || otp !== response[0].otp) {
       return res.status(400).json({
         success: false,
@@ -42,7 +44,7 @@ const signup = async (req, res) => {
     }
     const newUser = await User.create({
       name,
-      email,
+      email: email.toLowerCase(),
       phone,
       password: hashedPassword,
       designation: getUserType(email) || 'other'
@@ -61,7 +63,7 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   const { email, password } = req.body
   try {
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email: email.toLowerCase() })
     if (!user) {
       return res.status(404).json({ error: 'User not found' })
     }
@@ -113,7 +115,9 @@ const update = async (req, res) => {
         message: 'All fields are required'
       })
     }
-    const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1)
+    const response = await OTP.find({ email: email.toLowerCase() })
+      .sort({ createdAt: -1 })
+      .limit(1)
 
     if (response.length === 0 || otp !== response[0].otp) {
       console.log('otp error')
@@ -133,7 +137,7 @@ const update = async (req, res) => {
       })
     }
 
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email: email.toLowerCase() })
 
     if (!user) {
       console.log('user error')

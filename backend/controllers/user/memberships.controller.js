@@ -33,7 +33,7 @@ const saveMembership = async (req, res) => {
 
     const memtype = jsonData.payInstrument.extras.udf1
     const userId = jsonData.payInstrument.extras.udf2
-    const email = jsonData.payInstrument.custDetails.custEmail
+    const email = jsonData.payInstrument.custDetails.custEmail.toLowerCase()
     const txnId = jsonData.payInstrument.merchDetails.merchTxnId
     const anyMems = await Membership.find({
       user: userId,
@@ -61,7 +61,7 @@ const saveMembership = async (req, res) => {
     })
     const savedusermem = await newusermem.save()
     console.log('Usermem details saved:', savedusermem)
-    await membershipMail(memtype, email)
+    await membershipMail(memtype, email.toLowerCase())
     return res.redirect(`${process.env.FRONTEND_URL}/home?success_payment=true`)
   } catch (error) {
     console.error('Error saving Usermem:', error)

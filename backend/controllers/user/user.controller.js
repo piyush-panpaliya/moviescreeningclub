@@ -23,7 +23,7 @@ const fetchUsers = async (req, res) => {
 const updateUserType = async (req, res) => {
   try {
     const { email, userType } = req.body
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email: email.toLowerCase() })
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' })
@@ -42,7 +42,7 @@ const updateUserType = async (req, res) => {
 const userType = async (req, res) => {
   try {
     const { email } = req.user
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email: email.toLowerCase() })
     if (!user) {
       return res.status(404).json({ error: 'User not found' })
     }
