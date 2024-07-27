@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 
+import { Loading } from '@/components/icons/Loading'
 import { LoginProvider } from '@/components/LoginContext'
 import { MembershipProvider } from '@/components/MembershipContext'
 import AuthenticatedRoute from '@/components/ProtectedRoute'
@@ -21,10 +22,10 @@ import Metrics from '@/routes/Metrics'
 import ModifyMovie from '@/routes/ModifyMovie'
 import Movie from '@/routes/Movie'
 import MyAccount from '@/routes/MyAccount'
-import Scanner from '@/routes/Scanner'
 import Showtime from '@/routes/Showtime'
 import Tickets from '@/routes/Tickets'
 import MovieList from '@/routes/VotePage'
+const Scanner = lazy(() => import('@/routes/Scanner'))
 
 function App() {
   const [popcorns, setPopcorns] = useState([])
@@ -79,7 +80,9 @@ function App() {
                   path="/scanner"
                   element={
                     <AuthenticatedRoute minLevel="ticketvolunteer">
-                      <Scanner />
+                      <Suspense fallback={<Loading />}>
+                        <Scanner />
+                      </Suspense>
                     </AuthenticatedRoute>
                   }
                 />

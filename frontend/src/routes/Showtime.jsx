@@ -80,12 +80,12 @@ const Showtime = () => {
           <p className=" text-center text-2xl font-bold flex items-center gap-2">
             Showtimes{' '}
             {isLocalAdmin && (
-              <div
+              <span
                 className="w-6 h-6 cursor-pointer"
                 onClick={() => setShowAddRow(!showAddRow)}
               >
                 <AddIcons />
-              </div>
+              </span>
             )}
           </p>
           <table className="flex flex-col gap-3">

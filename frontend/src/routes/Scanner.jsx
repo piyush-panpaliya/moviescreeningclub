@@ -219,7 +219,7 @@ export const Scanner = () => {
         name="print_frame"
         width="0"
         height="0"
-        frameborder="0"
+        frameBorder="0"
         src="about:blank"
       ></iframe>
     </div>
