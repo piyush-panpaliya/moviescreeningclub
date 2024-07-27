@@ -29,7 +29,7 @@ const MembershipCard = ({ mem, loading, setLoading }) => {
         returnUrl:
           (import.meta.env.VITE_environment === 'development'
             ? 'http://localhost:8000'
-            : '/api') + '/membership/redirect'
+            : document.location.origin + '/api') + '/membership/redirect'
       }
       let atom = new AtomPaynetz(options, 'uat')
     } catch (err) {
