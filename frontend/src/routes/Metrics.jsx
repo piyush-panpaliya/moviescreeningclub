@@ -81,15 +81,15 @@ const Metrics = () => {
             <strong>Total Amount Collected:</strong> {data.totalAmount}
           </p>
           <table className="w-full">
-            <thead className="bg-white dark:bg-[#141414] capitalize max-sm:text-xs">
+            <thead className="bg-neutral-400 dark:bg-[#323232] capitalize max-sm:text-xs">
               <tr>
-                <th className="px-3">Membership Type</th>
-                <th className="px-3">Count</th>
-                <th className="px-3">Amount</th>
-                <th className="px-3">B-tech</th>
-                <th className="px-3">M-tech/Phd</th>
-                <th className="px-3">Faculty/Staff</th>
-                <th className="px-3">Other</th>
+                <th className="px-3 py-1">Membership Type</th>
+                <th className="px-3 py-1">Count</th>
+                <th className="px-3 py-1">Amount</th>
+                <th className="px-3 py-1">B-tech</th>
+                <th className="px-3 py-1">M-tech/Phd</th>
+                <th className="px-3 py-1">Faculty/Staff</th>
+                <th className="px-3 py-1">Other</th>
               </tr>
             </thead>
             <tbody>

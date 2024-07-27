@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const moment = require('moment')
 
 const QRSchema = new mongoose.Schema({
   user: {

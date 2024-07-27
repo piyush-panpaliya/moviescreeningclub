@@ -1,4 +1,3 @@
-import { ThemeProvider } from '@material-tailwind/react'
 import { NextUIProvider } from '@nextui-org/react'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
@@ -8,9 +7,7 @@ import './index.css'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <NextUIProvider>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <App />
     </NextUIProvider>
   </React.StrictMode>
 )

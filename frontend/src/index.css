@@ -30,39 +30,6 @@ body.dark ::-webkit-scrollbar-thumb {
   border-radius: 4px;
 }
 
-.designation-counts {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-}
-.designation-counts h2 {
-  margin-bottom: 20px;
-  font-size: 1.5rem;
-  text-align: center;
-}
-.designation-counts label {
-  margin-right: 20px;
-}
-.designation-counts select {
-  margin-left: 10px;
-}
-.designation-counts table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-.designation-counts th,
-.designation-counts td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-.designation-counts th {
-  background-color: #f2f2f2;
-}
-.designation-counts tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
 input textarea {
   outline: none !important;
 }
@@ -73,4 +40,17 @@ body {
 input,
 textarea {
   user-select: auto;
+}
+
+.DialogOverlay {
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.DialogContent {
+  transform: translate(-50%, -50%);
+
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.DialogContent:focus {
+  outline: none;
 }
