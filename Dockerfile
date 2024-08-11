@@ -5,6 +5,8 @@ WORKDIR /app
 COPY ./frontend /app/frontend
 COPY ./constants /app/constants
 ENV VITE_environment production
+ENV VITE_PAYEMENT_GATEWAY_URL 'https://payment1.atomtech.in/ots/aipay/auth'
+WORKDIR /app/frontend
 RUN npm i
 RUN npm run build
 
@@ -14,7 +16,7 @@ COPY ./constants /app/constants
 COPY ./backend /app/backend
 WORKDIR /app/backend
 RUN npm i
-COPY --from=build /app/dist /app/frontend/dist
+COPY --from=build /app/frontend/dist /app/frontend/dist
 
 EXPOSE 8000
 CMD ["npm","run", "start"]
