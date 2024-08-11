@@ -87,11 +87,11 @@ const Login = () => {
                 onChange={handleChange}
               />
             </label>
-            <label className="flex flex-col gap-1 rounded-2xl w-full items-end">
+            <label className="flex flex-col gap-1.5 rounded-2xl w-full items-end">
               <p className="flex gap-2 w-full">
                 <span className="details">Password</span>
                 <div
-                  className="flex items-center w-8"
+                  className="flex items-center w-8 cursor-pointer bg-transparent dark:bg-[#781111]/85 rounded-xl"
                   onClick={() => setShowPassword((prevState) => !prevState)}
                 >
                   {showPassword ? <ShowEye /> : <HideEye />}

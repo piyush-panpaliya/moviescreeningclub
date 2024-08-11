@@ -124,7 +124,7 @@ const requestMembership = async (req, res) => {
         },
         payDetails: {
           amount: amount.toString(),
-          product: 'NSE',
+          product: 'MANDI',
           txnCurrency: 'INR'
         },
         custDetails: {

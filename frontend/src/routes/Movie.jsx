@@ -88,11 +88,11 @@ const Movie = () => {
         })
       }
     } catch {
-      if (res.status === 400) {
-        alert(res.data.error)
-      } else {
-        alert('Something went wrong')
-      }
+      Swal.fire({
+        title: 'Error',
+        text: 'Error booking seats',
+        icon: 'error'
+      })
     }
     setLoading(false)
   }

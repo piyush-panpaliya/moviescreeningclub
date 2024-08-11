@@ -30,6 +30,11 @@ const Scanner = lazy(() => import('@/routes/Scanner'))
 function App() {
   const [popcorns, setPopcorns] = useState([])
   useEffect(() => {
+    const script = document.createElement('script')
+    script.src = import.meta.env.VITE_PAYEMENT_GATEWAY_URL + `/?v=${new Date()}`
+    script.async = true
+    document.body.appendChild(script)
+
     setPopcorns(
       Array.from({ length: 7 }, (_, i) => (
         <div
@@ -50,6 +55,9 @@ function App() {
       document.body.classList.add('dark')
     } else {
       document.body.classList.remove('dark')
+    }
+    return () => {
+      document.body.removeChild(script) // Cleanup to avoid multiple instances
     }
   }, [])
   return (
