@@ -6,10 +6,16 @@ const QRSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  free: {
+    type: Boolean,
+    default: false
+  },
   membership: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Membership',
-    required: true
+    required: function () {
+      return !this.free
+    }
   },
   showtime: {
     type: mongoose.Schema.Types.ObjectId,

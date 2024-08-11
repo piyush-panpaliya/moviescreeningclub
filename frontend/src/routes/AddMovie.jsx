@@ -9,6 +9,7 @@ const MovieForm = () => {
     description: '',
     releaseDate: '',
     genre: '',
+    free: false,
     currentscreening: true
   })
 
@@ -19,6 +20,11 @@ const MovieForm = () => {
       setFormData({
         ...formData,
         [e.target.name]: e.target.value === 'Ongoing'
+      })
+    } else if (e.target.name === 'free') {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value === 'Free'
       })
     } else {
       setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -129,6 +135,23 @@ const MovieForm = () => {
               onChange={handleChange}
               required
             />
+          </label>
+          <label
+            htmlFor="free"
+            className="form-label flex w-full flex-col justify-between"
+          >
+            Free:
+            <select
+              id="free"
+              className="max-sm:w-full sm:min-w-[300px] rounded-lg border border-none bg-neutral-100 dark:bg-[#141414] px-4 py-2 sm:max-w-[300px]"
+              name="free"
+              value={formData.free ? 'Free' : 'Paid'}
+              onChange={handleChange}
+              required
+            >
+              <option value="Free">Free</option>
+              <option value="Paid">Paid</option>
+            </select>
           </label>
           <label
             htmlFor="currentscreening"

@@ -68,7 +68,8 @@ const Tickets = () => {
                           'en-IN'
                         )} - ${ticket.seat}</p><img src=${ticket.qrData} alt="qr code" style="height:40vh;width:40vh" />`,
 
-                        icon: 'info'
+                        icon: 'info',
+                        backdrop: '#0e0e0eff'
                       })
                     }}
                     className="flex flex-col items-center gap-3 rounded-lg bg-white dark:bg-[#212121] p-4 shadow-md sm:flex-row"

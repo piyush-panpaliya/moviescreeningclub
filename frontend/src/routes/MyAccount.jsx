@@ -1,6 +1,5 @@
 import { useLogin } from '@/components/LoginContext'
 import { useMembershipContext } from '@/components/MembershipContext'
-import { api } from '@/utils/api'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -36,18 +35,18 @@ const Myaccount = () => {
     }
   }
 
-  const suspendMembership = async () => {
-    try {
-      const res = await api.put(`/membership/suspend`, {
-        id: currentMembership._id
-      })
-      if (res.status === 200) {
-        checkMembershipStatus()
-      }
-    } catch (error) {
-      console.error('Error suspending membership:', error)
-    }
-  }
+  // const suspendMembership = async () => {
+  //   try {
+  //     const res = await api.put(`/membership/suspend`, {
+  //       id: currentMembership._id
+  //     })
+  //     if (res.status === 200) {
+  //       checkMembershipStatus()
+  //     }
+  //   } catch (error) {
+  //     console.error('Error suspending membership:', error)
+  //   }
+  // }
 
   const toTitleCase = (str) => {
     console.log(str)

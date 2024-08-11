@@ -3,10 +3,10 @@ import { useLogin } from '@/components/LoginContext'
 import { useMembershipContext } from '@/components/MembershipContext'
 import { api } from '@/utils/api'
 import { getUserType } from '@/utils/user'
-import { memData } from '@constants/memberships'
 import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import memData from '../../../constants/memberships.json'
 
 const MembershipCard = ({ mem, loading, setLoading }) => {
   const { user } = useLogin()

@@ -91,10 +91,20 @@ export const Scanner = () => {
         return printTicket(data)
       }
       if (data && data.exists && data.used) {
-        return alert('QR code already used')
+        Swal.fire({
+          title: 'Error',
+          text: 'QR code already used',
+          icon: 'error'
+        })
+        return
       }
       if (data && data.exists && data.validityPassed) {
-        return alert('Validity of this QR has expired')
+        Swal.fire({
+          title: 'Error',
+          text: 'Validity of this QR has expired',
+          icon: 'error'
+        })
+        return
       }
     } catch (error) {
       console.error('Error fetching data:', error)

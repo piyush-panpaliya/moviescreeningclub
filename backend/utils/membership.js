@@ -1,4 +1,4 @@
-const { memData } = require('@constants/memberships')
+const memData = require('@constants/memberships.json')
 const { getUserType } = require('@/utils/user')
 
 const getAmount = (membership, email) => {

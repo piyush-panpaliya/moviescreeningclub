@@ -17,7 +17,7 @@
 			<stop  offset="1" style="stop-color:#F0EDEC"/>
 		</radialGradient>
 		
-			<rect x="-66" y="-64" style="clip-path:url(#SVGID_00000067922034302810337870000007088681996724268687_);fill:url(#SVGID_00000150102361557333806550000002439310770989402779_);" width="936" height="936"/>
+			<rect x="-66" y="-64" style="clipPath:url(#SVGID_00000067922034302810337870000007088681996724268687_);fill:url(#SVGID_00000150102361557333806550000002439310770989402779_);" width="936" height="936"/>
 	</g>
 </g>
 <g id="OBJECTS">
