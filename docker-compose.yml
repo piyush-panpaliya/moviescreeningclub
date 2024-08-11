@@ -8,4 +8,4 @@ services:
     env_file:
       - prod.env
     ports:
-      - '13340:5000'
+      - '13340:8000'
