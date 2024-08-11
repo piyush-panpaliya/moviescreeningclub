@@ -1,3 +1,4 @@
+import { Loading } from '@/components/icons/Loading'
 import { useLogin } from '@/components/LoginContext'
 import { useMembershipContext } from '@/components/MembershipContext'
 import MovieCard from '@/components/MovieCard'
@@ -38,7 +39,6 @@ const Movie = () => {
   const [selectedSeats, setSelectedSeats] = useState([])
   const [showtime, setShowtime] = useState(null)
   const movieId = new URLSearchParams(location.search).get('movieId')
-
   const fetchSeats = async (showtimeId) => {
     const res = await api.get(`/seatmap/${showtimeId}`)
     setSeats(res.data)
@@ -61,8 +61,12 @@ const Movie = () => {
       }
     })()
   }, [])
-  const maxAllowed =
-    memberships?.filter((membership) => membership.isValid)[0]?.availQR ?? 0
+  if (!movie) {
+    return <Loading />
+  }
+  const maxAllowed = movie.free
+    ? 1
+    : (memberships?.filter((membership) => membership.isValid)[0]?.availQR ?? 0)
   const bookSeats = async () => {
     console.log(selectedSeats)
     try {
@@ -70,9 +74,18 @@ const Movie = () => {
       const res = await api.put(`/seatmap/${showtime}`, {
         seats: selectedSeats
       })
-      if (res.status === 200) {
+      if (
+        res.status === 200 &&
+        res.data.some((seat) => seat.message === 'Seat assigned')
+      ) {
         checkMembershipStatus()
         navigate('/tickets')
+      } else {
+        Swal.fire({
+          title: 'Error',
+          html: `<p>Error booking seats</p> ${res.data.map((seat) => `<p>${seat.seat}: ${seat.message}</p>`).join('')}`,
+          icon: 'error'
+        })
       }
     } catch {
       if (res.status === 400) {
@@ -86,7 +99,7 @@ const Movie = () => {
 
   const BottomBar = () =>
     selectedSeats.length > 0 &&
-    hasMembership && (
+    (hasMembership || movie.free) && (
       <div className="sticky bottom-0 z-[1200] flex w-full flex-col items-center justify-between gap-2 bg-white dark:bg-[#141414] p-2 drop-shadow-2xl sm:flex-row sm:pr-8">
         {!!selectedSeats.length && (
           <p className="text-xl font-bold">
@@ -199,7 +212,7 @@ const Movie = () => {
         </div>
       </div>
       <BottomBar />
-      {!hasMembership && (
+      {!hasMembership && !movie.free && (
         <div className="sticky bottom-0 z-[1200] flex w-full flex-col items-center justify-between gap-2 bg-white dark:bg-[#141414] p-2 drop-shadow-2xl sm:flex-row sm:pr-8">
           <p className="text-xl">
             No membership found. Please buy a membership to book tickets
@@ -208,7 +221,7 @@ const Movie = () => {
             to="/buy"
             className="rounded-md bg-green-600 p-2 text-xl text-white"
           >
-            'Buy'
+            Buy
           </Link>
         </div>
       )}

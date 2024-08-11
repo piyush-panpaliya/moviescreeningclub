@@ -1,6 +1,6 @@
 const Membership = require('@/models/membership.model')
 const User = require('@/models/user/user.model')
-const { memData } = require('@constants/memberships')
+const memData = require('@constants/memberships.json')
 const crypto = require('crypto')
 const { membershipMail } = require('@/utils/mail')
 const { getAmount } = require('@/utils/membership')

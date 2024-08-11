@@ -9,7 +9,8 @@ const addMovie = (req, res) => {
     releaseDate,
     genre,
     trailer,
-    currentscreening
+    currentscreening,
+    free
   } = req.body
   const newMovie = new Movie({
     title,
@@ -18,7 +19,8 @@ const addMovie = (req, res) => {
     releaseDate,
     genre,
     trailer,
-    currentscreening
+    currentscreening,
+    free
   })
   newMovie
     .save()
@@ -69,18 +71,15 @@ const getMovieById = async (req, res) => {
     if (!movie) {
       return res.status(404).json({ error: 'Movie not found' })
     }
-    if (movie.showtimes.some((showtime) => showtime.date < new Date())) {
-      const showsToRemove = movie.showtimes.filter(
-        (showtime) => showtime.date < new Date() - 3 * 60 * 60 * 1000
-      )
-      movie.showtimes = movie.showtimes.filter(
-        (showtime) => showtime.date >= new Date()
-      )
-      await SeatMap.deleteMany({
-        showtimeId: { $in: showsToRemove.map((showtime) => showtime._id) }
-      })
-      await movie.save()
-    }
+    movie.showtimes = movie.showtimes.filter(
+      (showtime) => showtime.date >= new Date()
+    )
+    // previously removing old showtimes but now keeping them but not showing to users
+    // await SeatMap.deleteMany({
+    //   showtimeId: { $in: showsToRemove.map((showtime) => showtime._id) }
+    // })
+    // await movie.save()
+
     if (!isAllowedLvl('movievolunteer', user?.usertype || 'standard')) {
       res.header('Cache-Control', 'public, max-age=10, s-maxage=0')
     }

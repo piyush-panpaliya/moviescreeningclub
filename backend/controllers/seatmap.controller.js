@@ -57,23 +57,7 @@ const seatAssign = async (req, res) => {
     if (!seatMap) {
       return res.status(400).json({ error: 'Invalid showtime' })
     }
-    const currentMembership = await Membership.findOne({
-      user: req.user.userId,
-      isValid: true
-    })
-    if (!currentMembership) {
-      return res.status(400).json({ error: 'no active membership' })
-    }
-    if (currentMembership.validitydate < new Date()) {
-      currentMembership.isValid = false
-      await currentMembership.save()
-      return res.status(400).json({ error: 'no active membership' })
-    }
-    if (currentMembership.availQR < seats.length) {
-      return res
-        .status(400)
-        .json({ error: 'No valid membership or not enough passes left' })
-    }
+
     const movie = await Movie.findOne({ 'showtimes._id': showtimeId })
     if (!movie) {
       return res.status(400).json({ error: 'Invalid showtime' })
@@ -98,30 +82,37 @@ const seatAssign = async (req, res) => {
       await movie.save()
       return res.status(400).json({ error: 'Invalid showtime' })
     }
-
+    const currentMembership = await Membership.findOne({
+      user: req.user.userId,
+      isValid: true
+    })
     for (seat of seats) {
       if (!seatMap.seats.has(seat)) {
         return res.status(400).json({ error: 'Invalid seat(s)' })
       }
     }
-
     let seatRes = []
-    for (let seat of seats) {
-      if (seatMap.seats.get(seat)) {
-        seatRes.push({
-          seat: seat,
-          message: 'Seat already assigned'
-        })
-        continue
+    if (movie.free) {
+      if (seats.length > 1) {
+        return res.status(400).json({ error: 'Only one seat allowed' })
       }
-
+      const seat = seats[0]
+      const anyTicket = await QR.findOne({
+        showtime: { $in: movie.showtimes.map((showtime) => showtime._id) },
+        free: true,
+        user: req.user.userId
+      })
+      if (anyTicket) {
+        return res.status(400).json({ error: 'Already booked a free ticket' })
+      }
       const qr = new QR({
+        free: true,
         user: req.user.userId,
-        membership: currentMembership._id,
-        txnId: currentMembership.txnId,
+        txnId: 'free',
         seat: seat,
         showtime: showtimeId,
         code: '',
+        membership: null,
         expirationDate: new Date(
           new Date(showtime.date).getTime() + 3 * 60 * 60 * 1000
         )
@@ -138,9 +129,9 @@ const seatAssign = async (req, res) => {
       qr.code = code
       seatMap.seats.set(seat, qr._id)
       try {
-        await seatMap.save()
         await qr.save()
-        currentMembership.availQR -= 1
+        await seatMap.save()
+        console.log(qr)
         seatRes.push({
           seat: seat,
           qrId: qr._id,
@@ -153,11 +144,75 @@ const seatAssign = async (req, res) => {
           message: 'Error assigning seat'
         })
       }
+    } else {
+      if (!currentMembership) {
+        return res.status(400).json({ error: 'no active membership' })
+      }
+      if (currentMembership.validitydate < new Date()) {
+        currentMembership.isValid = false
+        await currentMembership.save()
+        return res.status(400).json({ error: 'no active membership' })
+      }
+      if (currentMembership.availQR < seats.length) {
+        return res
+          .status(400)
+          .json({ error: 'No valid membership or not enough passes left' })
+      }
+      for (let seat of seats) {
+        if (seatMap.seats.get(seat)) {
+          seatRes.push({
+            seat: seat,
+            message: 'Seat already assigned'
+          })
+          continue
+        }
+
+        const qr = new QR({
+          user: req.user.userId,
+          membership: currentMembership._id,
+          txnId: currentMembership.txnId,
+          seat: seat,
+          showtime: showtimeId,
+          code: '',
+          expirationDate: new Date(
+            new Date(showtime.date).getTime() + 3 * 60 * 60 * 1000
+          )
+        })
+        const code = jwt.sign(
+          {
+            userId: req.user.userId,
+            qrId: qr._id,
+            seat: seat,
+            hash: crypto.randomBytes(16).toString('hex')
+          },
+          process.env.JWT_SECRET_QR || 'lolbhai'
+        )
+        qr.code = code
+        seatMap.seats.set(seat, qr._id)
+        try {
+          await seatMap.save()
+          await qr.save()
+          currentMembership.availQR -= 1
+          seatRes.push({
+            seat: seat,
+            qrId: qr._id,
+            code: qr.code,
+            message: 'Seat assigned'
+          })
+        } catch (error) {
+          seatRes.push({
+            seat: seat,
+            message: 'Error assigning seat'
+          })
+        }
+      }
     }
-    if (currentMembership.availQR === 0) {
-      currentMembership.isValid = false
+    if (currentMembership) {
+      if (currentMembership.availQR === 0) {
+        currentMembership.isValid = false
+      }
+      await currentMembership.save()
     }
-    await currentMembership.save()
 
     if (seatRes.length === 0) {
       return res.status(400).json({ error: 'Error assigning seats' })

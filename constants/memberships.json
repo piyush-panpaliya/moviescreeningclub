@@ -1,0 +1,94 @@
+[
+	{
+		"name": "base",
+		"price": [
+			{
+				"type": "btech",
+				"price": 100
+			},
+			{
+				"type": "mtech/phd",
+				"price": 110
+			},
+			{
+				"type": "faculty/staff",
+				"price": 120
+			},
+			{
+				"type": "other",
+				"price": 200
+			}
+		],
+		"validity": 864000,
+		"availQR": 1
+	},
+	{
+		"name": "silver",
+		"price": [
+			{
+				"type": "btech",
+				"price": 200
+			},
+			{
+				"type": "mtech/phd",
+				"price": 220
+			},
+			{
+				"type": "faculty/staff",
+				"price": 240
+			},
+			{
+				"type": "other",
+				"price": 380
+			}
+		],
+		"validity": 2592000,
+		"availQR": 2
+	},
+	{
+		"name": "gold",
+		"price": [
+			{
+				"type": "btech",
+				"price": 300
+			},
+			{
+				"type": "mtech/phd",
+				"price": 330
+			},
+			{
+				"type": "faculty/staff",
+				"price": 360
+			},
+			{
+				"type": "other",
+				"price": 540
+			}
+		],
+		"validity": 7776000,
+		"availQR": 3
+	},
+	{
+		"name": "diamond",
+		"price": [
+			{
+				"type": "btech",
+				"price": 400
+			},
+			{
+				"type": "mtech/phd",
+				"price": 440
+			},
+			{
+				"type": "faculty/staff",
+				"price": 480
+			},
+			{
+				"type": "other",
+				"price": 680
+			}
+		],
+		"validity": 31536000,
+		"availQR": 4
+	}
+]

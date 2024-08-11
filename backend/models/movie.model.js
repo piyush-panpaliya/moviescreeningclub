@@ -15,6 +15,10 @@ const MovieSchema = new mongoose.Schema({
   showtimes: {
     type: [ShowtimeSchema]
   },
+  free: {
+    type: Boolean,
+    default: false
+  },
   trailer: { type: String }
 })
 

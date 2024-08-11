@@ -8,7 +8,6 @@ import {
 import { isAllowedLvl } from '@/utils/levelCheck'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Logo from '../images/logo2.jpg'
 import { useLogin } from './LoginContext'
 import { useMembershipContext } from './MembershipContext'
 const Navbar = () => {
@@ -47,7 +46,16 @@ const Navbar = () => {
   return (
     <nav className="relative top-0 z-20 flex w-full items-center justify-between bg-[#FFFEF9] dark:bg-[#141414] px-4 py-3   md:sticky">
       <Link to="/" className="flex items-center gap-2">
-        <img className="h-12 w-auto" src={Logo} alt="Movies" />
+        <img
+          className="h-12 w-auto block dark:hidden"
+          src="/images/logo.png"
+          alt="Movies"
+        />
+        <img
+          className="h-12 w-auto hidden dark:block"
+          src="/images/logo-dark.png"
+          alt="Movies"
+        />
         <p className="font-bn text-[30px] font-bold text-red-600">CHALCHITRA</p>
       </Link>
       <div className="flex items-center gap-2">
@@ -93,7 +101,7 @@ const Navbar = () => {
         <div className="flex items-center">
           <button
             onClick={toggleMenu}
-            className="flex items-center justify-center rounded-md p-1  transition duration-150 ease-in-out hover:bg-gray-200 dark:hover:bg-zinc-800 focus:bg-gray-300 dark:focus:bg-gray-700 focus:outline-none"
+            className="flex items-center justify-center rounded-md p-1  transition duration-150 ease-in-out hover:bg-gray-200 dark:hover:bg-zinc-800 focus:outline-none"
           >
             <MenuIcon />
           </button>

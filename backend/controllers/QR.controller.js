@@ -27,7 +27,6 @@ const getQRs = async (req, res) => {
           })
         } else {
           const movie = await Movie.findOne({ 'showtimes._id': qr.showtime })
-          console.log(movie, qr.showtime)
 
           resQr.unused.push({
             qrData: await QRCode.toDataURL(qr.code),
@@ -102,7 +101,6 @@ const check = async (req, res) => {
     }
     qr.used = true
     await qr.save()
-    console.log(qr.showtime)
     const movie = await Movie.findOne({ 'showtimes._id': qr.showtime })
     return res.json({
       exists: true,
