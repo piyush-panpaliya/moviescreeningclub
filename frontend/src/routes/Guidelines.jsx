@@ -62,8 +62,9 @@ export default function Guidelines() {
       <span className="border-b-2">
         <p className="ml-4">
           6. Various membership plans are available to suit your preferences,
-          each offering a specific number of tickets and validity. Select the
-          plan that fits your needs.
+          the price for each membership differ for the UG, PG and Faculty
+          members, each offering a specific number of tickets and validity.
+          Select the plan that fits your needs.
         </p>
         <div className="my-3 flex justify-center">
           <img src="/images/guide2img5.png" alt="not found" />
@@ -81,7 +82,7 @@ export default function Guidelines() {
       <span className="border-b-2">
         <p className="ml-4">
           8. Once you have successfully made the payment on the payment gateway,
-          you will get to the success page shown below and then you would be
+          you will get to see the success page shown below and then you would be
           redirected to the home page again.
         </p>
         <div className="my-3 flex flex-col items-center gap-3">
@@ -90,13 +91,13 @@ export default function Guidelines() {
       </span>
       <span className="border-b-2">
         <p className="ml-4">
-          8. To reserve a seat, navigate to the movie which you want to watch.
-          {/* &quot;Book Seat&quot; option and
-          click on it. Now, below the &quot;Actions&quot; tab, select the
-          proceed button. This will reveal the seating arrangement within the
-          Auditorium. Choose your preferred seat and confirm your selection by
-          clicking the proceed button. A confirmation email containing a QR code
-          will be dispatched to your registered email address. */}
+          9. To reserve a seat, navigate to the movie which you want to watch.
+          If it is mentioned below the poster that the movie is &quot;FREE&quot;
+          then you will not loose any passes for reserving a seat in that
+          particular movie. UG students can reserve a single seat for themselves
+          in any free show, PG students can reserve two seats for themselves or
+          their family members in any free show and Faculty/Staff members can
+          reserve 4 seats for themselves or their family members in a free show.
         </p>
         <div className="my-3 flex flex-col items-center gap-3">
           <img src="/images/guide2img9_1.png" alt="not found" />
@@ -104,7 +105,7 @@ export default function Guidelines() {
       </span>
       <span>
         <p className="ml-4">
-          9.Navigate to the showtime at which you want to enjoy the movie and
+          10.Navigate to the showtime at which you want to enjoy the movie and
           you can also see the number of passes left in your account here.
           {/* The QR code included in the email will be verified at the counter
           outside the auditorium on the day of the screening. Once verified,
@@ -117,12 +118,11 @@ export default function Guidelines() {
       </span>
       <span className="mb-10">
         <p className="ml-4">
-          10. Now, you need to scroll below to reveal the seating arrangement
+          11. Now, you need to scroll below to reveal the seating arrangement
           within the Auditorium for that particular showtime. Choose your
           preferred seats within the limit of number of available passes in your
           account and confirm your selection by clicking the &quot;Book&quot;
-          button. A confirmation email containing a QR code will be dispatched
-          to your registered email address.
+          button.
         </p>
         <div className="my-3 flex flex-col items-center gap-3">
           <img src="/images/guide2img11_1.png" alt="not found" />
@@ -130,8 +130,9 @@ export default function Guidelines() {
       </span>
       <span className="mb-10">
         <p className="ml-4">
-          11.Confirm the seats that you have chosen by clicking on
-          &quot;Yes&quot;.
+          12.Confirm the seats that you have chosen by clicking on
+          &quot;Yes&quot;. A confirmation email containing some QR codes will be
+          dispatched to your registered email address.
         </p>
         <div className="my-3 flex flex-col items-center gap-3">
           <img src="/images/guide2img12.png" alt="not found" />
@@ -139,7 +140,7 @@ export default function Guidelines() {
       </span>
       <span className="mb-10">
         <p className="ml-4">
-          12. Go to the My Tickets page from the Navbar to view all the Tickets
+          13. Go to the My Tickets page from the Navbar to view all the Tickets
           that you have purchased earlier.
         </p>
         <div className="my-3 flex flex-col items-center gap-3">
@@ -148,7 +149,7 @@ export default function Guidelines() {
       </span>
       <span className="mb-10">
         <p className="ml-4">
-          13. The tickets that you purchased just now and have not seen the
+          14. The tickets that you purchased just now and have not seen the
           movie with them are listed under the &quot;Upcoming Tickets&quot;
           section with a QR embedded inside them which would be scanned by our
           volunteer to permit you inside the venue, and after the tickets gets
@@ -163,7 +164,7 @@ export default function Guidelines() {
       </span>
       <span className="mb-10">
         <p className="ml-4">
-          14. You can navigate to the &quot;Vote Page&quot; from the Navbar
+          15. You can navigate to the &quot;Vote Page&quot; from the Navbar
           menu, to vote for the movies you would like us to screen at the
           auditorium for you all.
         </p>
@@ -173,7 +174,7 @@ export default function Guidelines() {
       </span>
       <span className="mb-10">
         <p className="ml-4">
-          15. Once you have casted your vote for a movie you can not change it
+          16. Once you have casted your vote for a movie you can not change it
           and you can only cast your vote once for a single movie either in
           &quot;Yes&quot; or &quot;No&quot;. The live voting status will be
           shown there on the Vote Page to all.
@@ -184,13 +185,10 @@ export default function Guidelines() {
       </span>
       <span className="mb-10">
         <p className="ml-4">
-          16. Now, you&lsquo;re all set to enjoy the movie screening! Remember
+          17. Now, you&lsquo;re all set to enjoy the movie screening! Remember
           to adhere to the rules and regulations outlined in the confirmation
           email for a seamless experience.
         </p>
-        <div className="my-3 flex flex-col items-center gap-3">
-          <img src="/images/guide2img11_1.png" alt="not found" />
-        </div>
       </span>
     </div>
   )
