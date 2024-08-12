@@ -124,7 +124,7 @@ const requestMembership = async (req, res) => {
         },
         payDetails: {
           amount: amount.toString(),
-          product: 'MANDI',
+          product: process.env.PROD_NAME || 'ONE',
           txnCurrency: 'INR'
         },
         custDetails: {
@@ -156,7 +156,7 @@ const requestMembership = async (req, res) => {
         }
       }
     )
-    if (resFromGateway.status !== 200 || resFromGateway.data.includes('503')) {
+    if (resFromGateway.status !== 200) {
       return res
         .status(500)
         .json({ error: 'Internal server error or Payment Gateway down' })

@@ -4,8 +4,8 @@ FROM base AS build
 WORKDIR /app
 COPY ./frontend /app/frontend
 COPY ./constants /app/constants
-ENV VITE_environment production
-ENV VITE_PAYEMENT_GATEWAY_URL 'https://payment1.atomtech.in/ots/aipay/auth'
+ENV VITE_environment 'production'
+ENV VITE_PAYEMENT_GATEWAY_URL 'https://psa.atomtech.in/staticdata/ots/js/atomcheckout.js'
 WORKDIR /app/frontend
 RUN npm i
 RUN npm run build
