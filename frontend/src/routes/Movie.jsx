@@ -167,8 +167,8 @@ const Movie = () => {
                 ></span>
                 <span className="text-md">Seat Not Booked Yet</span>
               </div>
-              <p className="mt-2 text-sm">
-                <span className="font-bold">Available Seats: </span>{' '}
+              <p className="mt-2 text-md">
+                <span className="font-bold">No. of Passes Left: </span>{' '}
                 {maxAllowed}
               </p>
             </div>
