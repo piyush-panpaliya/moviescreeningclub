@@ -45,11 +45,35 @@ const seatOccupancy = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' })
   }
 }
+const freepasses = async (req, res) => {
+  try {
+    const { showtimeId } = req.params
+
+    const movie = await Movie.findOne({ 'showtimes._id': showtimeId })
+
+    if (!movie) {
+      return res.status(400).json({ error: 'Invalid showtime' })
+    }
+
+    // Calculate the number of free passes left
+    const count = await QR.countDocuments({
+      showtime: {
+        $in: movie.showtimes.map((showtime) => showtime._id)
+      },
+      free: true,
+      user: req.user.userId
+    })
+    return res.status(200).json({ count })
+  } catch (error) {
+    console.error('Error calculating number of free seats left:', error)
+    return res.status(500).json({ error: 'Internal server error' })
+  }
+}
 
 const seatAssign = async (req, res) => {
   try {
     const { showtimeId } = req.params
-    const { seats } = req.body
+    const { seats, userDesignation } = req.body
     if (!seats || !seats.length) {
       return res.status(400).json({ error: 'No seats provided' })
     }
@@ -93,56 +117,181 @@ const seatAssign = async (req, res) => {
     }
     let seatRes = []
     if (movie.free) {
-      if (seats.length > 1) {
-        return res.status(400).json({ error: 'Only one seat allowed' })
-      }
-      const seat = seats[0]
-      const anyTicket = await QR.findOne({
-        showtime: { $in: movie.showtimes.map((showtime) => showtime._id) },
-        free: true,
-        user: req.user.userId
-      })
-      if (anyTicket) {
-        return res.status(400).json({ error: 'Already booked a free ticket' })
-      }
-      const qr = new QR({
-        free: true,
-        user: req.user.userId,
-        txnId: 'free',
-        seat: seat,
-        showtime: showtimeId,
-        code: '',
-        membership: null,
-        expirationDate: new Date(
-          new Date(showtime.date).getTime() + 3 * 60 * 60 * 1000
+      if (userDesignation === 'btech') {
+        if (seats.length > 1) {
+          return res.status(400).json({ error: 'Only one seat allowed' })
+        }
+        const seat = seats[0]
+        const anyTicket = await QR.findOne({
+          showtime: {
+            $in: movie.showtimes.map((showtime) => showtime._id)
+          },
+          free: true,
+          user: req.user.userId
+        })
+        if (anyTicket) {
+          return res.status(400).json({ error: 'Already booked a free ticket' })
+        }
+        const qr = new QR({
+          free: true,
+          user: req.user.userId,
+          txnId: 'free',
+          seat: seat,
+          showtime: showtimeId,
+          code: '',
+          membership: null,
+          expirationDate: new Date(
+            new Date(showtime.date).getTime() + 3 * 60 * 60 * 1000
+          )
+        })
+        const code = jwt.sign(
+          {
+            userId: req.user.userId,
+            qrId: qr._id,
+            seat: seat,
+            hash: crypto.randomBytes(16).toString('hex')
+          },
+          process.env.JWT_SECRET_QR || 'lolbhai'
         )
-      })
-      const code = jwt.sign(
-        {
-          userId: req.user.userId,
-          qrId: qr._id,
-          seat: seat,
-          hash: crypto.randomBytes(16).toString('hex')
-        },
-        process.env.JWT_SECRET_QR || 'lolbhai'
-      )
-      qr.code = code
-      seatMap.seats.set(seat, qr._id)
-      try {
-        await qr.save()
-        await seatMap.save()
-        console.log(qr)
-        seatRes.push({
-          seat: seat,
-          qrId: qr._id,
-          code: qr.code,
-          message: 'Seat assigned'
+        qr.code = code
+        seatMap.seats.set(seat, qr._id)
+        try {
+          await qr.save()
+          await seatMap.save()
+          console.log(qr)
+          seatRes.push({
+            seat: seat,
+            qrId: qr._id,
+            code: qr.code,
+            message: 'Seat assigned'
+          })
+        } catch (error) {
+          seatRes.push({
+            seat: seat,
+            message: 'Error assigning seat'
+          })
+        }
+      }
+      if (userDesignation === 'mtech / phd') {
+        if (seats.length > 2) {
+          return res.status(400).json({ error: 'Only two seat allowed' })
+        }
+        const seat = seats[0]
+        const anyTicket = await QR.countDocuments({
+          showtime: {
+            $in: movie.showtimes.map((showtime) => showtime._id)
+          },
+          free: true,
+          user: req.user.userId
         })
-      } catch (error) {
-        seatRes.push({
-          seat: seat,
-          message: 'Error assigning seat'
+
+        if (anyTicket > 2 - seats.length) {
+          return res
+            .status(400)
+            .json({ error: 'Already booked 4 or more free tickets' })
+        }
+        for (let seat of seats) {
+          const qr = new QR({
+            free: true,
+            user: req.user.userId,
+            txnId: 'free',
+            seat: seat,
+            showtime: showtimeId,
+            code: '',
+            membership: null,
+            expirationDate: new Date(
+              new Date(showtime.date).getTime() + 3 * 60 * 60 * 1000
+            )
+          })
+          const code = jwt.sign(
+            {
+              userId: req.user.userId,
+              qrId: qr._id,
+              seat: seat,
+              hash: crypto.randomBytes(16).toString('hex')
+            },
+            process.env.JWT_SECRET_QR || 'lolbhai'
+          )
+          qr.code = code
+          seatMap.seats.set(seat, qr._id)
+          try {
+            await qr.save()
+            await seatMap.save()
+            console.log(qr)
+            seatRes.push({
+              seat: seat,
+              qrId: qr._id,
+              code: qr.code,
+              message: 'Seat assigned'
+            })
+          } catch (error) {
+            seatRes.push({
+              seat: seat,
+              message: 'Error assigning seat'
+            })
+          }
+        }
+      }
+      if (userDesignation === 'faculty/staff') {
+        if (seats.length > 4) {
+          return res.status(400).json({ error: 'Only one seat allowed' })
+        }
+        const seat = seats[0]
+        const anyTicket = await QR.countDocuments({
+          showtime: {
+            $in: movie.showtimes.map((showtime) => showtime._id)
+          },
+          free: true,
+          user: req.user.userId
         })
+        console.log(anyTicket)
+        console.log(showtime)
+        if (anyTicket > 4 - seats.length) {
+          return res
+            .status(400)
+            .json({ error: 'Already booked 4 or more free tickets' })
+        }
+        for (let seat of seats) {
+          const qr = new QR({
+            free: true,
+            user: req.user.userId,
+            txnId: 'free',
+            seat: seat,
+            showtime: showtimeId,
+            code: '',
+            membership: null,
+            expirationDate: new Date(
+              new Date(showtime.date).getTime() + 3 * 60 * 60 * 1000
+            )
+          })
+          const code = jwt.sign(
+            {
+              userId: req.user.userId,
+              qrId: qr._id,
+              seat: seat,
+              hash: crypto.randomBytes(16).toString('hex')
+            },
+            process.env.JWT_SECRET_QR || 'lolbhai'
+          )
+          qr.code = code
+          seatMap.seats.set(seat, qr._id)
+          try {
+            await qr.save()
+            await seatMap.save()
+            console.log(qr)
+            seatRes.push({
+              seat: seat,
+              qrId: qr._id,
+              code: qr.code,
+              message: 'Seat assigned'
+            })
+          } catch (error) {
+            seatRes.push({
+              seat: seat,
+              message: 'Error assigning seat'
+            })
+          }
+        }
       }
     } else {
       if (!currentMembership) {
@@ -236,4 +385,4 @@ const seatAssign = async (req, res) => {
   }
 }
 
-module.exports = { seatOccupancy, seatAssign }
+module.exports = { seatOccupancy, seatAssign, freepasses }

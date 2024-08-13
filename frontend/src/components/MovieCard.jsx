@@ -24,6 +24,9 @@ const MoieCard = ({ movie, small = true, navigate = false, children }) => {
           {movie.title}
         </p>
         <p className="sm:text-md text-xs">{movie.genre}</p>
+        <p className="sm:text-md text-m font-semibold">
+          {movie.free ? 'Free' : 'Paid'}
+        </p>
         {children}
       </div>
     </Container>
