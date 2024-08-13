@@ -14,7 +14,7 @@ export default function Guidelines() {
           . Once there, proceed by clicking on the &quot;Signup&quot; button,
           and use your institute email id for registration.
         </p>
-        <div className="my-3 flex justify-center">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto ">
           <img src="/images/guide2img1.png" alt="not found" />
         </div>
       </span>
@@ -24,7 +24,7 @@ export default function Guidelines() {
           this website and click &quot;Verify&quot; to get an OTP on your mail
           ID.
         </p>
-        <div className="my-3 flex justify-center">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img2.png" alt="not found" />
         </div>
       </span>
@@ -34,7 +34,7 @@ export default function Guidelines() {
           name, phone number, chosen password, and the received OTP for email
           verification. Upon completion, click &quot;Signup&quot;.
         </p>
-        <div className="my-3 flex justify-center">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img3.png" alt="not found" />
         </div>
       </span>
@@ -55,7 +55,7 @@ export default function Guidelines() {
           on any movie poster to view details about its scheduled dates and
           showtimes. */}
         </p>
-        <div className="my-3 flex justify-center">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img4_1.png" alt="not found" />
         </div>
       </span>
@@ -66,7 +66,7 @@ export default function Guidelines() {
           members, each offering a specific number of tickets and validity.
           Select the plan that fits your needs.
         </p>
-        <div className="my-3 flex justify-center">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img5.png" alt="not found" />
         </div>
       </span>
@@ -75,7 +75,7 @@ export default function Guidelines() {
           7. Make a payment for the desired membership using any of the below
           listed means.
         </p>
-        <div className="my-3 flex flex-col items-center gap-3">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img6.png" alt="not found" />
         </div>
       </span>
@@ -85,7 +85,7 @@ export default function Guidelines() {
           you will get to see the success page shown below and then you would be
           redirected to the home page again.
         </p>
-        <div className="my-3 flex flex-col items-center gap-3">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img7.png" alt="not found" />
         </div>
       </span>
@@ -99,7 +99,7 @@ export default function Guidelines() {
           their family members in any free show and Faculty/Staff members can
           reserve 4 seats for themselves or their family members in a free show.
         </p>
-        <div className="my-3 flex flex-col items-center gap-3">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img9_1.png" alt="not found" />
         </div>
       </span>
@@ -112,7 +112,7 @@ export default function Guidelines() {
           you&lsquo;ll be issued a physical ticket at the counter, granting you
           access to the movie screening. */}
         </p>
-        <div className="my-3 flex flex-col items-center gap-3">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img9_2.png" alt="not found" />
         </div>
       </span>
@@ -124,7 +124,7 @@ export default function Guidelines() {
           account and confirm your selection by clicking the &quot;Book&quot;
           button.
         </p>
-        <div className="my-3 flex flex-col items-center gap-3">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img11_1.png" alt="not found" />
         </div>
       </span>
@@ -132,9 +132,11 @@ export default function Guidelines() {
         <p className="ml-4">
           12.Confirm the seats that you have chosen by clicking on
           &quot;Yes&quot;. A confirmation email containing some QR codes will be
-          dispatched to your registered email address.
+          dispatched to your registered email address. Also you will recieve
+          those QR codes embedded in the form of tickets under &quot;My
+          Tickets&quot; page.
         </p>
-        <div className="my-3 flex flex-col items-center gap-3">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img12.png" alt="not found" />
         </div>
       </span>
@@ -143,7 +145,7 @@ export default function Guidelines() {
           13. Go to the My Tickets page from the Navbar to view all the Tickets
           that you have purchased earlier.
         </p>
-        <div className="my-3 flex flex-col items-center gap-3">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img4_2.png" alt="not found" />
         </div>
       </span>
@@ -151,14 +153,14 @@ export default function Guidelines() {
         <p className="ml-4">
           14. The tickets that you purchased just now and have not seen the
           movie with them are listed under the &quot;Upcoming Tickets&quot;
-          section with a QR embedded inside them which would be scanned by our
-          volunteer to permit you inside the venue, and after the tickets gets
-          scanned by our volunteers they will then appear inside the &quot;Used
-          Tickets&quot; section and the tickets which you have used earlier to
-          watch some movies are listed below the &quot;Expired Tickets&quot;
-          section.
+          section with a QR embedded inside them which would be scanned and you
+          will be given a physical ticket by our volunteer to permit you inside
+          the venue, and after the tickets gets scanned by they will then appear
+          inside the &quot;Used Tickets&quot; section and the tickets which you
+          have used earlier to watch some movies are listed below the
+          &quot;Expired Tickets&quot; section.
         </p>
-        <div className="my-3 flex flex-col items-center gap-3">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img15.png" alt="not found" />
         </div>
       </span>
@@ -168,7 +170,7 @@ export default function Guidelines() {
           menu, to vote for the movies you would like us to screen at the
           auditorium for you all.
         </p>
-        <div className="my-3 flex flex-col items-center gap-3">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img4_4.png" alt="not found" />
         </div>
       </span>
@@ -179,7 +181,7 @@ export default function Guidelines() {
           &quot;Yes&quot; or &quot;No&quot;. The live voting status will be
           shown there on the Vote Page to all.
         </p>
-        <div className="my-3 flex flex-col items-center gap-3">
+        <div className="my-3 flex max-w-screen-md items-center justify-center border-cyan-950 border-5 mx-auto">
           <img src="/images/guide2img17.png" alt="not found" />
         </div>
       </span>
