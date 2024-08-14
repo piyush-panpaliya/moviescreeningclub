@@ -1,62 +1,62 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const QRSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: "User",
+    required: true,
   },
   free: {
     type: Boolean,
-    default: false
+    default: false,
   },
   membership: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Membership',
+    ref: "Membership",
     required: function () {
-      return !this.free
-    }
+      return !this.free;
+    },
   },
   showtime: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: true,
   },
   txnId: {
     type: String,
-    required: true
+    required: true,
   },
   code: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   OTP: {
-    type: String
+    type: String,
   },
   used: {
     type: Boolean,
-    default: false
+    default: false,
   },
   isValid: {
     type: Boolean,
-    default: true
+    default: true,
   },
   seat: {
     type: String,
-    required: true
+    required: true,
   },
   registrationDate: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   expirationDate: {
     type: Date,
-    default: new Date('2100-01-01T12:00:00Z')
-  }
-})
+    default: new Date("2100-01-01T12:00:00Z"),
+  },
+});
 
 if (!mongoose.models.QR) {
-  mongoose.model('QR', QRSchema)
+  mongoose.model("QR", QRSchema);
 }
 
-module.exports = mongoose.models.QR
+module.exports = mongoose.models.QR;

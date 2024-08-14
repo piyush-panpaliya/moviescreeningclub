@@ -25,22 +25,24 @@ const GrpCard = ({ type, movies }) => {
   return (
     <div id={type} className="flex w-4/5 flex-col gap-2">
       <p className="font-bn text-2xl text-[#E40C2B]">{type}</p>
-      <div className="grid grid-cols-2 gap-4 rounded-xl bg-white dark:bg-[#212121] p-4 sm:gap-6 sm:p-6 md:grid-cols-3 xl:grid-cols-4">
-        {movies.slice(0, showMore ? movies.length : limit).map((movie, i) => (
-          <MoieCard movie={movie} key={i} navigate />
-        ))}
+      <div className="rounded-xl flex flex-col items-center gap-2 bg-white dark:bg-[#212121] p-4 sm:gap-6 sm:p-6">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
+          {movies.slice(0, showMore ? movies.length : limit).map((movie, i) => (
+            <MoieCard movie={movie} key={i} navigate />
+          ))}
+        </div>
+        {movies.length > limit && (
+          <p
+            className="w-fit font-inter cursor-pointer text-center text-sm hover:bg-gray-200 dark:hover:bg-gray-900 p-2 rounded-xl"
+            onClick={() => {
+              setShowMore(!showMore)
+              showMore && scrollToElement(type, 120)
+            }}
+          >
+            {showMore ? 'Show Less' : 'Show More'}
+          </p>
+        )}
       </div>
-      {movies.length > limit && (
-        <p
-          className="font-inter cursor-pointer text-center text-sm"
-          onClick={() => {
-            setShowMore(!showMore)
-            showMore && scrollToElement(type, 120)
-          }}
-        >
-          {showMore ? 'Show Less' : 'Show More'}
-        </p>
-      )}
     </div>
   )
 }

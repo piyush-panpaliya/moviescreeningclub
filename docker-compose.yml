@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 services:
   app:
     build:
@@ -8,4 +8,4 @@ services:
     env_file:
       - prod.env
     ports:
-      - '13340:8000'
+      - "13340:8000"

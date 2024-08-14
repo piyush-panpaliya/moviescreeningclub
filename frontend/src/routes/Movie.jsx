@@ -157,7 +157,9 @@ const Movie = () => {
         <div className="flex w-full max-sm:flex-col justify-between items-center sm:items-start gap-6 p-4">
           <div className="w-[50vw] sm:w-[30vw] xl:w-[20vw]">
             <MovieCard movie={movie}>
-              <p className="text-sm mt-1">{movie?.description}</p>
+              <p className="text-sm mt-1 overflow-y-auto hide-scroll">
+                {movie?.description}
+              </p>
             </MovieCard>
           </div>
 
