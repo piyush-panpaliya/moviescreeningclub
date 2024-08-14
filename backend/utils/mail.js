@@ -45,7 +45,7 @@ const mailQRs = async (seats, user, movie, showtime) => {
   const mailOptions = {
     from: process.env.EMAIL,
     to: user.email,
-    subject: 'Seat Booking Confirmation',
+    subject: `${Math.floor(Math.random() * 100)}- Seat Booking Confirmation`,
     html: `
       <body class="bg-zinc-100 dark:bg-zinc-800 text-black dark:">
       <div class="max-w-lg mx-auto p-4" >
@@ -53,7 +53,7 @@ const mailQRs = async (seats, user, movie, showtime) => {
           <div class="flex items-center" style="margin-right: 110px;">
             <div class="mr-4">
               <img
-                src="https://github.com/aryanjain2005/repo1/blob/main/logo2-DANloDCY.jpg?raw=true"
+                src="https://chalchitra.iitmandi.ac.in/images/logo.png"
                 alt="Logo"
                 style="width: 100px; height: 100px;"
               />

@@ -89,8 +89,7 @@ const Movie = () => {
     try {
       setLoading(true)
       const res = await api.put(`/seatmap/${showtime}`, {
-        seats: selectedSeats,
-        userDesignation: userDesignation
+        seats: selectedSeats
       })
       if (
         res.status === 200 &&

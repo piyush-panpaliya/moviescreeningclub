@@ -7,13 +7,18 @@ const MoieCard = ({ movie, small = true, navigate = false, children }) => {
   return (
     <Container
       {...containerProps}
-      className="flex h-full w-full flex-col justify-start gap-2 rounded-xl bg-white dark:bg-[#0C0C0C] shadow-lg dark:shadow-white/30"
+      className="flex h-full w-full flex-col justify-start gap-2 rounded-xl bg-white dark:bg-[#0C0C0C] shadow-lg dark:shadow-white/30 relative"
     >
       <img
-        className="w-full grow rounded-t-xl object-cover"
+        className="w-full grow rounded-t-xl object-cover "
         src={movie.poster}
         alt={movie.title}
       />
+      {movie.free && (
+        <div className="bg-green-600 text-white font-semibold absolute top-0 py-2 px-4 rounded-br-lg rounded-tl-lg">
+          Free
+        </div>
+      )}
       <div
         style={{
           maxHeight: small ? '120px' : 'auto'

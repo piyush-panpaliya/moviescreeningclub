@@ -1,0 +1,18 @@
+[
+  {
+    "type": "btech",
+    "free": 1
+  },
+  {
+    "type": "mtech/phd",
+    "free": 2
+  },
+  {
+    "type": "faculty/staff",
+    "free": 4
+  },
+  {
+    "type": "other",
+    "free": 1
+  }
+]
