@@ -2,8 +2,8 @@ import axios from 'axios'
 
 const baseUrl =
   import.meta.env.VITE_environment === 'development'
-    ? 'http://localhost:8000/api'
-    : '/api'
+    ? 'https://chalchitra.iitmandi.ac.in/api'
+    : 'http://localhost:8000/'
 export const api = axios.create({
   baseURL: baseUrl,
   withCredentials: true
