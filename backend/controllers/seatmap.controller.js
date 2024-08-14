@@ -182,7 +182,6 @@ const seatAssign = async (req, res) => {
           { new: true }
         )
         if (updatedSeatMap) {
-          // && updatedSeatMap.seats[seat] === qr._id) {
           await qr.save()
         } else {
           throw new Error('Error assigning seat')

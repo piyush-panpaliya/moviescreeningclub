@@ -22,10 +22,7 @@ const checkSeatValid = async () => {
       if (seatMap[qr.showtime].includes(qr.seat)) {
         invalidSeats.push({
           seat: qr.seat,
-          showtime: qr.showtime,
-          count: qrCodes.filter(
-            (q) => q.showtime === qr.showtime && q.seat === qr.seat
-          ).length
+          showtime: qr.showtime
         })
       } else {
         seatMap[qr.showtime].push(qr.seat)
