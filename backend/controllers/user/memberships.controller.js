@@ -4,15 +4,10 @@ const memData = require('@constants/memberships.json')
 const crypto = require('crypto')
 const { membershipMail } = require('@/utils/mail')
 const { getAmount } = require('@/utils/membership')
-const axios = require('axios')
-const qs = require('qs')
+const { getAtomFromGateway } = require('@/utils/payment')
 require('dotenv').config()
 
-const { encrypt, decrypt, generateSignature } = require('@/utils/payment')
-
-const merchId = `${process.env.MERCH_ID}`
-const merchPass = `${process.env.MERCH_PASS}`
-const authUrl = `${process.env.PAY_AUTH_URL}`
+const { decrypt, generateSignature } = require('@/utils/payment')
 
 const saveMembership = async (req, res) => {
   try {
@@ -108,74 +103,26 @@ const requestMembership = async (req, res) => {
     const userEmailId = user.email
     const userContactNo = user.phone
 
-    const reqAtomId = {
-      payInstrument: {
-        headDetails: {
-          version: 'OTSv1.1',
-          api: 'AUTH',
-          platform: 'FLASH'
-        },
-        merchDetails: {
-          merchId: merchId,
-          userId: user._id.toString(),
-          password: merchPass,
-          merchTxnId: txnId,
-          merchTxnDate: txnDate
-        },
-        payDetails: {
-          amount: amount.toString(),
-          product: process.env.PROD_NAME || 'ONE',
-          txnCurrency: 'INR'
-        },
-        custDetails: {
-          custEmail: userEmailId,
-          custMobile: userContactNo.toString()
-        },
-        extras: {
-          udf1: memtype,
-          udf2: user._id.toString(),
-          udf3: '',
-          udf4: '',
-          udf5: ''
-        }
-      }
-    }
-    const reqAtomIdStr = JSON.stringify(reqAtomId)
-    const encReqAtomIdStr = encrypt(reqAtomIdStr)
-
-    const resFromGateway = await axios.post(
-      authUrl,
-      qs.stringify({
-        encData: encReqAtomIdStr,
-        merchId: merchId
-      }),
+    const { error, atomTokenId, merchId } = await getAtomFromGateway(
+      txnId,
+      txnDate,
+      amount,
+      userEmailId,
+      userContactNo,
+      user._id.toString(),
       {
-        headers: {
-          'cache-control': 'no-cache',
-          'content-type': 'application/x-www-form-urlencoded'
-        }
+        udf1: memtype,
+        udf2: user._id.toString(),
+        udf3: '',
+        udf4: '',
+        udf5: ''
       }
     )
-    if (resFromGateway.status !== 200) {
-      return res
-        .status(500)
-        .json({ error: 'Internal server error or Payment Gateway down' })
+    if (error) {
+      return res.status(500).json({ error })
     }
-    const parsedRespFromGateway = qs.parse(resFromGateway.data)
-    if (!parsedRespFromGateway.encData) {
-      return res.status(400).json({ error: 'Transaction failed' })
-    }
-    const decryptedResFromGateway = decrypt(parsedRespFromGateway.encData)
-    const jsonDecryptedResFromGateway = JSON.parse(decryptedResFromGateway)
-
-    if (
-      jsonDecryptedResFromGateway.responseDetails.txnStatusCode !== 'OTS0000'
-    ) {
-      return res.status(400).json({ error: 'Transaction failed' })
-    }
-    console.log(jsonDecryptedResFromGateway.atomTokenId)
     return res.status(200).json({
-      atomTokenId: jsonDecryptedResFromGateway.atomTokenId,
+      atomTokenId: atomTokenId,
       txnId: txnId,
       merchId: merchId
     })

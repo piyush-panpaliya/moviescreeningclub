@@ -1,5 +1,8 @@
 const crypto = require('crypto')
 require('dotenv').config()
+const axios = require('axios')
+const qs = require('qs')
+
 const resHashKey = `${process.env.RES_HASH_KEY}`
 
 const req_enc_key = `${process.env.REQ_ENC_KEY}`
@@ -16,6 +19,9 @@ const iv = Buffer.from(
   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
   'utf8'
 )
+const merchId = `${process.env.MERCH_ID}`
+const merchPass = `${process.env.MERCH_PASS}`
+const authUrl = `${process.env.PAY_AUTH_URL}`
 
 const encrypt = (text) => {
   var derivedKey = crypto.pbkdf2Sync(password, salt, 65536, 32, 'sha512')
@@ -49,8 +55,82 @@ const generateSignature = (json) => {
   return gen_hmac
 }
 
+const getAtomFromGateway = async (
+  txnId,
+  txnDate,
+  amount,
+  userEmailId,
+  userContactNo,
+  userId,
+  udfs
+) => {
+  const reqAtomId = {
+    payInstrument: {
+      headDetails: {
+        version: 'OTSv1.1',
+        api: 'AUTH',
+        platform: 'FLASH'
+      },
+      merchDetails: {
+        merchId: merchId,
+        userId: userId,
+        password: merchPass,
+        merchTxnId: txnId,
+        merchTxnDate: txnDate
+      },
+      payDetails: {
+        amount: amount.toString(),
+        product: process.env.PROD_NAME || 'ONE',
+        txnCurrency: 'INR'
+      },
+      custDetails: {
+        custEmail: userEmailId,
+        custMobile: userContactNo.toString()
+      },
+      extras: udfs
+    }
+  }
+  const reqAtomIdStr = JSON.stringify(reqAtomId)
+  const encReqAtomIdStr = encrypt(reqAtomIdStr)
+
+  const resFromGateway = await axios.post(
+    authUrl,
+    qs.stringify({
+      encData: encReqAtomIdStr,
+      merchId: merchId
+    }),
+    {
+      headers: {
+        'cache-control': 'no-cache',
+        'content-type': 'application/x-www-form-urlencoded'
+      }
+    }
+  )
+  if (resFromGateway.status !== 200) {
+    return res
+      .status(500)
+      .json({ error: 'Internal server error or Payment Gateway down' })
+  }
+  const parsedRespFromGateway = qs.parse(resFromGateway.data)
+  if (!parsedRespFromGateway.encData) {
+    return { error: 'No encData in response from Gateway' }
+  }
+  const decryptedResFromGateway = decrypt(parsedRespFromGateway.encData)
+  const jsonDecryptedResFromGateway = JSON.parse(decryptedResFromGateway)
+
+  if (jsonDecryptedResFromGateway.responseDetails.txnStatusCode !== 'OTS0000') {
+    return { error: 'Transaction failed' }
+  }
+  return {
+    error: null,
+    atomTokenId: jsonDecryptedResFromGateway.atomTokenId,
+    merchId: merchId
+  }
+}
+
 module.exports = {
   encrypt,
   decrypt,
-  generateSignature
+  generateSignature,
+  getAtomFromGateway
 }

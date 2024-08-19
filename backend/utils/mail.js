@@ -173,10 +173,21 @@ const mailOtp = async (otp, email, subject = 'OTP') => {
   const transporter = transporterSingleton.getTransporter()
   await transporter.sendMail(mailOptions)
 }
+const mailOtpFood = async (otp, email, subject = 'OTP for Order') => {
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: subject,
+    text: `Your OTP for purchase of food is ${otp}`
+  }
+  const transporter = transporterSingleton.getTransporter()
+  await transporter.sendMail(mailOptions)
+}
 
 module.exports = {
   mailer: transporterSingleton.getTransporter(),
   mailQRs,
   membershipMail,
-  mailOtp
+  mailOtp,
+  mailOtpFood
 }

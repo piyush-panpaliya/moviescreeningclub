@@ -63,6 +63,40 @@ const deleteMovie = async (req, res) => {
   }
 }
 
+const getMovieByShowTime = async (req, res) => {
+  const user = req.user
+  try {
+    const { showtimeId } = req.params
+    const movie = await Movie.findOne({ 'showtimes._id': showtimeId })
+    if (!movie) {
+      return res.status(404).json({ error: 'Movie not found' })
+    }
+    movie.showtimes = movie.showtimes.filter(
+      (showtime) => showtime.date >= new Date()
+    )
+    // check if showtime we are checkign is in the past
+    if (
+      movie.showtimes.length === 0 ||
+      movie.showtimes.find((showtime) => showtime._id == showtimeId).date <
+        new Date()
+    ) {
+      return res.status(404).json({ error: 'Showtime not found' })
+    }
+    // previously removing old showtimes but now keeping them but not showing to users
+    // await SeatMap.deleteMany({
+    //   showtimeId: { $in: showsToRemove.map((showtime) => showtime._id) }
+    // })
+    // await movie.save()
+
+    if (!isAllowedLvl('movievolunteer', user?.usertype || 'standard')) {
+      res.header('Cache-Control', 'public, max-age=10, s-maxage=0')
+    }
+    res.json(movie)
+  } catch (error) {
+    console.error('Error fetching trailer:', error)
+    res.status(500).json({ error: 'Internal server error' })
+  }
+}
 const getMovieById = async (req, res) => {
   const user = req.user
   try {
@@ -144,6 +178,7 @@ module.exports = {
   updateMovie,
   deleteMovie,
   getMovieById,
+  getMovieByShowTime,
   addMovieShowtimes,
   deleteMovieShowtimes
 }

@@ -108,7 +108,6 @@ const Movie = () => {
   const maxAllowed = movieFree
     ? freePasses
     : (memberships?.find((membership) => membership.isValid)?.availQR ?? 0)
-  console.log('max', maxAllowed)
   const bookSeats = async () => {
     try {
       setLoading(true)
@@ -247,17 +246,36 @@ const Movie = () => {
                 <div className="hidden bg-green-700 dark:bg-green-900 " />
               </div>
               <div className="hidden bg-green-300 dark:bg-green-500" />
-
-              {isAllowedLvl('movievolunteer', user.usertype) && (
+              <div className="flex flex-col gap-2 my-5">
                 <button
                   onClick={() => {
-                    navigate('/showtime?movieId=' + movieId)
+                    navigate('/order?showtime=' + showtime)
                   }}
-                  className="rounded-md bg-red-500 p-2 text-white"
+                  className="rounded-md bg-orange-500 p-2 text-white"
                 >
-                  Edit
+                  Order Food
                 </button>
-              )}
+                {isAllowedLvl('movievolunteer', user.usertype) && (
+                  <>
+                    <button
+                      onClick={() => {
+                        navigate('/showtime?movieId=' + movieId)
+                      }}
+                      className="rounded-md bg-red-500 p-2 text-white"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => {
+                        navigate('/food?showtime=' + showtime)
+                      }}
+                      className="rounded-md bg-red-500 p-2 text-white"
+                    >
+                      Edit Food
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>

@@ -139,12 +139,20 @@ const Navbar = () => {
                 <NavItem to="/metrics" toggleMenu={toggleMenu}>
                   Metrics
                 </NavItem>
+                <NavItem to="/vendorpage" toggleMenu={toggleMenu}>
+                  Vendor Page
+                </NavItem>
               </>
             )}
             {isAllowedLvl('ticketvolunteer', user?.usertype) && (
-              <NavItem to="/scanner" toggleMenu={toggleMenu}>
-                Scanner
-              </NavItem>
+              <>
+                <NavItem to="/scanner" toggleMenu={toggleMenu}>
+                  Scanner
+                </NavItem>
+                <NavItem to="/foodverify" toggleMenu={toggleMenu}>
+                  Food Verify
+                </NavItem>
+              </>
             )}
             {isAllowedLvl('movievolunteer', user?.usertype) && (
               <>

@@ -5,6 +5,7 @@ const {
   updateMovie,
   deleteMovie,
   getMovieById,
+  getMovieByShowTime,
   addMovieShowtimes,
   deleteMovieShowtimes
 } = require('@/controllers/movies.controller')
@@ -14,6 +15,11 @@ const router = express.Router()
 
 router.get('/', getMovies)
 router.get('/:movieId', verifyJWTWithRole('standard'), getMovieById)
+router.get(
+  '/show/:showtimeId',
+  verifyJWTWithRole('standard'),
+  getMovieByShowTime
+)
 router.post('/add', verifyJWTWithRole('movievolunteer'), addMovie)
 router.put('/:id', verifyJWTWithRole('movievolunteer'), updateMovie)
 router.delete('/:id', verifyJWTWithRole('movievolunteer'), deleteMovie)
