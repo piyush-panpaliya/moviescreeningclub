@@ -1,11 +1,9 @@
-import { useMembershipContext } from '@/components/MembershipContext'
 import MoieCard from '@/components/MovieCard'
 import { api } from '@/utils/api'
 import useDeviceSize from '@/utils/useDeviceSize'
 import { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
 
-const GrpCard = ({ type, movies }) => {
+const GrpCard = ({ type, movies, shouldNav = true }) => {
   const [showMore, setShowMore] = useState(false)
   const deviceSize = useDeviceSize()
   const scrollToElement = (elementId, additionalOffset = 0) => {
@@ -28,7 +26,7 @@ const GrpCard = ({ type, movies }) => {
       <div className="rounded-xl flex flex-col items-center gap-2 bg-white dark:bg-[#212121] p-4 sm:gap-6 sm:p-6">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
           {movies.slice(0, showMore ? movies.length : limit).map((movie, i) => (
-            <MoieCard movie={movie} key={i} navigate />
+            <MoieCard movie={movie} key={i} navigate={shouldNav} />
           ))}
         </div>
         {movies.length > limit && (
@@ -48,9 +46,6 @@ const GrpCard = ({ type, movies }) => {
 }
 
 const Home = () => {
-  const navigate = useNavigate()
-  const location = useLocation()
-  const { checkMembershipStatus } = useMembershipContext()
   const [movies, setMovies] = useState([])
 
   useEffect(() => {
@@ -64,9 +59,13 @@ const Home = () => {
       })
   }, [])
 
-  const ongoingMovies = movies.filter((movie) => movie?.currentscreening)
-  const upcomingMovies = movies.filter((movie) => !movie?.currentscreening)
-
+  const ongoingMovies = movies.filter(
+    (movie) => movie?.currentscreening && !movie?.past
+  )
+  const upcomingMovies = movies.filter(
+    (movie) => !movie?.currentscreening && !movie?.past
+  )
+  const pastMovies = movies.filter((movie) => movie?.past)
   return (
     <div className="flex flex-col items-center gap-6">
       {ongoingMovies.length > 0 && (
@@ -74,6 +73,9 @@ const Home = () => {
       )}
       {upcomingMovies.length > 0 && (
         <GrpCard type="Upcoming Movies" movies={upcomingMovies} />
+      )}
+      {pastMovies.length > 0 && (
+        <GrpCard type="Past Movies" movies={pastMovies} shouldNav={false} />
       )}
     </div>
   )

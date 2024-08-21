@@ -12,6 +12,10 @@ const MovieSchema = new mongoose.Schema({
   releaseDate: { type: Date, required: true },
   genre: { type: String, required: true },
   currentscreening: { type: Boolean },
+  past: {
+    type: Boolean,
+    default: false
+  },
   showtimes: {
     type: [ShowtimeSchema]
   },

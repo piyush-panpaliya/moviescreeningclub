@@ -47,13 +47,16 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '../frontend/dist')))
 
 app.use((req, _, next) => {
-  if (!req.url.match(/(assets|images|index\.html|.*\.(svg|png|jpg|jpeg))$/)) {
+  if (
+    !req.url.match(/(assets|images|index\.html|.*\.(svg|png|jpg|jpeg))$/) &&
+    process.env.NODE_ENV !== 'production'
+  ) {
     console.log(`${req.method} ${req.url}`)
   }
   next()
 })
 
-app.use('/api', apiRoute)
+app.use(process.env.NODE_ENV === 'production' ? '/' : '/api', apiRoute)
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'))

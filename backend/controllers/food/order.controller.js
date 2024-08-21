@@ -3,7 +3,7 @@ const Food = require('@/models/food/food.model')
 const { getAtomFromGateway } = require('@/utils/payment')
 const { decrypt, generateSignature } = require('@/utils/payment')
 const crypto = require('crypto')
-const { mailOtpFood } = require('@/utils/mail')
+const { mailFoodOrder } = require('@/utils/mail')
 const User = require('@/models/user/user.model')
 const getAmount = (items) => {
   return items.reduce((acc, item) => acc + item._id.price * item.quantity, 0)
@@ -135,7 +135,9 @@ const confirmOrder = async (req, res) => {
     const email = jsonData.payInstrument.custDetails.custEmail.toLowerCase()
     const txnId = jsonData.payInstrument.merchDetails.merchTxnId
 
-    const order = await Order.findOne({ _id: orderId, user: userId })
+    const order = await Order.findOne({ _id: orderId, user: userId }).populate(
+      'foodList._id'
+    )
     if (!order) {
       return res.redirect(`${process.env.FRONTEND_URL}/?err=order_not_found`)
     }
@@ -146,7 +148,13 @@ const confirmOrder = async (req, res) => {
     }
     order.paid = true
     await order.save()
-    await mailOtpFood(order.otp, email)
+    const items = order.foodList.map((item) => ({
+      name: item._id.name,
+      vendor: item._id.vendor,
+      quantity: item.quantity,
+      price: item._id.price
+    }))
+    await mailFoodOrder(items, order.otp, email)
     return res.redirect(`${process.env.FRONTEND_URL}/?msg=order_confirmed`)
   } catch (error) {
     console.error('Error saving order:', error)

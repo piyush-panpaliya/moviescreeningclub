@@ -151,7 +151,7 @@ const AdminFood = () => {
   }
   return (
     <div className="flex max-sm:flex-col gap-5 justify-between p-5">
-      <div className="flex-1 w-full sm:min-w-[300px] p-5 border border-gray-300 rounded-lg bg-gray-100">
+      <div className="flex-1 w-full sm:min-w-[300px] p-5 border border-gray-300 dark:border-gray-800 dark:bg-[#212121] rounded-lg bg-gray-100">
         <p className="mb-5 font-semibold text-xl">
           {editingId ? 'Edit Food Item' : 'Add Food Item'}
         </p>
@@ -251,7 +251,7 @@ const AdminFood = () => {
           </div>
         </form>
       </div>
-      <div className="flex-1 min-w-[300px] p-5 border border-gray-300 rounded-lg bg-gray-100">
+      <div className="flex-1 min-w-[300px] p-5 border border-gray-300 dark:border-gray-800 dark:bg-[#212121] rounded-lg bg-gray-100">
         <p className="mb-5 text-xl">Food Items List</p>
         {foodItems.length > 0 ? (
           <ul className="space-y-5">
@@ -268,10 +268,8 @@ const AdminFood = () => {
                 <div className="flex-1 w-full">
                   <h4 className="text-lg font-bold">{food.foodName}</h4>
                   <p className="text-green-600">{food.description}</p>
-                  <p className="text-black">Rs. {food.price}</p>
-                  <p className="text-black">
-                    quantity available {food.quantity}
-                  </p>
+                  <p className="">Rs. {food.price}</p>
+                  <p className="">quantity available {food.quantity}</p>
                   <p>{food.vendor}</p>
                   <p>{food.available ? 'Available' : 'Not available'}</p>
                 </div>

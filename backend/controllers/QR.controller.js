@@ -97,6 +97,11 @@ const cancelQr = async (req, res) => {
       await session.abortTransaction()
       return res.status(404).json({ error: 'QR not found' })
     }
+    const movie = await Movie.findOne({ 'showtimes._id': qr.showtime })
+    if (!movie || !movie.free) {
+      await session.abortTransaction()
+      return res.status(404).json({ error: 'Movie not found' })
+    }
     const seatMap = await SeatMap.findOneAndUpdate(
       { showtimeId: qr.showtime },
       { $set: { [`seats.${qr.seat}`]: null } },

@@ -14,10 +14,10 @@ const seatOccupancy = async (req, res) => {
   try {
     const { showtimeId } = req.params
 
-    let seatMap = await SeatMap.findOne({ showtimeId: showtimeId })
+    const seatMap = await SeatMap.findOne({ showtimeId: showtimeId })
 
-    if (!seatMap) {
-      seatMap = new SeatMap({ showtimeId: showtimeId })
+    if (!seatMap || seatMap.date < new Date()) {
+      return res.status(400).json({ error: 'Invalid showtime' })
     }
     const resSeats = []
     for ([seat, qr] of Object(seatMap.seats).entries()) {
@@ -53,7 +53,7 @@ const freepasses = async (req, res) => {
 
     const movie = await Movie.findOne({ 'showtimes._id': showtimeId })
 
-    if (!movie) {
+    if (!movie || movie.past) {
       return res.status(400).json({ error: 'Invalid showtime' })
     }
 
@@ -87,7 +87,7 @@ const seatAssign = async (req, res) => {
     }
 
     const movie = await Movie.findOne({ 'showtimes._id': showtimeId })
-    if (!movie) {
+    if (!movie || movie.past) {
       return res.status(400).json({ error: 'Invalid showtime' })
     }
     const showtime = movie.showtimes.id(showtimeId)

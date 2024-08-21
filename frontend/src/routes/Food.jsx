@@ -111,7 +111,7 @@ const OrderPage = () => {
               text: 'Failed to place order',
               icon: 'error'
             })
-            console.error('Error requesting membership:', res.data.error)
+            console.error('Error requesting membership:', response.data.error)
             return
           }
           const options = {
@@ -124,6 +124,7 @@ const OrderPage = () => {
                 ? 'http://localhost:8000'
                 : document.location.origin) + '/api/order/redirect'
           }
+          // eslint-disable-next-line no-undef
           let atom = new AtomPaynetz(options, 'uat')
           setSelectedItems([])
         } catch (error) {
@@ -143,12 +144,24 @@ const OrderPage = () => {
     })
   }
 
-  if (!foodItems.length || !movie) {
+  if (!movie) {
     return <Loading />
+  }
+  if (!foodItems.length) {
+    return (
+      <div className="max-w-4xl mx-auto p-5 bg-gray-100 dark:bg-[#212121] rounded-xl font-sans flex-1 flex-col items-center">
+        <h2 className="text-2xl font-bold text-red-500 text-center mb-6">
+          Order Food
+        </h2>
+        <h3 className="text-lg font-semibold text-center mb-4">
+          No Food Items
+        </h3>
+      </div>
+    )
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-5 bg-gray-100 font-sans flex-1 flex-col items-center">
+    <div className="max-w-4xl mx-auto p-5 bg-gray-100 dark:bg-[#212121] rounded-xl font-sans flex-1 flex-col items-center">
       <h2 className="text-2xl font-bold text-red-500 text-center mb-6">
         Order Food
       </h2>
@@ -167,7 +180,7 @@ const OrderPage = () => {
         {foodItems.map((food) => (
           <div
             key={food._id}
-            className="flex items-center bg-white p-4 rounded-lg shadow"
+            className="flex items-center bg-white dark:bg-[#0C0C0C] p-4 rounded-lg shadow"
           >
             <img
               src={food.poster}
@@ -175,13 +188,19 @@ const OrderPage = () => {
               className="w-24 h-24 object-cover rounded-lg mr-4"
             />
             <div className="flex-1">
-              <h2 className="text-lg font-semibold text-gray-800">
+              <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
                 {food.name}
               </h2>
               <p className="text-green-600">{food.description}</p>
-              <p className="text-gray-800">Rs. {food.price}</p>
-              <p className="text-gray-600">Vendor: {food.vendor}</p>
-              <p className="text-gray-600">Available : {food.quantity}</p>
+              <p className="text-gray-800 dark:text-gray-200">
+                Rs. {food.price}
+              </p>
+              <p className="text-gray-600 dark:text-gray-400">
+                Vendor: {food.vendor}
+              </p>
+              <p className="text-gray-600 dark:text-gray-400">
+                Available : {food.quantity}
+              </p>
             </div>
             <div className="flex items-center space-x-2">
               <button
@@ -205,11 +224,14 @@ const OrderPage = () => {
         ))}
       </div>
 
-      <div className="mt-8 p-6 bg-white rounded-lg shadow">
+      <div className="mt-8 p-6 bg-white dark:bg-[#0C0C0C] rounded-lg shadow">
         <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
         <ul className="space-y-2">
           {selectedItems.map((item) => (
-            <li key={`${item._id}`} className="text-gray-800">
+            <li
+              key={`${item._id}`}
+              className="text-gray-800 dark:text-gray-400"
+            >
               {item.name} (Vendor: {item.vendor}) - {item.quantity} x Rs.{' '}
               {item.price / item.quantity} = Rs. {item.price}
             </li>

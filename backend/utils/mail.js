@@ -173,12 +173,32 @@ const mailOtp = async (otp, email, subject = 'OTP') => {
   const transporter = transporterSingleton.getTransporter()
   await transporter.sendMail(mailOptions)
 }
-const mailOtpFood = async (otp, email, subject = 'OTP for Order') => {
+const mailFoodOrder = async (
+  items,
+  otp,
+  email,
+  subject = 'Order via Chalchitra'
+) => {
   const mailOptions = {
     from: process.env.EMAIL,
     to: email,
     subject: subject,
-    text: `Your OTP for purchase of food is ${otp}`
+    html: `
+        <p>Order Successful</p>
+        <p>Otp: ${otp}</p>
+        <p>Items:</p>
+        <ul className="space-y-2">
+          ${items.map(
+            (item) =>
+              `<li className="text-gray-800 dark:text-gray-400">
+              ${item.name} (Vendor: ${item.vendor}) - ${item.quantity} x Rs.
+              ${item.price} = Rs. ${item.price * item.quantity}
+            </li>`
+          )}
+        </ul>
+        <p className="text-right text-xl font-semibold mt-4">
+          Total Price: Rs. ${items.reduce((total, item) => total + item.price * item.quantity, 0)}
+        </p>`
   }
   const transporter = transporterSingleton.getTransporter()
   await transporter.sendMail(mailOptions)
@@ -189,5 +209,5 @@ module.exports = {
   mailQRs,
   membershipMail,
   mailOtp,
-  mailOtpFood
+  mailFoodOrder
 }

@@ -35,7 +35,7 @@ const verifyJWTWithRole = (minRole = 'standard') => {
             return res.sendStatus(403)
           }
           req.user = user
-          console.log('by user', user.email)
+          // console.log('by user', user.email)
           next()
         }
       )

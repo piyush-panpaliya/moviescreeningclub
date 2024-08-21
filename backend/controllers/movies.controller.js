@@ -30,7 +30,13 @@ const addMovie = (req, res) => {
 
 const getMovies = async (req, res) => {
   try {
-    const movies = await Movie.find()
+    let movies = await Movie.find()
+    movies = movies.map((movie) => {
+      movie.showtimes = movie.showtimes.filter(
+        (showtime) => new Date(showtime.date) >= new Date()
+      )
+      return movie
+    })
     res.set('Cache-Control', 'public, max-age=30, s-maxage=0')
     res.json(movies)
   } catch (err) {
@@ -53,6 +59,7 @@ const updateMovie = async (req, res) => {
 
 const deleteMovie = async (req, res) => {
   try {
+    return res.status(400).json({ error: 'Not allowed' })
     const movieId = req.params.id
     const result = await Movie.findByIdAndDelete(movieId)
 
@@ -67,26 +74,16 @@ const getMovieByShowTime = async (req, res) => {
   const user = req.user
   try {
     const { showtimeId } = req.params
-    const movie = await Movie.findOne({ 'showtimes._id': showtimeId })
+    let movie = await Movie.findOne({ 'showtimes._id': showtimeId })
     if (!movie) {
       return res.status(404).json({ error: 'Movie not found' })
     }
     movie.showtimes = movie.showtimes.filter(
       (showtime) => showtime.date >= new Date()
     )
-    // check if showtime we are checkign is in the past
-    if (
-      movie.showtimes.length === 0 ||
-      movie.showtimes.find((showtime) => showtime._id == showtimeId).date <
-        new Date()
-    ) {
+    if (movie.showtimes.length === 0) {
       return res.status(404).json({ error: 'Showtime not found' })
     }
-    // previously removing old showtimes but now keeping them but not showing to users
-    // await SeatMap.deleteMany({
-    //   showtimeId: { $in: showsToRemove.map((showtime) => showtime._id) }
-    // })
-    // await movie.save()
 
     if (!isAllowedLvl('movievolunteer', user?.usertype || 'standard')) {
       res.header('Cache-Control', 'public, max-age=10, s-maxage=0')
@@ -101,18 +98,13 @@ const getMovieById = async (req, res) => {
   const user = req.user
   try {
     const { movieId } = req.params
-    const movie = await Movie.findById(movieId)
+    let movie = await Movie.findById(movieId)
     if (!movie) {
       return res.status(404).json({ error: 'Movie not found' })
     }
     movie.showtimes = movie.showtimes.filter(
       (showtime) => showtime.date >= new Date()
     )
-    // previously removing old showtimes but now keeping them but not showing to users
-    // await SeatMap.deleteMany({
-    //   showtimeId: { $in: showsToRemove.map((showtime) => showtime._id) }
-    // })
-    // await movie.save()
 
     if (!isAllowedLvl('movievolunteer', user?.usertype || 'standard')) {
       res.header('Cache-Control', 'public, max-age=10, s-maxage=0')
@@ -157,6 +149,7 @@ const addMovieShowtimes = async (req, res) => {
 
 const deleteMovieShowtimes = async (req, res) => {
   try {
+    return res.status(400).json({ error: 'Not allowed' })
     const { movieId, showtimeId } = req.params
     const movie = await Movie.findById(movieId)
     if (!movie) {
