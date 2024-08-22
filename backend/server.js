@@ -56,7 +56,7 @@ app.use((req, _, next) => {
   next()
 })
 
-app.use(process.env.NODE_ENV === 'production' ? '/' : '/api', apiRoute)
+app.use('/api', apiRoute)
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'))
