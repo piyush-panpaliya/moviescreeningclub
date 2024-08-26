@@ -33,7 +33,8 @@ const getMovies = async (req, res) => {
     let movies = await Movie.find()
     movies = movies.map((movie) => {
       movie.showtimes = movie.showtimes.filter(
-        (showtime) => new Date(showtime.date) >= new Date()
+        (showtime) =>
+          new Date(showtime.date) >= new Date(Date.now() - 3 * 60 * 60 * 1000)
       )
       return movie
     })
@@ -103,7 +104,7 @@ const getMovieById = async (req, res) => {
       return res.status(404).json({ error: 'Movie not found' })
     }
     movie.showtimes = movie.showtimes.filter(
-      (showtime) => showtime.date >= new Date()
+      (showtime) => showtime.date >= new Date(Date.now() - 3 * 60 * 60 * 1000)
     )
 
     if (!isAllowedLvl('movievolunteer', user?.usertype || 'standard')) {

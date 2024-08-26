@@ -16,7 +16,7 @@ const seatOccupancy = async (req, res) => {
 
     const seatMap = await SeatMap.findOne({ showtimeId: showtimeId })
 
-    if (!seatMap || seatMap.date < new Date()) {
+    if (!seatMap || seatMap.date < new Date(Date.now() - 3 * 60 * 60 * 1000)) {
       return res.status(400).json({ error: 'Invalid showtime' })
     }
     const resSeats = []
@@ -72,7 +72,14 @@ const freepasses = async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' })
   }
 }
+const getMails = async (req, res) => {
+  const { showtimeId } = req.params
+  const emails = await QR.find({ showtime: showtimeId })
+    .select('user')
+    .populate({ path: 'user', select: 'email' })
 
+  return res.json(emails.map((email) => email.user.email))
+}
 const seatAssign = async (req, res) => {
   try {
     const { showtimeId } = req.params
@@ -92,7 +99,7 @@ const seatAssign = async (req, res) => {
     }
     const showtime = movie.showtimes.id(showtimeId)
 
-    if (new Date(showtime.date) < new Date()) {
+    if (new Date(showtime.date) < new Date(Date.now() - 3 * 60 * 60 * 1000)) {
       return res.status(400).json({ error: 'Invalid showtime' })
     }
     const currentMembership = await Membership.findOne({
@@ -174,7 +181,6 @@ const seatAssign = async (req, res) => {
       )
       qr.code = code
       try {
-        console.log(seatMap.seats[seat], qr._id)
         const updatedSeatMap = await SeatMap.findOneAndUpdate(
           {
             _id: seatMap._id,
@@ -234,4 +240,4 @@ const seatAssign = async (req, res) => {
   }
 }
 
-module.exports = { seatOccupancy, seatAssign, freepasses }
+module.exports = { seatOccupancy, seatAssign, freepasses, getMails }

@@ -136,7 +136,30 @@ const Movie = () => {
     }
     setLoading(false)
   }
-
+  const mailUsers = async (showtimeId) => {
+    try {
+      const res = await api.get(`/seatmap/mail/${showtimeId}`)
+      if (res.status !== 200) {
+        Swal.fire({
+          title: 'Error',
+          text: 'Error sending mail',
+          icon: 'error'
+        })
+      }
+      navigator.clipboard.writeText(res.data.join(', '))
+      Swal.fire({
+        title: 'Success',
+        text: 'Mail ids copied, pls paste in bcc',
+        icon: 'success'
+      })
+    } catch (error) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Error sending mail',
+        icon: 'error'
+      })
+    }
+  }
   const BottomBar = () =>
     selectedSeats.length > 0 &&
     (hasMembership || movieFree) && (
@@ -274,6 +297,16 @@ const Movie = () => {
                       Edit Food
                     </button>
                   </>
+                )}
+                {isAllowedLvl('admin', user.usertype) && (
+                  <button
+                    onClick={() => {
+                      mailUsers(showtime)
+                    }}
+                    className="rounded-md bg-blue-500 p-2 text-white"
+                  >
+                    Mail
+                  </button>
                 )}
               </div>
             </div>
