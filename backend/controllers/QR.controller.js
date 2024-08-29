@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken')
 const QR = require('@/models/qr.model')
 const Movie = require('@/models/movie.model')
 const SeatMap = require('@/models/seatmap.model')
+const Membership = require('@/models/membership.model')
+const memData = require('@constants/memberships.json')
 
 const getQRs = async (req, res) => {
   const { userId } = req.user
@@ -83,7 +85,7 @@ const cancelQr = async (req, res) => {
       {
         _id: qrId,
         user: req.user.userId,
-        free: true,
+        // free: true,
         used: false,
         deleted: false
       },
@@ -92,13 +94,15 @@ const cancelQr = async (req, res) => {
         new: true,
         session
       }
-    )
+    ).session(session)
     if (!qr) {
       await session.abortTransaction()
       return res.status(404).json({ error: 'QR not found' })
     }
-    const movie = await Movie.findOne({ 'showtimes._id': qr.showtime })
-    if (!movie || !movie.free) {
+    const movie = await Movie.findOne({ 'showtimes._id': qr.showtime }).session(
+      session
+    )
+    if (!movie) {
       await session.abortTransaction()
       return res.status(404).json({ error: 'Movie not found' })
     }
@@ -106,10 +110,35 @@ const cancelQr = async (req, res) => {
       { showtimeId: qr.showtime },
       { $set: { [`seats.${qr.seat}`]: null } },
       { new: true, session }
-    )
+    ).session(session)
     if (!seatMap) {
       await session.abortTransaction()
       throw new Error('Error cancelling QR')
+    }
+    if (!movie.free) {
+      const hasMembership = await Membership.findOne({
+        user: req.user.userId,
+        isValid: true,
+        availQR: { $gt: 0 }
+      }).session(session)
+      if (hasMembership) {
+        hasMembership.availQR += 1
+        hasMembership.validitydate = new Date(
+          Date.now() + hasMembership.validity * 1000
+        )
+        await hasMembership.save({ session })
+      } else {
+        const { validity } = memData.find((m) => m.name === 'base')
+        const assignMembership = new Membership({
+          user: req.user.userId,
+          memtype: 'base',
+          txnId: 'cancelTicketAutoAdd',
+          validity,
+          availQR: 1,
+          amount: 0
+        })
+        assignMembership.save({ session })
+      }
     }
     await session.commitTransaction()
     return res.status(200).json({ message: 'QR cancelled' })
@@ -118,7 +147,9 @@ const cancelQr = async (req, res) => {
     console.error('Error:', error)
     return res.status(500).json({ error: 'Internal server error' })
   } finally {
-    session.endSession()
+    if (session) {
+      session.endSession()
+    }
   }
 }
 

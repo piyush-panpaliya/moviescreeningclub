@@ -143,14 +143,14 @@ const Tickets = () => {
                           }
                         )}
                       </p>
-                      {ticket.free && (
+                      {
                         <button
                           onClick={(e) => handleDelete(e, ticket)}
                           className="w-fit px-4 bg-red-600 rounded-lg text-white py-2"
                         >
                           Cancel Ticket
                         </button>
-                      )}
+                      }
                     </div>
                   </div>
                 )
