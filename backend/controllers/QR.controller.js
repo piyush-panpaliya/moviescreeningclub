@@ -5,6 +5,7 @@ const Movie = require('@/models/movie.model')
 const SeatMap = require('@/models/seatmap.model')
 const Membership = require('@/models/membership.model')
 const memData = require('@constants/memberships.json')
+const mongoose = require('mongoose')
 
 const getQRs = async (req, res) => {
   const { userId } = req.user
@@ -77,7 +78,7 @@ const getQRs = async (req, res) => {
 }
 
 const cancelQr = async (req, res) => {
-  const session = await QR.startSession()
+  const session = await mongoose.startSession()
   session.startTransaction()
   try {
     const qrId = req.params.id
@@ -94,7 +95,7 @@ const cancelQr = async (req, res) => {
         new: true,
         session
       }
-    ).session(session)
+    )
     if (!qr) {
       await session.abortTransaction()
       return res.status(404).json({ error: 'QR not found' })
@@ -110,7 +111,7 @@ const cancelQr = async (req, res) => {
       { showtimeId: qr.showtime },
       { $set: { [`seats.${qr.seat}`]: null } },
       { new: true, session }
-    ).session(session)
+    )
     if (!seatMap) {
       await session.abortTransaction()
       throw new Error('Error cancelling QR')
@@ -135,15 +136,18 @@ const cancelQr = async (req, res) => {
           txnId: 'cancelTicketAutoAdd',
           validity,
           availQR: 1,
-          amount: 0
+          amount: 0,
+          validitydate: new Date(Date.now() + validity * 1000)
         })
-        assignMembership.save({ session })
+        await assignMembership.save({ session })
       }
     }
     await session.commitTransaction()
     return res.status(200).json({ message: 'QR cancelled' })
   } catch (error) {
-    await session.abortTransaction()
+    if (session.inTransaction()) {
+      await session.abortTransaction()
+    }
     console.error('Error:', error)
     return res.status(500).json({ error: 'Internal server error' })
   } finally {
