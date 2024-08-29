@@ -1,4 +1,5 @@
 import { useLogin } from '@/components/LoginContext'
+import { useMembershipContext } from '@/components/MembershipContext'
 import { Loading } from '@/components/icons/Loading'
 import { api } from '@/utils/api'
 import { useEffect, useState } from 'react'
@@ -7,6 +8,7 @@ import Swal from 'sweetalert2'
 
 const Tickets = () => {
   const { user } = useLogin()
+  const { checkMembershipStatus } = useMembershipContext()
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
   const [tickets, setTickets] = useState({
@@ -50,6 +52,7 @@ const Tickets = () => {
         const res = await api.delete(`/qr/${ticket.id}`)
         if (res.status === 200) {
           fetchTickets()
+          checkMembershipStatus()
         }
       }
     })
