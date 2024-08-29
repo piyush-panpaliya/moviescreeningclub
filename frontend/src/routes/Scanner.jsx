@@ -188,7 +188,16 @@ export const Scanner = () => {
                             <h2 class="title">IIT Mandi</h2> 
                             <p class="line-between"></p>
                             <p class="subtitle">${data.movie}</p>
-                            <p class="subtitle">${new Date(data.show).toLocaleDateString('en-IN')}</p>
+                            <p class="subtitle">${new Date(
+                              data.show
+                            ).toLocaleString('en-IN', {
+                              day: 'numeric',
+                              month: 'short',
+                              year: 'numeric',
+                              hour: 'numeric',
+                              minute: 'numeric',
+                              hour12: true
+                            })}</p>
 
                         </div>
                         <div class="seat-number">Seat Number: ${data.seat}</div>
