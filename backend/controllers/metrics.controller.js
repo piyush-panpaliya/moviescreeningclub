@@ -20,7 +20,8 @@ const getMonthlyMetrics = async (req, res) => {
           purchasedate: {
             $gte: new Date(year, month - 1, 1),
             $lt: new Date(year, month, 1)
-          }
+          },
+          txnId: { $nin: ['test', 'coreteam', 'office'] }
         }
       },
       {

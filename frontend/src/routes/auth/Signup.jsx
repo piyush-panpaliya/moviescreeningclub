@@ -1,5 +1,6 @@
 import { HideEye, ShowEye, SignupIcon } from '@/components/icons/Auth'
 import { api } from '@/utils/api'
+import { checkEmail } from '@/utils/user'
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
@@ -27,9 +28,7 @@ export const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    if (
-      !/^[a-zA-Z0-9._%+-]+@(iitmandi.ac.in|.*\.iitmandi.ac.in)$/.test(email)
-    ) {
+    if (!checkEmail(email)) {
       Swal.fire({
         title: 'Error',
         text: 'Please enter a valid college email ID.',

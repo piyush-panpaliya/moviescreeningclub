@@ -1,5 +1,6 @@
 import { VerifyIcon } from '@/components/icons/Auth'
 import { api } from '@/utils/api'
+import { checkEmail } from '@/utils/user'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
@@ -11,9 +12,7 @@ export default function GetOTP() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (
-      !/^[a-zA-Z0-9._%+-]+@(iitmandi.ac.in|.*\.iitmandi.ac.in)$/.test(email)
-    ) {
+    if (!checkEmail('email')) {
       setEmail('')
       Swal.fire({
         title: 'Error',

@@ -34,6 +34,7 @@ const Movie = () => {
       const availableseats = res.data.filter((seat) => !seat.occupied).length
       setAvailableSeats(availableseats)
     } catch (error) {
+      setSeats(null)
       console.error('Error fetching seats:', error)
     }
   }

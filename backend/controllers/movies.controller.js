@@ -1,6 +1,7 @@
 const Movie = require('@/models/movie.model')
 const SeatMap = require('@/models/seatmap.model')
 const { isAllowedLvl } = require('@/middleware')
+const mongoose = require('mongoose')
 const addMovie = (req, res) => {
   const {
     title,
@@ -38,7 +39,11 @@ const getMovies = async (req, res) => {
       )
       return movie
     })
-    res.set('Cache-Control', 'public, max-age=30, s-maxage=0')
+    if (!isAllowedLvl('movievolunteer', req.user?.usertype))
+      movies.showtime = res.set(
+        'Cache-Control',
+        'public, max-age=30, s-maxage=0'
+      )
     res.json(movies)
   } catch (err) {
     res.status(500).json({ error: err.message })
@@ -79,9 +84,9 @@ const getMovieByShowTime = async (req, res) => {
     if (!movie) {
       return res.status(404).json({ error: 'Movie not found' })
     }
-    movie.showtimes = movie.showtimes.filter(
-      (showtime) => showtime.date >= new Date()
-    )
+    movie.showtimes = movie.showtimes
+      .filter((showtime) => showtime.date >= new Date())
+      .sort((a, b) => new Date(a.date) - new Date(b.date))
     if (movie.showtimes.length === 0) {
       return res.status(404).json({ error: 'Showtime not found' })
     }
@@ -103,9 +108,11 @@ const getMovieById = async (req, res) => {
     if (!movie) {
       return res.status(404).json({ error: 'Movie not found' })
     }
-    movie.showtimes = movie.showtimes.filter(
-      (showtime) => showtime.date >= new Date(Date.now() - 3 * 60 * 60 * 1000)
-    )
+    movie.showtimes = movie.showtimes
+      .filter(
+        (showtime) => showtime.date >= new Date(Date.now() - 3 * 60 * 60 * 1000)
+      )
+      .sort((a, b) => new Date(a.date) - new Date(b.date))
 
     if (!isAllowedLvl('movievolunteer', user?.usertype || 'standard')) {
       res.header('Cache-Control', 'public, max-age=10, s-maxage=0')
@@ -118,33 +125,45 @@ const getMovieById = async (req, res) => {
 }
 
 const addMovieShowtimes = async (req, res) => {
+  const session = await mongoose.startSession()
+  session.startTransaction()
   try {
     const { movieId } = req.params
 
     const movie = await Movie.findById(movieId)
     if (!movie) {
+      await session.abortTransaction()
       return res.status(404).json({ error: 'Movie not found' })
     }
 
     const { date } = req.body
     const inpShowtime = { date: new Date(date) }
     if (inpShowtime.date < new Date()) {
+      await session.abortTransaction()
       return res
         .status(400)
         .json({ error: 'Showtime date must be in the future' })
     }
     movie.showtimes.push(inpShowtime)
 
-    await movie.save()
+    await movie.save({ session })
 
     const showtime = movie.showtimes[movie.showtimes.length - 1]
-    const seatMap = new SeatMap({ showtimeId: showtime._id })
-    await seatMap.save()
-
-    res.json(movie)
+    const seatMap = new SeatMap({
+      showtimeId: showtime._id,
+      date: showtime.date
+    })
+    await seatMap.save({ session })
+    await session.commitTransaction()
+    return res.json(movie)
   } catch (error) {
+    if (session.inTransaction()) {
+      await session.abortTransaction()
+    }
     console.error('Error adding showtime:', error)
     res.status(500).json({ error: 'Error adding showtime' })
+  } finally {
+    session.endSession()
   }
 }
 
