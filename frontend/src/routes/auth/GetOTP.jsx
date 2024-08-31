@@ -12,7 +12,7 @@ export default function GetOTP() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!checkEmail('email')) {
+    if (!checkEmail(email)) {
       setEmail('')
       Swal.fire({
         title: 'Error',
