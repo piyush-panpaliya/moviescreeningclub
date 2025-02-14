@@ -4,19 +4,19 @@
     "price": [
       {
         "type": "btech",
-        "price": 140
+        "price": 175
       },
       {
         "type": "mtech/phd",
-        "price": 160
+        "price": 190
       },
       {
         "type": "faculty/staff",
-        "price": 180
+        "price": 220
       },
       {
         "type": "other",
-        "price": 180
+        "price": 220
       }
     ],
     "validity": 604800,
@@ -27,19 +27,19 @@
     "price": [
       {
         "type": "btech",
-        "price": 280
+        "price": 340
       },
       {
         "type": "mtech/phd",
-        "price": 320
+        "price": 370
       },
       {
         "type": "faculty/staff",
-        "price": 360
+        "price": 420
       },
       {
         "type": "other",
-        "price": 360
+        "price": 420
       }
     ],
     "validity": 1296000,
@@ -50,19 +50,19 @@
     "price": [
       {
         "type": "btech",
-        "price": 420
+        "price": 495
       },
       {
         "type": "mtech/phd",
-        "price": 480
+        "price": 540
       },
       {
         "type": "faculty/staff",
-        "price": 540
+        "price": 600
       },
       {
         "type": "other",
-        "price": 540
+        "price": 600
       }
     ],
     "validity": 2592000,
@@ -73,19 +73,19 @@
     "price": [
       {
         "type": "btech",
-        "price": 560
+        "price": 620
       },
       {
         "type": "mtech/phd",
-        "price": 640
+        "price": 680
       },
       {
         "type": "faculty/staff",
-        "price": 720
+        "price": 760
       },
       {
         "type": "other",
-        "price": 720
+        "price": 760
       }
     ],
     "validity": 2592000,
