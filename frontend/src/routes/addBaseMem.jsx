@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { api } from '@/utils/api';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
 const AddBaseMem = () => {
   const navigate = useNavigate();
@@ -25,7 +26,20 @@ const AddBaseMem = () => {
     <div className="p-4 text-center">
       <h2 className="text-2xl font-bold">Assign Base Membership</h2>
       <button
-        onClick={handleAssignMembership}
+
+        onClick={() => {
+          Swal.fire({
+              title: 'Confirm',
+              text: `Are you sure you want to assign base membership to all core team members?`,
+              icon: 'info',
+              confirmButtonText: 'Yes',
+              showCancelButton: true
+            }).then((result) => {
+              if (result.isConfirmed) {
+                handleAssignMembership();
+              }
+            })
+        }}
         className="mt-4 px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
         disabled={loading}
       >

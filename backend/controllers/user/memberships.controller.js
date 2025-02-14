@@ -69,9 +69,7 @@ const saveMembership = async (req, res) => {
 const assignBaseMembership = async (req, res) => {
   try {
     const coreTeamUsers = await User.find({ usertype: 'ticketvolunteer' })
-    console.log(coreTeamUsers);
     const baseMembership = memData.find((m) => m.name === 'base')
-    console.log(baseMembership);
     if (!baseMembership) {
       return res.status(400).json({ message: 'Base membership not found' })
     }

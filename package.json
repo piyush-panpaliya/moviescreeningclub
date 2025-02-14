@@ -11,8 +11,5 @@
     "prettier": "^3.3.3",
     "prettier-plugin-organize-imports": "^4.0.0",
     "prettier-plugin-tailwindcss": "^0.6.5"
-  },
-  "dependencies": {
-    "mongodb": "^6.13.0"
   }
 }
