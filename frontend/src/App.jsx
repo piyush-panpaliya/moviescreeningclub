@@ -189,7 +189,14 @@ function App() {
                 />
                 <Route path="/guidelines" element={<Guidelines />} />
                 <Route path="/metrics" element={<Metrics />} />
-                <Route path="/addbasetocore" element={<AddBaseMem />} />
+                <Route
+                  path="/addbasetocore"
+                  element={
+                    <AuthenticatedRoute minLevel="admin">
+                      <AddBaseMem />
+                    </AuthenticatedRoute>
+                  }
+                />
                 <Route path="*" element={<Navigate to="" />} />
               </Routes>
             </div>
