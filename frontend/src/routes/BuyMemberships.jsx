@@ -9,7 +9,7 @@ import Swal from 'sweetalert2'
 
 const getMemData = async () => {
   try {
-    const res = await api.get('/membership/getprices')
+    const res = await api.get('/membership/prices')
     if (res.status !== 200) {
       console.error('Error fetching membership data:', res.data.error)
       return []
