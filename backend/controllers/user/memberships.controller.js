@@ -251,7 +251,30 @@ const suspendMembership = async (req, res) => {
   }
 }
 
+const createMembership = async (req, res) => {
+  try {
+    const { name, price, validity, availQR } = req.body;
 
+    // Check if membership with this name already exists
+    const existingMembership = await MemPrice.findOne({ name });
+    if (existingMembership) {
+      return res.status(400).json({ message: "Membership with this name already exists" });
+    }
+
+    const newMembership = new MemPrice({
+      name,
+      price,
+      validity,
+      availQR
+    });
+
+    const savedMembership = await newMembership.save();
+    return res.status(201).json(savedMembership);
+  } catch (error) {
+    console.error("Error creating membership:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
 
 module.exports = {
   saveMembership,
@@ -261,4 +284,5 @@ module.exports = {
   assignBaseMembership,
   getMembershipPrices,
   setMembershipPrice,
+  createMembership
 }
